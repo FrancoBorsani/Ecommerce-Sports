@@ -1,0 +1,24 @@
+-Home llamativo (Slider con ofertas y productos destacados)
+-Menú con opciones para ir a la página con información institucional, al catálogo
+completo de productos y a un formulario de contacto.
+-Los productos tienen un nombre, una descripción corta y una descripción larga (Con imagen y video). Cada configuración de atributos y valores para un producto
+determina un código único denominado SKU(id de Producto).Los productos pertenecen a una categoría.
+-Los artículos pueden relacionarse con otros. En el catálogo se tendrán que ver como
+“Productos relacionados”.
+-Back Office para decidir que producto estara en el catalogo.
+-Podremos generar códigos de promoción con un % de descuento para
+entregar a ciertos clientes.
+-Para los envíos es necesario contar con la información de embalaje, esto es, el peso, el ancho,
+el alto y la profundidad, con la posibilidad de seleccionar distintas unidades de medida.
+-un módulo de carga de artículos a partir de un archivo en Excel.
+-Debe existir una opción para generar el catálogo en el formato requerido por Facebook para la
+importación en dicha plataforma.
+-El catálogo le permitirá al usuario buscar por palabras, analizando los textos para el nombre y
+las descripciones. También se podrá filtrar por categorías y subcategorías, ordenar por mayor
+precio, menor precio, nombre ascendente, nombre descendente.
+-Nos gustaría que los usuarios pudieran dejar comentarios y la valoración (de 1 a 5) para cada
+producto.
+-Al momento de realizar el checkout, se deberá ingresar el domicilio de entrega y el método de
+pago. El sistema deberá calcular el costo del envío a partir del peso total en base a una tabla.
+-También se podrán ingresar comentarios para el vendedor que reciba el
+pedido. Al confirmar el pedido, se enviará un mail al vendedor.
