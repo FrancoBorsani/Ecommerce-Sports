@@ -21,3 +21,6 @@ descendente. También, se puede ver mediante dos estilos visuales: tiles y cards
 - Comentarios y valoraciones (de 1 a 5) para cada producto y para el vendedor que reciba el pedido. Al confirmar
 un pedido, se enviará un mail al vendedor.
 - Checkout (se deberá ingresar el domicilio de entrega y el método de pago).
+- Login y registro
+- Carrito de productos
+- Infraestructura (Base de datos y servidor donde estará montada la web).
