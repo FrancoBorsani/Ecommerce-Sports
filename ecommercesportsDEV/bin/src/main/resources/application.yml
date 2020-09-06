@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost/ecommerce_sports?serverTimezone=UTC
+    url: jdbc:mysql://localhost/sistema-de-viajes?serverTimezone=UTC
     username: root 
     password:  
     #initialization-mode: always #never
@@ -12,5 +12,3 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
-server:
-  port : 9090
