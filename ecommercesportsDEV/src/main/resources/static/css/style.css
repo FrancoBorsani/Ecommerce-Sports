@@ -2188,3 +2188,7 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+.img-carousel {
+	max-height: 400px !important;
+}
