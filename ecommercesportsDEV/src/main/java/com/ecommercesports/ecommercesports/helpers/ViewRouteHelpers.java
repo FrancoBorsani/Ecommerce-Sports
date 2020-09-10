@@ -5,4 +5,9 @@ public class ViewRouteHelpers {
 	//Home
 	public final static String HOME = "home/index";
 
+	//Carrito
+	public final static String CARRITO_INDEX = "carrito/index";
+	public final static String CARRITO_ROOT = "/carritos";
+	
+	
 }
