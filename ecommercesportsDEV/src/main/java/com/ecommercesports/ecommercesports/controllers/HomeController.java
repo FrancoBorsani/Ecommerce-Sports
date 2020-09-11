@@ -19,5 +19,10 @@ public class HomeController {
 	public String contacto() {
 		return ViewRouteHelpers.CONTACTO;
 	}
+	
+	@GetMapping("/infoInstitucional")
+	public String info_Institucional() {
+		return ViewRouteHelpers.INFO;
+	}
 
 }

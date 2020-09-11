@@ -5,6 +5,7 @@ public class ViewRouteHelpers {
 	//Home
 	public final static String HOME = "home/index";
 	public final static String CONTACTO = "contact/index";
+	public final static String INFO = "institutional_info/index";
 
 	//Carrito
 	public final static String CARRITO_INDEX = "carrito/index";
