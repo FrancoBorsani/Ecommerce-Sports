@@ -12,9 +12,12 @@ public class HomeController {
 	
 	@GetMapping("")
 	public String index() {
-		
 		return ViewRouteHelpers.HOME;
-		
+	}
+	
+	@GetMapping("/contacto")
+	public String contacto() {
+		return ViewRouteHelpers.CONTACTO;
 	}
 
 }
