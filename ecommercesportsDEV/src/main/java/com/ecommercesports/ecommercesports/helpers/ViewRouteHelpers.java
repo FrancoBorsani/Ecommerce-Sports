@@ -11,5 +11,7 @@ public class ViewRouteHelpers {
 	public final static String CARRITO_INDEX = "carrito/index";
 	public final static String CARRITO_ROOT = "/carritos";
 	
-	
+	//Producto
+    public final static String PRODUCTO_INDEX = "producto/index";
+    public final static String PRODUCTO_ROOT = "productos";
 }
