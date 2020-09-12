@@ -3,9 +3,9 @@ package com.ecommercesports.ecommercesports.entities;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,8 +23,14 @@ public class Carrito {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCarrito;
 	
-	//@ManyToMany(mappedBy = "listaProducto")
-	//private List<Producto> listaProductos = new ArrayList<Producto>();
+	
+	 @ManyToMany(cascade = CascadeType.ALL)
+	 private List<Producto> listaProductos;
+	
+	
+	
+//	@ManyToMany(mappedBy = "listaCarritos")
+//	private List<Producto> listaProductos = new ArrayList<Producto>();
 
 	@Column(name = "fecha")
 	private LocalDate fecha;
@@ -53,14 +59,14 @@ public class Carrito {
 	}
 
 
-//	public List<Producto> getListaProductos() {
-//		return listaProductos;
-//	}
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
 
 
-//	public void setListaProductos(List<Producto> listaProductos) {
-//		this.listaProductos = listaProductos;
-//	}
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
+	}
 
 
 	public LocalDate getFecha() {

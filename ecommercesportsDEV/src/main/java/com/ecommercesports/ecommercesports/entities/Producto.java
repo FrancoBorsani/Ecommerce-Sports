@@ -1,6 +1,15 @@
 package com.ecommercesports.ecommercesports.entities;
 
-import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="producto")
@@ -31,6 +40,14 @@ public class Producto {
     @Column(name = "talle")
     private String talle;
 
+    //private Set<Carrito> listaCarritos = new HashSet<Carrito>();
+    
+    
+    @ManyToMany(mappedBy = "listaProductos")
+    private List<Carrito> listaCarritos;
+    
+    
+    
     public Producto() {
     }
 
@@ -107,4 +124,16 @@ public class Producto {
     public void setTalle(String talle) {
         this.talle = talle;
     }
+
+	public List<Carrito> getListaCarritos() {
+		return listaCarritos;
+	}
+
+	public void setListaCarritos(List<Carrito> listaCarritos) {
+		this.listaCarritos = listaCarritos;
+	}
+    
+    
+    
+    
 }

@@ -5,10 +5,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ecommercesports.ecommercesports.entities.Producto;
+
 public class CarritoModel {
 
 	private long idCarrito;
-	//private List<Producto> listaProductos = new ArrayList<Producto>();
+	private List<Producto> listaProductos = new ArrayList<Producto>();
 	private LocalDate fecha;
 	private float total;
 	
@@ -43,6 +45,14 @@ public class CarritoModel {
 
 	public void setTotal(float total) {
 		this.total = total;
+	}
+
+	public List<Producto> getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(List<Producto> listaProductos) {
+		this.listaProductos = listaProductos;
 	}
 
 	

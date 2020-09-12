@@ -1,5 +1,11 @@
 package com.ecommercesports.ecommercesports.models;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.ecommercesports.ecommercesports.entities.Carrito;
+
 public class ProductoModel {
 
     private long idProducto;
@@ -10,7 +16,9 @@ public class ProductoModel {
     private String marca;
     private String sku;
     private String talle;
-
+    private Set<Carrito> listaCarritos = new HashSet<Carrito>();
+    
+    
     public ProductoModel() {
     }
 
@@ -86,4 +94,17 @@ public class ProductoModel {
     public void setTalle(String talle) {
         this.talle = talle;
     }
+
+	public Set<Carrito> getListaCarritos() {
+		return listaCarritos;
+	}
+
+	public void setListaCarritos(Set<Carrito> listaCarritos) {
+		this.listaCarritos = listaCarritos;
+	}
+    
+    
+    
+    
+    
 }
