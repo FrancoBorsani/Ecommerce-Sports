@@ -20,5 +20,6 @@ public class ViewRouteHelpers {
     public final static String PEDIDO_ROOT = "/pedidos";
 
     
-    public final static String USER_LOGIN = "ingreso/ingreso";
+    public final static String USER_LOGIN = "acceso/ingreso";
+    public final static String USER_REGISTRO = "acceso/registro";
 }
