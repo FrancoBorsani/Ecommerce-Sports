@@ -1,4 +1,5 @@
 
+
 form {
   width: 50%;
   background: #efefef;
@@ -6,6 +7,12 @@ form {
   text-align: center;
   -webkit-box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
   box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
+  
+
+   padding: 5px 20px 15px 20px;
+   border: 1px solid rgb(191, 246, 250);
+   border-radius: 3px;
+  
 }
 label {
   display: block;
