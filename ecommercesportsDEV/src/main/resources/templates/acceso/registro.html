@@ -2,9 +2,7 @@
 <html lang="en">
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="css/signupStyle.css">
-
 
 <body>
 	<!-- HEADER -->
@@ -84,24 +82,38 @@
 
 <div id="fullscreen_bg" class="fullscreen_bg" style="background-image: url(https://job-wizards.com/es/wp-content/uploads/2017/09/img_article_tt_1708_final.jpg); background-size: cover;"/>
 <div>
-<form>
+<form th:action="@{/register}" method="post">
+  <label>
+    <p class="label-txt">Ingrese su nombre</p>
+    <input type="text" class="input" name="firstName">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su apellido</p>
+    <input type="text" class="input" name="lastName">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su username</p>
+    <input type="text" class="input" name="username">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
   <label>
     <p class="label-txt">Ingrese su correo</p>
-    <input type="text" class="input">
+    <input type="text" class="input" name="email">
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">Ingrese su password</p>
-    <input type="password" class="input">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <label>
-    <p class="label-txt">Ingrese su nombre de usuario</p>
-    <input type="text" class="input">
+    <input type="password" class="input" name="password">
     <div class="line-box">
       <div class="line"></div>
     </div>
@@ -111,8 +123,6 @@
 </div>
 </div>
 
-	
-	
 	<!-- FOOTER -->
 	<footer id="footer">
 		<!-- bottom footer -->
@@ -141,25 +151,22 @@
 
 	<th:block th:include="fragments/scripts :: scripts"></th:block>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-
-	  $('.input').focus(function(){
-	    $(this).parent().find(".label-txt").addClass('label-active');
-	  });
-
-	  $(".input").focusout(function(){
-	    if ($(this).val() == '') {
-	      $(this).parent().find(".label-txt").removeClass('label-active');
-	    };
-	  });
-
-	});
-
-
-
-</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		
+			  $('.input').focus(function(){
+			    $(this).parent().find(".label-txt").addClass('label-active');
+			  });
+		
+			  $(".input").focusout(function(){
+			    if ($(this).val() == '') {
+			      $(this).parent().find(".label-txt").removeClass('label-active');
+			    };
+			  });
+		
+			});
+	</script>
 
 	
 </body>

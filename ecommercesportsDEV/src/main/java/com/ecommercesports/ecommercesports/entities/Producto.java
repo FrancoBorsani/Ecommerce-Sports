@@ -42,12 +42,10 @@ public class Producto {
 
     //private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     
-    
     @ManyToMany(mappedBy = "listaProductos")
     private List<Carrito> listaCarritos;
     
-    
-    
+  
     public Producto() {
     }
 
