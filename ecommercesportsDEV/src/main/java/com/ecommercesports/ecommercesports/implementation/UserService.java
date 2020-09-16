@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	private User buildUser(com.ecommercesports.ecommercesports.entities.User user, List<GrantedAuthority> grantedAuthorities) {
-		return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
+		return new User(user.getFirstName(), user.getPassword(), user.isEnabled(),
 						true, true, true, //accountNonExpired, credentialsNonExpired, accountNonLocked,
 						grantedAuthorities);
 	}

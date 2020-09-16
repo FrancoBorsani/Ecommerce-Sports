@@ -27,6 +27,15 @@ public class User {
 	@Column(name="username", unique=true, nullable=false, length=45)
 	private String username;
 	
+	@Column(name="firstName", unique=true, nullable=false, length=45)
+	private String firstName;
+	
+	@Column(name="lastname", unique=true, nullable=false, length=45)
+	private String lastName;
+	
+	@Column(name="email")
+	private String email;
+	
 	@Column(name="password", nullable=false, length=60)
 	private String password;
 	
@@ -46,14 +55,20 @@ public class User {
 	
 	public User() {}
 	
-	public User(String username, String password, boolean enabled) {
+	public User(String username, String firstName, String lastName, String email, String password, boolean enabled) {
 		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
 	}
 	
-	public User(String username, String password, boolean enabled, Set<UserRole> userRoles) {
+	public User(String username, String firstName, String lastName, String password,String email, boolean enabled, Set<UserRole> userRoles) {
 		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
 		this.userRoles = userRoles;
@@ -66,13 +81,21 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public String getUsername() {
-		return username;
+	
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getPassword() {
@@ -97,6 +120,22 @@ public class User {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public LocalDateTime getUpdatedAt() {
