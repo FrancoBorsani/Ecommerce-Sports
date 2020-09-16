@@ -7,8 +7,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ecommercesports.ecommercesports.entities.User;
+import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
@@ -70,6 +74,22 @@ public class UserController {
 	public String loginCheck() {	
 		return "redirect:/";	
 	}	
+	
+	@GetMapping("/signin")
+	public String register() {
+		return ViewRouteHelpers.REGISTRO;
+	}
+	
+	@PostMapping("/register")
+	public String registerUserAccount(@ModelAttribute("user") User newUSer) {
+				
+		if(userRepository.findByUsername(newUSer.getUsername()) != null) {
+			System.out.println("la cuenta ya existe");
+		}
+		
+		//userRepository.save(newUSer);
+		return "redirect:/";
+	}
 	
 
 	

@@ -44,9 +44,6 @@ public class User {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
 	
-	@Column(name="photo")
-	private String photo;
-
 	public User() {}
 	
 	public User(String username, String password, boolean enabled) {
@@ -118,13 +115,5 @@ public class User {
 		this.userRoles = userRoles;
 	}
 
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	
 	
 }

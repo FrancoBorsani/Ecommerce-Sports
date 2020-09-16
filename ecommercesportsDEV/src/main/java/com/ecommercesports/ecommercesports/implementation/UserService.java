@@ -47,7 +47,4 @@ public class UserService implements UserDetailsService {
 		return new ArrayList<GrantedAuthority>(grantedAuthorities);
 	}
 	
-	public String getPhotoUser() {
-		return userRepository.findByUsernameAndFetchUserRolesEagerly(((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).getPhoto();
-	}
 }
