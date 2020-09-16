@@ -84,6 +84,27 @@
 <div>
 <form th:action="@{/register}" method="post">
   <label>
+    <p class="label-txt">Ingrese su nombre</p>
+    <input type="text" class="input" name="firstName">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su apellido</p>
+    <input type="text" class="input" name="lastName">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su username</p>
+    <input type="text" class="input" name="username">
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
     <p class="label-txt">Ingrese su correo</p>
     <input type="text" class="input" name="email">
     <div class="line-box">
@@ -97,27 +118,11 @@
       <div class="line"></div>
     </div>
   </label>
-  <label>
-    <p class="label-txt">Ingrese su nombre de usuario</p>
-    <input type="text" class="input" name="firstName">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
-  <label>
-    <p class="label-txt">Ingrese su nombre de apellido</p>
-    <input type="text" class="input" name="lastName">
-    <div class="line-box">
-      <div class="line"></div>
-    </div>
-  </label>
   <button type="submit">Registrarse</button>
 </form>
 </div>
 </div>
 
-	
-	
 	<!-- FOOTER -->
 	<footer id="footer">
 		<!-- bottom footer -->
@@ -146,25 +151,22 @@
 
 	<th:block th:include="fragments/scripts :: scripts"></th:block>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-
-	  $('.input').focus(function(){
-	    $(this).parent().find(".label-txt").addClass('label-active');
-	  });
-
-	  $(".input").focusout(function(){
-	    if ($(this).val() == '') {
-	      $(this).parent().find(".label-txt").removeClass('label-active');
-	    };
-	  });
-
-	});
-
-
-
-</script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+		
+			  $('.input').focus(function(){
+			    $(this).parent().find(".label-txt").addClass('label-active');
+			  });
+		
+			  $(".input").focusout(function(){
+			    if ($(this).val() == '') {
+			      $(this).parent().find(".label-txt").removeClass('label-active');
+			    };
+			  });
+		
+			});
+	</script>
 
 	
 </body>

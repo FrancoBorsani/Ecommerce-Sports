@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.entities.UserRole;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
+
 
 
 @Service("userService")
@@ -46,5 +46,6 @@ public class UserService implements UserDetailsService {
 		}
 		return new ArrayList<GrantedAuthority>(grantedAuthorities);
 	}
+	
 	
 }

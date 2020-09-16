@@ -17,5 +17,7 @@ public interface IUserRepository extends JpaRepository<User, Serializable> {
 	public abstract User findByUsernameAndFetchUserRolesEagerly(@Param("username") String username);
 	
 	public User findByUsername(String username);
+	
+	public User findByEmail(String email);
 
 }
