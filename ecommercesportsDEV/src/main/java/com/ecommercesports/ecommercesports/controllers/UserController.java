@@ -77,7 +77,7 @@ public class UserController {
 	
 	@GetMapping("/signin")
 	public String register() {
-		return ViewRouteHelpers.REGISTRO;
+		return ViewRouteHelpers.USER_LOGIN;
 	}
 	
 	@PostMapping("/register")
@@ -91,6 +91,5 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-
-	
 }
+
