@@ -19,4 +19,6 @@ public class ViewRouteHelpers {
 	public static final String PEDIDO_INDEX = "pedido/index";
     public final static String PEDIDO_ROOT = "/pedidos";
 
+    
+    public final static String USER_LOGIN = "ingreso/ingreso";
 }
