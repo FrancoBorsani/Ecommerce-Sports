@@ -7,16 +7,6 @@
 <body>
 	<!-- HEADER -->
 	<header>
-		<!-- TOP HEADER -->
-		<div id="top-header">
-			<div class="container">
-				<ul class="header-links pull-right">
-				  <li><a href="/ingreso"><i class="fa fa-user-o"></i>Ingresar</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- /TOP HEADER -->
-
 		<!-- MAIN HEADER -->
 		<div id="header">
 			<!-- container -->
@@ -81,47 +71,55 @@
 	<!-- /NAVIGATION -->
 
 <div id="fullscreen_bg" class="fullscreen_bg" style="background-image: url(https://job-wizards.com/es/wp-content/uploads/2017/09/img_article_tt_1708_final.jpg); background-size: cover;"/>
-<div>
 <form th:action="@{/register}" method="post">
+
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${mensaje}"></span>
+					       
+					 </div>
   <label>
     <p class="label-txt">Ingrese su nombre</p>
-    <input type="text" class="input" name="firstName">
+    <input type="text" class="input" name="firstName" />
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">Ingrese su apellido</p>
-    <input type="text" class="input" name="lastName">
+    <input type="text" class="input" name="lastName" />
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">Ingrese su username</p>
-    <input type="text" class="input" name="username">
+    <input type="text" class="input" name="username"/>
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">Ingrese su correo</p>
-    <input type="text" class="input" name="email">
+    <input type="email" class="input" name="email" />
+    
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
   <label>
     <p class="label-txt">Ingrese su password</p>
-    <input type="password" class="input" name="password">
+    <input type="password" class="input" name="password"/>
     <div class="line-box">
       <div class="line"></div>
     </div>
   </label>
-  <button type="submit">Registrarse</button>
+  <button type="submit" class="btn-submit">Registrarse</button>
 </form>
 </div>
 </div>
+<div>
+
 
 	<!-- FOOTER -->
 	<footer id="footer">
@@ -150,8 +148,6 @@
 	<!-- jQuery Plugins -->
 
 	<th:block th:include="fragments/scripts :: scripts"></th:block>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
 		

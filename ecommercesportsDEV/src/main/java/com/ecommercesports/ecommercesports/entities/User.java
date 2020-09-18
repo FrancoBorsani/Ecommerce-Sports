@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -33,7 +36,7 @@ public class User {
 	@Column(name="lastname", unique=true, nullable=false, length=45)
 	private String lastName;
 	
-	@Column(name="email")
+	@Column(name="email",nullable = false)
 	private String email;
 	
 	@Column(name="password", nullable=false, length=60)
