@@ -12,16 +12,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/prductos")
 public class ProductoController {
 
     @Autowired
     @Qualifier("productoService")
     private IProductoService productoService;
 
-    @GetMapping("")
+    @GetMapping("/productos")
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+
+        return mAV;
+    }
+
+    @GetMapping("/producto")
+    public ModelAndView seleccionado() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
 
         return mAV;
     }
