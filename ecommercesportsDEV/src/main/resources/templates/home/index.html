@@ -121,8 +121,22 @@
 					<li><a href="/pedidos">Pedidos</a></li>
 					<li><a href="/contacto">Contacto</a></li>
 					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-					<li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                    <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+					<li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+			        	<i class="fa fa-user-o" style="margin-right:3px"></i>
+			        	<span sec:authentication="name"></span>
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+			          <div class="dropdown-divider"></div>
+				      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+			          <div class="dropdown-divider"></div>
+			        </div>
+			      </li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -136,6 +150,10 @@
 	<div id="breadcrumb" class="section">
 		<!-- container -->
 		<div class="container">
+		
+			<div sec:authorize="isAuthenticated()"> 
+			    Bienvenido <span sec:authentication="name"></span>!
+			</div>
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-12">

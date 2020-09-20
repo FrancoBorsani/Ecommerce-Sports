@@ -3,7 +3,6 @@
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 <link rel="stylesheet" href="css/loginstyle.css">
 
-
 <body>
 	<!-- HEADER -->
 	<header>
@@ -73,14 +72,21 @@
 
 <div class="container">
 
-	<form class="form-signin">
+	<form class="form-signin" th:action="@{/loginprocess}" method="post">
+	<div style="font-size: 13px" class="alert alert-danger alert-dismissible " aria-hidden="true" th:if="${error != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        
+					        Usuario o contrase&ntilde;a invalido.
+					       
+					 </div>
 		<h1 class="form-signin-heading text-muted">Login</h1>
-		<input type="text" class="form-control" placeholder="Correo electronico" required="" autofocus="" style="margin-bottom: 10px">
-		<input type="password" class="form-control" placeholder="Password" required="">
+		<input type="text" class="form-control" placeholder="Correo electronico" name="username" required="" autofocus="" style="margin-bottom: 10px">
+		<input type="password" class="form-control" placeholder="Password" name="password" required="">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">
 			Entrar
 		</button>
 	</form>
+	
 </div>
 
 <br></br>
