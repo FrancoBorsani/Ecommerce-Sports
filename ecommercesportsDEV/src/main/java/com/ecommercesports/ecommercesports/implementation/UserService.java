@@ -29,12 +29,20 @@ public class UserService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.ecommercesports.ecommercesports.entities.User user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		String usernameAux = userRepository.userNameByEmailInUsername(username);
+		com.ecommercesports.ecommercesports.entities.User user = null;
+		
+		if(usernameAux != null) {
+			user = userRepository.findByUsernameAndFetchUserRolesEagerly(usernameAux);
+		}else {
+			user = userRepository.findByUsernameAndFetchUserRolesEagerly(username);
+		}
+		
 		return buildUser(user, buildGrantedAuthorities(user.getUserRoles()));
 	}
 	
 	private User buildUser(com.ecommercesports.ecommercesports.entities.User user, List<GrantedAuthority> grantedAuthorities) {
-		return new User(user.getFirstName(), user.getPassword(), user.isEnabled(),
+		return new User(user.getUsername(), user.getPassword(), user.isEnabled(),
 						true, true, true, //accountNonExpired, credentialsNonExpired, accountNonLocked,
 						grantedAuthorities);
 	}
