@@ -1,15 +1,16 @@
 package com.ecommercesports.ecommercesports.controllers;
 
-import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
-import com.ecommercesports.ecommercesports.services.IProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.services.IProductoService;
 
 @Controller
 public class ProductoController {
@@ -21,6 +22,7 @@ public class ProductoController {
     @GetMapping("/productos")
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        mAV.addObject("productos", productoService.getAll());
 
         return mAV;
     }
