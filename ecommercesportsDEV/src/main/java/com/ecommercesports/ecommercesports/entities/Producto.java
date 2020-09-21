@@ -1,14 +1,15 @@
 package com.ecommercesports.ecommercesports.entities;
 
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -39,6 +40,9 @@ public class Producto {
 
     @Column(name = "talle")
     private String talle;
+    
+    @OneToOne(cascade = CascadeType.MERGE)
+	private Categoria categoria;
 
     //private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     
@@ -130,8 +134,13 @@ public class Producto {
 	public void setListaCarritos(List<Carrito> listaCarritos) {
 		this.listaCarritos = listaCarritos;
 	}
-    
-    
-    
-    
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 }

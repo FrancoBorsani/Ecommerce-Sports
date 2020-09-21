@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
 
 @Controller
@@ -18,11 +18,16 @@ public class ProductoController {
     @Autowired
     @Qualifier("productoService")
     private IProductoService productoService;
+    
+    @Autowired
+    @Qualifier("categoriaService")
+    private ICategoriaService categoriaService;
 
     @GetMapping("/productos")
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
         mAV.addObject("productos", productoService.getAll());
+        mAV.addObject("categorias", categoriaService.getAll());
 
         return mAV;
     }

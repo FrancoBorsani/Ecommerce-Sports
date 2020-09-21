@@ -8,6 +8,15 @@ INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,l
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(1, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 1);
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(2, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 2);
 
+/* Categories */
+
+INSERT INTO categoria(id_categoria,nombre) values (1,"Categoria1");
+INSERT INTO categoria(id_categoria,nombre) values (2,"Categoria2");
+INSERT INTO categoria(id_categoria,nombre) values (3,"Categoria3");
+INSERT INTO categoria(id_categoria,nombre) values (4,"Categoria4");
+INSERT INTO categoria(id_categoria,nombre) values (5,"Categoria5");
+INSERT INTO categoria(id_categoria,nombre) values (6,"Categoria6");
+
 /* Products */
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(1, "rojo", "Producto1", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(2, "rojo", "Producto2", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");

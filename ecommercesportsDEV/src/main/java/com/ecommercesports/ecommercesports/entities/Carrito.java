@@ -1,7 +1,5 @@
 package com.ecommercesports.ecommercesports.entities;
 
-
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -48,11 +46,9 @@ public class Carrito {
 		this.fecha = fecha;
 	}
 
-
 	public long getIdCarrito() {
 		return idCarrito;
 	}
-
 
 	public void setIdCarrito(long idCarrito) {
 		this.idCarrito = idCarrito;
@@ -87,11 +83,6 @@ public class Carrito {
 	public void setTotal(float total) {
 		this.total = total;
 	}
-
-	
-	
-	
-
 
 }
 
