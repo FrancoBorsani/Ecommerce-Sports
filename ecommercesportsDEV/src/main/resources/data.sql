@@ -17,19 +17,28 @@ INSERT INTO categoria(id_categoria,nombre) values (4,"Categoria4");
 INSERT INTO categoria(id_categoria,nombre) values (5,"Categoria5");
 INSERT INTO categoria(id_categoria,nombre) values (6,"Categoria6");
 
+/* Brands */
+
+INSERT INTO marca(id_marca,nombre) values (1,"Marca1");
+INSERT INTO marca(id_marca,nombre) values (2,"Marca2");
+INSERT INTO marca(id_marca,nombre) values (3,"Marca3");
+INSERT INTO marca(id_marca,nombre) values (4,"Marca4");
+INSERT INTO marca(id_marca,nombre) values (5,"Marca5");
+INSERT INTO marca(id_marca,nombre) values (6,"Marca6");
+
 /* Products */
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(1, "rojo", "Producto1", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(2, "rojo", "Producto2", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(3, "rojo", "Producto3", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(4, "rojo", "Producto4", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(5, "rojo", "Producto5", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(6, "rojo", "Producto6", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(7, "rojo", "Producto7", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(8, "rojo", "Producto8", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(9, "rojo", "Producto9", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(10, "rojo","Producto10", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(12, "rojo","Producto11", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca,precio,sku,talle) VALUES(13, "rojo","Producto12", "Descripcion Producto1", "Marca1",2000,"sku1","talle1");
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(1, "rojo", "Producto1", "Descripcion Producto1",1,4000,"sku1","talle1",1);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(2, "rojo", "Producto2", "Descripcion Producto1",1,4000,"sku1","talle1",1);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(3, "rojo", "Producto3", "Descripcion Producto1",1,3000,"sku1","talle1",1);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(4, "rojo", "Producto4", "Descripcion Producto1",2,2000,"sku1","talle1",2);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(5, "rojo", "Producto5", "Descripcion Producto1",2,5000,"sku1","talle1",2);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(6, "rojo", "Producto6", "Descripcion Producto1",2,6000,"sku1","talle1",2);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(7, "rojo", "Producto7", "Descripcion Producto1",3,1000,"sku1","talle1",3);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(8, "rojo", "Producto8", "Descripcion Producto1",3,2000,"sku1","talle1",3);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(9, "rojo", "Producto9", "Descripcion Producto1",3,9000,"sku1","talle1",3);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(10, "rojo","Producto10", "Descripcion Producto1",4,4000,"sku1","talle1",4);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(12, "rojo","Producto11", "Descripcion Producto1",4,3000,"sku1","talle1",4);
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(13, "rojo","Producto12", "Descripcion Producto1",4,5000,"sku1","talle1",4);
 
 
 

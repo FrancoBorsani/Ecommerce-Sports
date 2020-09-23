@@ -1,7 +1,6 @@
 package com.ecommercesports.ecommercesports.models;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
@@ -20,18 +19,23 @@ public class ProductoModel {
     
     
     public ProductoModel() {
+    	
     }
 
-    public ProductoModel(double precio, String color, String descripcionCorta, String descripcionLarga, String marca, String sku, String talle) {
-        this.color = color;
-        this.descripcionCorta = descripcionCorta;
-        this.descripcionLarga = descripcionLarga;
-        this.marca = marca;
-        this.sku = sku;
-        this.talle = talle;
-    }
+    public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
+			String sku, String talle) {
+		super();
+		this.idProducto = idProducto;
+		this.precio = precio;
+		this.color = color;
+		this.descripcionCorta = descripcionCorta;
+		this.descripcionLarga = descripcionLarga;
+		this.sku = sku;
+		this.talle = talle;
+	}
 
-    public long getIdProducto() {
+
+	public long getIdProducto() {
         return idProducto;
     }
 
@@ -102,8 +106,13 @@ public class ProductoModel {
 	public void setListaCarritos(Set<Carrito> listaCarritos) {
 		this.listaCarritos = listaCarritos;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "ProductoModel [idProducto=" + idProducto + ", precio=" + precio + ", color=" + color
+				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", marca="
+				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + "]";
+	}
     
     
     

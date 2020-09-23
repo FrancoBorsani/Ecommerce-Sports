@@ -14,4 +14,9 @@ public interface IProductoService {
     public ProductoModel findByIdProducto(long idProducto);
 
     public boolean remove(long idProducto);
+
+	List<Producto> findByCategoria(String categoria);
+	
+	List<Producto> filterByMarca(String categoria);
+	
 }
