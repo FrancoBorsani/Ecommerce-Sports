@@ -16,15 +16,18 @@
 
 <!--Div for Background-->
 <div class="bg text-center">
-    <!--Div for Centered Text & Input-->
+    <form class="" th:action="@{/sendMail}" method="post">
     <div class="centered">
         <p class="firstLine"> RECUPERAR CLAVE </p>
         <p class="secondLine">Ingrese su correo registrado en el sitio</p>
-        <p> <input class="InputStyle" placeholder="Mail &#xf0e0; " style="font-family:Arial, FontAwesome" type="text"> </p>
+        <p> <input class="InputStyle" placeholder="Mail &#xf0e0; " style="font-family:Arial, FontAwesome" type="text" name="correo"> </p>
     </div>
     <!--Div for bottom Icons-->
-    </div>
+    </form>
 </div>
+
+
+
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 

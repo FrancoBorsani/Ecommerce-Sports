@@ -4,13 +4,11 @@ package com.ecommercesports.ecommercesports.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
@@ -133,6 +132,28 @@ public class UserController {
 	 
 	 return mAV;
 	}
+	
+	
+	
+
+    @Autowired
+    private SendMailService SendmailService;
+
+   // @GetMapping("/")
+   // public String index(){
+   //     return "send_mail_view";
+  //  }
+
+    @PostMapping("/sendMail")
+    public ModelAndView sendMail(@RequestParam("correo") String correo){
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+        String message = "\n\n Datos de contacto: " + "\nE-mail: " + correo;
+        String subject = "RECUPERACION DE CLAVE";
+        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "" + correo,subject,message);
+        
+   	 return mAV;
+    }
+	
 
 }
 	

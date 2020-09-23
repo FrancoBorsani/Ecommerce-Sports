@@ -12,6 +12,7 @@ spring:
       dialect: org.hibernate.dialect.MySQL5Dialect
   thymeleaf:
     cache: false
+    mode: HTML5
     
   mail:
     host : smtp.gmail.com
@@ -22,11 +23,7 @@ spring:
         smtp:
           starttls :
             enable : true
-            required : true
           auth : true
-          connectiontimeout : 5000
-          timeout : 5000
-          writetimeout: 5000
-    
+         
 server:
   port : 9090
