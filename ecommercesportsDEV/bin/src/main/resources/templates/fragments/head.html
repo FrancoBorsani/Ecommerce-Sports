@@ -1,4 +1,4 @@
-<head th:fragment="head(title) ">
+<head th:fragment="head(title) " xmlns:th="http://www.w3.org/1999/xhtml">
     
     	<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,8 +25,9 @@
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="css/style.css"/>
  	
- 		
         <link type="text/css"  rel="stylesheet" href="css/general.css">
- 
+
+		<link href="../css/productStyles.css" rel="stylesheet" type="text/css">
+
         <title th:text="${title}"></title>
 </head>

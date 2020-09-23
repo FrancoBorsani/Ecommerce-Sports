@@ -125,6 +125,14 @@ public class UserController {
 		return "redirect:/";	
 	}
 	
+	
+	
+	@GetMapping("/recuperarclave")
+	public ModelAndView recuperarClave() {
+	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_RECUPERARCLAVE);	 
+	 
+	 return mAV;
+	}
 
 }
 	

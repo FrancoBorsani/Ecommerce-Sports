@@ -1,24 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
-
-<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 <link rel="stylesheet" href="css/loginstyle.css">
-
 
 <body>
 	<!-- HEADER -->
 	<header>
-		<!-- TOP HEADER -->
-		<div id="top-header">
-			<div class="container">
-				<ul class="header-links pull-right">
-					<li><a href="#"><i class="fa fa-sign-in"></i>Crea tu cuenta</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- /TOP HEADER -->
-
 		<!-- MAIN HEADER -->
 		<div id="header">
 			<!-- container -->
@@ -69,10 +56,9 @@
 				<!-- NAV -->
 				<ul class="main-nav nav navbar-nav">
 					<li><a href="#">Productos destacados</a></li>
-					<li><a href="#">Todos los productos</a></li>
+					<li><a href="/productos">Todos los productos</a></li>
 					<li><a href="#">Ofertas</a></li>
 					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-					<li><a href="#">Acerca de</a></li>
 				</ul>
 				<!-- /NAV -->
 			</div>
@@ -86,14 +72,21 @@
 
 <div class="container">
 
-	<form class="form-signin">
+	<form class="form-signin" th:action="@{/loginprocess}" method="post">
+	<div style="font-size: 13px" class="alert alert-danger alert-dismissible " aria-hidden="true" th:if="${error != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        
+					        Usuario o contrase&ntilde;a invalido.
+					       
+					 </div>
 		<h1 class="form-signin-heading text-muted">Login</h1>
-		<input type="text" class="form-control" placeholder="Correo electronico" required="" autofocus="">
-		<input type="password" class="form-control" placeholder="Password" required="">
+		<input type="text" class="form-control" placeholder="Correo electronico" name="username" required="" autofocus="" style="margin-bottom: 10px">
+		<input type="password" class="form-control" placeholder="Password" name="password" required="">
 		<button class="btn btn-lg btn-primary btn-block" type="submit">
 			Entrar
 		</button>
 	</form>
+	
 </div>
 
 <br></br>
@@ -128,10 +121,7 @@
 
 	<!-- jQuery Plugins -->
 
-	<th:block th:include="fragments/scripts :: scripts"></th:block>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-	
+	<th:block th:include="fragments/scripts :: scripts"></th:block>	
 	
 </body>
 

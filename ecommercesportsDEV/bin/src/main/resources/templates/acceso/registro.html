@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
-<link rel="stylesheet" href="css/loginstyle.css">
+
+<link rel="stylesheet" href="css/signupStyle.css">
 
 <body>
 	<!-- HEADER -->
@@ -68,35 +69,57 @@
 	</nav>
 	<!-- /NAVIGATION -->
 
-<div id="fullscreen_bg" class="fullscreen_bg"/>
+<div id="fullscreen_bg" class="fullscreen_bg" style="background-image: url(https://job-wizards.com/es/wp-content/uploads/2017/09/img_article_tt_1708_final.jpg); background-size: cover;"/>
+<form th:action="@{/register}" method="post">
 
-<div class="container">
-
-	<form class="form-signin" th:action="@{/loginprocess}" method="post">
-	<div style="font-size: 13px" class="alert alert-danger alert-dismissible " aria-hidden="true" th:if="${error != null}">
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
 					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
-					        
-					        Usuario o contrase&ntilde;a invalido.
+					        <span th:text="${mensaje}"></span>
 					       
 					 </div>
-		<h1 class="form-signin-heading text-muted">Login</h1>
-		<input type="text" class="form-control" placeholder="Correo electronico" name="username" required="" autofocus="" style="margin-bottom: 10px">
-		<input type="password" class="form-control" placeholder="Password" name="password" required="">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">
-			Entrar
-		</button>
-		<a th:href="@{/recuperarclave}" style="color: white; margin-left: 80px;">Recuperar clave</a>
-	</form>
-	<br></br>
-	
+  <label>
+    <p class="label-txt">Ingrese su nombre</p>
+    <input type="text" class="input" name="firstName" />
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su apellido</p>
+    <input type="text" class="input" name="lastName" />
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su username</p>
+    <input type="text" class="input" name="username"/>
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su correo</p>
+    <input type="email" class="input" name="email" />
+    
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su password</p>
+    <input type="password" class="input" name="password"/>
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <button type="submit" class="btn-submit">Registrarse</button>
+</form>
 </div>
-
-<br></br>
-
 </div>
+<div>
 
-	
-	
+
 	<!-- FOOTER -->
 	<footer id="footer">
 		<!-- bottom footer -->
@@ -123,7 +146,23 @@
 
 	<!-- jQuery Plugins -->
 
-	<th:block th:include="fragments/scripts :: scripts"></th:block>	
+	<th:block th:include="fragments/scripts :: scripts"></th:block>
+	<script>
+		$(document).ready(function(){
+		
+			  $('.input').focus(function(){
+			    $(this).parent().find(".label-txt").addClass('label-active');
+			  });
+		
+			  $(".input").focusout(function(){
+			    if ($(this).val() == '') {
+			      $(this).parent().find(".label-txt").removeClass('label-active');
+			    };
+			  });
+		
+			});
+	</script>
+
 	
 </body>
 

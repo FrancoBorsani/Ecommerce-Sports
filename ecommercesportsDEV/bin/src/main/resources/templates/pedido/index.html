@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+<!-- HEADER -->
+<header>
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="/" class="logo">
+                            <img src="./img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form>
+                            <select class="input-select">
+                                <option value="0">Todo</option>
+                                <option value="1">Destacados</option>
+                                <option value="1">Ofertas</option>
+                            </select>
+                            <input class="input" placeholder="Dime lo que buscas">
+                            <button class="search-btn">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+
+
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Carrito</span>
+                                <div class="qty">2</div>
+                            </a>
+                            <div class="cart-dropdown">
+                                <div class="cart-list">
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product01.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product02.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                                <div class="cart-summary">
+                                    <small>2 Item(s) selected</small>
+                                    <h5>SUBTOTAL: $720.00</h5>
+                                </div>
+                                <div class="cart-btns">
+                                    <a href="/carritos">View Cart</a>
+                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="#">Productos destacados</a></li>
+                <li><a href="/productos">Todos los productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="/contacto">Pedidos</a></li>  
+                <li><a href="/contacto">Contacto</a></li>                                
+                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                <li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<!-- Section Pedidos -->
+<div class="section">
+    <!-- container -->
+    <div class="container" style="display: flex">
+        <div class="row">
+            <div class="col-sm-12">
+            <h2>Mis Pedidos</h2>
+                <table class="table table-hover table-condensed table-bordered">
+                <caption>
+                    <a class="btn btn-success mb-2" href="/productos">Solicitar Nuevo Pedido</a>
+                </caption>
+
+                    <tr>
+                        <td>inset_idPedido</td>
+                        <td>insert_user</td>
+                        <td>insert_producto</td>
+                        <td>insert_fechaPedido</td>
+                        <td>insert_domicilio</td>
+                        <td>insert_cantidad</td>
+                        <td>insert_total</td>
+                        <td>inset_formaPago</td>
+                        <td>insert_estadoPedido</td>
+
+                        <td><a class="btn btn-success mb-2">Cancelar Pedido</a></td>
+
+
+                    </tr>
+                    <tr>
+                        <td>inset_idPedido</td>
+                        <td>insert_user</td>
+                        <td>insert_producto</td>
+                        <td>insert_fechaPedido</td>
+                        <td>insert_domicilio</td>
+                        <td>insert_cantidad</td>
+                        <td>insert_total</td>
+                        <td>inset_formaPago</td>
+                        <td>insert_estadoPedido</td>
+                        
+                        <td><a class="btn btn-success mb-2">Cancelar Pedido</a></td>
+
+                    </tr>
+                    <tr>
+                        <td>inset_idPedido</td>
+                        <td>insert_user</td>
+                        <td>insert_producto</td>
+                        <td>insert_fechaPedido</td>
+                        <td>insert_domicilio</td>
+                        <td>insert_cantidad</td>
+                        <td>insert_total</td>
+                        <td>inset_formaPago</td>
+                        <td>insert_estadoPedido</td>
+
+                        <td><a class="btn btn-success mb-2">Cancelar Pedido</a></td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Section Pedidos -->
+
+
+<!-- FOOTER -->
+<footer id="footer">
+    <!-- bottom footer -->
+    <div id="bottom-footer" class="section">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="footer-payments">
+                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                    </ul>
+                    <span class="copyright">
+							Copyright &copy;
+							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</span>
+
+
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
+
+<!-- jQuery Plugins -->
+
+<th:block th:include="fragments/scripts :: scripts"></th:block>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
