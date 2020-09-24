@@ -1,14 +1,15 @@
 package com.ecommercesports.ecommercesports.entities;
 
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,9 +19,6 @@ public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProducto;
-
-    @Column(name = "marca")
-    private String marca;
 
     @Column(name = "precio")
     private double precio;
@@ -39,6 +37,12 @@ public class Producto {
 
     @Column(name = "talle")
     private String talle;
+    
+    @OneToOne(cascade = CascadeType.MERGE)
+	private Categoria categoria;
+    
+    @OneToOne(cascade = CascadeType.MERGE)
+	private Marca marca;
 
     //private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     
@@ -49,17 +53,21 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(double precio, String color, String descripcionCorta, String descripcionLarga, String marca, String sku, String talle) {
-        this.precio = precio;
-        this.color = color;
-        this.descripcionCorta = descripcionCorta;
-        this.descripcionLarga = descripcionLarga;
-        this.marca = marca;
-        this.sku = sku;
-        this.talle = talle;
-    }
 
-    public long getIdProducto() {
+    public Producto(long idProducto,double precio, String color, String descripcionCorta,
+			String descripcionLarga, String sku, String talle) {
+		super();
+		this.idProducto = idProducto;
+		this.precio = precio;
+		this.color = color;
+		this.descripcionCorta = descripcionCorta;
+		this.descripcionLarga = descripcionLarga;
+		this.sku = sku;
+		this.talle = talle;
+	}
+
+
+	public long getIdProducto() {
         return idProducto;
     }
 
@@ -67,11 +75,11 @@ public class Producto {
         this.idProducto = idProducto;
     }
 
-    public String getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 
@@ -130,8 +138,23 @@ public class Producto {
 	public void setListaCarritos(List<Carrito> listaCarritos) {
 		this.listaCarritos = listaCarritos;
 	}
-    
-    
-    
-    
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", marca=" + marca + ", precio=" + precio + ", color=" + color
+				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", sku=" + sku
+				+ ", talle=" + talle + ", categoria=" + categoria + ", listaCarritos=" + listaCarritos + "]";
+	}
+	
+	
+
 }

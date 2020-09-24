@@ -26,7 +26,7 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form th:action="@{/productos/search}" method="get">
+							<form th:action="@{/productos/search}" method="post">
 								<select class="input-select">
 									<option value="0">Todo</option>
 									<option value="1">Destacados</option>
@@ -153,6 +153,21 @@
 		
 			<div sec:authorize="isAuthenticated()"> 
 			    Bienvenido <span sec:authentication="name"></span>!
+			</div>
+			<div class="row" style="background-color: white; box-shadow: 10px 10px 37px -26px rgba(0,0,0,0.75);"> 
+			    <div class="col-md-12">
+			    	<div class="row p-5"> 
+			    		<div class="col-md-4 text-center pb-3"><i class="fa fa-search" style="font-size: 8.7rem;"></i></div>
+			    		<div class="col-md-8">
+			    			<h4>No hay publicaciones que coincidan con tu b&uacutesqueda.</h4>
+			    			<ul>
+			    				<li>Revis&aacute la ortograf&iacutea de la palabra.</li>			    				
+			    				<li>Utiliz&aacute palabras m&aacutes gen&eacutericas o menos palabras.</li>
+			    				<li>Naveg&aacute por las categor&iacuteas para encontrar un producto similar.</li>
+			    			</ul>
+			    		</div>
+			    	</div>
+			    </div>
 			</div>
 			<!-- row -->
 			<div class="row">

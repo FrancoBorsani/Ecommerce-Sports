@@ -123,7 +123,6 @@ public class UserController {
 		}
 	}	
 
-
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
