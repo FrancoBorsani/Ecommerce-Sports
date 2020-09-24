@@ -21,14 +21,26 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.converters.ClaveTemporalConverter;
+import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
+import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
+import com.ecommercesports.ecommercesports.services.IClaveTemporalService;
+
 
 @Controller	
 public class UserController {	
+	
+	@Autowired
+	@Qualifier("claveTemporalService")
+	private IClaveTemporalService claveTemporalService;
+	
+	
 	
 	@Autowired
 	@Qualifier("userRepository")
@@ -122,6 +134,76 @@ public class UserController {
 		return "redirect:/";	
 	}
 	
+	
+	
+	@GetMapping("/recuperarclave")
+	public ModelAndView recuperarClave() {
+	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_RECUPERARCLAVE);	 
+	 mAV.addObject("claveTemporal", new ClaveTemporalModel());
+	 return mAV;
+	}
+	
+	
+	
+
+    @Autowired
+    private SendMailService SendmailService;
+
+   // @GetMapping("/")
+   // public String index(){
+   //     return "send_mail_view";
+  //  }
+
+    @PostMapping("/sendMail")
+    public ModelAndView sendMail(@RequestParam("correo") String correo){
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+    	int claveTemporal = (int) (Math.random() * 100000) + 1;
+    //	ClaveTemporalModel c = new ClaveTemporalModel(claveTemporalService.getAll().get(claveTemporalService.getAll().size()-1).getId(), claveTemporal);
+    //	c.setClave(((int)claveTemporal));
+    	ClaveTemporalModel c = new ClaveTemporalModel();
+    	c.setClave(claveTemporal);
+    	claveTemporalService.insertOrUpdate(c);
+    	
+    	//claveTemporalService.insertOrUpdate(c);
+    	String message = "\n\n Datos de contacto: " + "\nE-mail: " + correo + " registrado en Ecommerce Sports." + "\nClave de recuperación: " + claveTemporal;
+        String subject = "RECUPERACION DE CLAVE";
+        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "" + correo,subject,message);
+        
+   	 return mAV;
+    }
+	
+    
+    @PostMapping("/verificarClave")
+    public ModelAndView verificarClave(@ModelAttribute("clave") long clave,  RedirectAttributes redirectAttrs ){
+    	
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+    	
+    	
+    	int i=0;
+		boolean band = false;
+
+		while(i<claveTemporalService.getAll().size() && !band){
+			ClaveTemporal c = claveTemporalService.getAll().get(i);
+			System.out.println( claveTemporalService.getAll().get(i));
+			System.out.println(c.getId());
+				if(c.getClave() == clave){
+					band = true;
+					System.out.println("SE ENCONTRO");
+				}
+			i++;
+		}
+
+		if(!band){
+			redirectAttrs.addFlashAttribute("mensaje","La clave es incorrecta");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+			return mAV2;
+		}else{
+			claveTemporalService.remove(clave);
+		}
+   	 return mAV;
+    }
+    
 
 }
 	
