@@ -113,6 +113,7 @@ public class ProductoController {
     
     @GetMapping("/search")
     public ModelAndView search() {
+    	    	
         return new ModelAndView("producto/notFound");
     }
 
