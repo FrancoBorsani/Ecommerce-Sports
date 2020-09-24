@@ -1,5 +1,6 @@
 package com.ecommercesports.ecommercesports.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,12 +14,16 @@ public class ClaveTemporal {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	 @Column(name = "clave")
+	    private int clave;
+	
 	public ClaveTemporal() {
 		
 	}
-	public ClaveTemporal(long id) {
+	public ClaveTemporal(long id, int clave) {
 		super();
 		this.id = id;
+		this.clave = clave;
 		
 		
 	}
@@ -27,6 +32,12 @@ public class ClaveTemporal {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public int getClave() {
+		return clave;
+	}
+	public void setClave(int clave) {
+		this.clave = clave;
 	}
 	
 	

@@ -1,10 +1,13 @@
 package com.ecommercesports.ecommercesports.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.converters.ClaveTemporalConverter;
+import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
 import com.ecommercesports.ecommercesports.repositories.IClaveTemporalRepository;
@@ -52,6 +55,14 @@ public class ClaveTemporalService implements IClaveTemporalService {
 			return false;
 			
 		}
+		
+	}
+
+
+	@Override
+	public List<ClaveTemporal> getAll(){
+		
+		return claveTemporalRepository.findAll();
 		
 	}
 }
