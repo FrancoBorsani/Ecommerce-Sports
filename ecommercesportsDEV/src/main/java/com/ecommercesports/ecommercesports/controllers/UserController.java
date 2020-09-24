@@ -156,7 +156,7 @@ public class UserController {
 	
     
     @PostMapping("/verificarClave")
-    public ModelAndView verificarClave(@RequestParam("clave") int clave){
+    public ModelAndView verificarClave(@RequestParam("clave") long clave){
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
     	
    	 return mAV;
