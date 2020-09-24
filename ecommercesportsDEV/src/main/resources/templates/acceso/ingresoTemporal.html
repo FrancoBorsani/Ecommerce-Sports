@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Recuperar clave</title>
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+ 
+  <link rel="stylesheet" href="css/recuperarclavestyle.css">
+
+<style>
+.bg{
+ filter: grayscale(90%);
+}
+
+</style>
+
+
+</head>
+<body>
+
+
+<!--Div for Background-->
+<div class="bg text-center">
+    <form class="" th:action="@{/verificarClave}" method="post">
+    <div class="centered">
+        <p class="firstLine"> CLAVE DE ACCESO </p>
+        <p class="secondLine">Ingrese la clave que se ha enviado a su mail</p>
+        <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome" type="text" name="clave"> </p>
+    </div>
+    <!--Div for bottom Icons-->
+    </form>
+</div>
+
+
+
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+
+
+</body>
+
+
+</html>

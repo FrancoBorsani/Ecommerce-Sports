@@ -146,7 +146,7 @@ public class UserController {
 
     @PostMapping("/sendMail")
     public ModelAndView sendMail(@RequestParam("correo") String correo){
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
         String message = "\n\n Datos de contacto: " + "\nE-mail: " + correo;
         String subject = "RECUPERACION DE CLAVE";
         SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "" + correo,subject,message);
@@ -154,6 +154,14 @@ public class UserController {
    	 return mAV;
     }
 	
+    
+    @PostMapping("/verificarClave")
+    public ModelAndView verificarClave(@RequestParam("clave") int clave){
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+    	
+   	 return mAV;
+    }
+    
 
 }
 	
