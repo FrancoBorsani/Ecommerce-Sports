@@ -2192,3 +2192,16 @@ textarea.input {
 .img-carousel {
 	max-height: 400px !important;
 }
+
+      #result {
+        position: absolute;
+        width: 95%;
+        cursor: pointer;
+        overflow-y: auto;
+        max-height: 285px;
+        box-sizing: border-box;
+        z-index: 1001;
+      }
+      .link-class:hover {
+        background-color: #f1f1f1;
+      }
