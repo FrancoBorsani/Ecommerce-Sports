@@ -21,9 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.ecommercesports.ecommercesports.converters.ClaveTemporalConverter;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.entities.User;
+import com.ecommercesports.ecommercesports.entities.UserRole;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
@@ -39,8 +39,6 @@ public class UserController {
 	@Autowired
 	@Qualifier("claveTemporalService")
 	private IClaveTemporalService claveTemporalService;
-	
-	
 	
 	@Autowired
 	@Qualifier("userRepository")
@@ -74,7 +72,9 @@ public class UserController {
 			return new RedirectView("/registro");
 		}
 		else {
+			newUSer.setEnabled(true);
 			userRepository.save(newUSer);
+			userRoleRepository.save(new UserRole(userRepository.findByUsername(newUSer.getUsername()),"ROLE_USER"));
 		}
 		
 		System.out.println("-----------------------------------------");
@@ -89,12 +89,9 @@ public class UserController {
 		return new RedirectView(ViewRouteHelpers.ROUTE_INDEX);
 	}
 	
-	
-	
 	@GetMapping("/ingreso")
 	public ModelAndView ingreso() {
 	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_LOGIN);	 
-	 
 	 return mAV;
 	}
 	

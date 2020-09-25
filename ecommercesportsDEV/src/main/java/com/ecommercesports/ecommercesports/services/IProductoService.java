@@ -15,8 +15,10 @@ public interface IProductoService {
 
     public boolean remove(long idProducto);
 
-	List<Producto> findByCategoria(String categoria);
+    public List<Producto> findByCategoria(String categoria);
 	
-	List<Producto> filterByMarca(String categoria);
+    public List<Producto> filterByMarca(String categoria);
+    
+    public List<Producto> searchProduct(String keyword);
 	
 }

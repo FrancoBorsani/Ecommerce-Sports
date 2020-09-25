@@ -59,4 +59,10 @@ public class ProductoService implements IProductoService {
 		// TODO Auto-generated method stub
 		return productoRepository.filterByMarca(marca);
 	}
+
+	@Override
+	public List<Producto> searchProduct(String keyword) {
+		// TODO Auto-generated method stub
+		return productoRepository.searchProduct(keyword);
+	}
 }

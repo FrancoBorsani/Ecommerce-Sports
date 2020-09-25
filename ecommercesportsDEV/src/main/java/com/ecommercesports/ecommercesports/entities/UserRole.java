@@ -47,6 +47,12 @@ public class UserRole {
 		this.role = role;
 	}
 
+	public UserRole(User user, String role) {
+		super();
+		this.user = user;
+		this.role = role;
+	}
+
 	public int getId() {
 		return id;
 	}
