@@ -20,4 +20,7 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p WHERE p.marca_id_marca = (:marca)")
     public abstract List<Producto> filterByMarca(String marca);
     
+    @Query("SELECT p FROM Producto p WHERE CONCAT(p.descripcionCorta, ' ', p.descripcionLarga) LIKE %?1%")
+    public abstract List<Producto> searchProduct(String keyword);
+       
 }

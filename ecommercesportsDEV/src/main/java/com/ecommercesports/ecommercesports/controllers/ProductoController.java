@@ -111,10 +111,38 @@ public class ProductoController {
 		return productoService.getAll();
 	}
     
-    @GetMapping("/search")
-    public ModelAndView search() {
-    	    	
-        return new ModelAndView("producto/notFound");
+    @GetMapping("/search={id}")
+    public ModelAndView search(@PathVariable("id") String keyword) {
+    	
+    	if (productoService.searchProduct(keyword).size() == 0) { 
+    		return new ModelAndView("producto/notFound");
+    	}else {
+    		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+            
+            mAV.addObject("productos",productoService.searchProduct(keyword));
+            mAV.addObject("categorias", categoriaService.getAll());
+            mAV.addObject("marcas", marcaService.getAll());
+            
+            return mAV;
+    	}
+    	
+    }
+    
+    @GetMapping("/search={id}_DisplayType_G")
+    public ModelAndView searchDisplayType_G(@PathVariable("id") String keyword) {
+    	
+    	if (productoService.searchProduct(keyword).size() == 0) { 
+    		return new ModelAndView("producto/notFound");
+    	}else {
+    		ModelAndView mAV = new ModelAndView("producto/cards");
+            
+            mAV.addObject("productos",productoService.searchProduct(keyword));
+            mAV.addObject("categorias", categoriaService.getAll());
+            mAV.addObject("marcas", marcaService.getAll());
+            
+            return mAV;
+    	}
+    	
     }
 
     @PostMapping("/back")

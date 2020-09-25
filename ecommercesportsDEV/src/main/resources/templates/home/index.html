@@ -26,7 +26,7 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form th:action="@{/productos/search}" method="get">
+							<form id="form-search">
 								<select class="input-select">
 									<option value="0">Todo</option>
 									<option value="1">Destacados</option>
@@ -238,7 +238,7 @@
 
 <th:block th:include="fragments/scripts :: scripts"></th:block>
 	
-    <script>
+<script>
   $(document).ready(function () {
 	  
 	  $("#search").keyup(function () {
@@ -281,6 +281,12 @@
 	    
 	    $("body").on("click", function () {
 	      $("#result").html("");
+	    });
+	    
+	    $( "#form-search" ).submit(function(e) {
+	    	  e.preventDefault();
+	    	  const searchField = $("#search").val();
+	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
 	    });
 	    
     
