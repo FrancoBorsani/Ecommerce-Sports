@@ -16,14 +16,18 @@ public class ClaveTemporal {
 	
 	 @Column(name = "clave")
 	    private int clave;
+	 
+	 @Column(name = "correo")
+	    private String correo;
 	
 	public ClaveTemporal() {
 		
 	}
-	public ClaveTemporal(long id, int clave) {
+	public ClaveTemporal(long id, int clave, String correo) {
 		super();
 		this.id = id;
 		this.clave = clave;
+		this.correo = correo;
 		
 		
 	}
@@ -38,6 +42,12 @@ public class ClaveTemporal {
 	}
 	public void setClave(int clave) {
 		this.clave = clave;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 	
 	

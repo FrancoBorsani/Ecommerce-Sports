@@ -4,15 +4,16 @@ public class ClaveTemporalModel {
 
 	private long id;
 	private int clave;
-	
+	private String correo;
 	
 	public ClaveTemporalModel(){
 		
 	}
 	
-	public ClaveTemporalModel(long id, int clave) {
+	public ClaveTemporalModel(long id, int clave, String correo) {
 		this.id = id;
 		this.clave = clave;
+		this.correo = correo;
 		
 	}
 
@@ -30,6 +31,14 @@ public class ClaveTemporalModel {
 
 	public void setClave(int clave) {
 		this.clave = clave;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 	
 	

@@ -16,11 +16,11 @@ public class ClaveTemporalConverter {
 	
 	
 public	ClaveTemporalModel entityToModel(ClaveTemporal claveTemporal) {
-		return new ClaveTemporalModel(claveTemporal.getId(), claveTemporal.getClave());
+		return new ClaveTemporalModel(claveTemporal.getId(), claveTemporal.getClave(), claveTemporal.getCorreo());
 	}
 	
 	public ClaveTemporal modelToEntity(ClaveTemporalModel claveTemporalModel) {
-		return new ClaveTemporal(claveTemporalModel.getId(), claveTemporalModel.getClave());
+		return new ClaveTemporal(claveTemporalModel.getId(), claveTemporalModel.getClave(), claveTemporalModel.getCorreo());
 	}
 	
 }

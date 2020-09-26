@@ -14,5 +14,7 @@ public interface IClaveTemporalService {
 	
 	public ClaveTemporalModel findById(long id);
 	
+	public ClaveTemporalModel findByClave(int clave);
+	
 	public boolean remove(long id);
 }

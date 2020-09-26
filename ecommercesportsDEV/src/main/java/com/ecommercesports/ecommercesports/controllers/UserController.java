@@ -28,6 +28,7 @@ import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
 import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
+import com.ecommercesports.ecommercesports.repositories.IClaveTemporalRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
 import com.ecommercesports.ecommercesports.services.IClaveTemporalService;
@@ -39,6 +40,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("claveTemporalService")
 	private IClaveTemporalService claveTemporalService;
+	
+	@Autowired
+	@Qualifier("claveTemporalRepository")
+	private IClaveTemporalRepository claveTemporalRepository;
 	
 	@Autowired
 	@Qualifier("userRepository")
@@ -179,6 +184,7 @@ public class UserController {
     //	c.setClave(((int)claveTemporal));
     	ClaveTemporalModel c = new ClaveTemporalModel();
     	c.setClave(claveTemporal);
+    	c.setCorreo(correo);
     	claveTemporalService.insertOrUpdate(c);
     	
     	//claveTemporalService.insertOrUpdate(c);
@@ -191,7 +197,7 @@ public class UserController {
 	
     
     @PostMapping("/verificarClave")
-    public ModelAndView verificarClave(@ModelAttribute("clave") long clave,  RedirectAttributes redirectAttrs ){
+    public ModelAndView verificarClave(@ModelAttribute("clave") long clave, @RequestParam("password") String password,  RedirectAttributes redirectAttrs ){
     	
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
     	
@@ -201,11 +207,8 @@ public class UserController {
 
 		while(i<claveTemporalService.getAll().size() && !band){
 			ClaveTemporal c = claveTemporalService.getAll().get(i);
-			System.out.println( claveTemporalService.getAll().get(i));
-			System.out.println(c.getId());
 				if(c.getClave() == clave){
 					band = true;
-					System.out.println("SE ENCONTRO");
 				}
 			i++;
 		}
@@ -216,6 +219,11 @@ public class UserController {
 			ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
 			return mAV2;
 		}else{
+			ClaveTemporal cl = claveTemporalRepository.findByClave((int)clave);
+			User u = userRepository.findByEmail(cl.getCorreo());
+			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+			u.setPassword(bCryptPasswordEncoder.encode(password));
+			userRepository.save(u);
 			claveTemporalService.remove(clave);
 		}
    	 return mAV;
