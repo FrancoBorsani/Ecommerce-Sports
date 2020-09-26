@@ -26,14 +26,15 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form>
+							<form id="form-search">
 								<select class="input-select">
 									<option value="0">Todo</option>
 									<option value="1">Destacados</option>
 									<option value="1">Ofertas</option>
 								</select>
-								<input class="input" placeholder="Dime lo que buscas">
-								<button class="search-btn">Buscar</button>
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
 							</form>
 						</div>
 					</div>
@@ -42,7 +43,6 @@
 					<!-- ACCOUNT -->
 					<div class="col-md-3 clearfix">
 						<div class="header-ctn">
-
 
 							<!-- Cart -->
 							<div class="dropdown">
@@ -236,17 +236,62 @@
 
 	<!-- jQuery Plugins -->
 
-	<th:block th:include="fragments/scripts :: scripts"></th:block>
+<th:block th:include="fragments/scripts :: scripts"></th:block>
 	
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+	  
+	  $("#search").keyup(function () {
+	      $("#result").html("");
+	      $("#state").val("");
+	      const searchField = $("#search").val();
+	      const expression = new RegExp(searchField, "i");
+
+	      $.getJSON("/productos/getAllProducts", function (data) {
+	    	var i = 0;
+	        $.each(data, function (key, value) {
+	          if (
+	            value.descripcionCorta.search(expression) != -1 && i<4
+	          ) {
+	        	  
+	            $("#result").append(
+	              '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+	              "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
+	                '" height="40" width="40" class="img-thumbnail" /> ' +
+	                value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
+	                "</li></a>"
+	            );
+	            i++;
+	          }
+	        });
+	        if (searchField == "") $("#result").html("");
+	      });
+	    });
+
+	    $("#result").on("click", "li", function () {
+	      var click_text = $(this).text().split("|");
+	      $("#search").val($.trim(click_text[0]));
+	      $("#result").html("");
+	    });
+	    
+	    $("#result")
+	    .focusout(function() {
+	    	$("#result").html("");
+	    })
+	    
+	    $("body").on("click", function () {
+	      $("#result").html("");
+	    });
+	    
+	    $( "#form-search" ).submit(function(e) {
+	    	  e.preventDefault();
+	    	  const searchField = $("#search").val();
+	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
+	    });
+	    
+    
+  });
+</script>
 
 </body>
 

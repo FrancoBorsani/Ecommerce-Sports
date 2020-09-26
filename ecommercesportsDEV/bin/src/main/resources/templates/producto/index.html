@@ -4,265 +4,389 @@
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 
 <body>
-<!-- HEADER -->
-<header>
+    <!-- HEADER -->
+    <header>
 
-    <!-- MAIN HEADER -->
-    <div id="header">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <!-- LOGO -->
-                <div class="col-md-3">
-                    <div class="header-logo">
-                        <a href="/" class="logo">
-                            <img src="./img/logo.png" alt="">
-                        </a>
-                    </div>
-                </div>
-                <!-- /LOGO -->
-
-                <!-- SEARCH BAR -->
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">Todo</option>
-                                <option value="1">Destacados</option>
-                                <option value="1">Ofertas</option>
-                            </select>
-                            <input class="input" placeholder="Dime lo que buscas">
-                            <button class="search-btn">Buscar</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- /SEARCH BAR -->
-
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
-
-
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Carrito</span>
-                                <div class="qty">2</div>
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="/" class="logo">
+                            	<img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
                             </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product02.png" alt="">
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<select class="input-select">
+									<option value="0">Todo</option>
+									<option value="1">Destacados</option>
+									<option value="1">Ofertas</option>
+								</select>
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="./img/product01.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
                                         </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="./img/product02.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
                                     </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>2 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $720.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="/carritos">View Cart</a>
-                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    <div class="cart-summary">
+                                        <small>2 Item(s) selected</small>
+                                        <h5>SUBTOTAL: $720.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="/carritos">View Cart</a>
+                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Cart -->
+                            <!-- /Cart -->
 
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
                         </div>
-                        <!-- /Menu Toogle -->
                     </div>
+                    <!-- /ACCOUNT -->
                 </div>
-                <!-- /ACCOUNT -->
+                <!-- row -->
             </div>
-            <!-- row -->
+            <!-- container -->
         </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav id="navigation">
         <!-- container -->
-    </div>
-    <!-- /MAIN HEADER -->
-</header>
-<!-- /HEADER -->
-
-<!-- NAVIGATION -->
-<nav id="navigation">
-    <!-- container -->
-    <div class="container">
-        <!-- responsive-nav -->
-        <div id="responsive-nav">
-            <!-- NAV -->
-            <ul class="main-nav nav navbar-nav">
-                <li><a href="#">Productos destacados</a></li>
-                <li><a href="/productos">Todos los productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="/contacto">Contacto</a></li>
-                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-                <li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
-            </ul>
-            <!-- /NAV -->
+        <div class="container">
+            <div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li><a href="#">Productos destacados</a></li>
+					<li><a href="/productos">Todos los productos</a></li>
+					<li><a href="#">Ofertas</a></li>
+					<li><a href="/pedidos">Pedidos</a></li>
+					<li><a href="/contacto">Contacto</a></li>
+					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+					<li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+			        	<i class="fa fa-user-o" style="margin-right:3px"></i>
+			        	<span sec:authentication="name"></span>
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+			          <div class="dropdown-divider"></div>
+				      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+			          <div class="dropdown-divider"></div>
+			        </div>
+			      </li>
+				</ul>
+				<!-- /NAV -->
+			</div>
         </div>
-        <!-- /responsive-nav -->
-    </div>
-    <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
-
-
-<!-- Aca hay que poner el árbol de categoria - sub categoria del producto
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
 
 <div id="breadcrumb" class="section">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
 
-
-
                 <ul class="breadcrumb-tree">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Accessories</a></li>
                     <li><a href="#">Headphones</a></li>
-                    <li class="active">Product name goes here</li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
--->
 
-<!-- Section -->
-<div class="section">
-    <!-- container -->
-    <div class="container" style="display: flex">
-        <ol class="list-group" style="padding: 0px 30px 30px 0px; min-inline-size: fit-content">
-            <li class="list-group-item">
-                <div class="item"><a>Categoría A</a></div>
-                <div class="item"><a>Categoría B</a></div>
-                <div class="item"><a>Categoría C</a></div>
-                <div class="item"><a>Categoría D</a></div>
-            </li>
-        </ol>
-
-        <ol class="list-group" style="padding: 0px 0px 30px 30px; margin-left: auto; width: inherit">
-            <li class="list-group-item" style="padding: 0px 30px 30px 30px">
-
-                <div class="item">
-                    <div class="product"  style="display: flex; padding: 0px 50px; align-items: flex-end">
-                        <div class="imagenes-producto" style="padding: 0px 30px 0px 30px;">
-                            <img src="./img/product01.png" alt="" height="150px" width="150px">
-                        </div>
-
-                        <div class="producto-body" style="padding: 30px 0px 30px 30px;">
-                            <h3 class="product-name"><a href="/producto">Producto 1</a></h3>
-                            <h4 class="product-price">$980.00</h4>
-                            <h6>Descripción del producto</h6>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="product"  style="display: flex; padding: 0px 50px; align-items: flex-end">
-                        <div class="imagenes-producto" style="padding: 0px 30px 0px 30px;">
-                            <img src="./img/product01.png" alt="" height="150px" width="150px">
-                        </div>
-
-                        <div class="producto-body" style="padding: 30px 0px 30px 30px;">
-                            <h3 class="product-name"><a href="/producto">Producto 2</a></h3>
-                            <h4 class="product-price">$980.00</h4>
-                            <h6>Descripción del producto</h6>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="product"  style="display: flex; padding: 0px 50px; align-items: flex-end">
-                        <div class="imagenes-producto" style="padding: 0px 30px 0px 30px;">
-                            <img src="./img/product01.png" alt="" height="150px" width="150px">
-                        </div>
-
-                        <div class="producto-body" style="padding: 30px 0px 30px 30px;">
-                            <h3 class="product-name"><a href="/producto">Producto 3</a></h3>
-                            <h4 class="product-price">$980.00</h4>
-                            <h6>Descripción del producto</h6>
-                        </div>
-                    </div>
-                </div>
-
-            </li>
-        </ol>
-    </div>
-</div>
-
-<!-- FOOTER -->
-<footer id="footer">
-    <!-- bottom footer -->
-    <div id="bottom-footer" class="section">
+    <!-- Section -->
+    <div class="section">
+        <!-- container -->
         <div class="container">
-            <!-- row -->
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="footer-payments">
-                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                    </ul>
-                    <span class="copyright">
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</span>
+                    <!-- ASIDE -->
+					<div id="aside" class="col-md-3">
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Categories</h3>
+							<div class="checkbox-filter" th:each="categoria : ${categorias}">
 
+								<a class="input-checkbox" th:href="@{~/productos/categorias/{id}(id=${categoria.idCategoria})}" >
+									<label for="category-1" th:text="${categoria.nombre}" >
+										<span></span>										
+									</label>
+									<small class="text-white">(120)</small>
+								</a>
+							</div>
+						</div>
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Marca</h3>
+							<div class="checkbox-filter" th:each="m : ${marcas}" >
+								<a class="input-checkbox" th:href="@{~/productos/marcas/{id}(id=${m.idMarca})}" >
+									<label for="category-1" th:text="${m.nombre}" >
+										<span></span>
+									</label>
+									<small class="text-white">(120)</small>
+								</a>
+								
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Top selling</h3>
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product01.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product02.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product03.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+						</div>
+						<!-- /aside Widget -->
+					</div>
+					<!-- /ASIDE -->
+                </div>
+
+                <div class="col-md-9">
+                
+                	<div class="store-filter clearfix">
+							<div class="store-sort">
+								<label>
+									Sort By:
+									<select class="input-select">
+										<option value="0">Popular</option>
+										<option value="1">Position</option>
+									</select>
+								</label>
+
+								<label>
+									Show:
+									<select class="input-select">
+										<option value="0">20</option>
+										<option value="1">50</option>
+									</select>
+								</label>
+							</div>
+							<ul class="store-grid">
+								<li class="active"><i class="fa fa-list"></i></li>
+								<li><a th:href="@{/productos/_DisplayType_G}"><i class="fa fa-th"></i></a></li>
+							</ul>
+						</div>
+
+                    <ol class="list-group">
+                    	<span ></span>
+                        <li class="list-group-item">
+                             <div class="item" th:each="producto : ${productos}">
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center">
+                                            <div class="imagenes-producto ml-2">
+                                                <img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="" height="150px" width="150px">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <div class="producto-body mt-4 ml-3">
+                                                <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
+                                                <h4 class="product-price" th:text="'$'+${producto.precio}">$980.00</h4>
+                                                <h6 th:text="${producto.descripcionLarga}">Descripción del producto</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                                
+                            </div>
+
+                        </li>
+                    </ol>
 
                 </div>
+
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
     </div>
-    <!-- /bottom footer -->
-</footer>
-<!-- /FOOTER -->
 
-<!-- jQuery Plugins -->
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
 
-<th:block th:include="fragments/scripts :: scripts"></th:block>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
 
+    <!-- jQuery Plugins -->
+
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+    
+<script>
+  $(document).ready(function () {
+	  
+	  $("#search").keyup(function () {
+	      $("#result").html("");
+	      $("#state").val("");
+	      const searchField = $("#search").val();
+	      const expression = new RegExp(searchField, "i");
+
+	      $.getJSON("/productos/getAllProducts", function (data) {
+	    	var i = 0;
+	        $.each(data, function (key, value) {
+	          if (
+	            value.descripcionCorta.search(expression) != -1 && i<4
+	          ) {
+	        	  
+	            $("#result").append(
+	              '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+	              "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
+	                '" height="40" width="40" class="img-thumbnail" /> ' +
+	                value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
+	                "</li></a>"
+	            );
+	            i++;
+	          }
+	        });
+	        if (searchField == "") $("#result").html("");
+	      });
+	    });
+
+	    $("#result").on("click", "li", function () {
+	      var click_text = $(this).text().split("|");
+	      $("#search").val($.trim(click_text[0]));
+	      $("#result").html("");
+	    });
+	    
+	    $("#result")
+	    .focusout(function() {
+	    	$("#result").html("");
+	    })
+	    
+	    $("body").on("click", function () {
+	      $("#result").html("");
+	    });
+	    
+	    $( "#form-search" ).submit(function(e) {
+	    	  e.preventDefault();
+	    	  const searchField = $("#search").val();	    	  
+	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
+	    });
+	    
+  });
+  
+</script>
 </body>
+
 </html>

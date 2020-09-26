@@ -154,6 +154,26 @@ public class UserController {
     @PostMapping("/sendMail")
     public ModelAndView sendMail(@RequestParam("correo") String correo){
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+    
+    	boolean band = false;
+    	try {
+    		User cl = userRepository.findByEmail(correo);
+    		
+    		if(cl != null) {
+    			band = true;
+    			
+    		}
+    	}
+    	catch(Exception e) {
+    		System.out.println("Error al buscar el usuario: " + e.getMessage());
+    	}
+    	
+    	
+    	if(!band) {
+    		ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.HOME);
+    		return mAV2;
+    	}
+    	
     	int claveTemporal = (int) (Math.random() * 100000) + 1;
     //	ClaveTemporalModel c = new ClaveTemporalModel(claveTemporalService.getAll().get(claveTemporalService.getAll().size()-1).getId(), claveTemporal);
     //	c.setClave(((int)claveTemporal));
