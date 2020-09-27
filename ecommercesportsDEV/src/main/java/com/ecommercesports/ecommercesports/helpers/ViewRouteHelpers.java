@@ -32,4 +32,7 @@ public class ViewRouteHelpers {
     //redirects	
   	public final static String ROUTE_INDEX = "/";
     
+    //Perfil
+    public final static String PROFILE_INDEX = "profile/index";
+  	
 }

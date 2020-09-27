@@ -243,7 +243,12 @@ public class UserController {
 
 		return new RedirectView(ViewRouteHelpers.HOME);
 	}	
- 
+	
+    @GetMapping("/profile")
+    public ModelAndView viewProfile() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
+    	return mAV;
+    }
 
 }
 	
