@@ -230,7 +230,7 @@ public class UserController {
     }
 
 	@PostMapping("/delete")
-	public RedirectView delete(long idUser) {
+	public RedirectView delete(int idUser) {
 		userRoleRepository.deleteById(idUser);
 		userRepository.deleteById(idUser);
 				
