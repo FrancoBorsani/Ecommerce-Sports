@@ -149,4 +149,24 @@ public class ProductoController {
     public RedirectView back() {
         return new RedirectView(ViewRouteHelpers.PRODUCTO_ROOT);
     }
+    
+    @GetMapping("/destacados_DPT_LF")
+    public ModelAndView destacados_DisplayType_LF() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+        mAV.addObject("productos", productoService.productosDestacados());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        
+        return mAV;
+    }
+    @GetMapping("/destacados_DPT_G")
+    public ModelAndView destacados_DisplayType_G() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
+        mAV.addObject("productos", productoService.productosDestacados());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        
+        return mAV;
+    } 
+    
 }

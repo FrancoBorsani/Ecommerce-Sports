@@ -20,5 +20,7 @@ public interface IProductoService {
     public List<Producto> filterByMarca(String categoria);
     
     public List<Producto> searchProduct(String keyword);
+    
+	public List<Producto> productosDestacados();
 	
 }

@@ -228,7 +228,22 @@ public class UserController {
 		}
    	 return mAV;
     }
-    
+
+	@PostMapping("/delete")
+	public RedirectView delete(long idUser) {
+		userRoleRepository.deleteById(idUser);
+		userRepository.deleteById(idUser);
+				
+		return new RedirectView(ViewRouteHelpers.HOME);
+	}
+
+	@PostMapping("/update")
+	public RedirectView update(User user) {
+		userRepository.save(user);	
+
+		return new RedirectView(ViewRouteHelpers.HOME);
+	}	
+ 
 
 }
 	

@@ -1,5 +1,6 @@
 package com.ecommercesports.ecommercesports.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,17 @@ public class ProductoService implements IProductoService {
 		return productoRepository.filterByMarca(marca);
 	}
 
+	@Override
+	public List<Producto> productosDestacados() {
+		List<Producto> destacados = new ArrayList<Producto>();
+        for(Producto p : productoRepository.findAll()) {
+        	if(p.getIdProducto()== 1 || (p.getIdProducto()-1)%3== 0){
+              destacados.add(p);        		
+        	}
+        }
+		return destacados;
+	}
+	
 	@Override
 	public List<Producto> searchProduct(String keyword) {
 		// TODO Auto-generated method stub

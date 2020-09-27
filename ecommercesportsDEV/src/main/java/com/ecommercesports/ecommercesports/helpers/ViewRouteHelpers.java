@@ -15,6 +15,8 @@ public class ViewRouteHelpers {
     public final static String PRODUCTO_INDEX = "producto/index";
     public final static String PRODUCTO_ROOT = "productos";
     public final static String PRODUCTO_SELECCIONADO = "producto/producto";
+    public final static String PRODUCTO_DEST_DPT_LF = "producto/destacadosLF";
+    public final static String PRODUCTO_DEST_DPT_G = "producto/destacadosG";
     
 	//Pedido
 	public static final String PEDIDO_INDEX = "pedido/index";
