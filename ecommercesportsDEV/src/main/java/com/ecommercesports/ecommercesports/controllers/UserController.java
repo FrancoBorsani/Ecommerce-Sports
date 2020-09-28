@@ -249,7 +249,35 @@ public class UserController {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
     	return mAV;
     }
-
+    
+    
+    @GetMapping("/cambiarClave")
+    public ModelAndView cambiarClave() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_CAMBIARCLAVE);
+    	
+    	return mAV;
+    }
+    @PostMapping("/cambiarClavePost")
+    public ModelAndView cambiarClavePost(@RequestParam("nuevaclave") String password) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
+    	
+    	
+    	String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		}    	
+    	
+		User u = userRepository.findByUsername(username);
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+		u.setPassword(bCryptPasswordEncoder.encode(password));
+		userRepository.save(u);
+		
+    	return mAV;
+    }
+    
+    
+    
 }
 	
 

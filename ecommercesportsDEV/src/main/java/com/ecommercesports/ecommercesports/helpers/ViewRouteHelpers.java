@@ -28,7 +28,7 @@ public class ViewRouteHelpers {
     public final static String USER_REGISTRO = "acceso/registro";
     public final static String USER_RECUPERARCLAVE = "acceso/recuperarclave";
     public final static String USER_VERIFICARCLAVE = "acceso/ingresoTemporal";
-    
+    public final static String USER_CAMBIARCLAVE = "profile/cambiarclave";
     //redirects	
   	public final static String ROUTE_INDEX = "/";
     
