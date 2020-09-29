@@ -13,12 +13,12 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
   <!-- CSS here -->
-      <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>      
+      <link type="text/css" rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+ 	  <link type="text/css" rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+ 	
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/font-awesome.min.css">
       
-      
-<!--  	  <link rel="stylesheet" href="css2/bootstrap.min.css" type="text/css">  -->
       <link rel="stylesheet" href="css2/style.css" type="text/css">
       <link rel="stylesheet" href="css2/font-awesome.min.css" type="text/css">
       
@@ -152,7 +152,7 @@
                     <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
                     <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <a class="nav-link dropdown-toggle" style="background-color: white;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
                         <span sec:authentication="name"></span>
                     </a>

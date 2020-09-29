@@ -14,16 +14,25 @@ public class CheckoutController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
-
 		return mAV;	
 	}
 	
 	@GetMapping("/envio")
 	public ModelAndView envio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.ENVIO);
-
 		return mAV;	
 	}
 	
+	@GetMapping("/envio/domicilio")
+	public ModelAndView domicilio() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_DOMICILIO);
+		return mAV;	
+	}
+	
+	@GetMapping("/envio/pago")
+	public ModelAndView pago() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
+		return mAV;	
+	}
 
 }
