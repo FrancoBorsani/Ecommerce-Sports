@@ -22,6 +22,12 @@ public class ViewRouteHelpers {
 	public static final String PEDIDO_INDEX = "pedido/index";
     public final static String PEDIDO_ROOT = "/pedidos";
     
+    // Checkout
+    
+    public static final String CHECKOUT_INDEX = "checkout/index";
+    public static final String ENVIO = "checkout/envio";
+    public final static String CHECKOUT_ROOT = "/checkout";
+    
     //Acceso
     
     public final static String USER_LOGIN = "acceso/ingreso";
@@ -29,6 +35,7 @@ public class ViewRouteHelpers {
     public final static String USER_RECUPERARCLAVE = "acceso/recuperarclave";
     public final static String USER_VERIFICARCLAVE = "acceso/ingresoTemporal";
     public final static String USER_CAMBIARCLAVE = "profile/cambiarclave";
+    
     //redirects	
   	public final static String ROUTE_INDEX = "/";
     
