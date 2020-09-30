@@ -49,6 +49,7 @@ public class Producto {
     @ManyToMany(mappedBy = "listaProductos")
     private List<Carrito> listaCarritos;
     
+    
   
     public Producto() {
     }
