@@ -31,6 +31,9 @@ public class ComentarioService implements IComentarioService{
 		return comentarioRepository.findAll();
 		
 	}
+	
+	
+	
 	@Override
 	public ComentarioModel findByIdComentario(long idComentario) {	
 		return comentarioConverter.entityToModel(comentarioRepository.findByIdComentario(idComentario));

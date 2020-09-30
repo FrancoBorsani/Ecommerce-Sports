@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +21,7 @@ import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
+import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
@@ -53,6 +53,10 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("comentarioRepository")
+	private IComentarioRepository comentarioRepository;
 	
 	   @Autowired
 	    @Qualifier("productoRepository")
@@ -108,6 +112,7 @@ public class ProductoController {
     public ModelAndView get(@PathVariable("id") long idProducto) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
+        mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         
         return mAV;
     }
