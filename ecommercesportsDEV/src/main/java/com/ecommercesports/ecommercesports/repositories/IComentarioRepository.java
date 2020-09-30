@@ -15,7 +15,7 @@ public interface IComentarioRepository extends JpaRepository<Comentario, Seriali
 	public abstract Comentario findByIdComentario(long idComentario);
 	
 	@Query("SELECT u FROM Comentario u WHERE u.producto.idProducto = (:idProducto)")
-	public abstract List<Comentario> findByIdProducto(@Param("id") long idProducto);
+	public abstract List<Comentario> findByIdProducto(@Param("idProducto") long idProducto);
 		
 	
 	

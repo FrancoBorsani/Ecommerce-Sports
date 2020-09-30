@@ -302,8 +302,12 @@
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
                         <span sec:authentication="name"></span>
                     </a>
-                   <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario"></textarea>
-                <input id="id" name="id" type="hidden" value="${producto.idProducto}"/>
+                 <form method="post" th:action="@{/productos/agregarComentario}" >
+                   <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario" name="comentario"></textarea>
+  <input id="id" name="id" type="hidden" value="${producto.idProducto}"/>
+             
+                   <input type="submit" value="Enviar">
+                 </form>
                   </li>
  </ul>
             

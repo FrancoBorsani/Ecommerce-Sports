@@ -205,9 +205,10 @@ public class ProductoController {
     
     
     @PostMapping("/agregarComentario")
-    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") long id) {
+    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") String id) {
     	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
-         mAV.addObject("producto", productoService.findByIdProducto(id));
+    	 System.out.println("EL ID QUE LLEGA: "+ Long.parseLong(id));
+         mAV.addObject("producto", productoService.findByIdProducto(Long.parseLong(id)));
          
     	
     	
@@ -224,7 +225,7 @@ public class ProductoController {
     	
 		User u = userRepository.findByUsername(username);
 		comentarioNuevo.setUser(u);		
-		comentarioNuevo.setProducto(productoRepository.findByIdProducto(id));
+		comentarioNuevo.setProducto(productoRepository.findByIdProducto(Long.parseLong(id)));
 		
 		comentarioService.insertOrUpdate(comentarioNuevo);
     	
