@@ -206,13 +206,11 @@ public class ProductoController {
     
     @PostMapping("/agregarComentario")
     public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") String id) {
-    	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
-    	 System.out.println("EL ID QUE LLEGA: "+ Long.parseLong(id));
-         mAV.addObject("producto", productoService.findByIdProducto(Long.parseLong(id)));
-         
-    	
-    	
-    	
+    	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	 mAV.addObject("productos", productoService.productosDestacados());
+         mAV.addObject("categorias", categoriaService.getAll());
+         mAV.addObject("marcas", marcaService.getAll()); 
+
     	ComentarioModel comentarioNuevo = new ComentarioModel();
     	comentarioNuevo.setComentario(comentario);
     	
