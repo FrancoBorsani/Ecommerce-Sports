@@ -4,16 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
@@ -168,5 +173,25 @@ public class ProductoController {
         
         return mAV;
     } 
+    
+    
+    @PostMapping("/agregarComentario")
+    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
+    	
+    	String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		}    	
+    	
+		User u = userRepository.findByUsername(username);
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+		u.setPassword(bCryptPasswordEncoder.encode(password));
+		userRepository.save(u);
+		
+    	return mAV;
+    }
+  
     
 }

@@ -36,8 +36,9 @@ public class Comentario {
     	
     }
     
-    public Comentario(long idComentario, String comentario, Producto producto) {
+    public Comentario(long idComentario, User user, String comentario, Producto producto) {
     	this.idComentario = idComentario;
+    	this.user = user;
     	this.comentario = comentario;
     	this.producto = producto;
     }
