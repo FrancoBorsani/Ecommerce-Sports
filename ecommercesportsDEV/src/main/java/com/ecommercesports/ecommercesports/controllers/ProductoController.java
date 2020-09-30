@@ -17,10 +17,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.converters.ProductoConverter;
 import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.models.ComentarioModel;
+import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
+import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
+import com.ecommercesports.ecommercesports.services.IComentarioService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
 
@@ -39,6 +44,25 @@ public class ProductoController {
     @Autowired
     @Qualifier("marcaService")
     private IMarcaService marcaService;
+    
+    
+    @Autowired
+    @Qualifier("comentarioService")
+    private IComentarioService comentarioService;
+    
+	@Autowired
+	@Qualifier("userRepository")
+	private IUserRepository userRepository;
+	
+	   @Autowired
+	    @Qualifier("productoRepository")
+	    private IProductoRepository productoRepository;
+
+	    @Autowired
+	    @Qualifier("productoConverter")
+	    private ProductoConverter productoConverter;
+	
+	
 
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
@@ -176,8 +200,16 @@ public class ProductoController {
     
     
     @PostMapping("/agregarComentario")
-    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario) {
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
+    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") long id) {
+    	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
+         mAV.addObject("producto", productoService.findByIdProducto(id));
+         
+    	
+    	
+    	
+    	ComentarioModel comentarioNuevo = new ComentarioModel();
+    	comentarioNuevo.setComentario(comentario);
+    	
     	
     	String username = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -186,9 +218,11 @@ public class ProductoController {
 		}    	
     	
 		User u = userRepository.findByUsername(username);
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
-		u.setPassword(bCryptPasswordEncoder.encode(password));
-		userRepository.save(u);
+		comentarioNuevo.setUser(u);		
+		comentarioNuevo.setProducto(productoRepository.findByIdProducto(id));
+		
+		comentarioService.insertOrUpdate(comentarioNuevo);
+    	
 		
     	return mAV;
     }

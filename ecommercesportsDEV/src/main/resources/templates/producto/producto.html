@@ -628,7 +628,24 @@
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
                         <span sec:authentication="name"></span>
                     </a>
-                   <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario"></textarea>
+                    <form method="post" th:action="@{/productos/agregarComentario}" >
+                   <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario" name="comentario"></textarea>
+                   
+                   
+                   
+                   
+           
+           
+                <select placeholder="Local" id="local" th:field="*{local.idLocal}" class="form-control form-control-sm">
+                    <option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal} + '- ' + ${l.direccion}"></option>
+                </select>
+          
+ 
+                   
+                   
+                   
+                   <input type="submit" value="Enviar">
+                 </form>
                   </li>
  </ul>
     
