@@ -304,8 +304,7 @@
                     </a>
                  <form method="post" th:action="@{/productos/agregarComentario}" >
                    <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario" name="comentario"></textarea>
-  <input id="id" name="id" type="hidden" value="${producto.idProducto}"/>
-             
+  <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
                    <input type="submit" value="Enviar">
                  </form>
                   </li>
