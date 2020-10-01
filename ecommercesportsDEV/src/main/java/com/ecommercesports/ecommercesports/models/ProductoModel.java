@@ -27,7 +27,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, List<Double> puntaje, double totalPuntaje) {
+			String sku, String talle, double totalPuntaje) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -36,7 +36,6 @@ public class ProductoModel {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
-		this.puntaje = puntaje;
 		this.totalPuntaje = totalPuntaje;
 	}
 
@@ -148,6 +147,28 @@ public class ProductoModel {
 	public void setTotalPuntaje(double totalPuntaje) {
 		this.totalPuntaje = totalPuntaje;
 	}
+	
+	
+	
+	
+	public void asignarPuntaje(double puntaje) {
+		this.puntaje.add(puntaje);
+		calcularPuntajeTotal();
+	}
+
+	public void calcularPuntajeTotal() {
+		double parcial = 0;
+		for(int i = 0; i < this.puntaje.size(); i++) {
+			parcial = parcial + this.puntaje.get(i);
+		}
+		
+		parcial = parcial / this.puntaje.size();
+		this.totalPuntaje = parcial;
+		
+	}
+	
+	
+	
 
 	@Override
 	public String toString() {
