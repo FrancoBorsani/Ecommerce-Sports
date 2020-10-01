@@ -349,8 +349,9 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-xs-12 col-md-6 text-center">
-                        <h1 class="rating-num" th:text="${producto.puntajeTotal}">
-                            </h1>
+<h1>
+    <span th:text="${producto.totalPuntaje}" th:remove="tag"> puntos</span>
+</h1>
                         <div class="rating">
                             <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
                             </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">

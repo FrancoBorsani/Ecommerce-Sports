@@ -56,12 +56,15 @@ public class Producto {
     @Column(name = "totalPuntaje")
     private double totalPuntaje;
     
+    @Column(name = "cantidadValoraciones")
+    private int cantidadValoraciones;
+    
     public Producto() {
     }
 
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
-			String descripcionLarga, String sku, String talle, double totalPuntaje) {
+			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -71,6 +74,7 @@ public class Producto {
 		this.sku = sku;
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -159,6 +163,16 @@ public class Producto {
 	
 	
 	
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
+	}
+
+
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
+	}
+
+
 	public List<Comentario> getListaComentarios() {
 		return listaComentarios;
 	}
@@ -174,7 +188,7 @@ public class Producto {
 
 
 	public void setTotalPuntaje(double totalPuntaje) {
-		this.totalPuntaje = totalPuntaje;
+		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
 	}
 
 

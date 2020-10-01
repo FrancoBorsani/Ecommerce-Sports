@@ -19,15 +19,15 @@ public class ProductoModel {
     private String talle;
     private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     private List<Comentario> listaComentarios;
-    private List<Double> puntaje;
     private double totalPuntaje;
+    private int cantidadValoraciones;
     
     public ProductoModel() {
     	
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -37,6 +37,7 @@ public class ProductoModel {
 		this.sku = sku;
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -122,20 +123,6 @@ public class ProductoModel {
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
 	}
-
-	
-	
-	
-	
-
-	public List<Double> getPuntaje() {
-		return puntaje;
-	}
-
-	public void setPuntaje(List<Double> puntaje) {
-		this.puntaje = puntaje;
-	}
-
 	
 	
 	
@@ -151,21 +138,29 @@ public class ProductoModel {
 	
 	
 	
-	public void asignarPuntaje(double puntaje) {
-		this.puntaje.add(puntaje);
-		calcularPuntajeTotal();
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
 	}
 
-	public void calcularPuntajeTotal() {
-		double parcial = 0;
-		for(int i = 0; i < this.puntaje.size(); i++) {
-			parcial = parcial + this.puntaje.get(i);
-		}
-		
-		parcial = parcial / this.puntaje.size();
-		this.totalPuntaje = parcial;
-		
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
+
+//	public void asignarPuntaje(double puntaje) {
+//		this.puntaje.add(puntaje);
+//		calcularPuntajeTotal();
+//	}
+
+//	public void calcularPuntajeTotal() {
+//		double parcial = 0;
+//		for(int i = 0; i < this.puntaje.size(); i++) {
+//			parcial = parcial + this.puntaje.get(i);
+//		}
+		
+//		parcial = parcial / this.puntaje.size();
+//		this.totalPuntaje = parcial;
+		
+//	}
 	
 	
 	

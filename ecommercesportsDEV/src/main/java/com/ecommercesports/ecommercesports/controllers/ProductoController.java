@@ -239,9 +239,15 @@ public class ProductoController {
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
-    	ProductoModel p = productoService.findByIdProducto(Long.parseLong(id));
-    	p.asignarPuntaje(puntaje);
-    	productoService.insertOrUpdate(p);    	
+    	 mAV.addObject("productos", productoService.productosDestacados());
+         mAV.addObject("categorias", categoriaService.getAll());
+         mAV.addObject("marcas", marcaService.getAll()); 
+    	System.out.println("EL PUNTAJE QUE LLEGA: "+ puntaje);
+   
+    	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
+    	p.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
+    	p.setTotalPuntaje(puntaje);
+    	productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
     	return mAV;
     }
   
