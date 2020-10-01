@@ -53,12 +53,18 @@ public class Producto {
     @OneToMany(mappedBy="producto")
     private List<Comentario> listaComentarios;
   
+    @Column(name = "puntaje")
+    private List<Double> puntaje;
+    
+    @Column(name = "totalPuntaje")
+    private double totalPuntaje;
+    
     public Producto() {
     }
 
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
-			String descripcionLarga, String sku, String talle) {
+			String descripcionLarga, String sku, String talle, List<Double> puntaje, double totalPuntaje) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -67,6 +73,8 @@ public class Producto {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
+		this.puntaje = puntaje;
+		this.totalPuntaje = totalPuntaje;
 	}
 
 
@@ -164,7 +172,50 @@ public class Producto {
 		this.listaComentarios = listaComentarios;
 	}
 
+	
+	
+	
 
+	public List<Double> getPuntaje() {
+		return puntaje;
+	}
+
+
+	public void setPuntaje(List<Double> puntaje) {
+		this.puntaje = puntaje;
+	}
+
+
+	
+	
+	
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = totalPuntaje;
+	}
+
+
+	public void asignarPuntaje(double puntaje) {
+		this.puntaje.add(puntaje);
+		calcularPuntajeTotal();
+	}
+
+	public void calcularPuntajeTotal() {
+		double parcial = 0;
+		for(int i = 0; i < this.puntaje.size(); i++) {
+			parcial = parcial + this.puntaje.get(i);
+		}
+		
+		parcial = parcial / this.puntaje.size();
+		this.totalPuntaje = parcial;
+		
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", marca=" + marca + ", precio=" + precio + ", color=" + color

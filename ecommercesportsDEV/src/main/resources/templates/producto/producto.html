@@ -580,6 +580,24 @@
                  </form>
                   </li>
  </ul>
+ <br></br>
+  <br></br>
+  
+    <p> VALORAR PRODUCTO </p>
+      <form method="post" th:action="@{/productos/valorar}" sec:authorize="isAuthenticated()">
+      <select name="puntaje" id="puntaje">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+		</select>
+		 <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
+                   <input type="submit" value="Enviar">
+                 </form>
+    
+    
+    
     
         
         

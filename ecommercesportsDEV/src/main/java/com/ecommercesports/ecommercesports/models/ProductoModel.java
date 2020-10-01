@@ -19,13 +19,15 @@ public class ProductoModel {
     private String talle;
     private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     private List<Comentario> listaComentarios;
+    private List<Double> puntaje;
+    private double totalPuntaje;
     
     public ProductoModel() {
     	
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle) {
+			String sku, String talle, List<Double> puntaje, double totalPuntaje) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -34,6 +36,8 @@ public class ProductoModel {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
+		this.puntaje = puntaje;
+		this.totalPuntaje = totalPuntaje;
 	}
 
 
@@ -118,6 +122,31 @@ public class ProductoModel {
 
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
+	}
+
+	
+	
+	
+	
+
+	public List<Double> getPuntaje() {
+		return puntaje;
+	}
+
+	public void setPuntaje(List<Double> puntaje) {
+		this.puntaje = puntaje;
+	}
+
+	
+	
+	
+	
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = totalPuntaje;
 	}
 
 	@Override

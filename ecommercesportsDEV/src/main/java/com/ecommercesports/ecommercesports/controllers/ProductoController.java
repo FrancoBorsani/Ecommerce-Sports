@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -228,6 +229,20 @@ public class ProductoController {
 		comentarioService.insertOrUpdate(comentarioNuevo);
     	
 		
+    	return mAV;
+    }
+    
+    
+    
+    
+
+    @PostMapping("/valorar")
+    public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
+    	p.asignarPuntaje(puntaje);
+    
+    	
     	return mAV;
     }
   
