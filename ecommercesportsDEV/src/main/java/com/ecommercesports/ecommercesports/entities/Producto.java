@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -48,14 +49,22 @@ public class Producto {
     
     @ManyToMany(mappedBy = "listaProductos")
     private List<Carrito> listaCarritos;
+
+    @OneToMany(mappedBy="producto")
+    private List<Comentario> listaComentarios;
     
-  
+    @Column(name = "totalPuntaje")
+    private double totalPuntaje;
+    
+    @Column(name = "cantidadValoraciones")
+    private int cantidadValoraciones;
+    
     public Producto() {
     }
 
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
-			String descripcionLarga, String sku, String talle,Categoria categoria) {
+			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -64,7 +73,8 @@ public class Producto {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
-		this.categoria = categoria;
+		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -149,6 +159,42 @@ public class Producto {
 	}
 
 
+	
+	
+	
+	
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
+	}
+
+
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
+	}
+
+
+	public List<Comentario> getListaComentarios() {
+		return listaComentarios;
+	}
+
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
+	}
+
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
+	}
+
+
+	
+
+	
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", marca=" + marca + ", precio=" + precio + ", color=" + color

@@ -215,9 +215,18 @@
                 <div class="profile-content">
                     <h4><strong>About Me</strong></h4>
                     <br>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto illo voluptatum alias molestias asperiores quod beatae ea quasi, 
-                    sed dolor perspiciatis nemo earum quisquam laboriosam molestiae optio, voluptatem quae labore.
-                </div>
+                 <form class="" th:action="@{/cambiarClavePost}" method="post">
+        <p class="">Ingrese su nueva clave:</p>
+        <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome" type="password" name="nuevaclave"> </p>
+    		 <button class="btn btn-lg btn-primary btn-block" type="submit">
+			Enviar
+		</button>
+   				 </form>
+                
+                
+                
+                    
+                    </div>
                 
                 
                 <a href="/cambiarClave">Cambiar clave de acceso</a>

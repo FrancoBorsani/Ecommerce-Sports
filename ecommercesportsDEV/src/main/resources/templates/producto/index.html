@@ -285,6 +285,24 @@
                 </div>
 
             </div>
+            
+                         <a>DEJAR UN COMENTARIO</a>
+  <br></br>
+<ul class="main-nav nav navbar-nav">
+  <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span sec:authentication="name"></span>
+                    </a>
+                 <form method="post" th:action="@{/productos/agregarComentario}" >
+                   <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario" name="comentario"></textarea>
+  <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
+                   <input type="submit" value="Enviar">
+                 </form>
+                  </li>
+ </ul>
+            
+            
         </div>
     </div>
 

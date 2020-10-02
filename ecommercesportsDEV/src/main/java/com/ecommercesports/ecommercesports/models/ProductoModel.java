@@ -1,10 +1,11 @@
 package com.ecommercesports.ecommercesports.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
-import com.ecommercesports.ecommercesports.entities.Categoria;
+import com.ecommercesports.ecommercesports.entities.Comentario;
 
 public class ProductoModel {
 
@@ -18,14 +19,16 @@ public class ProductoModel {
     private String talle;
     private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     private Categoria categoria;
-    
+    private List<Comentario> listaComentarios;
+    private double totalPuntaje;
+    private int cantidadValoraciones;
     
     public ProductoModel() {
     	
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, Categoria categoria) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -34,7 +37,8 @@ public class ProductoModel {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
-		this.setCategoria(categoria);
+		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -109,6 +113,58 @@ public class ProductoModel {
 	public void setListaCarritos(Set<Carrito> listaCarritos) {
 		this.listaCarritos = listaCarritos;
 	}
+	
+	
+	
+
+	public List<Comentario> getListaComentarios() {
+		return listaComentarios;
+	}
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
+	}
+	
+	
+	
+	
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = totalPuntaje;
+	}
+	
+	
+	
+	
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
+	}
+
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
+	}
+
+//	public void asignarPuntaje(double puntaje) {
+//		this.puntaje.add(puntaje);
+//		calcularPuntajeTotal();
+//	}
+
+//	public void calcularPuntajeTotal() {
+//		double parcial = 0;
+//		for(int i = 0; i < this.puntaje.size(); i++) {
+//			parcial = parcial + this.puntaje.get(i);
+//		}
+		
+//		parcial = parcial / this.puntaje.size();
+//		this.totalPuntaje = parcial;
+		
+//	}
+	
+	
+	
 
 	public Categoria getCategoria() {
 		return categoria;

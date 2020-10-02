@@ -4,19 +4,30 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.converters.ProductoConverter;
 import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.models.ComentarioModel;
+import com.ecommercesports.ecommercesports.models.ProductoModel;
+import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
+import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
+import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
+import com.ecommercesports.ecommercesports.services.IComentarioService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
 
@@ -35,6 +46,29 @@ public class ProductoController {
     @Autowired
     @Qualifier("marcaService")
     private IMarcaService marcaService;
+    
+    
+    @Autowired
+    @Qualifier("comentarioService")
+    private IComentarioService comentarioService;
+    
+	@Autowired
+	@Qualifier("userRepository")
+	private IUserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("comentarioRepository")
+	private IComentarioRepository comentarioRepository;
+	
+	   @Autowired
+	    @Qualifier("productoRepository")
+	    private IProductoRepository productoRepository;
+
+	    @Autowired
+	    @Qualifier("productoConverter")
+	    private ProductoConverter productoConverter;
+	
+	
 
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
@@ -80,6 +114,7 @@ public class ProductoController {
     public ModelAndView get(@PathVariable("id") long idProducto) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
+        mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         
         return mAV;
     }
@@ -284,5 +319,53 @@ public class ProductoController {
         
         return mAV;
     } 
+    
+    
+    @PostMapping("/agregarComentario")
+    public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") String id) {
+    	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	 mAV.addObject("productos", productoService.productosDestacados());
+         mAV.addObject("categorias", categoriaService.getAll());
+         mAV.addObject("marcas", marcaService.getAll()); 
+
+    	ComentarioModel comentarioNuevo = new ComentarioModel();
+    	comentarioNuevo.setComentario(comentario);
+    	
+    	
+    	String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+		  username = ((UserDetails)principal).getUsername();
+		}    	
+    	
+		User u = userRepository.findByUsername(username);
+		comentarioNuevo.setUser(u);		
+		comentarioNuevo.setProducto(productoRepository.findByIdProducto(Long.parseLong(id)));
+		
+		comentarioService.insertOrUpdate(comentarioNuevo);
+    	
+		
+    	return mAV;
+    }
+    
+    
+    
+    
+
+    @PostMapping("/valorar")
+    public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	 mAV.addObject("productos", productoService.productosDestacados());
+         mAV.addObject("categorias", categoriaService.getAll());
+         mAV.addObject("marcas", marcaService.getAll()); 
+    	System.out.println("EL PUNTAJE QUE LLEGA: "+ puntaje);
+   
+    	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
+    	p.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
+    	p.setTotalPuntaje(puntaje);
+    	productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
+    	return mAV;
+    }
+  
     
 }

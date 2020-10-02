@@ -1,7 +1,9 @@
 package com.ecommercesports.ecommercesports.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -52,6 +54,10 @@ public class User {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private Set<UserRole> userRoles = new HashSet<UserRole>();
+	
+	
+	@OneToMany(mappedBy="user")
+    private List<Comentario> listaComentarios;
 	
 	public User() {}
 	
@@ -154,5 +160,15 @@ public class User {
 		this.userRoles = userRoles;
 	}
 
+	public List<Comentario> getListaComentarios() {
+		return listaComentarios;
+	}
+
+	public void setListaComentarios(List<Comentario> listaComentarios) {
+		this.listaComentarios = listaComentarios;
+	}
+
+	
+	
 	
 }
