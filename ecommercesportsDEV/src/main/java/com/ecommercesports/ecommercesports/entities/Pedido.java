@@ -44,7 +44,6 @@ public class Pedido {
 	    public Pedido() {
 	    }
 
-
 		public Pedido(long idPedido,/*String cliente*/ String domicilio, int cantidad, /*Carrito carrito*/ double importeAPagar, String metodoPago, String comentario,
 				String estado) {
 
@@ -58,8 +57,6 @@ public class Pedido {
 			this.comentario = comentario;
 			this.estado = estado;
 		}
-
-
 
 		public long getIdPedido() {
 			return idPedido;
@@ -146,8 +143,13 @@ public class Pedido {
 		public void setEstado(String estado) {
 			this.estado = estado;
 		}
-	    
-	    
-	
 
+		@Override
+		public String toString() {
+			return "Pedido [idPedido=" + idPedido + ", domicilio=" + domicilio + ", cantidad=" + cantidad
+					+ ", importeAPagar=" + importeAPagar + ", metodoPago=" + metodoPago + ", comentario=" + comentario
+					+ ", estado=" + estado + "]";
+		}
+
+	    
 }

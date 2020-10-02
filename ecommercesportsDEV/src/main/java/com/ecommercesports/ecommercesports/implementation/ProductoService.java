@@ -77,4 +77,28 @@ public class ProductoService implements IProductoService {
 		// TODO Auto-generated method stub
 		return productoRepository.searchProduct(keyword);
 	}
+
+	@Override
+	public List<Producto> orderByPriceAsc() {
+		// TODO Auto-generated method stub
+		return productoRepository.orderByPriceAsc();
+	}
+
+	@Override
+	public List<Producto> orderByPriceDesc() {
+		// TODO Auto-generated method stub
+		return productoRepository.orderByPriceDesc();
+	}
+
+	@Override
+	public List<Producto> orderByNameAsc() {
+		// TODO Auto-generated method stub
+		return productoRepository.orderByNameAsc();
+	}
+
+	@Override
+	public List<Producto> orderByNameDesc() {
+		// TODO Auto-generated method stub
+		return productoRepository.orderByNameDesc();
+	}
 }

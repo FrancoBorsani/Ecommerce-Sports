@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
+import com.ecommercesports.ecommercesports.entities.Categoria;
 
 public class ProductoModel {
 
@@ -16,6 +17,7 @@ public class ProductoModel {
     private String sku;
     private String talle;
     private Set<Carrito> listaCarritos = new HashSet<Carrito>();
+    private Categoria categoria;
     
     
     public ProductoModel() {
@@ -23,7 +25,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle) {
+			String sku, String talle, Categoria categoria) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -32,6 +34,7 @@ public class ProductoModel {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
+		this.setCategoria(categoria);
 	}
 
 
@@ -107,11 +110,20 @@ public class ProductoModel {
 		this.listaCarritos = listaCarritos;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductoModel [idProducto=" + idProducto + ", precio=" + precio + ", color=" + color
 				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", marca="
-				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + "]";
+				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + ", categoria="
+				+ categoria + "]";
 	}
     
     

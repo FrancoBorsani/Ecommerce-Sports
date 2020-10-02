@@ -22,5 +22,18 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     
     @Query("SELECT p FROM Producto p WHERE CONCAT(p.descripcionCorta, ' ', p.descripcionLarga) LIKE %?1%")
     public abstract List<Producto> searchProduct(String keyword);
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p order by p.precio")
+    public abstract List<Producto> orderByPriceAsc();
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p order by p.precio desc")
+    public abstract List<Producto> orderByPriceDesc();
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p order by p.descripcionCorta")
+    public abstract List<Producto> orderByNameAsc();
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p order by p.descripcionCorta desc")
+    public abstract List<Producto> orderByNameDesc();
+    
        
 }

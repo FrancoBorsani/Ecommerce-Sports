@@ -55,7 +55,7 @@ public class Producto {
 
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
-			String descripcionLarga, String sku, String talle) {
+			String descripcionLarga, String sku, String talle,Categoria categoria) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -64,6 +64,7 @@ public class Producto {
 		this.descripcionLarga = descripcionLarga;
 		this.sku = sku;
 		this.talle = talle;
+		this.categoria = categoria;
 	}
 
 

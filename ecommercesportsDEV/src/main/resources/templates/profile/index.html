@@ -3,9 +3,6 @@
 
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="css/profileStyle.css">
 
 
@@ -33,12 +30,9 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form id="form-search">
-								<select class="input-select">
-									<option value="0">Todo</option>
-									<option value="1">Destacados</option>
-									<option value="1">Ofertas</option>
-								</select>
-								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
                                 <button class="search-btn">Buscar</button>
                                 <ul class="list-group" id="result"></ul>
 							</form>
@@ -151,7 +145,7 @@
 
     <!--PROFILE-->
     <div class="container">
-        <div class="row profile">
+        <div class="row p-2">
             <div class="col-md-3">
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
@@ -179,28 +173,28 @@
                     <div class="profile-usermenu">
                         <ul class="nav">
                             <li>
-                                <p>
+                                <p class="ml-2">
                                     <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
                                     Name Surname
                                 </p>
                             </li>
                             <li>
-                                <p><i class="fa fa-home info"></i>
+                                <p class="ml-2"><i class="fa fa-home info"></i>
                                     Direction
                                 </p>
                             </li>
                             <li>
-                                <p><i class="fa fa-envelope info"></i>
+                                <p class="ml-2"><i class="fa fa-envelope info"></i>
                                     Email
                                 </p>
                             </li>
                             <li>
-                                <p><i class="fa fa-phone info"></i>
+                                <p class="ml-2"><i class="fa fa-phone info"></i>
                                     Phone
                                 </p>
                             </li>
                             <li>
-                                <p>
+                                <p class="ml-2">
                                     <img src="/img/orderIcon.png" alt="" height="20px"  width="17px">
                                     <a href="/pedidos">My Orders</a>
                                 </p>
@@ -211,15 +205,14 @@
                     <!-- END MENU -->
                 </div>
             </div>
+            
             <div class="col-md-9">
                 <div class="profile-content">
                     <h4><strong>About Me</strong></h4>
                     <br>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto illo voluptatum alias molestias asperiores quod beatae ea quasi, 
                     sed dolor perspiciatis nemo earum quisquam laboriosam molestiae optio, voluptatem quae labore.
-                </div>
-                
-                
+                </div>              
                 <a href="/cambiarClave">Cambiar clave de acceso</a>
             </div>
         </div>

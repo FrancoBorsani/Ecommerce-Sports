@@ -27,6 +27,7 @@ INSERT INTO marca(id_marca,nombre) values (5,"Marca5");
 INSERT INTO marca(id_marca,nombre) values (6,"Marca6");
 
 /* Products */
+
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(1, "rojo", "Producto1", "Descripcion Producto1",1,4000,"sku1","talle1",1);
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(2, "rojo", "Producto2", "Descripcion Producto1",1,4000,"sku1","talle1",1);
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(3, "rojo", "Producto3", "Descripcion Producto1",1,3000,"sku1","talle1",1);
@@ -39,6 +40,13 @@ INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_i
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(10, "rojo","Producto10", "Descripcion Producto1",4,4000,"sku1","talle1",4);
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(12, "rojo","Producto11", "Descripcion Producto1",4,3000,"sku1","talle1",4);
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria) VALUES(13, "rojo","Producto12", "Descripcion Producto1",4,5000,"sku1","talle1",4);
+
+/* Pedidos */
+
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(1, 40, "Comentario1", "Domicilio1", "Pago", 4000, "Efectivo" );
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(2, 40, "Comentario2", "Domicilio2", "Pago", 3000, "Efectivo" );
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(3, 40, "Comentario3", "Domicilio3", "Pago", 2000, "Efectivo" );
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(4, 40, "Comentario4", "Domicilio4", "Pago", 1000, "Efectivo" );
 
 
 
