@@ -27,12 +27,9 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form id="form-search">
-								<select class="input-select">
-									<option value="0">Todo</option>
-									<option value="1">Destacados</option>
-									<option value="1">Ofertas</option>
-								</select>
-								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
                                 <button class="search-btn">Buscar</button>
                                 <ul class="list-group" id="result"></ul>
 							</form>
@@ -229,18 +226,12 @@
 						<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
-									</select>
-								</label>
-
-								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
+									Ordenar:
+									<select class="input-select" id="order-by">
+										<option value="0">Menor Precio</option>
+										<option value="1">Mayor Precio</option>
+										<option value="2">Nombre Descendente</option>
+										<option value="3">Nombre Ascendente</option>
 									</select>
 								</label>
 							</div>
@@ -344,6 +335,13 @@
 <script>
   $(document).ready(function () {
 	  
+	  var path = window.location.href;
+	  
+	  if(path.includes("_DisplayType_G_OrderId_PRICE*ASC")) $("#order-by").val("0").change();
+	  if(path.includes("_DisplayType_G_OrderId_PRICE*DESC")) $("#order-by").val("1").change();
+	  if(path.includes("_DisplayType_G_OrderId_NAME*ASC")) $("#order-by").val("3").change();
+	  if(path.includes("_DisplayType_G_OrderId_NAME*DESC")) $("#order-by").val("2").change();
+	  
 	  $("#search").keyup(function () {
 	      $("#result").html("");
 	      $("#state").val("");
@@ -386,10 +384,33 @@
 	      $("#result").html("");
 	    });
 	    
-	    $( "#form-search" ).submit(function(e) {
+	    $("#form-search").submit(function(e) {
 	    	  e.preventDefault();
 	    	  const searchField = $("#search").val();	    	  
 	    	  window.location.href = "/productos/search="+searchField+"_DisplayType_G";
+	    });
+	    
+	    $( "#order-by" ).change(function(e) {
+	    	var options = $( "#order-by option:selected" ).text();
+	    	var path = window.location.href;
+	    	
+	    	switch (options) {
+	    	  case 'Menor Precio':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_PRICE*ASC";
+	    	    break;
+	    	  case 'Mayor Precio':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_PRICE*DESC";
+	    	    break;
+	    	  case 'Nombre Ascendente':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_NAME*ASC";
+	    	    break;
+	    	  case 'Nombre Descendente':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_NAME*DESC";
+	    	    break;
+	    	  default:
+	    	    console.log('error');
+	    	}
+	    	
 	    });
 	    
   });

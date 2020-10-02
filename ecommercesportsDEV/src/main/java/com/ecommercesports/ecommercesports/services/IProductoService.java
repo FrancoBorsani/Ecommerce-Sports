@@ -21,6 +21,14 @@ public interface IProductoService {
     
     public List<Producto> searchProduct(String keyword);
     
+    public abstract List<Producto> orderByPriceAsc();
+    
+    public abstract List<Producto> orderByPriceDesc();
+    
+    public abstract List<Producto> orderByNameAsc();
+    
+    public abstract List<Producto> orderByNameDesc();
+    
 	public List<Producto> productosDestacados();
 	
 }

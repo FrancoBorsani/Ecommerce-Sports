@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -129,6 +130,28 @@ public class ProductoController {
         return mAV;
     }
     
+    @GetMapping("/categorias/{id}_DisplayType_LF")
+    public ModelAndView getByCategoriaDisplayType_LF(@PathVariable("id") String categoria) {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        
+        mAV.addObject("productos",productoService.findByCategoria(categoria));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/categorias/{id}_DisplayType_G")
+    public ModelAndView getByCategoriaDisplayType_G(@PathVariable("id") String categoria) {
+        ModelAndView mAV = new ModelAndView("producto/cards");
+        
+        mAV.addObject("productos",productoService.findByCategoria(categoria));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
     @GetMapping("/marcas/{id}")
     public ModelAndView getByMarca(@PathVariable("id") String marca) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
@@ -147,16 +170,20 @@ public class ProductoController {
 	}
     
     @GetMapping("/search={id}")
-    public ModelAndView search(@PathVariable("id") String keyword) {
+    public ModelAndView search(@PathVariable("id") String keyword,Model model) {
     	
     	if (productoService.searchProduct(keyword).size() == 0) { 
-    		return new ModelAndView("producto/notFound");
+    		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_NOT_FOUND);
+    		model.addAttribute("searchTerm", keyword);
+    		
+    		return mAV;
     	}else {
     		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
             
             mAV.addObject("productos",productoService.searchProduct(keyword));
             mAV.addObject("categorias", categoriaService.getAll());
             mAV.addObject("marcas", marcaService.getAll());
+            model.addAttribute("searchTerm", keyword);
             
             return mAV;
     	}
@@ -179,6 +206,94 @@ public class ProductoController {
     	}
     	
     }
+    
+    @GetMapping("/_OrderId_PRICE*DESC")
+    public ModelAndView orderByPriceDesc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        
+        mAV.addObject("productos",productoService.orderByPriceDesc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_OrderId_PRICE*ASC")
+    public ModelAndView orderByPriceAsc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        
+        mAV.addObject("productos",productoService.orderByPriceAsc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_OrderId_NAME*DESC")
+    public ModelAndView orderByNameDesc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        
+        mAV.addObject("productos",productoService.orderByNameDesc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_OrderId_NAME*ASC")
+    public ModelAndView orderByNameAsc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
+        
+        mAV.addObject("productos",productoService.orderByNameAsc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_DisplayType_G_OrderId_PRICE*DESC")
+    public ModelAndView orderByPriceDescDisplay_G() {
+        ModelAndView mAV = new ModelAndView("producto/cards");
+        
+        mAV.addObject("productos",productoService.orderByPriceDesc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_DisplayType_G_OrderId_PRICE*ASC")
+    public ModelAndView orderByPriceAscDisplay_G() {
+        ModelAndView mAV = new ModelAndView("producto/cards");
+        
+        mAV.addObject("productos",productoService.orderByPriceAsc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_DisplayType_G_OrderId_NAME*DESC")
+    public ModelAndView orderByNameDescDisplay_G() {
+        ModelAndView mAV = new ModelAndView("producto/cards");
+        
+        mAV.addObject("productos",productoService.orderByNameDesc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
+    
+    @GetMapping("/_DisplayType_G_OrderId_NAME*ASC")
+    public ModelAndView orderByNameAscDisplay_G() {
+        ModelAndView mAV = new ModelAndView("producto/cards");
+        
+        mAV.addObject("productos",productoService.orderByNameAsc());
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+
+        return mAV;
+    }
 
     @PostMapping("/back")
     public RedirectView back() {
@@ -194,6 +309,7 @@ public class ProductoController {
         
         return mAV;
     }
+    
     @GetMapping("/destacados_DPT_G")
     public ModelAndView destacados_DisplayType_G() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);

@@ -16,8 +16,7 @@ public class ProductoConverter {
 
     public ProductoModel entityToModel(Producto producto) {
         return new ProductoModel(producto.getIdProducto(),producto.getPrecio(), producto.getColor(), producto.getDescripcionCorta(),
-                producto.getDescripcionLarga(),producto.getSku(), producto.getTalle(), producto.getTotalPuntaje(), producto.getCantidadValoraciones());
-    }
+                producto.getDescripcionLarga(),producto.getSku(), producto.getTalle(), producto.getTotalPuntaje(), producto.getCantidadValoraciones());    }
 
     public Producto modelToEntity(ProductoModel productoModel) {
         return new Producto(productoModel.getIdProducto(),productoModel.getPrecio(), productoModel.getColor(), productoModel.getDescripcionCorta(),

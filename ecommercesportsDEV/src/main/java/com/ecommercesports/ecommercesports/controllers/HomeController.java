@@ -24,5 +24,5 @@ public class HomeController {
 	public String info_Institucional() {
 		return ViewRouteHelpers.INFO;
 	}
-
+	
 }

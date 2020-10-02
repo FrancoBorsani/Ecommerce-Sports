@@ -18,6 +18,7 @@ public class ProductoModel {
     private String sku;
     private String talle;
     private Set<Carrito> listaCarritos = new HashSet<Carrito>();
+    private Categoria categoria;
     private List<Comentario> listaComentarios;
     private double totalPuntaje;
     private int cantidadValoraciones;
@@ -165,11 +166,20 @@ public class ProductoModel {
 	
 	
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductoModel [idProducto=" + idProducto + ", precio=" + precio + ", color=" + color
 				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", marca="
-				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + "]";
+				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + ", categoria="
+				+ categoria + "]";
 	}
     
     
