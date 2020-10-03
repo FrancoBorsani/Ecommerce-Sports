@@ -34,6 +34,9 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p order by p.descripcionCorta desc")
     public abstract List<Producto> orderByNameDesc();
-    
-       
+
+    @Query(nativeQuery=true, value="SELECT * FROM producto" +
+            " INNER JOIN tag_productos ON producto.id_producto = productos_id_producto" +
+            " WHERE tags_id_tag =  (:idTag)")
+    List<Producto> getRelated(long idTag);
 }

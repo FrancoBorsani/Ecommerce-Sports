@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost/ecommerce_sports?serverTimezone=UTC
     username: root 
-    password: 
+    password: toor
     #initialization-mode: always #never
   jpa:
     show-sql: false #true
@@ -19,7 +19,8 @@ spring:
     port: 587
     username: proyectodesoftwaretp@gmail.com
     password: 2771999tpps
-    properties:      mail:
+    properties:
+      mail:
         smtp:
           starttls :
             enable : true

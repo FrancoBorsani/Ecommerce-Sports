@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
+import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Comentario;
+import com.ecommercesports.ecommercesports.entities.Tag;
 
 public class ProductoModel {
 
@@ -22,13 +24,13 @@ public class ProductoModel {
     private List<Comentario> listaComentarios;
     private double totalPuntaje;
     private int cantidadValoraciones;
-    
+    private List<Tag> tags;
+
     public ProductoModel() {
-    	
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -39,8 +41,8 @@ public class ProductoModel {
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
+		this.tags = tags;
 	}
-
 
 	public long getIdProducto() {
         return idProducto;
@@ -113,9 +115,6 @@ public class ProductoModel {
 	public void setListaCarritos(Set<Carrito> listaCarritos) {
 		this.listaCarritos = listaCarritos;
 	}
-	
-	
-	
 
 	public List<Comentario> getListaComentarios() {
 		return listaComentarios;
@@ -124,10 +123,7 @@ public class ProductoModel {
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
 	}
-	
-	
-	
-	
+
 	public double getTotalPuntaje() {
 		return totalPuntaje;
 	}
@@ -135,10 +131,7 @@ public class ProductoModel {
 	public void setTotalPuntaje(double totalPuntaje) {
 		this.totalPuntaje = totalPuntaje;
 	}
-	
-	
-	
-	
+
 	public int getCantidadValoraciones() {
 		return cantidadValoraciones;
 	}
@@ -146,25 +139,6 @@ public class ProductoModel {
 	public void setCantidadValoraciones(int cantidadValoraciones) {
 		this.cantidadValoraciones = cantidadValoraciones;
 	}
-
-//	public void asignarPuntaje(double puntaje) {
-//		this.puntaje.add(puntaje);
-//		calcularPuntajeTotal();
-//	}
-
-//	public void calcularPuntajeTotal() {
-//		double parcial = 0;
-//		for(int i = 0; i < this.puntaje.size(); i++) {
-//			parcial = parcial + this.puntaje.get(i);
-//		}
-		
-//		parcial = parcial / this.puntaje.size();
-//		this.totalPuntaje = parcial;
-		
-//	}
-	
-	
-	
 
 	public Categoria getCategoria() {
 		return categoria;
@@ -174,14 +148,31 @@ public class ProductoModel {
 		this.categoria = categoria;
 	}
 
-	@Override
-	public String toString() {
-		return "ProductoModel [idProducto=" + idProducto + ", precio=" + precio + ", color=" + color
-				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", marca="
-				+ marca + ", sku=" + sku + ", talle=" + talle + ", listaCarritos=" + listaCarritos + ", categoria="
-				+ categoria + "]";
-	}
-    
-    
-    
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoModel{" +
+                "idProducto=" + idProducto +
+                ", precio=" + precio +
+                ", color='" + color + '\'' +
+                ", descripcionCorta='" + descripcionCorta + '\'' +
+                ", descripcionLarga='" + descripcionLarga + '\'' +
+                ", marca='" + marca + '\'' +
+                ", sku='" + sku + '\'' +
+                ", talle='" + talle + '\'' +
+                ", listaCarritos=" + listaCarritos +
+                ", categoria=" + categoria +
+                ", listaComentarios=" + listaComentarios +
+                ", totalPuntaje=" + totalPuntaje +
+                ", cantidadValoraciones=" + cantidadValoraciones +
+                ", tags=" + tags +
+                '}';
+    }
 }

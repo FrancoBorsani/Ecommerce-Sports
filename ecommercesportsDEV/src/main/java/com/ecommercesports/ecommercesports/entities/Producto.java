@@ -58,13 +58,16 @@ public class Producto {
     
     @Column(name = "cantidadValoraciones")
     private int cantidadValoraciones;
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Tag> tags;
     
     public Producto() {
     }
 
-
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
-			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones) {
+			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
+                    List<Tag> tags) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -75,8 +78,8 @@ public class Producto {
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
-	}
-
+        this.tags = tags;
+    }
 
 	public long getIdProducto() {
         return idProducto;
@@ -158,25 +161,17 @@ public class Producto {
 		this.categoria = categoria;
 	}
 
-
-	
-	
-	
-	
 	public int getCantidadValoraciones() {
 		return cantidadValoraciones;
 	}
-
 
 	public void setCantidadValoraciones(int cantidadValoraciones) {
 		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
-
 	public List<Comentario> getListaComentarios() {
 		return listaComentarios;
 	}
-
 
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
@@ -186,22 +181,35 @@ public class Producto {
 		return totalPuntaje;
 	}
 
-
 	public void setTotalPuntaje(double totalPuntaje) {
 		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
 	}
 
+    public List<Tag> getTags() {
+        return tags;
+    }
 
-	
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
-	
-	@Override
-	public String toString() {
-		return "Producto [idProducto=" + idProducto + ", marca=" + marca + ", precio=" + precio + ", color=" + color
-				+ ", descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga + ", sku=" + sku
-				+ ", talle=" + talle + ", categoria=" + categoria + ", listaCarritos=" + listaCarritos + "]";
-	}
-	
-	
-
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "idProducto=" + idProducto +
+                ", precio=" + precio +
+                ", color='" + color + '\'' +
+                ", descripcionCorta='" + descripcionCorta + '\'' +
+                ", descripcionLarga='" + descripcionLarga + '\'' +
+                ", sku='" + sku + '\'' +
+                ", talle='" + talle + '\'' +
+                ", categoria=" + categoria +
+                ", marca=" + marca +
+                ", listaCarritos=" + listaCarritos +
+                ", listaComentarios=" + listaComentarios +
+                ", totalPuntaje=" + totalPuntaje +
+                ", cantidadValoraciones=" + cantidadValoraciones +
+                ", tags=" + tags +
+                '}';
+    }
 }

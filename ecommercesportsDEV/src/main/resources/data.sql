@@ -26,6 +26,17 @@ INSERT INTO marca(id_marca,nombre) values (4,"Marca4");
 INSERT INTO marca(id_marca,nombre) values (5,"Marca5");
 INSERT INTO marca(id_marca,nombre) values (6,"Marca6");
 
+/* Tags*/
+
+INSERT INTO tag(id_tag, nombre) VALUES (1, "Tag1");
+INSERT INTO tag(id_tag, nombre) VALUES (2, "Tag2");
+INSERT INTO tag(id_tag, nombre) VALUES (3, "Tag3");
+INSERT INTO tag(id_tag, nombre) VALUES (4, "Tag4");
+INSERT INTO tag(id_tag, nombre) VALUES (5, "Tag5");
+INSERT INTO tag(id_tag, nombre) VALUES (6, "Tag6");
+INSERT INTO tag(id_tag, nombre) VALUES (7, "Tag7");
+INSERT INTO tag(id_tag, nombre) VALUES (8, "Tag8");
+
 /* Products */
 
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones) VALUES(1, "rojo", "Producto1", "Descripcion Producto1",1,4000,"sku1","talle1",1, 0, 0);
@@ -48,7 +59,16 @@ INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar
 INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(3, 40, "Comentario3", "Domicilio3", "Pago", 2000, "Efectivo" );
 INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(4, 40, "Comentario4", "Domicilio4", "Pago", 1000, "Efectivo" );
 
+/* Producto - Tag */
 
-
-
-
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (1, 1);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (1, 2);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (2, 1);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (3, 3);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (3, 4);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (4, 4);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (4, 5);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (4, 6);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
+INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);

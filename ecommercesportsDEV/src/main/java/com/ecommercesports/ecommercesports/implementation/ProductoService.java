@@ -2,7 +2,9 @@ package com.ecommercesports.ecommercesports.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.ecommercesports.ecommercesports.entities.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -101,4 +103,22 @@ public class ProductoService implements IProductoService {
 		// TODO Auto-generated method stub
 		return productoRepository.orderByNameDesc();
 	}
+
+    @Override
+    public List<Producto> getRelated(long idProducto) {
+        List<Producto> relacionados = new ArrayList<>();
+        Producto producto = productoRepository.findByIdProducto(idProducto);
+
+        for (Tag tag: producto.getTags()) {
+            for (Producto pRel: productoRepository.getRelated(tag.getId())) {
+                if (pRel.getIdProducto() != idProducto) {
+                    relacionados.add(pRel);
+                }
+            }
+        }
+
+        relacionados = relacionados.stream().distinct().collect(Collectors.toList());
+
+        return relacionados;
+    }
 }

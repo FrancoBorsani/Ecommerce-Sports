@@ -115,6 +115,7 @@ public class ProductoController {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_SELECCIONADO);
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
         mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
+        mAV.addObject("relacionados", productoService.getRelated(idProducto));
         
         return mAV;
     }
