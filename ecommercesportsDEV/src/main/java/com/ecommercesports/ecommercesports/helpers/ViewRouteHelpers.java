@@ -38,11 +38,14 @@ public class ViewRouteHelpers {
     public final static String USER_RECUPERARCLAVE = "acceso/recuperarclave";
     public final static String USER_VERIFICARCLAVE = "acceso/ingresoTemporal";
     public final static String USER_CAMBIARCLAVE = "profile/cambiarclave";
+    public final static String USER_UPDATE_USER = "profile/editarUsuario";
+    
     
     //redirects	
   	public final static String ROUTE_INDEX = "/";
     
     //Perfil
     public final static String PROFILE_INDEX = "profile/index";
+
   	
 }

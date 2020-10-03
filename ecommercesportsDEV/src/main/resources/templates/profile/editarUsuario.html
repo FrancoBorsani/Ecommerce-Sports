@@ -3,9 +3,6 @@
 
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <link rel="stylesheet" href="css/profileStyle.css">
 
 
@@ -33,12 +30,9 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form id="form-search">
-								<select class="input-select">
-									<option value="0">Todo</option>
-									<option value="1">Destacados</option>
-									<option value="1">Ofertas</option>
-								</select>
-								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
                                 <button class="search-btn">Buscar</button>
                                 <ul class="list-group" id="result"></ul>
 							</form>
@@ -149,83 +143,34 @@
     </nav>
     <!-- /NAVIGATION -->
 
-    <!--PROFILE-->
-        <div class="container">
-            <div class="row profile">
-                <div class="col-md-3">
-                    <div class="profile-sidebar">
-                        <!-- SIDEBAR USERPIC -->
-                        <div class="profile-userpic">
-                            <img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">
-                        </div>
-                        <!-- END SIDEBAR USERPIC -->
-                        <!-- SIDEBAR USER TITLE -->
-                            <div class="profile-usertitle">
-                                <div class="profile-usertitle-name">
-                                    <h2 th:text ="${usuarioUsername}  ">
-                                        USERNAME
-                                    </h2>
-                                </div>
-                                <div class= "profile-usertitle-role" >
-                                    <h4 th:text ="${usuarioRole}"> ROLE </h4>
-                                </div>
-                            <!-- BUTTON TO EDDIT USER -->
-                                <div>
-                                	<h5><a href="/updateProfile">Modificar Datos</a></h5>
-                                </div>
-                            </div>
-                            <!-- END SIDEBAR USER TITLE -->
-                            <!-- SIDEBAR BUTTON -->
-                            <br>
-                            <!-- END SIDEBAR BUTTONS -->
-                            <!-- SIDEBAR MENU -->
-                            <div class="profile-usermenu">
-                                <ul class="nav">
-                                    <li>
-                                        <p>
-                                            <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
-                                            <span th:text="|${usuarioNombre} ${usuarioApellido} |"></span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fa fa-home info"> DIRECTION </i>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
-                                            <span th:text="${usuarioEmail}"></span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fa fa-phone info"> PHONE </i>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <img src="/img/orderIcon.png" alt="" height="15px"  width="14px">
-                                            <a href="/pedidos">My Orders</a>
-                                        </p>
-                                    </li>
-                                    
-                                </ul>
-                            </div>
-                        <!-- END MENU -->
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="profile-content">
-                        <h4><strong>About Me</strong></h4>
-                        <br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto illo voluptatum alias molestias asperiores quod beatae ea quasi, 
-                        sed dolor perspiciatis nemo earum quisquam laboriosam molestiae optio, voluptatem quae labore.
-                    </div>
-                    <a href="/cambiarClave">Cambiar clave de acceso</a>
-                </div>
+    <!--EDIT PROFILE-MENU -->
+    <div class="container">
+        <div class="row p-2">
+
+            
+            <div class="col-md-9">
+                <div class="profile-content">
+                    <br>
+                    <form class="" th:action="@{/updateProfilePost}" method="post">
+        <p class="">Username:</p>
+        <p> <input class="InputStyle" placeholder="Username" style="font-family:Arial, FontAwesome" type="text" name="nuevoUsername"> </p>
+
+		        <p class="">Nombre:</p>
+        <p> <input class="InputStyle" placeholder="Nombre" style="font-family:Arial, FontAwesome" type="text" name="nuevoNombre"> </p>
+
+		        <p class="">Apellido:</p>
+        <p> <input class="InputStyle" placeholder="Apellido" style="font-family:Arial, FontAwesome" type="text" name="nuevoApellido"> </p>
+    		 
+    		 <button class="btn btn-lg btn-primary btn-block" type="submit">
+			<small>Guardar Cambios</small> 
+		</button>
+</form>
+                </div>           
+                <a href="/updateProfile/cancel">CANCELAR</a>   
             </div>
         </div>
+    </div>
 
-        </div>
 
     <!-- FOOTER -->
     <footer id="footer">
@@ -267,3 +212,6 @@
 </body>
 
 </html>
+
+
+

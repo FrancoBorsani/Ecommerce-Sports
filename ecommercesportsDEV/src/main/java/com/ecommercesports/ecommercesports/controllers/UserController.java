@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.entities.UserRole;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.PerfilService;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
 import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
@@ -57,6 +59,10 @@ public class UserController {
 	@Qualifier("userRoleService")
 	private UserRoleService userRoleService;
 	
+	@Autowired
+	@Qualifier("perfilService")
+	private PerfilService perfilService;
+	
 	
 	@GetMapping("/registro")
 	public ModelAndView registro() {
@@ -79,7 +85,9 @@ public class UserController {
 		else {
 			newUSer.setEnabled(true);
 			userRepository.save(newUSer);
-			userRoleRepository.save(new UserRole(userRepository.findByUsername(newUSer.getUsername()),"ROLE_USER"));
+			userRoleRepository.save(new UserRole(userRepository.findByUsername(newUSer.getUsername()),"ROLE_USER"));			
+			
+			perfilService.insertOrUpdateProfile(newUSer);
 		}
 		
 		System.out.println("-----------------------------------------");
@@ -237,30 +245,70 @@ public class UserController {
 		return new RedirectView(ViewRouteHelpers.HOME);
 	}
 
-	@PostMapping("/update")
-	public RedirectView update(User user) {
-		userRepository.save(user);	
-
-		return new RedirectView(ViewRouteHelpers.HOME);
+	
+	@GetMapping("/updateProfile")
+	public ModelAndView updateProfile() {
+		ModelAndView mAV=new ModelAndView(ViewRouteHelpers.USER_UPDATE_USER);
+		return mAV;
+	}
+	
+	@PostMapping("/updateProfilePost")
+	public String updateProfilePost(@RequestParam("nuevoUsername") String nuevoUsername ,
+									@RequestParam("nuevoNombre") String nuevoNombre,
+									@RequestParam("nuevoApellido") String nuevoApellido) {
+    	
+		String currentUsername = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			currentUsername = ((UserDetails)principal).getUsername();
+		}    	
+    	
+		User currentUser = userRepository.findByUsername(currentUsername);
+		currentUser.setUsername(nuevoUsername);
+		currentUser.setFirstName(nuevoNombre);
+		currentUser.setLastName(nuevoApellido);
+		userRepository.save(currentUser);
+		
+		perfilService.insertOrUpdateProfile(currentUser); //cambio el username en perfil	
+		return "redirect:/";
 	}	
+	
+	
+    @GetMapping("/updateProfile/cancel")
+	public String canceUpdateProfile(ModelMap model) {
+		return "redirect:/profile";
+	}
 	
     @GetMapping("/profile")
     public ModelAndView viewProfile() {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
-    	return mAV;
+    	
+    	String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	UserRole role = userRoleRepository.findById(currentUser.getId());
+    	
+    	
+    	mAV.addObject("usuarioUsername", currentUser.getUsername());
+    	mAV.addObject("usuarioRole", role.getRole());
+    	mAV.addObject("usuarioNombre", currentUser.getFirstName());
+    	mAV.addObject("usuarioApellido", currentUser.getLastName());
+    	mAV.addObject("usuarioEmail", currentUser.getEmail());
+        return mAV; 
     }
     
     
     @GetMapping("/cambiarClave")
     public ModelAndView cambiarClave() {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_CAMBIARCLAVE);
-    	
     	return mAV;
     }
     @PostMapping("/cambiarClavePost")
-    public ModelAndView cambiarClavePost(@RequestParam("nuevaclave") String password) {
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
-    	
+    public String cambiarClavePost(@RequestParam("nuevaclave") String password) {    	
     	
     	String username = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -273,14 +321,8 @@ public class UserController {
 		u.setPassword(bCryptPasswordEncoder.encode(password));
 		userRepository.save(u);
 		
-    	return mAV;
+		return "redirect:/profile";
     }
-    
-    
-    
-    
-    
-    
     
     
 }
