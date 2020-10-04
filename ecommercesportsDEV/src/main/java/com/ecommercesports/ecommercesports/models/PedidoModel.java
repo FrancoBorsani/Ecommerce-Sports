@@ -1,31 +1,58 @@
 package com.ecommercesports.ecommercesports.models;
 
+import org.springframework.lang.Nullable;
+
+import com.ecommercesports.ecommercesports.entities.User;
+
 public class PedidoModel {
+	
 	private long idPedido;
-   //private String cliente; (que haya un metodo en cliente que te devuelva el nombre completo del cliente y lo guardes en este campo)
+	
+	@Nullable
 	private String domicilio;
-   //private Carrito carrito;
+	
+	private User user;
+	
+	private CarritoModel carritoModel;
+    
+	@Nullable
 	private int cantidad;
+    
+	@Nullable
 	private double importeAPagar;
+    
+	@Nullable
 	private String metodoPago;
+    
+	@Nullable
 	private String comentario;
+    
+	@Nullable
 	private String estado;
 	
-	
-	public PedidoModel(long idPedido,/*String cliente*/ String domicilio, int cantidad, /*Carrito carrito*/ double importeAPagar, String metodoPago, String comentario,
-			String estado) {
+	public PedidoModel() { }
 
+	public PedidoModel(long idPedido, User user, CarritoModel carritoModel) {
+		super();
 		this.idPedido = idPedido;
-		//this.cliente = cliente;
+		this.user = user;
+		this.carritoModel = carritoModel;
+	}
+
+
+	public PedidoModel(long idPedido, String domicilio, User user, CarritoModel carritoModel, int cantidad,
+			double importeAPagar, String metodoPago, String comentario, String estado) {
+		super();
+		this.idPedido = idPedido;
 		this.domicilio = domicilio;
+		this.user = user;
+		this.carritoModel = carritoModel;
 		this.cantidad = cantidad;
-		//this.carrito = Carrito;
 		this.importeAPagar = importeAPagar;
 		this.metodoPago = metodoPago;
 		this.comentario = comentario;
 		this.estado = estado;
 	}
-
 
 	public long getIdPedido() {
 		return idPedido;
@@ -35,26 +62,6 @@ public class PedidoModel {
 		this.idPedido = idPedido;
 	}
 
-/*
-	public String getCliente() {
-		return cliente;
-	}
-	
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
-	
-	
-	public Carrito getCarrito() {
-		return carrito;
-	}
-	
-	public void setCarrito(Carrito carrito) {
-		this.carrito = carrito;
-	}
-*/
-	
-	
 	public String getDomicilio() {
 		return domicilio;
 	}
@@ -63,7 +70,22 @@ public class PedidoModel {
 		this.domicilio = domicilio;
 	}
 
-	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public CarritoModel getCarritoModel() {
+		return carritoModel;
+	}
+
+	public void setCarritoModel(CarritoModel carritoModel) {
+		this.carritoModel = carritoModel;
+	}
+
 	public int getCantidad() {
 		return cantidad;
 	}
@@ -71,7 +93,6 @@ public class PedidoModel {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-
 
 	public double getImporteAPagar() {
 		return importeAPagar;
@@ -81,7 +102,6 @@ public class PedidoModel {
 		this.importeAPagar = importeAPagar;
 	}
 
-
 	public String getMetodoPago() {
 		return metodoPago;
 	}
@@ -90,7 +110,6 @@ public class PedidoModel {
 		this.metodoPago = metodoPago;
 	}
 
-	
 	public String getComentario() {
 		return comentario;
 	}
@@ -99,7 +118,6 @@ public class PedidoModel {
 		this.comentario = comentario;
 	}
 
-	
 	public String getEstado() {
 		return estado;
 	}
@@ -107,5 +125,12 @@ public class PedidoModel {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	@Override
+	public String toString() {
+		return "PedidoModel [idPedido=" + idPedido + ", domicilio=" + domicilio + ", user=" + user + ", carritoModel="
+				+ carritoModel + ", cantidad=" + cantidad + ", importeAPagar=" + importeAPagar + ", metodoPago="
+				+ metodoPago + ", comentario=" + comentario + ", estado=" + estado + "]";
+	}
 	
-}
+}//Fin class

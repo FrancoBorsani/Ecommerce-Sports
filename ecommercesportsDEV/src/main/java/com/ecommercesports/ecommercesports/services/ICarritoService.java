@@ -14,5 +14,7 @@ public interface ICarritoService {
 	public CarritoModel findByIdCarrito(long idCarrito);
 	
 	public boolean remove(long idCarrito);
+
+	public Carrito carritoDelUserLogueado();
 	
-}
+}//Fin interface

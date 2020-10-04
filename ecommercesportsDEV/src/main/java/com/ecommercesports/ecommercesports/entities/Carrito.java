@@ -2,14 +2,17 @@ package com.ecommercesports.ecommercesports.entities;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -19,16 +22,10 @@ public class Carrito {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long idCarrito;
+	private long idCarrito;	
 	
-	
-	 @ManyToMany(cascade = CascadeType.ALL)
-	 private List<Producto> listaProductos;
-	
-	
-	
-//	@ManyToMany(mappedBy = "listaCarritos")
-//	private List<Producto> listaProductos = new ArrayList<Producto>();
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="carrito")
+	 private Set<Item> listaItems;
 
 	@Column(name = "fecha")
 	private LocalDate fecha;
@@ -55,13 +52,13 @@ public class Carrito {
 	}
 
 
-	public List<Producto> getListaProductos() {
-		return listaProductos;
+	public Set<Item> getListaItems() {
+		return listaItems;
 	}
 
 
-	public void setListaProductos(List<Producto> listaProductos) {
-		this.listaProductos = listaProductos;
+	public void setListaItems(Set<Item> listaItems) {
+		this.listaItems = listaItems;
 	}
 
 
@@ -84,6 +81,4 @@ public class Carrito {
 		this.total = total;
 	}
 
-}
-
-	
+}//Fin class

@@ -2,61 +2,78 @@ package com.ecommercesports.ecommercesports.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name="pedido")
 public class Pedido {
-	 @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private long idPedido;
-
-	 /*
-	    @Column(name = "cliente")
-	    private String cliente;   (que haya un metodo en cliente que te devuelva el nombre completo del cliente y lo guardes en este campo)
+	    private long idPedido; 
 	 
-	    @Column(name = "carrito")
-	    private Carrito carrito;
-	 */  
-	 
+	    @Nullable
 	    @Column(name = "domicilio")
 	    private String domicilio;
+
+	    @OneToOne(fetch=FetchType.LAZY)
+		private User user;
+
+	    @OneToOne(fetch=FetchType.LAZY)
+		private Carrito carrito;
 	    
+		@Nullable
 	    @Column(name = "cantidad")
 	    private int cantidad;
 
+		@Nullable
 	    @Column(name = "importeAPagar")
 	    private double importeAPagar;
 
+		@Nullable
 	    @Column(name = "metodoPago")
 	    private String metodoPago;
 
+		@Nullable
 	    @Column(name = "comentario")
 	    private String comentario;
-
+		
+		@Nullable
 	    @Column(name = "estado")
 	    private String estado;
 
 
-	    public Pedido() {
-	    }
+	    public Pedido() { }
 
-		public Pedido(long idPedido,/*String cliente*/ String domicilio, int cantidad, /*Carrito carrito*/ double importeAPagar, String metodoPago, String comentario,
-				String estado) {
-
+		public Pedido(long idPedido, User user, Carrito carrito) {
+			super();
 			this.idPedido = idPedido;
-			//this.cliente = cliente;
+			this.user = user;
+			this.carrito = carrito;
+		}
+
+
+
+		public Pedido(long idPedido, String domicilio, User user, Carrito carrito, int cantidad, double importeAPagar,
+				String metodoPago, String comentario, String estado) {
+			super();
+			this.idPedido = idPedido;
 			this.domicilio = domicilio;
+			this.user = user;
+			this.carrito = carrito;
 			this.cantidad = cantidad;
-			//this.carrito = Carrito;
 			this.importeAPagar = importeAPagar;
 			this.metodoPago = metodoPago;
 			this.comentario = comentario;
 			this.estado = estado;
 		}
+
 
 		public long getIdPedido() {
 			return idPedido;
@@ -72,34 +89,37 @@ public class Pedido {
 			return domicilio;
 		}
 
-/*
-		public String getCliente() {
-			return cliente;
+
+		public void setDomicilio(String domicilio) {
+			this.domicilio = domicilio;
 		}
-		
-		public void setCliente(String cliente) {
-			this.cliente = cliente;
+
+
+		public User getUser() {
+			return user;
 		}
-		
-		
+
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+
 		public Carrito getCarrito() {
 			return carrito;
 		}
-	
+
+
 		public void setCarrito(Carrito carrito) {
 			this.carrito = carrito;
-		}	
-*/
-		
-		public void setDomicilio(String domicilio) {
-			this.domicilio = domicilio;
 		}
 
 
 		public int getCantidad() {
 			return cantidad;
 		}
-		
+
+
 		public void setCantidad(int cantidad) {
 			this.cantidad = cantidad;
 		}
@@ -144,12 +164,5 @@ public class Pedido {
 			this.estado = estado;
 		}
 
-		@Override
-		public String toString() {
-			return "Pedido [idPedido=" + idPedido + ", domicilio=" + domicilio + ", cantidad=" + cantidad
-					+ ", importeAPagar=" + importeAPagar + ", metodoPago=" + metodoPago + ", comentario=" + comentario
-					+ ", estado=" + estado + "]";
-		}
 
-	    
-}
+}//Fin class

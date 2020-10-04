@@ -2,15 +2,14 @@ package com.ecommercesports.ecommercesports.models;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
-import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.Item;
 
 public class CarritoModel {
 
 	private long idCarrito;
-	private List<Producto> listaProductos = new ArrayList<Producto>();
+	private Set<Item> listaItems;
 	private LocalDate fecha;
 	private float total;
 	
@@ -47,14 +46,12 @@ public class CarritoModel {
 		this.total = total;
 	}
 
-	public List<Producto> getListaProductos() {
-		return listaProductos;
+	public Set<Item> getListaItems() {
+		return listaItems;
 	}
 
-	public void setListaProductos(List<Producto> listaProductos) {
-		this.listaProductos = listaProductos;
+	public void setListaItems(Set<Item> listaItems) {
+		this.listaItems = listaItems;
 	}
 
-	
-
-}
+}//Fin class

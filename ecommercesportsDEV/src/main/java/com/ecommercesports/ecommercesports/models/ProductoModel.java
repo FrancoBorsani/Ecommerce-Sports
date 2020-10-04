@@ -1,10 +1,7 @@
 package com.ecommercesports.ecommercesports.models;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Comentario;
 import com.ecommercesports.ecommercesports.entities.Tag;
@@ -19,7 +16,6 @@ public class ProductoModel {
     private String marca;
     private String sku;
     private String talle;
-    private Set<Carrito> listaCarritos = new HashSet<Carrito>();
     private Categoria categoria;
     private List<Comentario> listaComentarios;
     private double totalPuntaje;
@@ -108,14 +104,6 @@ public class ProductoModel {
         this.talle = talle;
     }
 
-	public Set<Carrito> getListaCarritos() {
-		return listaCarritos;
-	}
-
-	public void setListaCarritos(Set<Carrito> listaCarritos) {
-		this.listaCarritos = listaCarritos;
-	}
-
 	public List<Comentario> getListaComentarios() {
 		return listaComentarios;
 	}
@@ -166,8 +154,7 @@ public class ProductoModel {
                 ", descripcionLarga='" + descripcionLarga + '\'' +
                 ", marca='" + marca + '\'' +
                 ", sku='" + sku + '\'' +
-                ", talle='" + talle + '\'' +
-                ", listaCarritos=" + listaCarritos +
+                ", talle='" + talle + '\''  +
                 ", categoria=" + categoria +
                 ", listaComentarios=" + listaComentarios +
                 ", totalPuntaje=" + totalPuntaje +

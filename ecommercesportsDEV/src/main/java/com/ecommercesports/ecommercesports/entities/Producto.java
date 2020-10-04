@@ -45,11 +45,6 @@ public class Producto {
     @OneToOne(cascade = CascadeType.MERGE)
 	private Marca marca;
 
-    //private Set<Carrito> listaCarritos = new HashSet<Carrito>();
-    
-    @ManyToMany(mappedBy = "listaProductos")
-    private List<Carrito> listaCarritos;
-
     @OneToMany(mappedBy="producto")
     private List<Comentario> listaComentarios;
     
@@ -62,8 +57,7 @@ public class Producto {
     @ManyToMany(mappedBy = "productos")
     private List<Tag> tags;
     
-    public Producto() {
-    }
+    public Producto() { }
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
@@ -145,14 +139,6 @@ public class Producto {
         this.talle = talle;
     }
 
-	public List<Carrito> getListaCarritos() {
-		return listaCarritos;
-	}
-
-	public void setListaCarritos(List<Carrito> listaCarritos) {
-		this.listaCarritos = listaCarritos;
-	}
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -205,7 +191,6 @@ public class Producto {
                 ", talle='" + talle + '\'' +
                 ", categoria=" + categoria +
                 ", marca=" + marca +
-                ", listaCarritos=" + listaCarritos +
                 ", listaComentarios=" + listaComentarios +
                 ", totalPuntaje=" + totalPuntaje +
                 ", cantidadValoraciones=" + cantidadValoraciones +
