@@ -41,11 +41,11 @@ public class CarritoController {
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CARRITO_INDEX);
 		User user = userLogueadoService.traerUserLogueado();
-		//if(user!=null) {
+        if(user!=null) {
 		    mAV.addObject("carrito",carritoService.carritoDelUserLogueado()); 
-//		}else {
-//		  mAV.setViewName("acceso/ingreso");
-//		}
+		}else {
+		  mAV.setViewName("acceso/ingreso");
+		}
 
 		return mAV;	
 	}

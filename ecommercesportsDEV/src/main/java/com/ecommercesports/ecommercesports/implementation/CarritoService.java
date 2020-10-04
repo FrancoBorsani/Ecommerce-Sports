@@ -75,7 +75,7 @@ public class CarritoService implements ICarritoService{
 
 	@Override	
 	public Carrito carritoDelUserLogueado() {
-		int idUserLogueado = 1;//userLogueadoService.traerUserLogueado().getId();
+		int idUserLogueado = userLogueadoService.traerUserLogueado().getId();
 		Carrito carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
 
 		return carrito;
