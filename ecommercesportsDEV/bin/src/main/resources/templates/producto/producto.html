@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="css/rating.css">
 
 <body>
 <!-- HEADER -->
@@ -27,15 +29,12 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form id="form-search">
-								<select class="input-select">
-									<option value="0">Todo</option>
-									<option value="1">Destacados</option>
-									<option value="1">Ofertas</option>
-								</select>
-								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
-                                <button class="search-btn">Buscar</button>
-                                <ul class="list-group" id="result"></ul>
-						</form>
+                            <input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                            <button class="search-btn">Buscar</button>
+                            <ul class="list-group" id="result"></ul>
+                        </form>
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
@@ -106,48 +105,44 @@
     </div>
     <!-- /MAIN HEADER -->
 </header>
-<!-- /HEADER -->
 
-<!-- NAVIGATION -->
 <nav id="navigation">
     <!-- container -->
     <div class="container">
         <!-- responsive-nav -->
         <div id="responsive-nav">
-				<!-- NAV -->
-				<ul class="main-nav nav navbar-nav">
-					<li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
-					<li><a href="/productos">Todos los productos</a></li>
-					<li><a href="#">Ofertas</a></li>
-					<li><a href="/pedidos">Pedidos</a></li>
-					<li><a href="/contacto">Contacto</a></li>
-					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-					<li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
-					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-			        	<i class="fa fa-user-o" style="margin-right:3px"></i>
-			        	<span sec:authentication="name"></span>
-			        </a>
-			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
-			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
-			          <div class="dropdown-divider"></div>
-				      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
-			          <div class="dropdown-divider"></div>
-			        </div>
-			      </li>
-				</ul>
-				<!-- /NAV -->
-			</div>
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                <li><a href="/productos">Todos los productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="/pedidos">Pedidos</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                </li>
+            </ul>
+            <!-- /NAV -->
+        </div>
         <!-- /responsive-nav -->
     </div>
     <!-- /container -->
 </nav>
-<!-- /NAVIGATION -->
 
-<!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
     <!-- container -->
     <div class="container">
@@ -170,9 +165,7 @@
     </div>
     <!-- /container -->
 </div>
-<!-- /BREADCRUMB -->
 
-<!-- SECTION -->
 <div class="section">
     <!-- container -->
     <div class="container">
@@ -292,7 +285,7 @@
                     <ul class="tab-nav">
                         <li class="active"><a data-toggle="tab" href="#tab1">Descripción</a></li>
                         <li><a data-toggle="tab" href="#tab2">Detalles</a></li>
-                        <li><a data-toggle="tab" href="#tab3">Reseñas (3)</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Reseñas</a></li>
                     </ul>
                     <!-- /product tab nav -->
 
@@ -322,175 +315,55 @@
                         <div id="tab3" class="tab-pane fade in">
                             <div class="row">
                                 <!-- Rating -->
-                                <div class="col-md-3">
-                                    <div id="rating">
-                                        <div class="rating-avg">
-                                            <span>4.5</span>
-                                            <div class="rating-stars">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
-                                            </div>
-                                        </div>
-                                        <ul class="rating">
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 80%;"></div>
-                                                </div>
-                                                <span class="sum">3</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 60%;"></div>
-                                                </div>
-                                                <span class="sum">2</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+
                                 <!-- /Rating -->
 
                                 <!-- Reviews -->
                                 <div class="col-md-6">
                                     <div id="reviews">
-                                        <ul class="reviews">
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="reviews-pagination">
-                                            <li class="active">1</li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </ul>
+                                        <tr th:each="comentario : ${comentarios}">
+                                            <td><span th:text="${comentario.user.username}" />:</td>
+                                            <br></br>
+                                            <td><span th:text="${comentario.comentario}" /></td>
+                                            <br>----------------------</br>
+                                        </tr>
                                     </div>
+
+                                    <br></br>
+                                    <br></br>
+                                    <br></br>
+                                    <p>VALORACION: </p>
+                                    <!-- http://www.jquery2dotnet.com/ -->
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6">
+                                                <div class="well well-sm">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-md-6 text-center">
+                                                            <h1>
+                                                                <span th:text="${producto.totalPuntaje}" th:remove="tag"> puntos</span>
+                                                            </h1>
+                                                            <div class="rating">
+                                                                <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                            </span><span class="glyphicon glyphicon-star-empty"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="glyphicon glyphicon-user" th:text="${producto.cantidadValoraciones}" th:remove="tag"></span> total de valoraciones
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <!-- /Reviews -->
 
-                                <!-- Review Form -->
-                                <div class="col-md-3">
-                                    <div id="review-form">
-                                        <form class="review-form">
-                                            <input class="input" type="text" placeholder="Your Name">
-                                            <input class="input" type="email" placeholder="Your Email">
-                                            <textarea class="input" placeholder="Your Review"></textarea>
-                                            <div class="input-rating">
-                                                <span>Your Rating: </span>
-                                                <div class="stars">
-                                                    <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-                                                    <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-                                                    <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-                                                    <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-                                                    <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
-                                                </div>
-                                            </div>
-                                            <button class="primary-btn">Submit</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- /Review Form -->
+
                             </div>
                         </div>
                         <!-- /tab3  -->
@@ -504,13 +377,9 @@
     </div>
     <!-- /container -->
 </div>
-<!-- /SECTION -->
 
-<!-- Section -->
 <div class="section">
-    <!-- container -->
     <div class="container">
-        <!-- row -->
         <div class="row">
 
             <div class="col-md-12">
@@ -519,112 +388,62 @@
                 </div>
             </div>
 
-            <!-- product -->
-            <div class="col-md-3 col-xs-6">
-                <div class="product">
-                    <div class="product-img">
-                        <img th:src="@{/img/product01.png}" src="../../img/product01.png"  alt="">
-                        <div class="product-label">
-                            <span class="sale">-30%</span>
+            <!-- productos relacionados -->
+            <div class="relacionados" th:each="producto:${relacionados}">
+                <div class="col-md-3 col-xs-6">
+                    <div class="product">
+                        <div class="product-img">
+                            <img th:src="@{/img/product01.png}" src="../../img/product01.png"  alt="">
                         </div>
-                    </div>
-                    <div class="product-body">
-                        <p class="product-category">Category</p>
-                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        <div class="product-rating">
+                        <div class="product-body">
+                            <p class="product-category" th:text="${producto.Categoria.nombre}"></p>
+                            <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
+                            <h4 class="product-price" th:text="${producto.precio}"></h4>
+                            <div class="product-rating">
+                            </div>
                         </div>
-                    </div>
-                    <div class="add-to-cart">
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
+                        <div class="add-to-cart">
+                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- /product -->
-
-            <!-- product -->
-            <div class="col-md-3 col-xs-6">
-                <div class="product">
-                    <div class="product-img">
-                        <img th:src="@{/img/product02.png}" src="../../img/product02.png" alt="">
-                        <div class="product-label">
-                            <span class="new">NEW</span>
-                        </div>
-                    </div>
-                    <div class="product-body">
-                        <p class="product-category">Category</p>
-                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                    </div>
-                    <div class="add-to-cart">
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-            <!-- /product -->
-
-            <div class="clearfix visible-sm visible-xs"></div>
-
-            <!-- product -->
-            <div class="col-md-3 col-xs-6">
-                <div class="product">
-                    <div class="product-img">
-                        <img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
-                    </div>
-                    <div class="product-body">
-                        <p class="product-category">Category</p>
-                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                        </div>
-                    </div>
-                    <div class="add-to-cart">
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-            <!-- /product -->
-
-            <!-- product -->
-            <div class="col-md-3 col-xs-6">
-                <div class="product">
-                    <div class="product-img">
-                        <img th:src="@{/img/product04.png}" src="../../img/product04.png" alt="">
-                    </div>
-                    <div class="product-body">
-                        <p class="product-category">Category</p>
-                        <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                        <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                        <div class="product-rating">
-                        </div>
-                    </div>
-                    <div class="add-to-cart">
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-            <!-- /product -->
-
         </div>
-        <!-- /row -->
-    </div>
-    <!-- /container -->
-</div>
-<!-- /Section -->
 
-<!-- FOOTER -->
+        <a>DEJAR UN COMENTARIO</a>
+        <br></br>
+        <ul class="main-nav nav navbar-nav">
+            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <i class="fa fa-user-o" style="margin-right:3px"></i>
+                    <span sec:authentication="name"></span>
+                </a>
+                <form method="post" th:action="@{/productos/agregarComentario}" >
+                    <textarea class="input" style="resize: both;" cols="400" rows="5" placeholder="Deje su comentario" name="comentario"></textarea>
+                    <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
+                    <input type="submit" value="Enviar">
+                </form>
+            </li>
+        </ul>
+        <br></br>
+        <br></br>
+
+        <p> VALORAR PRODUCTO </p>
+        <form method="post" th:action="@{/productos/valorar}" sec:authorize="isAuthenticated()">
+            <select name="puntaje" id="puntaje">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+
+</div>
+
 <footer id="footer">
     <!-- bottom footer -->
     <div id="bottom-footer" class="section">
@@ -655,65 +474,64 @@
     </div>
     <!-- /bottom footer -->
 </footer>
-<!-- /FOOTER -->
-
-<!-- jQuery Plugins -->
 
 <th:block th:include="fragments/scripts :: scripts"></th:block>
 
 <script>
-  $(document).ready(function () {
-	  
-	  $("#search").keyup(function () {
-	      $("#result").html("");
-	      $("#state").val("");
-	      const searchField = $("#search").val();
-	      const expression = new RegExp(searchField, "i");
+    $(document).ready(function () {
 
-	      $.getJSON("/productos/getAllProducts", function (data) {
-	    	var i = 0;
-	        $.each(data, function (key, value) {
-	          if (
-	            value.descripcionCorta.search(expression) != -1 && i<4
-	          ) {
-	        	  
-	            $("#result").append(
-	              '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
-	              "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
-	                '" height="40" width="40" class="img-thumbnail" /> ' +
-	                value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
-	                "</li></a>"
-	            );
-	            i++;
-	          }
-	        });
-	        if (searchField == "") $("#result").html("");
-	      });
-	    });
+        $("#search").keyup(function () {
+            $("#result").html("");
+            $("#state").val("");
+            const searchField = $("#search").val();
+            const expression = new RegExp(searchField, "i");
 
-	    $("#result").on("click", "li", function () {
-	      var click_text = $(this).text().split("|");
-	      $("#search").val($.trim(click_text[0]));
-	      $("#result").html("");
-	    });
-	    
-	    $("#result")
-	    .focusout(function() {
-	    	$("#result").html("");
-	    })
-	    
-	    $("body").on("click", function () {
-	      $("#result").html("");
-	    });
-	    
-	    $( "#form-search" ).submit(function(e) {
-	    	  e.preventDefault();
-	    	  const searchField = $("#search").val();
-	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
-	    });
-	    
-  });
+            $.getJSON("/productos/getAllProducts", function (data) {
+                var i = 0;
+                $.each(data, function (key, value) {
+                    if (
+                        value.descripcionCorta.search(expression) != -1 && i<4
+                    ) {
+
+                        $("#result").append(
+                            '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+                            "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
+                            '" height="40" width="40" class="img-thumbnail" /> ' +
+                            value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio +
+                            "</li></a>"
+                        );
+                        i++;
+                    }
+                });
+                if (searchField == "") $("#result").html("");
+            });
+        });
+
+        $("#result").on("click", "li", function () {
+            var click_text = $(this).text().split("|");
+            $("#search").val($.trim(click_text[0]));
+            $("#result").html("");
+        });
+
+        $("#result")
+            .focusout(function() {
+                $("#result").html("");
+            })
+
+        $("body").on("click", function () {
+            $("#result").html("");
+        });
+
+        $( "#form-search" ).submit(function(e) {
+            e.preventDefault();
+            const searchField = $("#search").val();
+            if(searchField != "") window.location.href = "/productos/search="+searchField;
+        });
+
+    });
 </script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 </body>
 </html>

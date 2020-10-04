@@ -13,12 +13,12 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
   <!-- CSS here -->
-      <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>      
+      <link type="text/css" rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+ 	  <link type="text/css" rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+ 	
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/font-awesome.min.css">
       
-      
-<!--  	  <link rel="stylesheet" href="css2/bootstrap.min.css" type="text/css">  -->
       <link rel="stylesheet" href="css2/style.css" type="text/css">
       <link rel="stylesheet" href="css2/font-awesome.min.css" type="text/css">
       
@@ -55,15 +55,12 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form id="form-search">
-                                <select class="input-select">
-                                    <option value="0">Todo</option>
-                                    <option value="/productos/destacados_DPT_LF">Destacados</option>
-                                    <option value="1">Ofertas</option>
-                                </select>
-                                <input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
                                 <button class="search-btn">Buscar</button>
                                 <ul class="list-group" id="result"></ul>
-                            </form>
+							</form>
                         </div>
                     </div>
                     <!-- /SEARCH BAR -->
@@ -109,7 +106,7 @@
                                     </div>
                                     <div class="cart-btns">
                                         <a href="/carritos">View Cart</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -152,14 +149,14 @@
                     <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
                     <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
                         <span sec:authentication="name"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
                       <div class="dropdown-divider"></div>
@@ -178,10 +175,6 @@
     <div id="breadcrumb" class="section">
         <!-- container -->
         <div class="container">
-        
-            <div sec:authorize="isAuthenticated()"> 
-                Bienvenido <span sec:authentication="name"></span>!
-            </div>
             <!-- row -->
             <div class="row">
                 <div class="col-md-12">

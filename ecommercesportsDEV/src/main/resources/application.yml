@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost/ecommerce_sports?serverTimezone=UTC
     username: root 
-    password: root
+    password: 2771999
     #initialization-mode: always #never
   jpa:
     show-sql: false #true

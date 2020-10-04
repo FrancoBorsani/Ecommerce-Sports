@@ -2205,3 +2205,9 @@ textarea.input {
       .link-class:hover {
         background-color: #f1f1f1;
       }
+      
+.search {
+  border-top-left-radius: 20px 50% !important;
+  border-bottom-left-radius: 20px 50% !important; 
+  width: 400px !important;
+}
