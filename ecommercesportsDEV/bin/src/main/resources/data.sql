@@ -52,12 +52,23 @@ INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_i
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones) VALUES(12, "rojo","Producto11", "Descripcion Producto1",4,3000,"sku1","talle1",4, 0, 0);
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones) VALUES(13, "rojo","Producto12", "Descripcion Producto1",4,5000,"sku1","talle1",4, 0, 0);
 
+/* carrito*/
+INSERT INTO carrito (id_carrito,fecha,total) values 
+              (1,CURDATE(),46000),
+              (2,'2020-10-03',0);
+
+/* item */
+INSERT INTO item (id_item,producto_id_producto,cantidad,id_carrito) values 
+	   (1,2,5,1),
+	   (2,1,4,1),
+       (3,5,2,1);
+
 /* Pedidos */
 
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(1, 40, "Comentario1", "Domicilio1", "Pago", 4000, "Efectivo" );
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(2, 40, "Comentario2", "Domicilio2", "Pago", 3000, "Efectivo" );
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(3, 40, "Comentario3", "Domicilio3", "Pago", 2000, "Efectivo" );
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago) VALUES(4, 40, "Comentario4", "Domicilio4", "Pago", 1000, "Efectivo" );
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(1, 40, "Comentario1", "Domicilio1", "Pago", 4000, "Efectivo",1,1);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(2, 40, "Comentario2", "Domicilio2", "Pago", 3000, "Efectivo",2,1);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(3, 40, "Comentario3", "Domicilio3", "Pago", 2000, "Efectivo",2,2);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(4, 40, "Comentario4", "Domicilio4", "Pago", 1000, "Efectivo",2,1);
 
 /* Producto - Tag */
 

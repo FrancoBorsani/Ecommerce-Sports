@@ -69,8 +69,52 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
 
-                            <!-- Cart -->
-                            <div class="dropdown">
+
+                            <!-- Cart deslogueado-->
+                            <div class="dropdown" id="carritoDesLogueado">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Cart</span>
+                                    <div class="qty">0</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <!-- <img src="./img/product01.png" alt="">  -->
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">Debe inicar sesion</a></h3>
+<!--                                                 <h4 class="product-price"><span class="qty">1x</span>$360.00</h4> -->
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+
+<!--                                         <div class="product-widget"> -->
+<!--                                             <div class="product-img"> -->
+<!--                                                 <img src="./img/product02.png" alt=""> -->
+<!--                                             </div> -->
+<!--                                             <div class="product-body"> -->
+<!--                                                 <h3 class="product-name"><a href="#">product name goes here</a></h3> -->
+<!--                                                 <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4> -->
+<!--                                             </div> -->
+<!--                                             <button class="delete"><i class="fa fa-close"></i></button> -->
+<!--                                         </div> -->
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>0 Item(s) selected</small>
+<!--                                         <h5>SUBTOTAL: $720.00</h5> -->
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="/carritos">View Cart</a>
+                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart deslogueado-->
+                            
+                            <!-- Cart logueado -->
+                            <div class="dropdown" id="carritoLogueado">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Your Cart</span>
@@ -106,11 +150,11 @@
                                     </div>
                                     <div class="cart-btns">
                                         <a href="/carritos">View Cart</a>
-                                        <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /Cart -->
+                            <!-- /Cart logueado -->
 
                             <!-- Menu Toogle -->
                             <div class="menu-toggle">
@@ -151,7 +195,7 @@
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
-                        <span sec:authentication="name"></span>
+                        <span id="logueado" sec:authentication="name"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
@@ -557,6 +601,18 @@
     <script src="js2/owl.carousel.min.js"></script>
     <script src="js2/main.js"></script>
 
+    <script>
+	$(document).ready(function() {
+		
+		var element = document.getElementById("logueado");
+		if(typeof(element) != 'undefined' && element != null){
+			$("#carritoDesLogueado").hide();			
+		}else{
+			$("#carritoLogueado").hide();
+		}
+	});
+	</script>
+	
 </body>
 
 </html>

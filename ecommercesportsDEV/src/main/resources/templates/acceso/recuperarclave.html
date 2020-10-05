@@ -16,6 +16,12 @@
 
 <!--Div for Background-->
 <div class="bg text-center">
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${mensaje}"></span>
+ </div>
+
+
     <form class="" th:action="@{/sendMail}" method="post">
     <div class="centered">
         <p class="firstLine"> RECUPERAR CLAVE </p>

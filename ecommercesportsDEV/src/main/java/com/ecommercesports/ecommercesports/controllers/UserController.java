@@ -149,11 +149,18 @@ public class UserController {
 	@GetMapping("/recuperarclave")
 	public ModelAndView recuperarClave() {
 	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_RECUPERARCLAVE);	 
+	//  redirectAttrs.addAttribute(new ClaveTemporalModel());
 	 mAV.addObject("claveTemporal", new ClaveTemporalModel());
+	//	return new RedirectView(ViewRouteHelpers.USER_RECUPERARCLAVE);
 	 return mAV;
 	}
 	
-	
+
+	@GetMapping("/ingresoTemporal")
+	public ModelAndView ingresoTemporal() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+	 return mAV;
+	}
 	
 
     @Autowired
@@ -165,7 +172,7 @@ public class UserController {
   //  }
 
     @PostMapping("/sendMail")
-    public ModelAndView sendMail(@RequestParam("correo") String correo){
+    public RedirectView sendMail(@RequestParam("correo") String correo, RedirectAttributes redirectAttrs){
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
     
     	boolean band = false;
@@ -183,8 +190,14 @@ public class UserController {
     	
     	
     	if(!band) {
-    		ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.HOME);
-    		return mAV2;
+    		ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.USER_RECUPERARCLAVE);
+    		redirectAttrs.addFlashAttribute("mensaje","Usuario no registrado");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			return new RedirectView("/recuperarclave");
+	    //   return mAV2;
+			
+			//return new RedirectView(ViewRouteHelpers.USER_RECUPERARCLAVE);
+		//	return mAV2;
     	}
     	
     	int claveTemporal = (int) (Math.random() * 100000) + 1;
@@ -199,8 +212,10 @@ public class UserController {
     	String message = "\n\n Datos de contacto: " + "\nE-mail: " + correo + " registrado en Ecommerce Sports." + "\nClave de recuperación: " + claveTemporal;
         String subject = "RECUPERACION DE CLAVE";
         SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "" + correo,subject,message);
-        
-   	 return mAV;
+      //  return new RedirectView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+		
+   	   // return mAV;
+        return new RedirectView("/ingresoTemporal");
     }
 	
     
