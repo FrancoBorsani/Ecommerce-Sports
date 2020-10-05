@@ -162,6 +162,12 @@ public class UserController {
 	 return mAV;
 	}
 	
+	
+	@GetMapping("/inicio")
+	public ModelAndView inicio() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+	 return mAV;
+	}
 
     @Autowired
     private SendMailService SendmailService;
@@ -220,9 +226,9 @@ public class UserController {
 	
     
     @PostMapping("/verificarClave")
-    public ModelAndView verificarClave(@ModelAttribute("clave") long clave, @RequestParam("password") String password,  RedirectAttributes redirectAttrs ){
+    public RedirectView verificarClave(@ModelAttribute("clave") long clave, @RequestParam("password") String password,  RedirectAttributes redirectAttrs ){
     	
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+    //	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
     	
     	
     	int i=0;
@@ -237,10 +243,12 @@ public class UserController {
 		}
 
 		if(!band){
-			redirectAttrs.addFlashAttribute("mensaje","La clave es incorrecta");
+			redirectAttrs.addFlashAttribute("mensaje","La clave enviada al mail es incorrecta");
 			redirectAttrs.addFlashAttribute("clase", "danger");
-			ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
-			return mAV2;
+			return new RedirectView("/ingresoTemporal");
+			
+			//ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.USER_VERIFICARCLAVE);
+			//return mAV2;
 		}else{
 			ClaveTemporal cl = claveTemporalRepository.findByClave((int)clave);
 			User u = userRepository.findByEmail(cl.getCorreo());
@@ -249,7 +257,8 @@ public class UserController {
 			userRepository.save(u);
 			claveTemporalService.remove(clave);
 		}
-   	 return mAV;
+	    return new RedirectView("/inicio");
+		//	 return mAV;
     }
 
 	@PostMapping("/delete")
