@@ -21,12 +21,13 @@ public class ProductoModel {
     private double totalPuntaje;
     private int cantidadValoraciones;
     private List<Tag> tags;
+    private boolean visible;
 
     public ProductoModel() {
     }
 
     public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -38,6 +39,7 @@ public class ProductoModel {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
 		this.tags = tags;
+		this.visible = visible;
 	}
 
 	public long getIdProducto() {
@@ -144,7 +146,15 @@ public class ProductoModel {
         this.tags = tags;
     }
 
-    @Override
+    public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	@Override
     public String toString() {
         return "ProductoModel{" +
                 "idProducto=" + idProducto +

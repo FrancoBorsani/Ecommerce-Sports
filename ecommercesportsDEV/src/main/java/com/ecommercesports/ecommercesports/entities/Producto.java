@@ -57,11 +57,22 @@ public class Producto {
     @ManyToMany(mappedBy = "productos")
     private List<Tag> tags;
     
-    public Producto() { }
+    @Column(name = "visible")
+    private boolean visible;
+    
+    public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public Producto() { }
 
     public Producto(long idProducto,double precio, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-                    List<Tag> tags) {
+                    List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -73,6 +84,7 @@ public class Producto {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
         this.tags = tags;
+        this.visible = visible;
     }
 
 	public long getIdProducto() {

@@ -32,4 +32,7 @@ public interface IProductoService {
 	public List<Producto> productosDestacados();
 
     public List<Producto> getRelated(long idProducto);
+    
+    public void changeVisible(boolean visible, long idProducto);
+    
 }

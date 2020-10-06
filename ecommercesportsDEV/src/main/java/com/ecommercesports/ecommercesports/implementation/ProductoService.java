@@ -121,4 +121,9 @@ public class ProductoService implements IProductoService {
 
         return relacionados;
     }
+
+	@Override
+	public void changeVisible(boolean visible, long idProducto) {
+		productoRepository.changeVisible(visible, idProducto);
+	}
 }

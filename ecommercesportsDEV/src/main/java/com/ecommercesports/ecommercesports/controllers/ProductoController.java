@@ -22,7 +22,6 @@ import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
-import com.ecommercesports.ecommercesports.models.ProductoModel;
 import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
@@ -69,7 +68,6 @@ public class ProductoController {
 	    private ProductoConverter productoConverter;
 	
 	
-
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
@@ -349,9 +347,6 @@ public class ProductoController {
     	return mAV;
     }
     
-    
-    
-    
 
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
@@ -366,6 +361,14 @@ public class ProductoController {
     	p.setTotalPuntaje(puntaje);
     	productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
     	return mAV;
+    }
+    
+    @GetMapping("/admin_productos")
+    public ModelAndView gestor() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_GESTOR);
+        mAV.addObject("productos", productoService.getAll());
+        
+        return mAV;
     }
   
     
