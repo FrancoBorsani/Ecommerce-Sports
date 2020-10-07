@@ -248,7 +248,7 @@
 							<div class="col-md-4 col-xs-6" th:each="producto : ${productos}">
 								<div class="product">
 									<div class="product-img">
-										<img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
+										<img th:src="@{${'/img/'+producto.descripcionCorta+'.png'}}" alt="">
 									</div>
 									<div class="product-body">
 										<p class="product-category" th:text="${producto.Categoria.nombre}" >Category</p>
@@ -268,7 +268,9 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								        <a href="#" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_G/{id}(id=${producto.idProducto})}">
+       										 <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        </a>
 									</div>
 								</div>
 							</div>
@@ -420,22 +422,3 @@
 </body>
 
 </html>					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					

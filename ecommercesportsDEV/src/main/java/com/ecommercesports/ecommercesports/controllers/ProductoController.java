@@ -22,7 +22,6 @@ import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
-import com.ecommercesports.ecommercesports.models.ProductoModel;
 import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
@@ -60,13 +59,13 @@ public class ProductoController {
 	@Qualifier("comentarioRepository")
 	private IComentarioRepository comentarioRepository;
 	
-	   @Autowired
-	    @Qualifier("productoRepository")
-	    private IProductoRepository productoRepository;
+   @Autowired
+    @Qualifier("productoRepository")
+    private IProductoRepository productoRepository;
 
-	    @Autowired
-	    @Qualifier("productoConverter")
-	    private ProductoConverter productoConverter;
+    @Autowired
+    @Qualifier("productoConverter")
+    private ProductoConverter productoConverter;
 	
 	
 

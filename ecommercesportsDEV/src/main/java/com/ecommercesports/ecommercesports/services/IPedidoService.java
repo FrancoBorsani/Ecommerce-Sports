@@ -2,6 +2,7 @@ package com.ecommercesports.ecommercesports.services;
 
 import java.util.List;
 
+import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.models.PedidoModel;
 
@@ -14,4 +15,6 @@ public interface IPedidoService {
 
 	    public boolean remove(long idPedido);
 
-}
+		public Pedido insertarPeedidoConCarrito_y_User_y_Traer(Carrito carrito);
+
+}//Fin interface
