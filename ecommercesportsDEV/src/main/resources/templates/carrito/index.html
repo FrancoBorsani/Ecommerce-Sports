@@ -171,9 +171,15 @@
     </div>
   </div>
   <!-- slider Area End-->
-
+<!-- *********************************************** -->
+	<div id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
+<!-- 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+<!-- 					<span aria-hidden="true">&times;</span> -->
+<!-- 	    	</button> -->
+		<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
+	</div>
   <!--================Cart Area =================-->
-    <div class="container">
+    <div class="container" id="mostrarDatosDelCarrito">
       <div class="cart_inner py-3">
         <div class="table-responsive">
           <table class="table">
@@ -195,7 +201,7 @@
                     </div>
                     <div class="media-body">
                     <br>
-                     <h4 th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
+                     <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
                     </div>
                   </div>
                 </td>
@@ -229,6 +235,7 @@
                   <h5>Subtotal</h5>
                 </td>
                 <td>
+                  <h5 th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h5> 
                   <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
                 </td>
               </tr>
@@ -303,6 +310,18 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
+    
+    <script>
+		$(document).ready(function() {
+			var element = document.getElementById("datosDeCarrito");
+			if(typeof(element) != 'undefined' && element != null){
+				$("#notificacion").hide();			
+			}else{
+				$("#mostrarDatosDelCarrito").hide();
+			}
+		});
+	</script>
+	
 </body>
 
 </html>

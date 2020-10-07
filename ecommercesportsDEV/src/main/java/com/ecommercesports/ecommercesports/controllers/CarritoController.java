@@ -54,7 +54,7 @@ public class CarritoController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CARRITO_INDEX);
 		User user = userLogueadoService.traerUserLogueado();
         if(user!=null) {
-		    mAV.addObject("carrito",carritoService.carritoDelUserLogueado()); 
+		    mAV.addObject("carrito",carritoService.carritoDelUserLogueadoParaController()); 
 		}else {
 		  mAV.setViewName("acceso/ingreso");
 		}

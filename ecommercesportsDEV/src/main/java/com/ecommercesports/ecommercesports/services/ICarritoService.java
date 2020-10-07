@@ -16,6 +16,8 @@ public interface ICarritoService {
 	
 	public boolean remove(long idCarrito);
 
+	public Carrito carritoDelUserLogueadoParaController();
+	
 	public Carrito carritoDelUserLogueado();
 
 	public Carrito insertarCarritoConFecha_y_Traer();	
@@ -26,6 +28,5 @@ public interface ICarritoService {
 	
 	public double traerMontoTotalDelCarrito(Carrito carrito);
 	
-	public boolean eliminarCarrito_PedidoSiEstaVacio(Carrito carrito);
 	
 }//Fin interface

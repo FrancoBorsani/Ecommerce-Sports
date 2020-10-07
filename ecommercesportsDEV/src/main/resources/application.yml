@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost/ecommerce_sports?serverTimezone=UTC
     username: root 
     password: ser.23
-    initialization-mode: always #never
+    #initialization-mode: always #never
   jpa:
     show-sql: false #true
     hibernate:
