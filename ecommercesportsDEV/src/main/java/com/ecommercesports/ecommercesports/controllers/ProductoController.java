@@ -370,6 +370,14 @@ public class ProductoController {
         
         return mAV;
     }
+    
+    @GetMapping("/ofertas")
+    public ModelAndView ofertas() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_OFERTA);
+        mAV.addObject("productos", productoService.getAll());
+        
+        return mAV;
+    }
   
     
 }

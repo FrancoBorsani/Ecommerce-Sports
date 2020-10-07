@@ -1,12 +1,5 @@
 package com.ecommercesports.ecommercesports.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 

@@ -21,9 +21,15 @@ public class ProductoRestController {
     private IProductoService productoService;
 	
 	@GetMapping("/getAllProducts")
-	public ResponseEntity<?> getProductos() {
+	public ResponseEntity<?> getAllProductos() {
 		return ResponseEntity.ok(productoService.getAll());
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getProducto(@PathVariable("id") long idProducto) {		
+		return ResponseEntity.ok(productoService.findByIdProducto(idProducto));
+	}
+	
 	
 	@PatchMapping("/visibility/{id}")
 	public ResponseEntity<?> changeVisibility(@PathVariable("id") long idProducto) {

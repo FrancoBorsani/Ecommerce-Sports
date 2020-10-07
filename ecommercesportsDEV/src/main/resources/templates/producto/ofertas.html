@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title> Ecommerce Sports </title>
+  <title> Ofertas </title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
@@ -19,16 +19,16 @@
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" href="css/font-awesome.min.css">
       
-      <link rel="stylesheet" href="css2/style.css" type="text/css">
-      <link rel="stylesheet" href="css2/font-awesome.min.css" type="text/css">
+      <link rel="stylesheet" href="css2/style.css" th:href="@{/css2/style.css}" type="text/css">
+      <link rel="stylesheet" href="css2/font-awesome.min.css"  th:href="@{/css2/font-awesome.min.css}" type="text/css">
       
-      <link rel="stylesheet" href="css2/elegant-icons.css" type="text/css">
-      <link rel="stylesheet" href="css2/jquery-ui.min.css" type="text/css">    
-      <link rel="stylesheet" href="css2/slicknav.min.css" type="text/css">
+      <link rel="stylesheet" href="css2/elegant-icons.css" th:href="@{/css2/elegant-icons.css}" type="text/css">
+      <link rel="stylesheet" href="css2/jquery-ui.min.css" th:href="@{/css2/jquery-ui.min.css}" type="text/css">    
+      <link rel="stylesheet" href="css2/slicknav.min.css"  th:href="@{/css2/slicknav.min.css}" type="text/css">
       
-      <link rel="stylesheet" href="css2/themify-icons.css" type="text/css">
-      <link rel="stylesheet" href="css2/owl.carousel.min.css" type="text/css">
-      <link rel="stylesheet" href="css2/nice-select.css" type="text/css">
+      <link rel="stylesheet" href="css2/themify-icons.css" th:href="@{/css2/themify-icons.css}" type="text/css">
+      <link rel="stylesheet" href="css2/owl.carousel.min.css" th:href="@{/css2/owl.carousel.min.css}" type="text/css">
+      <link rel="stylesheet" href="css2/nice-select.css" th:href="@{/css2/nice-select.css}" type="text/css">
 
 </head>
 <body>
@@ -215,77 +215,25 @@
     </nav>
     <!-- /NAVIGATION -->
 
-    <!-- BREADCRUMB -->
-    <div id="breadcrumb" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-
-                    <div class="item active">
-                        <img class="img-carousel" src="img/img-slider-1.jpg" alt="Chania" style="max-height: 300px" >
-                    </div>
-
-                    <div class="item">
-                        <img class="img-carousel" src="img/img-slider-2.jpg" alt="Chania" style="max-height: 100px">
-                    </div>
-
-                    <div class="item">
-                        <img class="img-carousel" src="img/img-slider-3.jpg" alt="Flower" style="max-height: 300px">
-                    </div>
-
-                </div>
-
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left fa fa-arrow-circle-left" aria-hidden="true"></span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right fa fa-arrow-circle-right" aria-hidden="true"></span>
-                </a>
-            </div>
-                    
-
-                </div>
-            </div>
-            <!-- /row -->
-            
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /BREADCRUMB -->
     <!-- Man Banner Section Begin -->
     <section class="man-banner spad">
     	<div sec:authorize="hasRole('ADMIN')">
     		<a class="primary-btn" href="/productos/admin_productos">Gestor de productos</a>
 		</div>
 		
-        <div class="container-fluid">
+        <div class="container-fluid mt-4">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="filter-control">
+                <div class="col-lg-9">
+                	<div class="filter-control">
                         <ul>
                             <li class="active">Clothings</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
+                    
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-1.jpg" alt="">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -307,9 +255,11 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-2.jpg" alt="">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -320,40 +270,21 @@
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/man-3.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
+                                <div class="catagory-name">Coat</div>
                                 <a href="#">
                                     <h5>Pure Pineapple</h5>
                                 </a>
                                 <div class="product-price">
-                                    $34.00
+                                    $14.00
+                                    <span>$35.00</span>
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/man-4.jpg" alt="">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -364,21 +295,46 @@
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
+                                <div class="catagory-name">Coat</div>
                                 <a href="#">
-                                    <h5>Converse Shoes</h5>
+                                    <h5>Pure Pineapple</h5>
                                 </a>
                                 <div class="product-price">
-                                    $34.00
+                                    $14.00
+                                    <span>$35.00</span>
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <div class="sale">Sale</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $14.00
+                                    <span>$35.00</span>
+                                </div>
+                            </div>
+                        </div>
+    
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg" style="margin-left:20%; margin-right:-20%">
-                        <h2>Hombres</h2>
-                        <a href="#">Descubre más</a>
+                    <div class="product-large set-bg m-large" data-setbg="https://image.freepik.com/vector-gratis/oferta-especial-plantilla-banner-venta-moderna_1017-20667.jpg" style="margin-left:20%; margin-right:-20%">
                     </div>
                 </div>
             </div>
@@ -390,24 +346,19 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="img/products/women-large.jpg" style="margin-right:10%">
-                        <h2>Mujeres</h2>
-                        <a href="#">Descubre más</a>
+                    <div class="product-large set-bg" data-setbg="https://media.istockphoto.com/vectors/big-summer-sale-this-weekend-special-offer-banner-vector-id597266792" style="margin-right:10%">
                     </div>
                 </div>
-                <div class="col-lg-8 offset-lg-1">
+                <div class="col-lg-9 offset-lg-1">
                     <div class="filter-control">
                         <ul>
                             <li class="active">Clothings</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/women-1.jpg" alt="">
+                                <img src="img/products/women-1.jpg" th:src="@{/img/products/women-1.jpg}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -431,7 +382,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/women-2.jpg" alt="">
+                                <img src="img/products/women-2.jpg" th:src="@{/img/products/women-2.jpg}"  alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -453,7 +404,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/women-3.jpg" alt="">
+                                <img src="img/products/women-3.jpg" th:src="@{/img/products/women-3.jpg}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -475,7 +426,7 @@
                         </div>
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/women-4.jpg" alt="">
+                                <img src="img/products/women-4.jpg" th:src="@{/img/products/women-4.jpg}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
@@ -501,6 +452,143 @@
         </div>
     </section>
     <!-- Women Banner Section End -->
+    
+    <!-- Man Banner Section Begin -->
+    <section class="man-banner spad">
+        <div class="container-fluid mt-4">
+            <div class="row">
+                <div class="col-lg-9">
+                	<div class="filter-control">
+                        <ul>
+                            <li class="active">Clothings</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <div class="sale">Sale</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $14.00
+                                    <span>$35.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <div class="sale">Sale</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Coat</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $14.00
+                                    <span>$35.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-2.jpg}" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Shoes</div>
+                                <a href="#">
+                                    <h5>Guangzhou sweater</h5>
+                                </a>
+                                <div class="product-price">
+                                    $13.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-3.jpg}" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Pure Pineapple</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <div class="pi-pic">
+                                <img th:src="@{/img/products/man-4.jpg}" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">Towel</div>
+                                <a href="#">
+                                    <h5>Converse Shoes</h5>
+                                </a>
+                                <div class="product-price">
+                                    $34.00
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="product-large set-bg m-large" data-setbg="https://previews.123rf.com/images/olhakostiuk/olhakostiuk1707/olhakostiuk170700046/82662002-banner-de-venta-de-primavera-para-compras-en-l%C3%ADnea-con-oferta-de-descuento-cartel-promocional-de-dise%C3%B1o-d.jpg" style="margin-left:20%; margin-right:-20%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Man Banner Section End -->
+    
     <!-- FOOTER -->
     <footer id="footer">
         <!-- bottom footer -->
@@ -593,17 +681,9 @@
   });
 </script>
 
-    <!-- Js Plugins -->
-<!--     <script src="js2/jquery-3.3.1.min.js"></script> -->
-<!--     <script src="js2/bootstrap.min.js"></script> -->
-<!--     <script src="js2/jquery-ui.min.js"></script> -->
-<!--     <script src="js2/jquery.countdown.min.js"></script> -->
-<!--     <script src="js2/jquery.nice-select.min.js"></script> -->
-<!--     <script src="js2/jquery.zoom.min.js"></script> -->
-<!--     <script src="js2/jquery.dd.min.js"></script> -->
-    <script src="js2/jquery.slicknav.js"></script>
-    <script src="js2/owl.carousel.min.js"></script>
-    <script src="js2/main.js"></script>
+    <script th:src="@{/js2/jquery.slicknav.js}" src="js2/jquery.slicknav.js"></script>
+    <script th:src="@{/js2/owl.carousel.min.js}" src="js2/owl.carousel.min.js"></script>
+    <script th:src="@{/js2/main.js}" src="js2/main.js"></script>
 
     <script>
 	$(document).ready(function() {
