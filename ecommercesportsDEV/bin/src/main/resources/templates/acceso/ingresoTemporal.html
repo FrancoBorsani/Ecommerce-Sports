@@ -24,12 +24,18 @@
 
 <!--Div for Background-->
 <div class="bg text-center">
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${mensaje}"></span>
+ </div>
+
+
     <form class="" th:action="@{/verificarClave}" method="post">
     <div class="centered">
         <p class="firstLine"> CLAVE DE ACCESO </p>
         <p class="secondLine">Ingrese la clave que se ha enviado a su mail y la nueva password</p>
-        <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome" type="text" name="clave"> </p>
-     <p> <input class="InputStyle" placeholder="Nueva Password" style="font-family:Arial, FontAwesome" type="password" name="password"> </p>
+        <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome; color: white;" type="text" name="clave"> </p>
+     <p> <input class="InputStyle" placeholder="Nueva Password" style="font-family:Arial, FontAwesome; color: white;" type="password" name="password"> </p>
    <button class="btn btn-lg btn-primary btn-block" type="submit">
 			Enviar
 		</button>

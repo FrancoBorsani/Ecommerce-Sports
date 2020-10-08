@@ -16,11 +16,17 @@
 
 <!--Div for Background-->
 <div class="bg text-center">
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${mensaje}"></span>
+ </div>
+
+
     <form class="" th:action="@{/sendMail}" method="post">
     <div class="centered">
         <p class="firstLine"> RECUPERAR CLAVE </p>
         <p class="secondLine">Ingrese su correo registrado en el sitio</p>
-        <p> <input class="InputStyle" placeholder="Mail &#xf0e0; " style="font-family:Arial, FontAwesome" type="text" name="correo"> </p>
+        <p> <input class="InputStyle" placeholder="Mail &#xf0e0; " style="font-family:Arial, FontAwesome; color: white;" type="text" name="correo"> </p>
     </div>
     <!--Div for bottom Icons-->
     </form>
