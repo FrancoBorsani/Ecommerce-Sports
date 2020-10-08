@@ -18,6 +18,8 @@ public class ViewRouteHelpers {
     public final static String PRODUCTO_DEST_DPT_LF = "producto/destacadosLF";
     public final static String PRODUCTO_DEST_DPT_G = "producto/destacadosG";
     public final static String PRODUCTO_NOT_FOUND = "producto/notFound";
+    public final static String PRODUCTO_GESTOR = "producto/gestor";
+    public final static String PRODUCTO_OFERTA= "producto/ofertas";
     
 	//Pedido
 	public static final String PEDIDO_INDEX = "pedido/index";

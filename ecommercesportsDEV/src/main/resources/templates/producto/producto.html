@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="css/rating.css">
 
 <body>
@@ -441,6 +440,7 @@
             <input type="submit" value="Enviar">
         </form>
     </div>
+    
 
 </div>
 
@@ -476,62 +476,6 @@
 </footer>
 
 <th:block th:include="fragments/scripts :: scripts"></th:block>
-
-<script>
-    $(document).ready(function () {
-
-        $("#search").keyup(function () {
-            $("#result").html("");
-            $("#state").val("");
-            const searchField = $("#search").val();
-            const expression = new RegExp(searchField, "i");
-
-            $.getJSON("/productos/getAllProducts", function (data) {
-                var i = 0;
-                $.each(data, function (key, value) {
-                    if (
-                        value.descripcionCorta.search(expression) != -1 && i<4
-                    ) {
-
-                        $("#result").append(
-                            '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
-                            "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
-                            '" height="40" width="40" class="img-thumbnail" /> ' +
-                            value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio +
-                            "</li></a>"
-                        );
-                        i++;
-                    }
-                });
-                if (searchField == "") $("#result").html("");
-            });
-        });
-
-        $("#result").on("click", "li", function () {
-            var click_text = $(this).text().split("|");
-            $("#search").val($.trim(click_text[0]));
-            $("#result").html("");
-        });
-
-        $("#result")
-            .focusout(function() {
-                $("#result").html("");
-            })
-
-        $("body").on("click", function () {
-            $("#result").html("");
-        });
-
-        $( "#form-search" ).submit(function(e) {
-            e.preventDefault();
-            const searchField = $("#search").val();
-            if(searchField != "") window.location.href = "/productos/search="+searchField;
-        });
-
-    });
-</script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 </body>
 </html>

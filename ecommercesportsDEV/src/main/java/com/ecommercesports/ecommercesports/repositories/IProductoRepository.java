@@ -3,7 +3,10 @@ package com.ecommercesports.ecommercesports.repositories;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -39,4 +42,18 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
             " INNER JOIN tag_productos ON producto.id_producto = productos_id_producto" +
             " WHERE tags_id_tag =  (:idTag)")
     List<Producto> getRelated(long idTag);
+    
+    @Modifying
+    @Transactional 
+    @Query(value="UPDATE Producto p SET p.visible = ?1 WHERE p.idProducto = ?2")
+    public int changeVisible(boolean visible,long idProducto);
+    
+    @Modifying
+    @Transactional 
+    @Query(value="UPDATE Producto p SET p.descripcionCorta = ?1, p.descripcionLarga = ?2, p.precio = ?3, p.precioEnOferta = ?4, p.color = ?5, p.visible = ?6 WHERE p.idProducto = ?7")
+    public int updateProducto(String descripcionCorta,String descripcionLarga,double precio,double precioEnOferta,String color,boolean visible,long idProducto);
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.precio != p.precio_en_oferta")
+    public abstract List<Producto> getProductosEnOferta();
+    		
 }

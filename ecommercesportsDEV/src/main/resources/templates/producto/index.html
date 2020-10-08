@@ -286,8 +286,8 @@
                 </div>
 
             </div>
+            </div>
         
-
     <!-- FOOTER -->
     <footer id="footer">
         <!-- bottom footer -->
@@ -349,14 +349,14 @@
 	            value.descripcionCorta.search(expression) != -1 && i<4
 	          ) {
 	        	  
-	            $("#result").append(
-	              '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
-	              "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
-	                '" height="40" width="40" class="img-thumbnail" /> ' +
-	                value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
-	                "</li></a>"
-	            );
-	            i++;
+	        	  $("#result").append(
+                          '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+                          value.imagen +
+                            '" height="40" width="40" class="img-thumbnail" /> ' +
+                            value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
+                            "</li></a>"
+                        );
+                  i++;
 	          }
 	        });
 	        if (searchField == "") $("#result").html("");

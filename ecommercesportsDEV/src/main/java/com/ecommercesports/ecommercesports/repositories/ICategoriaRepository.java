@@ -10,4 +10,5 @@ import com.ecommercesports.ecommercesports.entities.Categoria;
 @Repository("categoriaRepository")
 public interface ICategoriaRepository extends JpaRepository<Categoria, Serializable> {
 	
+	public Categoria findByIdCategoria(long idCategoria);
 }

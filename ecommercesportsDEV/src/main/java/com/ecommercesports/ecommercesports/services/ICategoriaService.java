@@ -7,5 +7,5 @@ import com.ecommercesports.ecommercesports.entities.Categoria;
 public interface ICategoriaService {
 	
 	public List<Categoria> getAll();
-
+	
 }

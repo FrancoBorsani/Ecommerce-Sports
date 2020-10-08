@@ -22,5 +22,6 @@ public class CategoriaService implements ICategoriaService{
 		// TODO Auto-generated method stub
 		return categoriaRepository.findAll();
 	}
+
 	
 }

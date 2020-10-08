@@ -23,6 +23,9 @@ public class Producto {
 
     @Column(name = "precio")
     private double precio;
+    
+    @Column(name = "precioEnOferta")
+    private double precioEnOferta;
 
     @Column(name = "color")
     private String color;
@@ -57,14 +60,29 @@ public class Producto {
     @ManyToMany(mappedBy = "productos")
     private List<Tag> tags;
     
-    public Producto() { }
+    @Column(name = "visible")
+    private boolean visible;
+    
+    @Column(name = "imagen")
+    private String imagen;
+    
+    public boolean isVisible() {
+		return visible;
+	}
 
-    public Producto(long idProducto,double precio, String color, String descripcionCorta,
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public Producto() { }
+
+    public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-                    List<Tag> tags) {
+                    List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
+		this.precioEnOferta = precioEnOferta;
 		this.color = color;
 		this.descripcionCorta = descripcionCorta;
 		this.descripcionLarga = descripcionLarga;
@@ -73,7 +91,16 @@ public class Producto {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
         this.tags = tags;
+        this.visible = visible;
     }
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public long getIdProducto() {
         return idProducto;
@@ -179,22 +206,21 @@ public class Producto {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "idProducto=" + idProducto +
-                ", precio=" + precio +
-                ", color='" + color + '\'' +
-                ", descripcionCorta='" + descripcionCorta + '\'' +
-                ", descripcionLarga='" + descripcionLarga + '\'' +
-                ", sku='" + sku + '\'' +
-                ", talle='" + talle + '\'' +
-                ", categoria=" + categoria +
-                ", marca=" + marca +
-                ", listaComentarios=" + listaComentarios +
-                ", totalPuntaje=" + totalPuntaje +
-                ", cantidadValoraciones=" + cantidadValoraciones +
-                ", tags=" + tags +
-                '}';
-    }
+    public double getPrecioEnOferta() {
+		return precioEnOferta;
+	}
+
+	public void setPrecioEnOferta(double precioEnOferta) {
+		this.precioEnOferta = precioEnOferta;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", precio=" + precio + ", precioEnOferta=" + precioEnOferta
+				+ ", color=" + color + ", descripcionCorta=" + descripcionCorta + ", descripcionLarga="
+				+ descripcionLarga + ", sku=" + sku + ", talle=" + talle + ", categoria=" + categoria + ", marca="
+				+ marca + ", listaComentarios=" + listaComentarios + ", totalPuntaje=" + totalPuntaje
+				+ ", cantidadValoraciones=" + cantidadValoraciones + ", tags=" + tags + ", visible=" + visible + "]";
+	}
+
 }

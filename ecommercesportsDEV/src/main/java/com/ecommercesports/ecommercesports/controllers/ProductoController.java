@@ -68,7 +68,6 @@ public class ProductoController {
     private ProductoConverter productoConverter;
 	
 	
-
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
@@ -348,9 +347,6 @@ public class ProductoController {
     	return mAV;
     }
     
-    
-    
-    
 
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
@@ -365,6 +361,26 @@ public class ProductoController {
     	p.setTotalPuntaje(puntaje);
     	productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
     	return mAV;
+    }
+    
+    @GetMapping("/admin_productos")
+    public ModelAndView gestor() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_GESTOR);
+        mAV.addObject("productos", productoService.getAll());
+        
+        return mAV;
+    }
+    
+    @GetMapping("/ofertas")
+    public ModelAndView ofertas() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_OFERTA);
+        mAV.addObject("productos", productoService.getProductosEnOferta());
+        
+        for(Producto p : productoService.getProductosEnOferta()) {
+        	System.out.println(p);
+        }
+        
+        return mAV;
     }
   
     

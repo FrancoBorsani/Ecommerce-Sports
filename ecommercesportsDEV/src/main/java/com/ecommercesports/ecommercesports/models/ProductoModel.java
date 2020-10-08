@@ -10,6 +10,7 @@ public class ProductoModel {
 
     private long idProducto;
     private double precio;
+    private double precioEnOferta;
     private String color;
     private String descripcionCorta;
     private String descripcionLarga;
@@ -21,12 +22,14 @@ public class ProductoModel {
     private double totalPuntaje;
     private int cantidadValoraciones;
     private List<Tag> tags;
+    private boolean visible;
+    private String imagen;
 
     public ProductoModel() {
     }
 
-    public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags) {
+    public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -38,6 +41,8 @@ public class ProductoModel {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
 		this.tags = tags;
+		this.precioEnOferta = precioEnOferta;
+		this.visible = visible;
 	}
 
 	public long getIdProducto() {
@@ -144,7 +149,31 @@ public class ProductoModel {
         this.tags = tags;
     }
 
-    @Override
+    public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public double getPrecioEnOferta() {
+		return precioEnOferta;
+	}
+
+	public void setPrecioEnOferta(double precioEnOferta) {
+		this.precioEnOferta = precioEnOferta;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
+	@Override
     public String toString() {
         return "ProductoModel{" +
                 "idProducto=" + idProducto +
