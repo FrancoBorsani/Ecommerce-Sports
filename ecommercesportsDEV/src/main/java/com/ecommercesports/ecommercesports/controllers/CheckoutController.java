@@ -16,6 +16,7 @@ import com.ecommercesports.ecommercesports.converters.PedidoConverter;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.models.PedidoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
@@ -71,8 +72,10 @@ public class CheckoutController {
 	
 	
 	 @PostMapping("/guardarPedido")
-	    public RedirectView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
-	    	Pedido p = new Pedido();
+	    public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
+		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
+				
+		 Pedido p = new Pedido();
 	    	p.setDomicilio(domicilio);
 	    	
 	    	String username = "";
@@ -100,16 +103,33 @@ public class CheckoutController {
 	    	System.out.println("SE AGREGO EL COMENTARIO");
 	    	p.setEstado("Activo");
 	    	System.out.println("SE AGREGO EL ESTADO");
-	    	pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
+	    	
 	    	System.out.println("SE AGREGO EL PEDIDO");
 	    //	p.setUser(user);
 	    //	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
+	    	mAV.addObject("pedido", pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p)));
 	    	
-		    return new RedirectView("/envio/pago");
+		    return mAV;
 			//	 return mAV;
 	    }
 
-	
+	 @Autowired
+	    private SendMailService SendmailService;
+
+	 @PostMapping("/pagar")
+	    public ModelAndView pagar(@RequestParam("id") String id){
+		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
+					
+		 	PedidoModel p = pedidoService.findByIdPedido(Long.parseLong(id));
+	    	String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nComentario: "+ p.getComentario() + "\nCarrito del pedido: "+ p.getUser().getCarrito().getIdCarrito() + "\nDetalles: "+ p.getUser().getCarrito().getListaItems() + "\nTotal: "+ p.getUser().getCarrito().getTotal();
+	        String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
+	        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
+	        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
+		     
+	        
+	    	return mAV;
+			//	 return mAV;
+	    }
 	
 
 }

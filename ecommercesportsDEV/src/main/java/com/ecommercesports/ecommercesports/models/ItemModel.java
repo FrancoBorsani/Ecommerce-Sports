@@ -62,7 +62,7 @@ public class ItemModel {
 	@Override
 	public String toString() {
 		return "ItemModel [idItem=" + idItem + ", producto=" + producto + ", cantidad=" + cantidad + ", carritoModel="
-				+ carritoModel + "]";
+				+ carritoModel + "]" + "\n";
 	}
     
 }//Fin class

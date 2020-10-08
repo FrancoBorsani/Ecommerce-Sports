@@ -141,10 +141,14 @@ public class CarritoService implements ICarritoService{
 		if(carrito != null) {
 			Item item = itemService.itemsByProducto(producto);
 			if(item!=null) {
-				itemService.agregarUnidadAlItemYTraer(item);
+			//	itemService.agregarUnidadAlItemYTraer(item);
+				user.getCarrito().getListaItems().add(itemService.agregarUnidadAlItemYTraer(item));
+			//	user.setCarrito(user.getCarrito());
+				userRepository.save(user);
 			}else {
 			    carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
-			    user.setCarrito(carrito);
+			    user.getCarrito().getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+			  //  user.setCarrito(carrito);
 				userRepository.save(user);
 			}
 		}else{

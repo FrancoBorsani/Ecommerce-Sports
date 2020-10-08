@@ -72,5 +72,14 @@ public class Item {
 	public void setCarrito(Carrito carrito) {
 		this.carrito = carrito;
 	}
+
+	@Override
+	public String toString() {
+		return "Item [idItem=" + idItem + ", producto=" + producto + ", cantidad=" + cantidad + ", carrito=" + carrito
+				+ "]" + "\n";
+	}
+	
+	
+	
 	
 }//Fin class
