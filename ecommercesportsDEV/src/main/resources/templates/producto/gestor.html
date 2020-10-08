@@ -161,6 +161,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Precio</th>
+        <th scope="col">Oferta</th>
         <th scope="col">Categoria</th>
         <th scope="col">Valoracion</th>
         <th scope="col">Visibilidad</th>
@@ -172,6 +173,7 @@
         <td th:text="${producto.sku}"></td>
         <td th:text="${producto.descripcionCorta}"></td>
         <td th:text="${producto.descripcionLarga}"></td>
+        <td th:text="'$'+${producto.precioEnOferta}"></td>
         <td th:text="'$'+${producto.precio}"></td>
         <td th:text="${producto.Categoria.nombre}"></td>
         <td th:text="${producto.totalPuntaje}"></td>
@@ -254,6 +256,7 @@
         <h4>Actualizar producto</h4>
       </div>
       <div class="modal-body">
+       						<input type="hidden" id="idProducto"/>
        						<div class="form-group">
        							<label>Nombre</label>
 								<input class="form-control" name="descripcionCorta" id="descripcionCorta" placeholder="Descripcion Corta">
@@ -267,6 +270,10 @@
 								<input class="form-control" type="number" name="precio" id="precio" placeholder="Precio">
 							</div>
 							<div class="form-group">
+								<label>Precio en oferta</label>
+								<input class="form-control" type="number" name="precio" id="precioEnOferta" placeholder="Preci en oferta">
+							</div>
+							<div class="form-group">
 								<label>Color</label>
 								<input class="form-control" name="color" id="color" placeholder="Color">
 							</div>
@@ -276,7 +283,7 @@
 							</div>
       </div>
       <div class="modal-footer">
-      	<button type="button" class="primary-btn">Actualizar</button>
+      	<button type="button" class="primary-btn btn-submit">Actualizar</button>
         <button type="button" class="primary-btn secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -287,60 +294,6 @@
 <!-- jQuery Plugins -->
 
 <th:block th:include="fragments/scripts :: scripts"></th:block>
-
-<script>
-  $(document).ready(function () {
-	  
-      $("#search").keyup(function () {
-          $("#result").html("");
-          $("#state").val("");
-          const searchField = $("#search").val();
-          const expression = new RegExp(searchField, "i");
-
-          $.getJSON("/productos/getAllProducts", function (data) {
-            var i = 0;
-            $.each(data, function (key, value) {
-              if (
-                value.descripcionCorta.search(expression) != -1 && i<4
-              ) {
-                  
-                $("#result").append(
-                  '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
-                  "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
-                    '" height="40" width="40" class="img-thumbnail" /> ' +
-                    value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
-                    "</li></a>"
-                );
-                i++;
-              }
-            });
-            if (searchField == "") $("#result").html("");
-          });
-        });
-
-        $("#result").on("click", "li", function () {
-          var click_text = $(this).text().split("|");
-          $("#search").val($.trim(click_text[0]));
-          $("#result").html("");
-        });
-        
-        $("#result")
-        .focusout(function() {
-            $("#result").html("");
-        })
-        
-        $("body").on("click", function () {
-          $("#result").html("");
-        });
-        
-        $( "#form-search" ).submit(function(e) {
-              e.preventDefault();
-              const searchField = $("#search").val();
-              if(searchField != "") window.location.href = "/productos/search="+searchField;
-        });
-        
-  });
-</script>
 
 <script src="/js/auth/Producto.js"></script>
 

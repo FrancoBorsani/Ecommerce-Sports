@@ -90,13 +90,25 @@ public class CarritoService implements ICarritoService{
 
 	}
 
-
+	@Override	
+	public Carrito carritoDelUserLogueadoParaController() {//en el controller no puede recibir en null ya que necesito usar una lista interna (carrito.listaItem) en el template
+		Carrito carrito = new Carrito();//por lo anterior hize esto para que no tire error en la vista, ya que si era null daba error 		
+		int idUserLogueado = userLogueadoService.traerUserLogueado().getId();
+		    try{
+		      return carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
+			}catch(Exception e){
+		       return carrito;
+		    }
+	};	
 	@Override	
 	public Carrito carritoDelUserLogueado() {
+		Carrito carrito = null;//necesito saber cuando es null 		
 		int idUserLogueado = userLogueadoService.traerUserLogueado().getId();
-		Carrito carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
-
-		return carrito;
+		    try{
+		      return carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
+			}catch(Exception e){
+		       return carrito;
+		    }
 	};	
 
 	@Override
@@ -143,15 +155,6 @@ public class CarritoService implements ICarritoService{
         	cantidad += item.getCantidad();
         }
 		return cantidad;
-	}
-	
-	@Override	
-	public boolean eliminarCarrito_PedidoSiEstaVacio(Carrito carrito) {
-		if(itemRepository.itemsDelCarrito(carrito.getIdCarrito()).isEmpty()) {
-			return remove(carrito.getIdCarrito());
-		}else {	
-		    return false;
-		}
 	}
 	
 

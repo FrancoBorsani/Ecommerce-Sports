@@ -23,6 +23,7 @@ public class ProductoModel {
     private int cantidadValoraciones;
     private List<Tag> tags;
     private boolean visible;
+    private String imagen;
 
     public ProductoModel() {
     }
@@ -156,6 +157,22 @@ public class ProductoModel {
 		this.visible = visible;
 	}
 
+	public double getPrecioEnOferta() {
+		return precioEnOferta;
+	}
+
+	public void setPrecioEnOferta(double precioEnOferta) {
+		this.precioEnOferta = precioEnOferta;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+	
 	@Override
     public String toString() {
         return "ProductoModel{" +
@@ -174,12 +191,4 @@ public class ProductoModel {
                 ", tags=" + tags +
                 '}';
     }
-
-	public double getPrecioEnOferta() {
-		return precioEnOferta;
-	}
-
-	public void setPrecioEnOferta(double precioEnOferta) {
-		this.precioEnOferta = precioEnOferta;
-	}
 }

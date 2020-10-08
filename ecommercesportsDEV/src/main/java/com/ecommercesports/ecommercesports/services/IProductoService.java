@@ -35,6 +35,8 @@ public interface IProductoService {
     
     public void changeVisible(boolean visible, long idProducto);
     
+    public void updateProducto(String descripcionCorta,String descripcionLarga,double precio,double precioEnOferta,String color,boolean visible,long idProducto);
+    
     public List<Producto> getProductosEnOferta();
     
 }

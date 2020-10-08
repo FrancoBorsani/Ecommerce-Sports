@@ -48,6 +48,11 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     @Query(value="UPDATE Producto p SET p.visible = ?1 WHERE p.idProducto = ?2")
     public int changeVisible(boolean visible,long idProducto);
     
+    @Modifying
+    @Transactional 
+    @Query(value="UPDATE Producto p SET p.descripcionCorta = ?1, p.descripcionLarga = ?2, p.precio = ?3, p.precioEnOferta = ?4, p.color = ?5, p.visible = ?6 WHERE p.idProducto = ?7")
+    public int updateProducto(String descripcionCorta,String descripcionLarga,double precio,double precioEnOferta,String color,boolean visible,long idProducto);
+    
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.precio != p.precio_en_oferta")
     public abstract List<Producto> getProductosEnOferta();
     		

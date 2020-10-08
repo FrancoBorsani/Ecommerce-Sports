@@ -124,6 +124,7 @@ public class ProductoService implements IProductoService {
 
 	@Override
 	public void changeVisible(boolean visible, long idProducto) {
+		// TODO Auto-generated method stub
 		productoRepository.changeVisible(visible, idProducto);
 	}
 
@@ -131,5 +132,12 @@ public class ProductoService implements IProductoService {
 	public List<Producto> getProductosEnOferta() {
 		// TODO Auto-generated method stub
 		return productoRepository.getProductosEnOferta();
+	}
+
+	@Override
+	public void updateProducto(String descripcionCorta, String descripcionLarga, double precio,
+			double precioEnOferta, String color, boolean visible, long idProducto) {
+		// TODO Auto-generated method stub
+		productoRepository.updateProducto(descripcionCorta, descripcionLarga, precio, precioEnOferta, color, visible, idProducto);
 	}
 }

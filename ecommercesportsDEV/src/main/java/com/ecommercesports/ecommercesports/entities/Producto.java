@@ -63,6 +63,9 @@ public class Producto {
     @Column(name = "visible")
     private boolean visible;
     
+    @Column(name = "imagen")
+    private String imagen;
+    
     public boolean isVisible() {
 		return visible;
 	}
@@ -90,6 +93,14 @@ public class Producto {
         this.tags = tags;
         this.visible = visible;
     }
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public long getIdProducto() {
         return idProducto;
