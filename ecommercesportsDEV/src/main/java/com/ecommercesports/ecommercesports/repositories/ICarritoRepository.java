@@ -16,8 +16,8 @@ public interface ICarritoRepository extends JpaRepository<Carrito, Serializable>
 	public abstract Carrito findByIdCarrito(long idCarrito);
 	
 	
-	@Query("SELECT u FROM Carrito u WHERE u.user.email = (:email)")
-	public abstract Carrito findByUser(@Param("email") String email);
+	//@Query("SELECT u FROM Carrito u WHERE u.user.email = (:email)")
+	//public abstract Carrito findByUser(@Param("email") String email);
 		
 	
 	

@@ -132,8 +132,6 @@ public class CarritoService implements ICarritoService{
 		carritoModel.setTotal(0);
 		carritoModel.setUser(user);
 		insertOrUpdate(carritoModel);
-		user.setCarrito(carritoRepository.findByUser(user.getEmail()));
-		userRepository.save(user);
 		return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
 	}
 	
@@ -146,9 +144,15 @@ public class CarritoService implements ICarritoService{
 				itemService.agregarUnidadAlItemYTraer(item);
 			}else {
 			    carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+			    user.setCarrito(carrito);
+				userRepository.save(user);
 			}
 		}else{
 			carrito = insertarCarritoConFecha_y_Traer(user);
+			user.setCarrito(carrito);
+			userRepository.save(user);
+			System.out.println("USUARIO CON CARRITO?: " + userRepository.findByUsername(user.getUsername()).getCarrito());
+			
 			pedidoService.insertarPeedidoConCarrito_y_User_y_Traer(carrito);
 			itemService.insertarItemConProducto_y_Traer(producto,carrito);
 		}
