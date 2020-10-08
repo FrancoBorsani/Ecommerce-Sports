@@ -1,10 +1,15 @@
 package com.ecommercesports.ecommercesports.implementation;
 
+import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.PedidoConverter;
+import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.models.PedidoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
+import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
+import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,18 @@ public class PedidoService implements IPedidoService{
 	    @Autowired
 	    @Qualifier("pedidoConverter")
 	    private PedidoConverter pedidoConverter;
+	    
+	    @Autowired
+	    @Qualifier("carritoConverter")
+	    private CarritoConverter carritoConverter;	    
+	    
+	    @Autowired
+	    @Qualifier("carritoService")
+	    private ICarritoService carritoService;
+	    
+	    @Autowired
+	    @Qualifier("userLogueadoService")
+	    private IUserLogueadoService userLogueadoService;
 
 	    @Override
 	    public List<Pedido> getAll() {
@@ -45,5 +62,16 @@ public class PedidoService implements IPedidoService{
 	            return false;
 	        }
 	    }
+	    
+		@Override
+		public Pedido insertarPeedidoConCarrito_y_User_y_Traer(Carrito carrito) {
+			PedidoModel pedidoModel = new PedidoModel();
+			pedidoModel.setCantidad(carritoService.traerCantidaDeArticulosDelCarrito(carrito));
+			pedidoModel.setCarritoModel(carritoService.findByIdCarrito(carrito.getIdCarrito()));
+			pedidoModel.setUser(userLogueadoService.traerUserLogueado());
+			pedidoModel.setImporteAPagar(carritoService.traerMontoTotalDelCarrito(carrito));
+			insertOrUpdate(pedidoModel);
+			return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
+		}
 
 }

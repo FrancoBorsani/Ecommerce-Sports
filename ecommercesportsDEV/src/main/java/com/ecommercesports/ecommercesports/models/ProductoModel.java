@@ -10,6 +10,7 @@ public class ProductoModel {
 
     private long idProducto;
     private double precio;
+    private double precioEnOferta;
     private String color;
     private String descripcionCorta;
     private String descripcionLarga;
@@ -26,7 +27,7 @@ public class ProductoModel {
     public ProductoModel() {
     }
 
-    public ProductoModel(long idProducto, double precio, String color, String descripcionCorta, String descripcionLarga,
+    public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
 			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
@@ -39,6 +40,7 @@ public class ProductoModel {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
 		this.tags = tags;
+		this.precioEnOferta = precioEnOferta;
 		this.visible = visible;
 	}
 
@@ -172,4 +174,12 @@ public class ProductoModel {
                 ", tags=" + tags +
                 '}';
     }
+
+	public double getPrecioEnOferta() {
+		return precioEnOferta;
+	}
+
+	public void setPrecioEnOferta(double precioEnOferta) {
+		this.precioEnOferta = precioEnOferta;
+	}
 }

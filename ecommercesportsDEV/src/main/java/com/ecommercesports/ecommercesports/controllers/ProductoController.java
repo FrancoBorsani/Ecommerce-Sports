@@ -59,13 +59,13 @@ public class ProductoController {
 	@Qualifier("comentarioRepository")
 	private IComentarioRepository comentarioRepository;
 	
-	   @Autowired
-	    @Qualifier("productoRepository")
-	    private IProductoRepository productoRepository;
+   @Autowired
+    @Qualifier("productoRepository")
+    private IProductoRepository productoRepository;
 
-	    @Autowired
-	    @Qualifier("productoConverter")
-	    private ProductoConverter productoConverter;
+    @Autowired
+    @Qualifier("productoConverter")
+    private ProductoConverter productoConverter;
 	
 	
     @GetMapping({"", "/_DisplayType_LF"})
@@ -374,7 +374,11 @@ public class ProductoController {
     @GetMapping("/ofertas")
     public ModelAndView ofertas() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_OFERTA);
-        mAV.addObject("productos", productoService.getAll());
+        mAV.addObject("productos", productoService.getProductosEnOferta());
+        
+        for(Producto p : productoService.getProductosEnOferta()) {
+        	System.out.println(p);
+        }
         
         return mAV;
     }

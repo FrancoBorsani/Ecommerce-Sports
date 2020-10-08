@@ -126,4 +126,10 @@ public class ProductoService implements IProductoService {
 	public void changeVisible(boolean visible, long idProducto) {
 		productoRepository.changeVisible(visible, idProducto);
 	}
+
+	@Override
+	public List<Producto> getProductosEnOferta() {
+		// TODO Auto-generated method stub
+		return productoRepository.getProductosEnOferta();
+	}
 }

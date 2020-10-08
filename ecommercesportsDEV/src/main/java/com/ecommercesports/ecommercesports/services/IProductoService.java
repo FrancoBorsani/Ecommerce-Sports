@@ -35,4 +35,6 @@ public interface IProductoService {
     
     public void changeVisible(boolean visible, long idProducto);
     
+    public List<Producto> getProductosEnOferta();
+    
 }

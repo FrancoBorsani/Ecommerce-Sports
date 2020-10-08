@@ -23,6 +23,9 @@ public class Producto {
 
     @Column(name = "precio")
     private double precio;
+    
+    @Column(name = "precioEnOferta")
+    private double precioEnOferta;
 
     @Column(name = "color")
     private String color;
@@ -70,12 +73,13 @@ public class Producto {
 
 	public Producto() { }
 
-    public Producto(long idProducto,double precio, String color, String descripcionCorta,
+    public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
                     List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
+		this.precioEnOferta = precioEnOferta;
 		this.color = color;
 		this.descripcionCorta = descripcionCorta;
 		this.descripcionLarga = descripcionLarga;
@@ -191,22 +195,21 @@ public class Producto {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "idProducto=" + idProducto +
-                ", precio=" + precio +
-                ", color='" + color + '\'' +
-                ", descripcionCorta='" + descripcionCorta + '\'' +
-                ", descripcionLarga='" + descripcionLarga + '\'' +
-                ", sku='" + sku + '\'' +
-                ", talle='" + talle + '\'' +
-                ", categoria=" + categoria +
-                ", marca=" + marca +
-                ", listaComentarios=" + listaComentarios +
-                ", totalPuntaje=" + totalPuntaje +
-                ", cantidadValoraciones=" + cantidadValoraciones +
-                ", tags=" + tags +
-                '}';
-    }
+    public double getPrecioEnOferta() {
+		return precioEnOferta;
+	}
+
+	public void setPrecioEnOferta(double precioEnOferta) {
+		this.precioEnOferta = precioEnOferta;
+	}
+
+	@Override
+	public String toString() {
+		return "Producto [idProducto=" + idProducto + ", precio=" + precio + ", precioEnOferta=" + precioEnOferta
+				+ ", color=" + color + ", descripcionCorta=" + descripcionCorta + ", descripcionLarga="
+				+ descripcionLarga + ", sku=" + sku + ", talle=" + talle + ", categoria=" + categoria + ", marca="
+				+ marca + ", listaComentarios=" + listaComentarios + ", totalPuntaje=" + totalPuntaje
+				+ ", cantidadValoraciones=" + cantidadValoraciones + ", tags=" + tags + ", visible=" + visible + "]";
+	}
+
 }

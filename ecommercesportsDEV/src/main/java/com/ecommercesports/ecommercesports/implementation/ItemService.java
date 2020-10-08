@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.ItemConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
-import com.ecommercesports.ecommercesports.models.CarritoModel;
+import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.models.ItemModel;
 import com.ecommercesports.ecommercesports.repositories.IItemRepository;
 import com.ecommercesports.ecommercesports.services.IItemService;
+import com.ecommercesports.ecommercesports.services.IProductoService;
 
 @Service("itemService")
 public class ItemService implements IItemService{
@@ -23,6 +25,14 @@ public class ItemService implements IItemService{
 	@Autowired
 	@Qualifier("itemConverter")
 	private ItemConverter itemConverter;
+	
+	@Autowired
+	@Qualifier("carritoConverter")
+	private CarritoConverter carritoConverter;
+
+	@Autowired
+	@Qualifier("productoService")
+	private IProductoService productoService;
 	
 	@Override
 	public List<Item> getAll(){
@@ -35,10 +45,6 @@ public class ItemService implements IItemService{
 		return itemConverter.entityToModel(itemRepository.findByIdItem(idItem));
 		
 	}
-	
-	
-	
-	
 	
 	@Override
 	public ItemModel insertOrUpdate(ItemModel itemModel) {
@@ -59,5 +65,45 @@ public class ItemService implements IItemService{
 		}
 		
 	}
+	
+	@Override
+	public  Item itemsByProducto(Producto producto) {
+		Item item = null;
+		try {
+			return item = itemRepository.itemsByIdProducto(producto.getIdProducto());
+		}catch(Exception e) {
+			return item;
+		}
+		
+	}
+	
+	@Override
+	public Item insertarItemConProducto_y_Traer(Producto producto, Carrito carrito) {
+		Item item = new Item();
+		item.setProducto(producto);
+		item.setCantidad(1);
+		item.setCarrito(carrito);
+		return itemRepository.save(item);//Le devuelvo el item que guardé (el último que se agregó en la BD)
+	}
+	
+	@Override
+	public Item agregarUnidadAlItemYTraer(Item item) {
+		 int cantidad = item.getCantidad()+1;
+		 item.setCantidad(cantidad);				
+
+		 return itemRepository.save(item);
+	}
+	
+	@Override
+	public Item restarAlItemYTraer_EliminarSiEsCero(Item item) {
+		 int cantidad = item.getCantidad()-1;
+		 item.setCantidad(cantidad);
+		 if(cantidad==0) {
+			 remove(item.getIdItem());
+			return item = null; 
+		 }else {
+		   return itemRepository.save(item);
+		 }
+	}	
 	
 }//Fin class

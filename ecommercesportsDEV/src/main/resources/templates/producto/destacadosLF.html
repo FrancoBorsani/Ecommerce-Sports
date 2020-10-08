@@ -274,14 +274,17 @@
                                             <div class="producto-body mt-4 ml-3">
                                                 <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
                                                 <h4 class="product-price" th:text="'$'+${producto.precio}">$980.00</h4>
+                                                <h6 th:text="${producto.Categoria.nombre}" class="text-danger"></h6>
                                                 <h6 th:text="${producto.descripcionLarga}">Descripción del producto</h6>
                                             </div>
                                         </div>
                                     </div>
+                                
+                                       <a href="#" th:href="@{/carritos/productoAlCarrito/x/destacados_DPT_LF/{id}(id=${producto.idProducto})}" style="margin-bottom: 20%;margin-left: 65%">
+                                        <button type="submit" class="btn btn-success">add to cart<i  style="padding-left: 5px;" class="fa fa-shopping-cart"></i></button>
+                                       </a>
 
                                 </div>
-                            </div>
-                                
                             </div>
 
                         </li>

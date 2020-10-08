@@ -231,23 +231,23 @@
                     </div>
                     <div class="product-slider owl-carousel">
                     
-                        <div class="product-item">
+                        <div class="product-item" th:each="producto : ${productos} ">
                             <div class="pi-pic">
-                                <img th:src="@{/img/products/man-1.jpg}" alt="">
+                                <img th:src="@{/img/products/man-2.jpg}" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" >+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
+                                <div class="catagory-name" th:text="${producto.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${producto.idProducto})}">
+                                    <h5 th:text="${producto.descripcionCorta}"></h5>
                                 </a>
                                 <div class="product-price">
                                     $14.00
@@ -256,85 +256,13 @@
                             </div>
                         </div>
                         
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img th:src="@{/img/products/man-1.jpg}" alt="">
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img th:src="@{/img/products/man-1.jpg}" alt="">
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img th:src="@{/img/products/man-1.jpg}" alt="">
-                                <div class="sale">Sale</div>
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
-                                </div>
-                            </div>
-                        </div>
+ 
+                      
     
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="https://image.freepik.com/vector-gratis/oferta-especial-plantilla-banner-venta-moderna_1017-20667.jpg" style="margin-left:20%; margin-right:-20%">
+                    <div class="product-large set-bg m-large" data-setbg="https://image.freepik.com/vector-gratis/oferta-especial-plantilla-banner-venta-moderna_1017-20667.jpg">
                     </div>
                 </div>
             </div>
@@ -346,7 +274,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="https://media.istockphoto.com/vectors/big-summer-sale-this-weekend-special-offer-banner-vector-id597266792" style="margin-right:10%">
+                    <div class="product-large set-bg" data-setbg="https://media.istockphoto.com/vectors/big-summer-sale-this-weekend-special-offer-banner-vector-id597266792" >
                     </div>
                 </div>
                 <div class="col-lg-9 offset-lg-1">
@@ -581,7 +509,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="https://previews.123rf.com/images/olhakostiuk/olhakostiuk1707/olhakostiuk170700046/82662002-banner-de-venta-de-primavera-para-compras-en-l%C3%ADnea-con-oferta-de-descuento-cartel-promocional-de-dise%C3%B1o-d.jpg" style="margin-left:20%; margin-right:-20%">
+                    <div class="product-large set-bg m-large" data-setbg="https://previews.123rf.com/images/olhakostiuk/olhakostiuk1707/olhakostiuk170700046/82662002-banner-de-venta-de-primavera-para-compras-en-l%C3%ADnea-con-oferta-de-descuento-cartel-promocional-de-dise%C3%B1o-d.jpg">
                     </div>
                 </div>
             </div>
