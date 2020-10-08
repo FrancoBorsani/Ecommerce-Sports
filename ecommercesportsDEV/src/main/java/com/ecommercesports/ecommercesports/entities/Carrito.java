@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -30,14 +31,20 @@ public class Carrito {
 	@Column(name = "total")
 	private float total;
 	
+	@OneToOne(mappedBy = "carrito")
+    private User user;
+ 
+	
+	
 	
 	public Carrito() {}
 	
 
-	public Carrito(long idCarrito, LocalDate fecha) {
+	public Carrito(long idCarrito, LocalDate fecha, User user) {
 		super();
 		this.idCarrito = idCarrito;
 		this.fecha = fecha;
+		this.user = user;
 	}
 
 	public long getIdCarrito() {
@@ -77,5 +84,23 @@ public class Carrito {
 	public void setTotal(float total) {
 		this.total = total;
 	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public int cantidadProductos() {
+		int cantidad = 0;
+		cantidad = listaItems.size();
+		return cantidad;
+	}
+	
+	
 
 }//Fin class

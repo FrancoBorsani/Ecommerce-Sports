@@ -11,10 +11,12 @@ import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.models.CarritoModel;
 import com.ecommercesports.ecommercesports.repositories.ICarritoRepository;
 import com.ecommercesports.ecommercesports.repositories.IItemRepository;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
+import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IItemService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
@@ -51,7 +53,19 @@ public class CarritoService implements ICarritoService{
 	@Autowired
 	@Qualifier("itemService")
 	private IItemService itemService;
+	
+	@Autowired
+	@Qualifier("carritoService")
+	private ICarritoService carritoService;
 
+
+	@Autowired
+	@Qualifier("userRepository")
+	private IUserRepository userRepository;
+	
+	
+	
+	
 	@Override
 	public List<Carrito> getAll(){
 
@@ -62,8 +76,8 @@ public class CarritoService implements ICarritoService{
 	public CarritoModel findByIdCarrito(long idCarrito) {	
 		return carritoConverter.entityToModel(carritoRepository.findByIdCarrito(idCarrito));
 
-	}
-
+	}	
+	
 
 	@Override
 	public CarritoModel insertOrUpdate(CarritoModel carritoModel) {
@@ -112,16 +126,19 @@ public class CarritoService implements ICarritoService{
 	};	
 
 	@Override
-	public Carrito insertarCarritoConFecha_y_Traer() {
+	public Carrito insertarCarritoConFecha_y_Traer(User user) {
 		CarritoModel carritoModel = new CarritoModel();
 		carritoModel.setFecha(LocalDate.now());
 		carritoModel.setTotal(0);
+		carritoModel.setUser(user);
 		insertOrUpdate(carritoModel);
+		user.setCarrito(carritoRepository.findByUser(user.getEmail()));
+		userRepository.save(user);
 		return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
 	}
 	
 	@Override	
-	public Carrito agregarProductoAlCarrito(Producto producto) {
+	public Carrito agregarProductoAlCarrito(Producto producto, User user) {
 		Carrito carrito = carritoDelUserLogueado();
 		if(carrito != null) {
 			Item item = itemService.itemsByProducto(producto);
@@ -131,7 +148,7 @@ public class CarritoService implements ICarritoService{
 			    carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
 			}
 		}else{
-			carrito = insertarCarritoConFecha_y_Traer();
+			carrito = insertarCarritoConFecha_y_Traer(user);
 			pedidoService.insertarPeedidoConCarrito_y_User_y_Traer(carrito);
 			itemService.insertarItemConProducto_y_Traer(producto,carrito);
 		}

@@ -1,18 +1,20 @@
 package com.ecommercesports.ecommercesports.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -59,15 +61,22 @@ public class User {
 	@OneToMany(mappedBy="user")
     private List<Comentario> listaComentarios;
 	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "carrito", referencedColumnName = "idCarrito")
+    private Carrito carrito;
+	
+	
 	public User() {}
 	
-	public User(String username, String firstName, String lastName, String email, String password, boolean enabled) {
+	public User(String username, String firstName, String lastName, String email, String password, boolean enabled, Carrito carrito) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
+		this.carrito = carrito;
 	}
 	
 	public User(String username, String firstName, String lastName, String password,String email, boolean enabled, Set<UserRole> userRoles) {
@@ -167,6 +176,16 @@ public class User {
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
 	}
+
+	public Carrito getCarrito() {
+		return carrito;
+	}
+
+	public void setCarrito(Carrito carrito) {
+		this.carrito = carrito;
+	}
+	
+	
 
 	
 	

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Item;
+import com.ecommercesports.ecommercesports.entities.User;
 
 public class CarritoModel {
 
@@ -12,14 +13,16 @@ public class CarritoModel {
 	private Set<Item> listaItems;
 	private LocalDate fecha;
 	private float total;
+	private User user;
 	
 	public CarritoModel() {
 	}
 	
-	public CarritoModel(long idCarrito, LocalDate fecha) {
+	public CarritoModel(long idCarrito, LocalDate fecha, User user) {
 		super();
 		this.idCarrito = idCarrito;
 		this.fecha = fecha;
+		this.user = user;
 	}
 
 	public long getIdCarrito() {
@@ -54,4 +57,16 @@ public class CarritoModel {
 		this.listaItems = listaItems;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
+	
+	
+	
 }//Fin class
