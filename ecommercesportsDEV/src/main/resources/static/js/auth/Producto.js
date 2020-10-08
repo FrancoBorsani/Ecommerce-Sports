@@ -53,8 +53,8 @@ $(document).ready(function () {
         $(".btn-submit").on("click",function () {
         	
         	var productoModel = {};
+        	var idProducto = $("#idProducto").val();
 
-            productoModel["idProducto"] = $("#idProducto").val();
             productoModel["descripcionCorta"] = $("#descripcionCorta").val();
             productoModel["descripcionLarga"] = $("#descripcionLarga").val();
             productoModel["precio"] = $("#precio").val();
@@ -64,7 +64,7 @@ $(document).ready(function () {
             
             $.ajax({
 				type : "PUT",
-				url : "/api/productos/update/"+1,
+				url : "/api/productos/update/"+ idProducto,
 				contentType: "application/json",
 				data: JSON.stringify(productoModel),
 		        cache: false,
