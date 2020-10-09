@@ -1,6 +1,10 @@
 package com.ecommercesports.ecommercesports.controllers;
 
 
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,10 +26,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.converters.CarritoConverter;
+import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
+import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.entities.UserRole;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.CarritoService;
 import com.ecommercesports.ecommercesports.implementation.PerfilService;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
@@ -63,6 +71,13 @@ public class UserController {
 	@Qualifier("perfilService")
 	private PerfilService perfilService;
 	
+	@Autowired
+	@Qualifier("carritoService")
+	private CarritoService carritoService;
+	
+	@Autowired
+	@Qualifier("carritoConverter")
+	private CarritoConverter carritoConverter;
 	
 	@GetMapping("/registro")
 	public ModelAndView registro() {
@@ -99,6 +114,14 @@ public class UserController {
 				
 		System.out.println("-----------------------------------------");
 		
+		Carrito c = new Carrito();
+		c.setFecha(LocalDate.now());
+		c.setTotal(0);
+		c.setUser(newUSer);
+		Set<Item> lista = new HashSet<Item>();
+		c.setListaItems(lista);
+		carritoService.insertOrUpdate(carritoConverter.entityToModel(c));
+
 		return new RedirectView(ViewRouteHelpers.ROUTE_INDEX);
 	}
 	
@@ -322,6 +345,8 @@ public class UserController {
     	mAV.addObject("usuarioNombre", currentUser.getFirstName());
     	mAV.addObject("usuarioApellido", currentUser.getLastName());
     	mAV.addObject("usuarioEmail", currentUser.getEmail());
+    	
+    	mAV.addObject("carrito", currentUser.getCarrito());
         return mAV; 
     }
     
