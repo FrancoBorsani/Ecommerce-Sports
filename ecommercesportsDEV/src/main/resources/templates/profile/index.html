@@ -56,15 +56,13 @@
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
                                        
-
+								<span th:text="${carrito}" />
                                         <div class="product-widget">
-                          					  <tbody>
-                          			     <span th:text="${carrito.listaItems}" />
-                                                                               
+                          			               
                                              </div>
                                     </div>
                                     <div class="cart-summary">
-                                      <h5>SUBTOTAL: </h5>
+                                      <h5>SUBTOTAL:  </h5>
                                     </div>
                                     <div class="cart-btns">
                                         <a href="/carritos">View Cart</a>

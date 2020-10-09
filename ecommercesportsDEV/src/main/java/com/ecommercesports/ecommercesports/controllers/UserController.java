@@ -347,7 +347,7 @@ public class UserController {
     	mAV.addObject("usuarioEmail", currentUser.getEmail());
     	
     	mAV.addObject("carrito", currentUser.getCarrito());
-        return mAV; 
+    	 return mAV; 
     }
     
     
