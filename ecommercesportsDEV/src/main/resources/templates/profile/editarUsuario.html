@@ -151,16 +151,20 @@
             <div class="col-md-9">
                 <div class="profile-content">
                     <br>
-                    <form class="" th:action="@{/updateProfilePost}" method="post">
+                    <form class="" th:action="@{/updateProfilePost}" method="post" enctype="multipart/form-data">
+                    
+                    	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${msg != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${msg}"></span>
+					       
+					 </div>
+                    
         <p class="">Username:</p>
         <p> <input class="InputStyle" placeholder="Username" style="font-family:Arial, FontAwesome" type="text" name="nuevoUsername"> </p>
 
-		        <p class="">Nombre:</p>
-        <p> <input class="InputStyle" placeholder="Nombre" style="font-family:Arial, FontAwesome" type="text" name="nuevoNombre"> </p>
-
-		        <p class="">Apellido:</p>
-        <p> <input class="InputStyle" placeholder="Apellido" style="font-family:Arial, FontAwesome" type="text" name="nuevoApellido"> </p>
-    		 
+		        <p class="">Informacion Relevante:</p>
+        <p> <input class="InputStyle" placeholder="Que me dices sobre ti?" style="font-family:Arial, FontAwesome" type="text" name="aboutMe"> </p>
+    		     		 
     		 <button class="btn btn-lg btn-primary btn-block" type="submit">
 			<small>Guardar Cambios</small> 
 		</button>

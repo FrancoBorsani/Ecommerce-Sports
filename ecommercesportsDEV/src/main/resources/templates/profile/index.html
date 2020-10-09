@@ -51,18 +51,35 @@
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Carrito</span>
-                                    <div class="qty"></div>
+                                    <div class="qty">2</div>
                                 </a>
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
-                                       
-								<span th:text="${carrito}" />
                                         <div class="product-widget">
-                          			               
-                                             </div>
+                                            <div class="product-img">
+                                                <img src="./img/product01.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="./img/product02.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
                                     </div>
                                     <div class="cart-summary">
-                                      <h5>SUBTOTAL:  </h5>
+                                        <small>2 Item(s) selected</small>
+                                        <h5>SUBTOTAL: $720.00</h5>
                                     </div>
                                     <div class="cart-btns">
                                         <a href="/carritos">View Cart</a>
@@ -144,12 +161,10 @@
                         <!-- SIDEBAR USER TITLE -->
                             <div class="profile-usertitle">
                                 <div class="profile-usertitle-name">
-                                    <h2 th:text ="${usuarioUsername}  ">
-                                        USERNAME
-                                    </h2>
+                          				<h2 th:text ="${perfilUser.username}  "></h2>
                                 </div>
                                 <div class= "profile-usertitle-role" >
-                                    <h4 th:text ="${usuarioRole}"> ROLE </h4>
+                          				<h4 th:text ="${perfilUser.userRol}"> ROLE </h4> 
                                 </div>
                             <!-- BUTTON TO EDDIT USER -->
                                 <div>
@@ -165,30 +180,36 @@
                                 <ul class="nav">
                                     <li>
                                         <p>
-                                            <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
-                                            <span th:text="|${usuarioNombre} ${usuarioApellido} |"></span>
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p><i class="fa fa-home info"> DIRECTION </i>
+		                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
+		                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
-                                            <span th:text="${usuarioEmail}"></span>
+		                                 	<img src="/img/ubication.png" alt="" height="16px"  width="16">
+		                                    Direction
                                         </p>
                                     </li>
                                     <li>
-                                        <p><i class="fa fa-phone info"> PHONE </i>
+                                        <p>
+		                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
+		                                  <span th:text="${perfilUser.email}"></span>
                                         </p>
                                     </li>
+                                    <li>
+                                      	<p>
+		                                    <img src="/img/phone.png" alt="" height="15px"  width="15">  
+		                                    <span th:text="${perfilUser.cellPhone}"></span>
+                                        </p>
+                                    </li>
+                                    <!-- 
                                     <li>
                                         <p>
                                             <img src="/img/orderIcon.png" alt="" height="15px"  width="14px">
                                             <a href="/pedidos">My Orders</a>
                                         </p>
                                     </li>
+                                   -->
                                     
                                 </ul>
                             </div>
@@ -198,9 +219,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
                         <h4><strong>About Me</strong></h4>
-                        <br>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto illo voluptatum alias molestias asperiores quod beatae ea quasi, 
-                        sed dolor perspiciatis nemo earum quisquam laboriosam molestiae optio, voluptatem quae labore.
+                        <br th:text="${perfilUser.aboutMe}">
                     </div>
                     <a href="/cambiarClave">Cambiar clave de acceso</a>
                 </div>

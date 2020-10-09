@@ -1,5 +1,7 @@
 package com.ecommercesports.ecommercesports.services;
 
+import java.net.URL;
+
 import com.ecommercesports.ecommercesports.entities.Perfil;
 import com.ecommercesports.ecommercesports.entities.User;
 
@@ -10,7 +12,10 @@ public interface IPerfilService {
 	
 	public abstract Perfil findById(int id);
 	
-	public abstract Perfil insertOrUpdateProfile(User usuario);
+	public Perfil addNewProfile(User usuario);
+	
+	public Perfil updateProfile(Perfil profileToModif , String username  , String aboutMe);
+	
 	
 	public abstract boolean remove(int id);
 	

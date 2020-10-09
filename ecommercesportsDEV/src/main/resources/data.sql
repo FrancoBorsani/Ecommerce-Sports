@@ -1,15 +1,23 @@
 USE ecommerce_sports;
 
 /* user1 user  */
-INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,email) VALUES(1, "2020-03-22 00:00:01", 1, "$2y$12$a0iCfDJYp5GE7GSbvsv7j.W/WYVFnlRt9TUebcyzd1k/9N5RkgWlu", "2020-03-22 00:00:01", "user1","franco","aguirre","francoaguirre644@gmail.com");
+INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,phone,email) VALUES(1, "2020-03-22 00:00:01", 1, "$2y$12$a0iCfDJYp5GE7GSbvsv7j.W/WYVFnlRt9TUebcyzd1k/9N5RkgWlu", "2020-03-22 00:00:01", "user1","franco","aguirre","1111111111","francoaguirre644@gmail.com");
 /* user2 user2  */
-INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,email) VALUES(2, "2020-03-22 00:00:01", 1, "$2y$12$W.diP1QnNYq23OutiMKYRuBvqKYQTiVMOuDyuSfnMq5aNGezB6m9W", "2020-03-22 00:00:01", "user2","sergio","avalos","SergioAvalos@gmail.com");
+INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,phone,email) VALUES(2, "2020-03-22 00:00:01", 1, "$2y$12$W.diP1QnNYq23OutiMKYRuBvqKYQTiVMOuDyuSfnMq5aNGezB6m9W", "2020-03-22 00:00:01", "user2","sergio","avalos","2222222222","SergioAvalos@gmail.com");
 /* user3 user2  */
-INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,email) VALUES(3, "2020-03-22 00:00:01", 1, "$2y$12$W.diP1QnNYq23OutiMKYRuBvqKYQTiVMOuDyuSfnMq5aNGezB6m9W", "2020-03-22 00:00:01", "user3","franco","borsani","FrancoBorsani@gmail.com");
+INSERT INTO user (id,createdat,enabled,password,updatedat,username, first_name,lastname,phone,email) VALUES(3, "2020-03-22 00:00:01", 1, "$2y$12$W.diP1QnNYq23OutiMKYRuBvqKYQTiVMOuDyuSfnMq5aNGezB6m9W", "2020-03-22 00:00:01", "user3","franco","borsani","3333333333","FrancoBorsani@gmail.com");
 
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(1, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 1);
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(2, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 2);
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(3, "2020-03-22 00:00:01", "ROLE_ADMIN", "2020-03-22 00:00:01", 3);
+
+/*Profiles */
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(1, "user1", "ROLE_USER","franco","aguirre","1111111111","francoaguirre644@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(2, "user2", "ROLE_USER","sergio","avalos","2222222222","SergioAvalos@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(3, "user3", "ROLE_ADMIN","franco","borsani","3333333333","FrancoBorsani@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+
 
 /* Categories */
 

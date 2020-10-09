@@ -1,5 +1,7 @@
 package com.ecommercesports.ecommercesports.entities;
 
+import java.net.URL;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="perfil")
@@ -19,16 +22,27 @@ public class Perfil {
 	@Column(name = "username")
 	private String username;
 	
-	@Column(name = "apellido")
+	@Column(name = "nombre")
 	private String firstName;
 	
-	@Column(name = "nombre")
+	@Column(name = "user_role")
+	private String userRol;
+	
+	@Column(name = "apellido")
 	private String lastName;
+	
+	@Column(name = "phone")
+	private String cellPhone;
 	
 	@Column(name = "email")
 	private String email;
 
-
+	@Column(name="urlImage")
+	private String urlImage;
+	
+	@Column(name = "AboutMe" , length = 200)
+	private String aboutMe;
+	
 	public int getId() {
 		return id;
 	}
@@ -78,13 +92,58 @@ public class Perfil {
 		this.email = email;
 	}
 
+	
+	
+	public String getCellPhone() {
+		return cellPhone;
+	}
 
-	public Perfil(int id, String username, String firstName, String lastName, String email) {
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
+	}
+
+
+	public String getUrlImage() {
+		return urlImage;
+	}
+
+
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+
+
+	public String getAboutMe() {
+		return aboutMe;
+	}
+
+
+	public void setAboutMe(String aboutMe) {
+		this.aboutMe = aboutMe;
+	}
+
+	
+	
+	public String getUserRol() {
+		return userRol;
+	}
+
+
+	public void setUserRol(String userRol) {
+		this.userRol = userRol;
+	}
+
+
+	public Perfil(int id, String username, String userRol ,String firstName, String lastName, String cellPhone ,String email) {
 		this.id = id;
 		this.username = username;
+		this.userRol = userRol;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.cellPhone = cellPhone;
 		this.email = email;
+		this.aboutMe="En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina";
 	}
 
 

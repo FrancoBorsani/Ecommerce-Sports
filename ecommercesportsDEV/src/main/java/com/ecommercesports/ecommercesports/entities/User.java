@@ -37,6 +37,9 @@ public class User {
 	@Column(name="lastname", nullable=false, length=45)
 	private String lastName;
 	
+	@Column(name = "phone", nullable = false)
+	private String cellPhone;
+	
 	@Column(name="email",nullable = false)
 	private String email;
 	
@@ -69,20 +72,22 @@ public class User {
 	
 	public User() {}
 	
-	public User(String username, String firstName, String lastName, String email, String password, boolean enabled, Carrito carrito) {
+	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled, Carrito carrito) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.cellPhone = cellPhone;
 		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
 		this.carrito = carrito;
 	}
 	
-	public User(String username, String firstName, String lastName, String password,String email, boolean enabled, Set<UserRole> userRoles) {
+	public User(String username, String firstName, String lastName,String cellPhone, String password,String email, boolean enabled, Set<UserRole> userRoles) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.cellPhone = cellPhone;
 		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
@@ -143,6 +148,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	
+	public String getCellPhone() {
+		return cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public String getEmail() {

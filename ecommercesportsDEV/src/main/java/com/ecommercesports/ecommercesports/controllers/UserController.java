@@ -1,6 +1,7 @@
 package com.ecommercesports.ecommercesports.controllers;
 
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,10 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -102,7 +105,7 @@ public class UserController {
 			userRepository.save(newUSer);
 			userRoleRepository.save(new UserRole(userRepository.findByUsername(newUSer.getUsername()),"ROLE_USER"));			
 			
-			perfilService.insertOrUpdateProfile(newUSer);
+			perfilService.addNewProfile(newUSer);
 		}
 		
 		System.out.println("-----------------------------------------");
@@ -292,17 +295,16 @@ public class UserController {
 		return new RedirectView(ViewRouteHelpers.HOME);
 	}
 
-	
 	@GetMapping("/updateProfile")
 	public ModelAndView updateProfile() {
 		ModelAndView mAV=new ModelAndView(ViewRouteHelpers.USER_UPDATE_USER);
 		return mAV;
 	}
-	
 	@PostMapping("/updateProfilePost")
-	public String updateProfilePost(@RequestParam("nuevoUsername") String nuevoUsername ,
-									@RequestParam("nuevoNombre") String nuevoNombre,
-									@RequestParam("nuevoApellido") String nuevoApellido) {
+	public String updateProfilePost(@RequestParam("nuevoUsername") String nuevoUsername 
+									,@RequestParam("aboutMe") String aboutMe
+									//,@RequestParam("urlImage") String urlImage
+									,RedirectAttributes redirectAttrs)  {
     	
 		String currentUsername = "";
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -311,16 +313,17 @@ public class UserController {
 		}    	
     	
 		User currentUser = userRepository.findByUsername(currentUsername);
+		if(userRepository.findByUsername(nuevoUsername) != null) {
+			System.out.println("Ya existe un usuario con ese username");
+			redirectAttrs.addFlashAttribute("msg", "El nombre de usuario ingresado ya existe");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			return "redirect:/updateProfile";
+		}		
 		currentUser.setUsername(nuevoUsername);
-		currentUser.setFirstName(nuevoNombre);
-		currentUser.setLastName(nuevoApellido);
-		userRepository.save(currentUser);
-		
-		perfilService.insertOrUpdateProfile(currentUser); //cambio el username en perfil	
-		return "redirect:/";
+		perfilService.updateProfile(perfilService.findById(currentUser.getId()), nuevoUsername, aboutMe ); //modifico el perfil	
+		System.out.println("Perfil editado con exito");
+		return "redirect:/logout";
 	}	
-	
-	
     @GetMapping("/updateProfile/cancel")
 	public String canceUpdateProfile(ModelMap model) {
 		return "redirect:/profile";
@@ -337,23 +340,22 @@ public class UserController {
     	}
     	
     	User currentUser = userRepository.findByUsername(username);
-    	UserRole role = userRoleRepository.findById(currentUser.getId());
-    	
-    	
-    	mAV.addObject("usuarioUsername", currentUser.getUsername());
-    	mAV.addObject("usuarioRole", role.getRole());
-    	mAV.addObject("usuarioNombre", currentUser.getFirstName());
-    	mAV.addObject("usuarioApellido", currentUser.getLastName());
-    	mAV.addObject("usuarioEmail", currentUser.getEmail());
-    	
-    	mAV.addObject("carrito", currentUser.getCarrito());
-    	 return mAV; 
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+        return mAV; 
     }
     
     
     @GetMapping("/cambiarClave")
     public ModelAndView cambiarClave() {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_CAMBIARCLAVE);
+    	String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
     	return mAV;
     }
     @PostMapping("/cambiarClavePost")

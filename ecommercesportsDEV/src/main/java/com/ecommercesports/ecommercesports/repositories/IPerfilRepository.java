@@ -14,5 +14,7 @@ public interface IPerfilRepository extends JpaRepository<Perfil, Serializable>{
 	@Query(nativeQuery=true,value="select * from Perfil where id=(:idPerfil)")
 	public abstract Perfil  findById(int idPerfil);
 	
+	@Query(nativeQuery=true,value="select * from Perfil where username=(:username)")
+	public abstract Perfil findByUsername(String username);
 	
 }
