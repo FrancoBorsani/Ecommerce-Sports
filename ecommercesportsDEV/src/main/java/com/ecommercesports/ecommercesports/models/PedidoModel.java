@@ -128,9 +128,9 @@ public class PedidoModel {
 
 	@Override
 	public String toString() {
-		return "PedidoModel [idPedido=" + idPedido + ", domicilio=" + domicilio + ", user=" + user + ", carritoModel="
-				+ carritoModel + ", cantidad=" + cantidad + ", importeAPagar=" + importeAPagar + ", metodoPago="
-				+ metodoPago + ", comentario=" + comentario + ", estado=" + estado + "]";
+		return "Pedido [" + "carrito="
+				+ carritoModel + "]";
 	}
+
 	
 }//Fin class

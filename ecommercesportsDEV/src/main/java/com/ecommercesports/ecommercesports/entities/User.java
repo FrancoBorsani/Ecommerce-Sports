@@ -64,15 +64,11 @@ public class User {
 	@OneToMany(mappedBy="user")
     private List<Comentario> listaComentarios;
 	
-	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "carrito", referencedColumnName = "idCarrito")
-    private Carrito carrito;
-	
+
 	
 	public User() {}
 	
-	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled, Carrito carrito) {
+	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -80,7 +76,6 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
-		this.carrito = carrito;
 	}
 	
 	public User(String username, String firstName, String lastName,String cellPhone, String password,String email, boolean enabled, Set<UserRole> userRoles) {
@@ -189,15 +184,6 @@ public class User {
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
 	}
-
-	public Carrito getCarrito() {
-		return carrito;
-	}
-
-	public void setCarrito(Carrito carrito) {
-		this.carrito = carrito;
-	}
-	
 	
 
 	

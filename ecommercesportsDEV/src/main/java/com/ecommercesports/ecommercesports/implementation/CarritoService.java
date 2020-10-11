@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
+import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
-import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.models.CarritoModel;
 import com.ecommercesports.ecommercesports.repositories.ICarritoRepository;
 import com.ecommercesports.ecommercesports.repositories.IItemRepository;
@@ -125,38 +125,29 @@ public class CarritoService implements ICarritoService{
 		    }
 	};	
 
+
 	@Override
-	public Carrito insertarCarritoConFecha_y_Traer(User user) {
+	public Carrito insertarCarritoConFecha_y_Traer() {
 		CarritoModel carritoModel = new CarritoModel();
 		carritoModel.setFecha(LocalDate.now());
 		carritoModel.setTotal(0);
-		carritoModel.setUser(user);
 		insertOrUpdate(carritoModel);
 		return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
 	}
 	
+	
 	@Override	
-	public Carrito agregarProductoAlCarrito(Producto producto, User user) {
+	public Carrito agregarProductoAlCarrito(Producto producto) {
 		Carrito carrito = carritoDelUserLogueado();
 		if(carrito != null) {
 			Item item = itemService.itemsByProducto(producto);
 			if(item!=null) {
-			//	itemService.agregarUnidadAlItemYTraer(item);
-				user.getCarrito().getListaItems().add(itemService.agregarUnidadAlItemYTraer(item));
-			//	user.setCarrito(user.getCarrito());
-				userRepository.save(user);
+				itemService.agregarUnidadAlItemYTraer(item);
 			}else {
 			    carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
-			    user.getCarrito().getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
-			  //  user.setCarrito(carrito);
-				userRepository.save(user);
 			}
 		}else{
-			carrito = insertarCarritoConFecha_y_Traer(user);
-			user.setCarrito(carrito);
-			userRepository.save(user);
-			System.out.println("USUARIO CON CARRITO?: " + userRepository.findByUsername(user.getUsername()).getCarrito());
-			
+			carrito = insertarCarritoConFecha_y_Traer();
 			pedidoService.insertarPeedidoConCarrito_y_User_y_Traer(carrito);
 			itemService.insertarItemConProducto_y_Traer(producto,carrito);
 		}

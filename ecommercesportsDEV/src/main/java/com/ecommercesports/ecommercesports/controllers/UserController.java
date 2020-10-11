@@ -1,7 +1,6 @@
 package com.ecommercesports.ecommercesports.controllers;
 
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,12 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -42,6 +39,7 @@ import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.implementation.UserRoleService;
 import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
 import com.ecommercesports.ecommercesports.repositories.IClaveTemporalRepository;
+import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
 import com.ecommercesports.ecommercesports.services.IClaveTemporalService;
@@ -74,9 +72,15 @@ public class UserController {
 	@Qualifier("perfilService")
 	private PerfilService perfilService;
 	
+	
 	@Autowired
 	@Qualifier("carritoService")
 	private CarritoService carritoService;
+	
+	@Autowired
+	@Qualifier("pedidoRepository")
+	private IPedidoRepository pedidoRepository;
+	
 	
 	@Autowired
 	@Qualifier("carritoConverter")
@@ -117,14 +121,6 @@ public class UserController {
 				
 		System.out.println("-----------------------------------------");
 		
-		Carrito c = new Carrito();
-		c.setFecha(LocalDate.now());
-		c.setTotal(0);
-		c.setUser(newUSer);
-		Set<Item> lista = new HashSet<Item>();
-		c.setListaItems(lista);
-		carritoService.insertOrUpdate(carritoConverter.entityToModel(c));
-
 		return new RedirectView(ViewRouteHelpers.ROUTE_INDEX);
 	}
 	
@@ -341,6 +337,8 @@ public class UserController {
     	
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	mAV.addObject("carrito", carritoService.carritoDelUserLogueado());
         return mAV; 
     }
     

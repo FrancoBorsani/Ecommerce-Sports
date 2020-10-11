@@ -2211,3 +2211,12 @@ textarea.input {
   border-bottom-left-radius: 20px 50% !important; 
   width: 400px !important;
 }
+
+.secondary{
+	background: #15161D;
+}
+
+.dataTables_filter {
+   float: right;
+   padding-bottom: 2rem;
+}

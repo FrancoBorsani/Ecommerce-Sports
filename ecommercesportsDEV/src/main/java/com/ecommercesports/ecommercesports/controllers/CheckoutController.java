@@ -89,7 +89,6 @@ public class CheckoutController {
 	    	System.out.println("EMAIL DE USUARIO:" + currentUser.getEmail());
 	      	p.setUser(currentUser);
 	      	System.out.println("SE AGREGO EL USER");
-	    	p.setCarrito(currentUser.getCarrito());
 	    	System.out.println("SE AGREGO EL CARRITO");
 	    	//p.setCantidad(currentUser.getCarrito().cantidadProductos());
 	    	p.setCantidad(0);
@@ -121,10 +120,10 @@ public class CheckoutController {
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
 					
 		 	PedidoModel p = pedidoService.findByIdPedido(Long.parseLong(id));
-	    	String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nComentario: "+ p.getComentario() + "\nCarrito del pedido: "+ p.getUser().getCarrito().getIdCarrito() + "\nDetalles: "+ p.getUser().getCarrito().getListaItems() + "\nTotal: "+ p.getUser().getCarrito().getTotal();
-	        String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
-	        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
-	        SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
+	  //  	String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nComentario: "+ p.getComentario() + "\nCarrito del pedido: "+ p.getUser().getCarrito().getIdCarrito() + "\nDetalles: "+ p.getUser().getCarrito().getListaItems() + "\nTotal: "+ p.getUser().getCarrito().getTotal();
+	    //    String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
+	   //     SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
+	   //     SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
 		     
 	        
 	    	return mAV;

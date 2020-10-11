@@ -13,16 +13,15 @@ public class CarritoModel {
 	private Set<Item> listaItems;
 	private LocalDate fecha;
 	private float total;
-	private User user;
 	
 	public CarritoModel() {
 	}
 	
-	public CarritoModel(long idCarrito, LocalDate fecha, User user) {
+	public CarritoModel(long idCarrito, LocalDate fecha) {
 		super();
 		this.idCarrito = idCarrito;
 		this.fecha = fecha;
-		this.user = user;
+
 	}
 
 	public long getIdCarrito() {
@@ -57,12 +56,10 @@ public class CarritoModel {
 		this.listaItems = listaItems;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	@Override
+	public String toString() {
+		return "CarritoModel [idCarrito=" + idCarrito + ", listaItems=" + listaItems + ", fecha=" + fecha + ", total="
+				+ total +"]";
 	}
 
 	

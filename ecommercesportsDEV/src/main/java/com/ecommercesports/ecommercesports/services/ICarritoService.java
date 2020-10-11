@@ -21,13 +21,15 @@ public interface ICarritoService {
 	
 	public Carrito carritoDelUserLogueado();
 
-	public Carrito insertarCarritoConFecha_y_Traer(User user);	
+	public Carrito insertarCarritoConFecha_y_Traer();	
 	
-	public Carrito agregarProductoAlCarrito(Producto producto, User user);
+	public Carrito agregarProductoAlCarrito(Producto producto);
 
 	public int traerCantidaDeArticulosDelCarrito(Carrito carrito);
 	
 	public double traerMontoTotalDelCarrito(Carrito carrito);
+
+
 	
 	
 }//Fin interface

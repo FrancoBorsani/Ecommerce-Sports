@@ -67,6 +67,10 @@ public class PedidoService implements IPedidoService{
 		public Pedido insertarPeedidoConCarrito_y_User_y_Traer(Carrito carrito) {
 			PedidoModel pedidoModel = new PedidoModel();
 			pedidoModel.setCantidad(carritoService.traerCantidaDeArticulosDelCarrito(carrito));
+			pedidoModel.setComentario("");
+			pedidoModel.setDomicilio("");
+			pedidoModel.setEstado("");
+			pedidoModel.setMetodoPago("");
 			pedidoModel.setCarritoModel(carritoService.findByIdCarrito(carrito.getIdCarrito()));
 			pedidoModel.setUser(userLogueadoService.traerUserLogueado());
 			pedidoModel.setImporteAPagar(carritoService.traerMontoTotalDelCarrito(carrito));

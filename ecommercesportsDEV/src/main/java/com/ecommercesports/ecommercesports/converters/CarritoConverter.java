@@ -16,11 +16,11 @@ public class CarritoConverter {
 	
 	
 public	CarritoModel entityToModel(Carrito carrito) {
-		return new CarritoModel(carrito.getIdCarrito(), carrito.getFecha(), carrito.getUser());
+		return new CarritoModel(carrito.getIdCarrito(), carrito.getFecha());
 	}
 	
 	public Carrito modelToEntity(CarritoModel carritoModel) {
-		return new Carrito(carritoModel.getIdCarrito(), carritoModel.getFecha(), carritoModel.getUser());
+		return new Carrito(carritoModel.getIdCarrito(), carritoModel.getFecha());
 	}
 	
 }

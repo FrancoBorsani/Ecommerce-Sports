@@ -74,7 +74,7 @@ public class CarritoController {
         Producto producto = productoRepository.findByIdProducto(idProducto);
 		User user = userLogueadoService.traerUserLogueado();
         if(user!=null) { //	si el usuario está logueado agrego el producto a un item-carrito-pedido (si no existen se crean) para el pedido del usuario
-		    carritoService.agregarProductoAlCarrito(producto, user); 	        	
+		    carritoService.agregarProductoAlCarrito(producto); 	        	
         	return "redirect:/productos/"+url;
 		}else {//	si el usuario NO está logueado
 			return "redirect:/ingreso";//mAV = new ModelAndView(ViewRouteHelpers.USER_LOGIN);

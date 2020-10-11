@@ -19,4 +19,14 @@ public interface IPedidoRepository extends JpaRepository<Pedido, Serializable> {
     @Query(nativeQuery=true,value="select * from pedido where carrito_id_carrito = (:idCarrito)")
     public Pedido traerPedidoDelCarrito(long idCarrito);
     
+    @Query(nativeQuery=true,value="select * from pedido where user_id = (:user_id)")
+    public Pedido traerPedidoDelUser(long user_id);
+    
+  //@Query("SELECT u FROM Carrito u WHERE u.user.email = (:email)")
+  	//public abstract Carrito findByUser(@Param("email") String email);
+  		
+  	
+    
+    
+    
 }

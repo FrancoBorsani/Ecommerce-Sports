@@ -156,49 +156,49 @@
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name">
-                            USER NAME
+                          	<h2 th:text ="${perfilUser.username}  "></h2>
                         </div>
                         <div class= "profile-usertitle-role" >
-                            USER ROLE
-                        </div>
-                    </div>
+                          <h4 th:text ="${perfilUser.userRol}"> ROLE </h4>   
+                         </div>
+                   </div>
                     <!-- END SIDEBAR USER TITLE -->
-                    <!-- SIDEBAR BUTTON -->
-                    <div class="profile-userbuttons">
-                        <button type="button" class="btn btn-success btn-sm">Edit Profile</button>
-                    </div>
                     <br>
                     <!-- END SIDEBAR BUTTONS -->
                     <!-- SIDEBAR MENU -->
                     <div class="profile-usermenu">
                         <ul class="nav">
                             <li>
-                                <p class="ml-2">
-                                    <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
-                                    Name Surname
-                                </p>
+                               <p>
+                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
+                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
+                               </p>
                             </li>
                             <li>
-                                <p class="ml-2"><i class="fa fa-home info"></i>
+                                 <p><img src="/img/ubication.png" alt="" height="16px"  width="16">
                                     Direction
                                 </p>
                             </li>
                             <li>
-                                <p class="ml-2"><i class="fa fa-envelope info"></i>
-                                    Email
-                                </p>
+                              <p>
+                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
+                                  <span th:text="${perfilUser.email}"></span>
+                              </p>
                             </li>
                             <li>
-                                <p class="ml-2"><i class="fa fa-phone info"></i>
-                                    Phone
+                                <p> 
+                                    <img src="/img/phone.png" alt="" height="15px"  width="15">  
+                                    <span th:text="${perfilUser.cellPhone}"></span>
                                 </p>
                             </li>
+                            <!--
                             <li>
                                 <p class="ml-2">
                                     <img src="/img/orderIcon.png" alt="" height="20px"  width="17px">
                                     <a href="/pedidos">My Orders</a>
                                 </p>
                             </li>
+                            -->
                             
                         </ul>
                     </div>
@@ -208,8 +208,6 @@
             
             <div class="col-md-9">
                 <div class="profile-content">
-                    <h4><strong>About Me</strong></h4>
-                    <br>
                     <form class="" th:action="@{/cambiarClavePost}" method="post">
         <p class="">Ingrese su nueva clave:</p>
         <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome" type="password" name="nuevaclave"> </p>

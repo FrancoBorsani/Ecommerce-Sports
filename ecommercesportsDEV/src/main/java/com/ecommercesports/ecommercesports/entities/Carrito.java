@@ -31,20 +31,15 @@ public class Carrito {
 	@Column(name = "total")
 	private float total;
 	
-	@OneToOne(mappedBy = "carrito")
-    private User user;
- 
-	
 	
 	
 	public Carrito() {}
 	
 
-	public Carrito(long idCarrito, LocalDate fecha, User user) {
+	public Carrito(long idCarrito, LocalDate fecha) {
 		super();
 		this.idCarrito = idCarrito;
 		this.fecha = fecha;
-		this.user = user;
 	}
 
 	public long getIdCarrito() {
@@ -86,20 +81,22 @@ public class Carrito {
 	}
 
 
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 	
 	public int cantidadProductos() {
 		int cantidad = 0;
 		cantidad = listaItems.size();
 		return cantidad;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Carrito [idCarrito=" + idCarrito + ", listaItems=" + listaItems + ", fecha=" + fecha + ", total="
+				+ total + "]";
+	}
+	
+	
+	
 	
 	
 
