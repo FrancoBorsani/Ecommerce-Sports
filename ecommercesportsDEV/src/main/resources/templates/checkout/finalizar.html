@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+<!-- HEADER -->
+<header>
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="/" class="logo">
+                            <img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form id="form-search">
+                            <input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                            <button class="search-btn">Buscar</button>
+                            <ul class="list-group" id="result"></ul>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Carrito</span>
+                                <div class="qty">2</div>
+                            </a>
+                            <div class="cart-dropdown">
+                                <div class="cart-list">
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product01.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product02.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                                <div class="cart-summary">
+                                    <small>2 Item(s) selected</small>
+                                    <h5>SUBTOTAL: $720.00</h5>
+                                </div>
+                                <div class="cart-btns">
+                                    <a href="/carritos">View Cart</a>
+                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                <li><a href="/productos">Todos los productos</a></li>
+                <li><a href="#">Ofertas</a></li>
+                <li><a href="/pedidos">Pedidos</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                        <div class="dropdown-divider"></div>
+                    </div>
+                </li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+<!-- BREADCRUMB -->
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- Order Details -->
+            <div class="col-md-5 order-details">
+                <div class="order-summary">
+                    <div class="order-col">
+                        <div><strong>PRODUCTO</strong></div>
+                        <div><strong>TOTAL</strong></div>
+                    </div>
+
+                    <!-- Productos del carrito -->
+                    <div class="itemsCarrito" th:each="items:${itemsCarrito}">
+                        <div class="order-products">
+                            <div class="order-col">
+                                <div th:text="${items.producto.descripcionCorta}"> Nombre producto</div>
+                                <div th:text="${items.producto.precio}"> Precio producto</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Envio -->
+                    <div class="order-col">
+                        <div>Shiping</div>
+                        <div><strong>GRATIS</strong></div>
+                    </div>
+
+                    <!-- Insertar codigo de descuento -->
+                    <div class="order-col">
+                        <div><strong>CÓDIGO DE DESCUENTO</strong></div>
+                        <div><strong class="order-total" th:text="${codigoDescuento}"></strong></div>
+                    </div>
+
+                    <!-- Total de compra con el descuento -->
+                    <div class="order-col">
+                        <div><strong class="order-total">Total</strong></div>
+                        <div><strong class="order-total" th:text="${totalCompra}"></strong></div>
+                    </div>
+
+                    <a href="/checkout/envio/pago/confirmar/finalizar" class="primary-btn mt-4">Finalizar</a>
+                </div>
+            </div>
+            <!-- /Order Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+<div class="row">
+
+</div>
+
+<!-- FOOTER -->
+<footer id="footer">
+    <!-- bottom footer -->
+    <div id="bottom-footer" class="section">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="footer-payments">
+                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                    </ul>
+                    <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
+
+
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
+
+<!-- jQuery Plugins -->
+
+<th:block th:include="fragments/scripts :: scripts"></th:block>
+
+<script>
+    $(document).ready(function () {
+
+        $("#search").keyup(function () {
+            $("#result").html("");
+            $("#state").val("");
+            const searchField = $("#search").val();
+            const expression = new RegExp(searchField, "i");
+
+            $.getJSON("/productos/getAllProducts", function (data) {
+                var i = 0;
+                $.each(data, function (key, value) {
+                    if (
+                        value.descripcionCorta.search(expression) != -1 && i<4
+                    ) {
+
+                        $("#result").append(
+                            '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+                            "https://www.kornerst.com/blog/wp-content/uploads/2013/07/tabla-skate-flip-hkd-red.jpg" +
+                            '" height="40" width="40" class="img-thumbnail" /> ' +
+                            value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio +
+                            "</li></a>"
+                        );
+                        i++;
+                    }
+                });
+                if (searchField == "") $("#result").html("");
+            });
+        });
+
+        $("#result").on("click", "li", function () {
+            var click_text = $(this).text().split("|");
+            $("#search").val($.trim(click_text[0]));
+            $("#result").html("");
+        });
+
+        $("#result")
+            .focusout(function() {
+                $("#result").html("");
+            })
+
+        $("body").on("click", function () {
+            $("#result").html("");
+        });
+
+        $( "#form-search" ).submit(function(e) {
+            e.preventDefault();
+            const searchField = $("#search").val();
+            if(searchField != "") window.location.href = "/productos/search="+searchField;
+        });
+
+    });
+
+</script>
+</body>
+
+</html>

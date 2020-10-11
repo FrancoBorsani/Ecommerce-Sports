@@ -22,6 +22,19 @@ public class ViewRouteHelpers {
 	public static final String PEDIDO_INDEX = "pedido/index";
     public final static String PEDIDO_ROOT = "/pedidos";
     
+<<<<<<< Updated upstream
+=======
+    // Checkout
+    
+    public static final String CHECKOUT_INDEX = "checkout/index";
+    public static final String ENVIO = "checkout/envio";
+    public static final String FORM_DOMICILIO = "checkout/formAdress";
+    public static final String PAGO = "checkout/pago";
+    public final static String CHECKOUT_ROOT = "/checkout";
+    public final static String CONFIRMAR_COMPRA = "checkout/confirmar";
+    public final static String FINALIZAR_COMPRA = "checkout/finalizar";
+    
+>>>>>>> Stashed changes
     //Acceso
     
     public final static String USER_LOGIN = "acceso/ingreso";

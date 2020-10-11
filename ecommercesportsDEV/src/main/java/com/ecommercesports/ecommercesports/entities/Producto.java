@@ -71,7 +71,7 @@ public class Producto {
 		this.color = color;
 		this.descripcionCorta = descripcionCorta;
 		this.descripcionLarga = descripcionLarga;
-		this.sku = sku;
+		setSku();
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
@@ -132,6 +132,10 @@ public class Producto {
 
     public void setSku(String sku) {
         this.sku = sku;
+    }
+
+    public void setSku() {
+        this.sku = getColor().substring(0, 1) + "_" + getDescripcionCorta().substring(0, 2);
     }
 
     public String getTalle() {
