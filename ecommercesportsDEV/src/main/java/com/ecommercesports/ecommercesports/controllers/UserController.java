@@ -1,6 +1,5 @@
 package com.ecommercesports.ecommercesports.controllers;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -299,7 +299,7 @@ public class UserController {
 	@PostMapping("/updateProfilePost")
 	public String updateProfilePost(@RequestParam("nuevoUsername") String nuevoUsername 
 									,@RequestParam("aboutMe") String aboutMe
-									//,@RequestParam("urlImage") String urlImage
+									,@RequestParam("imagen") MultipartFile imagen
 									,RedirectAttributes redirectAttrs)  {
     	
 		String currentUsername = "";
@@ -307,20 +307,30 @@ public class UserController {
 		if (principal instanceof UserDetails) {
 			currentUsername = ((UserDetails)principal).getUsername();
 		}    	
-    	
 		User currentUser = userRepository.findByUsername(currentUsername);
+		
 		if(userRepository.findByUsername(nuevoUsername) != null) {
 			System.out.println("Ya existe un usuario con ese username");
 			redirectAttrs.addFlashAttribute("msg", "El nombre de usuario ingresado ya existe");
 			redirectAttrs.addFlashAttribute("clase", "danger");
 			return "redirect:/updateProfile";
-		}		
-		currentUser.setUsername(nuevoUsername);
-		perfilService.updateProfile(perfilService.findById(currentUser.getId()), nuevoUsername, aboutMe ); //modifico el perfil	
-		System.out.println("Perfil editado con exito");
-		   
+		}
+		if(imagen.isEmpty() ) {
+			redirectAttrs.addFlashAttribute("msg", "La imagen esta vacia");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			return "redirect:/updateProfile";
+		}
+
+		try {
+			currentUser.setUsername(nuevoUsername);
+			userRepository.save(currentUser);
+			perfilService.updateProfile(perfilService.findById(currentUser.getId()), nuevoUsername, imagen, aboutMe);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "redirect:/logout";
-	}	
+	}
     @GetMapping("/updateProfile/cancel")
 	public String canceUpdateProfile(ModelMap model) {
 		return "redirect:/profile";
@@ -339,6 +349,7 @@ public class UserController {
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
 
+    	/*
     	mAV.addObject("pedido", pedidoRepository.traerPedidoDelUser(currentUser.getId()));
     	List<Item> listaProductos = new ArrayList<Item>();
     	
@@ -347,7 +358,7 @@ public class UserController {
 		}
     	
     	mAV.addObject("items", listaProductos);
-    	
+    	*/
     	
     	return mAV; 
     }

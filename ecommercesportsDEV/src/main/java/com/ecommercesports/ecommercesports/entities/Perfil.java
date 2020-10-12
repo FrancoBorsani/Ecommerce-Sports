@@ -37,8 +37,8 @@ public class Perfil {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name="urlImage")
-	private String urlImage;
+	@Column(name="imagen")
+	private String imagen;
 	
 	@Column(name = "AboutMe" , length = 200)
 	private String aboutMe;
@@ -104,13 +104,13 @@ public class Perfil {
 	}
 
 
-	public String getUrlImage() {
-		return urlImage;
+	public String getImagen() {
+		return imagen;
 	}
 
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 
