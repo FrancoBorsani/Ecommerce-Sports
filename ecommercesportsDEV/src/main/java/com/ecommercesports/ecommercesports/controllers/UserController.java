@@ -1,9 +1,8 @@
 package com.ecommercesports.ecommercesports.controllers;
 
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
-import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.User;
@@ -294,6 +292,8 @@ public class UserController {
 	@GetMapping("/updateProfile")
 	public ModelAndView updateProfile() {
 		ModelAndView mAV=new ModelAndView(ViewRouteHelpers.USER_UPDATE_USER);
+		mAV.addObject("carrito", carritoService.carritoDelUserLogueado());
+	       
 		return mAV;
 	}
 	@PostMapping("/updateProfilePost")
@@ -318,6 +318,7 @@ public class UserController {
 		currentUser.setUsername(nuevoUsername);
 		perfilService.updateProfile(perfilService.findById(currentUser.getId()), nuevoUsername, aboutMe ); //modifico el perfil	
 		System.out.println("Perfil editado con exito");
+		   
 		return "redirect:/logout";
 	}	
     @GetMapping("/updateProfile/cancel")
@@ -337,9 +338,18 @@ public class UserController {
     	
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+
+    	mAV.addObject("pedido", pedidoRepository.traerPedidoDelUser(currentUser.getId()));
+    	List<Item> listaProductos = new ArrayList<Item>();
     	
-    	mAV.addObject("carrito", carritoService.carritoDelUserLogueado());
-        return mAV; 
+    	for (Item item : pedidoRepository.traerPedidoDelUser(currentUser.getId()).getCarrito().getListaItems()) {
+			listaProductos.add(item);
+		}
+    	
+    	mAV.addObject("items", listaProductos);
+    	
+    	
+    	return mAV; 
     }
     
     
@@ -354,6 +364,8 @@ public class UserController {
     	
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	mAV.addObject("carrito", carritoService.carritoDelUserLogueado());
+        
     	return mAV;
     }
     @PostMapping("/cambiarClavePost")
