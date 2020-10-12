@@ -21,14 +21,16 @@ public class UserLogueadoService implements IUserLogueadoService{
     @Override 
 	public User traerUserLogueado() {
         String currentUserName = "";
+        User user = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			currentUserName = authentication.getName();
+			user = userRepository.findByUsername(currentUserName);
 		}
 
-	 return userRepository.findByUsername(currentUserName);		
-	
+	 return user;		
+ 
 	};
 	
 	

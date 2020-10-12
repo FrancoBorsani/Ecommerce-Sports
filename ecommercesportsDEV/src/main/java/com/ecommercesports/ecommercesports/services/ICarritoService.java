@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Producto;
-import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.models.CarritoModel;
 
 public interface ICarritoService {
@@ -21,7 +20,7 @@ public interface ICarritoService {
 	
 	public Carrito carritoDelUserLogueado();
 
-	public Carrito insertarCarritoConFecha_y_Traer();	
+	public Carrito insertarCarritoConFecha_y_Traer(Producto producto);	
 	
 	public Carrito agregarProductoAlCarrito(Producto producto);
 

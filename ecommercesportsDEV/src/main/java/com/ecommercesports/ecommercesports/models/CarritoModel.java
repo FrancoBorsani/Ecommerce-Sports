@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import com.ecommercesports.ecommercesports.entities.Item;
-import com.ecommercesports.ecommercesports.entities.User;
 
 public class CarritoModel {
 

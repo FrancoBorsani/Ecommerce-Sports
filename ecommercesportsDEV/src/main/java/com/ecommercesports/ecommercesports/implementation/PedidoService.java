@@ -4,6 +4,7 @@ import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.PedidoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Pedido;
+import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.models.PedidoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
@@ -24,7 +25,7 @@ public class PedidoService implements IPedidoService{
 	    @Autowired
 	    @Qualifier("pedidoConverter")
 	    private PedidoConverter pedidoConverter;
-	    
+	     
 	    @Autowired
 	    @Qualifier("carritoConverter")
 	    private CarritoConverter carritoConverter;	    
@@ -64,18 +65,18 @@ public class PedidoService implements IPedidoService{
 	    }
 	    
 		@Override
-		public Pedido insertarPeedidoConCarrito_y_User_y_Traer(Carrito carrito) {
+		public Pedido insertarPedidoConCarrito_y_User_y_Traer(Producto producto,Carrito carrito) {
 			PedidoModel pedidoModel = new PedidoModel();
-			pedidoModel.setCantidad(carritoService.traerCantidaDeArticulosDelCarrito(carrito));
+			pedidoModel.setCantidad(1);
 			pedidoModel.setComentario("");
 			pedidoModel.setDomicilio("");
 			pedidoModel.setEstado("");
 			pedidoModel.setMetodoPago("");
 			pedidoModel.setCarritoModel(carritoService.findByIdCarrito(carrito.getIdCarrito()));
 			pedidoModel.setUser(userLogueadoService.traerUserLogueado());
-			pedidoModel.setImporteAPagar(carritoService.traerMontoTotalDelCarrito(carrito));
+			pedidoModel.setImporteAPagar(producto.getPrecio());
 			insertOrUpdate(pedidoModel);
-			return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
+			return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
 		}
 
-}
+}//Fin class

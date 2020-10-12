@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -94,10 +93,6 @@ public class Carrito {
 		return "Carrito [idCarrito=" + idCarrito + ", listaItems=" + listaItems + ", fecha=" + fecha + ", total="
 				+ total + "]";
 	}
-	
-	
-	
-	
 	
 
 }//Fin class

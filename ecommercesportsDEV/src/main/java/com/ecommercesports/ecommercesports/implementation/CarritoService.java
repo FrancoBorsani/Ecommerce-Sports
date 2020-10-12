@@ -1,6 +1,6 @@
 package com.ecommercesports.ecommercesports.implementation;
 
-import java.time.LocalDate;
+ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
+import com.ecommercesports.ecommercesports.converters.PedidoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
@@ -37,6 +38,10 @@ public class CarritoService implements ICarritoService{
 	@Autowired
 	@Qualifier("carritoConverter")
 	private CarritoConverter carritoConverter;
+	
+	@Autowired
+	@Qualifier("pedidoConverter")
+	private PedidoConverter pedidoConverter;
 
 	@Autowired
 	@Qualifier("pedidoRepository")
@@ -72,6 +77,7 @@ public class CarritoService implements ICarritoService{
 		return carritoRepository.findAll();
 
 	}
+	
 	@Override
 	public CarritoModel findByIdCarrito(long idCarrito) {	
 		return carritoConverter.entityToModel(carritoRepository.findByIdCarrito(idCarrito));
@@ -127,12 +133,24 @@ public class CarritoService implements ICarritoService{
 
 
 	@Override
-	public Carrito insertarCarritoConFecha_y_Traer() {
-		CarritoModel carritoModel = new CarritoModel();
-		carritoModel.setFecha(LocalDate.now());
-		carritoModel.setTotal(0);
-		insertOrUpdate(carritoModel);
-		return getAll().get(getAll().size()-1);//Le agrego el carrito que guardé (el último que se agregó en la BD)
+	public Carrito insertarCarritoConFecha_y_Traer(Producto producto) {
+		Carrito carrito = new Carrito();
+		carrito.setFecha(LocalDate.now());
+		carrito.setTotal((float)producto.getPrecio());
+		carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
+		return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
+	}
+	
+	
+	public Carrito agregarItemYValoresAlCarritoYPedido(Producto producto, Carrito carrito) {
+		carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+        Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
+        carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
+        pedido.setCantidad(pedido.getCantidad()+1);
+        pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecio());
+        carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
+        pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));
+	  return carritoRepository.findByIdCarrito(carrito.getIdCarrito());
 	}
 	
 	
@@ -144,16 +162,17 @@ public class CarritoService implements ICarritoService{
 			if(item!=null) {
 				itemService.agregarUnidadAlItemYTraer(item);
 			}else {
-			    carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+				carrito = agregarItemYValoresAlCarritoYPedido(producto, carrito);
 			}
 		}else{
-			carrito = insertarCarritoConFecha_y_Traer();
-			pedidoService.insertarPeedidoConCarrito_y_User_y_Traer(carrito);
-			itemService.insertarItemConProducto_y_Traer(producto,carrito);
+			carrito = insertarCarritoConFecha_y_Traer(producto);//lo creo con fecha actual y en total el precio del producto
+			pedidoService.insertarPedidoConCarrito_y_User_y_Traer(producto,carrito);//creo el pedido y le agrergo el carrito con user y carrito el resto en 0  o  ""
+			itemService.insertarItemConProducto_y_Traer(producto,carrito);//creo el item lo agrego al carrito y al carrito agrego el item
 		}
 
 		return carrito;
 	}	
+	
 	
 	@Override	
 	public double traerMontoTotalDelCarrito(Carrito carrito) {

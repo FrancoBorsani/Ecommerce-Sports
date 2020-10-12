@@ -138,15 +138,30 @@
 			<!-- responsive-nav -->
 			<div id="responsive-nav">
 				<!-- NAV -->
-				<ul class="main-nav nav navbar-nav">
-					<li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
-					<li><a href="/productos">Todos los productos</a></li>
-					<li><a href="#">Ofertas</a></li>
-					<li><a href="/contacto">Contacto</a></li>
-					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-					<li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                    <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
-				</ul>
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span id="logueado" sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </li>
+                </ul>
 				<!-- /NAV -->
 			</div>
 			<!-- /responsive-nav -->
@@ -235,7 +250,6 @@
                   <h5>Subtotal</h5>
                 </td>
                 <td>
-                  <h5 th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h5> 
                   <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
                 </td>
               </tr>

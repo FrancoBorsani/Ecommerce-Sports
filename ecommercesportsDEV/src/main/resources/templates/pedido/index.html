@@ -170,7 +170,7 @@
         <td th:text="${pedido.estado}"></td>
         <td th:text="${pedido.domicilio}"></td>
         <td th:text="${pedido.cantidad}"></td>
-        <td th:text="${'$'+pedido.importeAPagar}"></td>
+        <td th:text="'$ '+${#numbers.formatDecimal(pedido.importeAPagar, 0, 'POINT', 2, 'COMMA')}">10.00</td>
         <td th:text="${pedido.metodoPago}"></td>
       </tr>
     </tbody>

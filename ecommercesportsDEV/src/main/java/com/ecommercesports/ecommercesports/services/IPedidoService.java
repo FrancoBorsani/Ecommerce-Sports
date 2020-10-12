@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Pedido;
+import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.models.PedidoModel;
 
 public interface IPedidoService {
@@ -15,6 +16,6 @@ public interface IPedidoService {
 
 	    public boolean remove(long idPedido);
 
-		public Pedido insertarPeedidoConCarrito_y_User_y_Traer(Carrito carrito);
+	    public Pedido insertarPedidoConCarrito_y_User_y_Traer(Producto producto,Carrito carrito);
 
 }//Fin interface
