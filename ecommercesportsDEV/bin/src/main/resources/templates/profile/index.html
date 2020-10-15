@@ -42,11 +42,13 @@
                     </div>
                     <!-- /SEARCH BAR -->
 
-                    <!-- ACCOUNT -->
+                    <!-- ACCOUNT 
+                    
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
-
-                            <!-- Cart -->
+					-->
+					
+                            <!-- Cart 
                             <div class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
@@ -54,33 +56,17 @@
                                     <div class="qty">2</div>
                                 </a>
                                 <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product01.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
-
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product02.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
-                                    </div>
+                                      <tbody>
+      <tr th:each="item : ${items} " >
+         <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td>
+       								 <br></br>
+       						        <span>Cantidad: </span>  <td th:text="${item.cantidad}"></td>
+    <br></br>
+      </tr>
+    </tbody>
                                     <div class="cart-summary">
-                   
-                                        <small>2 Item(s) selected</small>
-                                        <h5>SUBTOTAL: $720.00</h5>
+                   						 
+                                      <h5>SUBTOTAL: <span th:text="${pedido.importeAPagar}"></span></h5>
                                     </div>
                                     <div class="cart-btns">
                                         <a href="/carritos">View Cart</a>
@@ -88,6 +74,8 @@
                                     </div>
                                 </div>
                             </div>
+                          -->
+                          
                             <!-- /Cart -->
 
                             <!-- Menu Toogle -->
@@ -156,7 +144,10 @@
                     <div class="profile-sidebar">
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
-                            <img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">
+
+	                        <img th:if="${perfilUser.imagen != null}" th:src="@{'/Ecommerce-Sports UsersImg/' + ${perfilUser.imagen}}" class="img-responsive" alt="" height="100px" width="100px">
+	                        <img th:if="${perfilUser.imagen == null}" src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">
+ 
                         </div>
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
@@ -221,7 +212,7 @@
                     <div class="profile-content">
                         <h4><strong>About Me</strong></h4>
                         <br th:text="${perfilUser.aboutMe}">
-                         <br th:text="${carrito}">
+                         <!-- <br th:text="${carrito}"> --> 
                     </div>
                     <a href="/cambiarClave">Cambiar clave de acceso</a>
                 </div>

@@ -12,11 +12,11 @@ INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(2, "2020-03-2
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(3, "2020-03-22 00:00:01", "ROLE_ADMIN", "2020-03-22 00:00:01", 3);
 
 /*Profiles */
-INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(1, "user1", "ROLE_USER","franco","aguirre","1111111111","francoaguirre644@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,imagen,about_me) VALUES(1, "user1", "ROLE_USER","franco","aguirre","1111111111","francoaguirre644@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
 
-INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(2, "user2", "ROLE_USER","sergio","avalos","2222222222","SergioAvalos@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,imagen,about_me) VALUES(2, "user2", "ROLE_USER","sergio","avalos","2222222222","SergioAvalos@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
 
-INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,url_image,about_me) VALUES(3, "user3", "ROLE_ADMIN","franco","borsani","3333333333","FrancoBorsani@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
+INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,imagen,about_me) VALUES(3, "user3", "ROLE_ADMIN","franco","borsani","3333333333","FrancoBorsani@gmail.com",null,"En esta parte podras escribir informacion que te parezca relevante para destacar en la pagina");
 
 
 /* Categories */

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.entities.Item;
+import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.entities.UserRole;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
@@ -348,19 +349,25 @@ public class UserController {
     	
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
-
-    	/*
-    	mAV.addObject("pedido", pedidoRepository.traerPedidoDelUser(currentUser.getId()));
-    	List<Item> listaProductos = new ArrayList<Item>();
     	
-    	for (Item item : pedidoRepository.traerPedidoDelUser(currentUser.getId()).getCarrito().getListaItems()) {
-			listaProductos.add(item);
+    	List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	try {
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    	listaProductos.add(item);
 		}
     	
-    	mAV.addObject("items", listaProductos);
-    	*/
-    	
-    	return mAV; 
+    		mAV.addObject("items", listaProductos);
+    		
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
     }
     
     
