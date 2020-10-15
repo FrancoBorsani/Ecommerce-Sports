@@ -13,6 +13,7 @@ import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.models.CarritoModel;
 import com.ecommercesports.ecommercesports.repositories.ICarritoRepository;
 import com.ecommercesports.ecommercesports.repositories.IItemRepository;
@@ -115,19 +116,21 @@ public class CarritoService implements ICarritoService{
 		Carrito carrito = new Carrito();//por lo anterior hize esto para que no tire error en la vista, ya que si era null daba error 		
 		int idUserLogueado = userLogueadoService.traerUserLogueado().getId();
 		    try{
-		      return carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
+		      return carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoPorIdUser_y_NoPagado(idUserLogueado).getCarrito().getIdCarrito());
 			}catch(Exception e){
 		       return carrito;
 		    }
 	};	
 	@Override	
 	public Carrito carritoDelUserLogueado() {
-		Carrito carrito = null;//necesito saber cuando es null 		
-		int idUserLogueado = userLogueadoService.traerUserLogueado().getId();
+		Carrito carrito = null;//necesito saber cuando es null
+		User user = userLogueadoService.traerUserLogueado();
+		int idUserLogueado = user.getId();
 		    try{
-		      return carrito = carritoRepository.findByIdCarrito(pedidoRepository.traerPedidoByIdUserAndDateNow(idUserLogueado).getCarrito().getIdCarrito());
+			    long idCarrito = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(idUserLogueado).getCarrito().getIdCarrito();
+		        return carritoRepository.findByIdCarrito(idCarrito);
 			}catch(Exception e){
-		       return carrito;
+		        return carrito;
 		    }
 	};	
 
