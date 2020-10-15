@@ -1,5 +1,8 @@
 package com.ecommercesports.ecommercesports.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.ecommercesports.ecommercesports.converters.PedidoConverter;
+import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
@@ -21,6 +24,7 @@ import com.ecommercesports.ecommercesports.models.PedidoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
+import com.ecommercesports.ecommercesports.services.IPerfilService;
 
 @Controller
 @RequestMapping("/checkout")
@@ -29,6 +33,11 @@ public class CheckoutController {
 	@Autowired
 	@Qualifier("pedidoService")
 	private IPedidoService pedidoService;
+	
+	@Autowired
+	@Qualifier("perfilService")
+	private IPerfilService perfilService;
+	
 	
 	@Autowired
 	@Qualifier("pedidoRepository")
@@ -48,7 +57,36 @@ public class CheckoutController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
-		return mAV;	
+		
+    	String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	try {
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    	listaProductos.add(item);
+		}
+    	
+    		mAV.addObject("items", listaProductos);
+    		
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
+		
+		
 	}
 	
 	@GetMapping("/envio")
