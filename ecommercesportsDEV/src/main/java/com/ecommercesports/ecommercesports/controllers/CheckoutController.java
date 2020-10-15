@@ -98,8 +98,34 @@ public class CheckoutController {
 	@GetMapping("/envio/domicilio")
 	public ModelAndView domicilio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_DOMICILIO);
-		mAV.addObject("pedido", new PedidoModel());
-		return mAV;	
+		String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	try {
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    	listaProductos.add(item);
+		}
+    	
+    		mAV.addObject("items", listaProductos);
+    		
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
+
 	}
 	
 	@GetMapping("/envio/pago")
@@ -129,11 +155,11 @@ public class CheckoutController {
 	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
 	    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
 	    	listaProductos.add(item);
+	    		}
 	    		p.setComentario(comentario);
 	    		p.setDomicilio(domicilio);
+	    		pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
 	    		
-	    		}
-	    	
 	    		mAV.addObject("items", listaProductos);
 	    		
 			} catch (Exception e) {
@@ -153,15 +179,44 @@ public class CheckoutController {
 	 @PostMapping("/pagar")
 	    public ModelAndView pagar(@RequestParam("id") String id){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
-					
-		 	PedidoModel p = pedidoService.findByIdPedido(Long.parseLong(id));
-	  //  	String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nComentario: "+ p.getComentario() + "\nCarrito del pedido: "+ p.getUser().getCarrito().getIdCarrito() + "\nDetalles: "+ p.getUser().getCarrito().getListaItems() + "\nTotal: "+ p.getUser().getCarrito().getTotal();
-	    //    String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
-	   //     SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
-	   //     SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
+		 String username = "";
+	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    	if( principal instanceof UserDetails) {
+	    		username = ((UserDetails)principal).getUsername();
+	    	}
+	    	
+	    	User currentUser = userRepository.findByUsername(username);
+	   	
+	   		  Pedido p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());  
+	   		  String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nTotal: "+ p.getImporteAPagar();
+	          String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
+	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
+	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
 		     
-	        
-	    	return mAV;
+
+		    	List<Item> listaProductos = new ArrayList<Item>();
+		    	Pedido p2 = new Pedido();
+		    	
+		    	try {
+		    		p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+		    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+		    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+		    	listaProductos.add(item);
+		    		}
+		    	
+		    		mAV.addObject("items", listaProductos);
+		    		
+				} catch (Exception e) {
+					mAV.addObject("pedido", p2);
+		    		mAV.addObject("items", listaProductos);
+				}
+		    	finally { 
+		    		return mAV; 
+		    	}
+				
+				//	 return mAV;
+		    
+	 
 			//	 return mAV;
 	    }
 	
