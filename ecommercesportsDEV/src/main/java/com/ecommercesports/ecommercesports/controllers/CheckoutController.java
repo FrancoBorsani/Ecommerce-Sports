@@ -112,10 +112,6 @@ public class CheckoutController {
 	 @PostMapping("/guardarPedido")
 	    public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
-				
-		 Pedido p = new Pedido();
-	    	p.setDomicilio(domicilio);
-	    	
 	    	String username = "";
 	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    	if( principal instanceof UserDetails) {
@@ -123,30 +119,31 @@ public class CheckoutController {
 	    	}
 	    	
 	    	User currentUser = userRepository.findByUsername(username);
-	    	System.out.println("Nombre de usuario:" + username);
-	    	System.out.println("EMAIL DE USUARIO:" + currentUser.getEmail());
-	      	p.setUser(currentUser);
-	      	System.out.println("SE AGREGO EL USER");
-	    	System.out.println("SE AGREGO EL CARRITO");
-	    	//p.setCantidad(currentUser.getCarrito().cantidadProductos());
-	    	p.setCantidad(0);
-	    	System.out.println("SE AGREGO LA CANTIDAD");
-	    	//p.setImporteAPagar(currentUser.getCarrito().getTotal());
-	    	p.setImporteAPagar(0);
-	    	System.out.println("SE AGREGO EL IMPORTE");
-	    	p.setMetodoPago("Efectivo");
-	    	System.out.println("SE AGREGO EL METODO DE PAGO");
-	    	p.setComentario(comentario);
-	    	System.out.println("SE AGREGO EL COMENTARIO");
-	    	p.setEstado("Activo");
-	    	System.out.println("SE AGREGO EL ESTADO");
+	    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
 	    	
-	    	System.out.println("SE AGREGO EL PEDIDO");
-	    //	p.setUser(user);
-	    //	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
-	    	mAV.addObject("pedido", pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p)));
+	    	List<Item> listaProductos = new ArrayList<Item>();
+	    	Pedido p = new Pedido();
 	    	
-		    return mAV;
+	    	try {
+	    		p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+	    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+	    	listaProductos.add(item);
+	    		p.setComentario(comentario);
+	    		p.setDomicilio(domicilio);
+	    		
+	    		}
+	    	
+	    		mAV.addObject("items", listaProductos);
+	    		
+			} catch (Exception e) {
+				mAV.addObject("pedido", p);
+	    		mAV.addObject("items", listaProductos);
+			}
+	    	finally { 
+	    		return mAV; 
+	    	}
+			
 			//	 return mAV;
 	    }
 
