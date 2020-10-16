@@ -157,7 +157,7 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Estado</th>
+        <th scope="col">Pagado</th>
         <th scope="col">Domicilio</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Importe</th>
@@ -167,7 +167,7 @@
     <tbody>
       <tr th:each="pedido : ${pedidos} " >
         <th scope="row">&#9989;</th>
-        <td th:text="${pedido.estado}"></td>
+        <td th:text="${pedido.pagado}"></td>
         <td th:text="${pedido.domicilio}"></td>
         <td th:text="${pedido.cantidad}"></td>
         <td th:text="'$ '+${#numbers.formatDecimal(pedido.importeAPagar, 0, 'POINT', 2, 'COMMA')}">10.00</td>

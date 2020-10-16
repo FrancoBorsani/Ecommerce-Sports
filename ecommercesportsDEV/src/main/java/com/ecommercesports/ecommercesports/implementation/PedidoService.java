@@ -70,7 +70,7 @@ public class PedidoService implements IPedidoService{
 			pedidoModel.setCantidad(1);
 			pedidoModel.setComentario("");
 			pedidoModel.setDomicilio("");
-			pedidoModel.setEstado("");
+			pedidoModel.setPagado(false);
 			pedidoModel.setMetodoPago("");
 			pedidoModel.setCarritoModel(carritoService.findByIdCarrito(carrito.getIdCarrito()));
 			pedidoModel.setUser(userLogueadoService.traerUserLogueado());

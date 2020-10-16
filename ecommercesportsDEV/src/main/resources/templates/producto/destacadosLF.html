@@ -266,14 +266,14 @@
                                     <div class="row">
                                         <div class="col-md-3 text-center">
                                             <div class="imagenes-producto ml-2">
-                                          <img th:src="@{${'/img/'+producto.descripcionCorta+'.png'}}"   alt="" height="150px" width="150px">
+                                              <img th:src="@{${producto.imagen}}" alt="" height="150px" width="150px">
                                             </div>
                                         </div>
 
                                         <div class="col-md-9">
                                             <div class="producto-body mt-4 ml-3">
                                                 <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
-                                                <h4 class="product-price" th:text="'$'+${producto.precio}">$980.00</h4>
+                                                <h4 class="product-price"th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
                                                 <h6 th:text="${producto.Categoria.nombre}" class="text-danger"></h6>
                                                 <h6 th:text="${producto.descripcionLarga}">Descripción del producto</h6>
                                             </div>

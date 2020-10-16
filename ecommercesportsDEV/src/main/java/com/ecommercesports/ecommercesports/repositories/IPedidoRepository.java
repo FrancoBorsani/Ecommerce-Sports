@@ -14,7 +14,7 @@ import java.util.List;
 public interface IPedidoRepository extends JpaRepository<Pedido, Serializable> {
 	public abstract Pedido findByIdPedido(long idPedido);
 	
-    @Query(nativeQuery=true,value="select * from pedido where estado != \"pagado\" and user_id = (:idUser)")
+    @Query(nativeQuery=true,value="select * from pedido where pagado = false and user_id = (:idUser)")
 	public Pedido traerPedidoPorIdUser_y_NoPagado(int idUser);
 
     @Query(nativeQuery=true,value="select * from pedido where carrito_id_carrito = (:idCarrito)")

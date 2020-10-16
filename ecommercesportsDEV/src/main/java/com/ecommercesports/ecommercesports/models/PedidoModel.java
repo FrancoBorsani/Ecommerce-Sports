@@ -28,7 +28,7 @@ public class PedidoModel {
 	private String comentario;
     
 	@Nullable
-	private String estado;
+	private boolean pagado;
 	
 	public PedidoModel() { }
 
@@ -41,7 +41,7 @@ public class PedidoModel {
 
 
 	public PedidoModel(long idPedido, String domicilio, User user, CarritoModel carritoModel, int cantidad,
-			double importeAPagar, String metodoPago, String comentario, String estado) {
+			double importeAPagar, String metodoPago, String comentario, boolean pagado) {
 		super();
 		this.idPedido = idPedido;
 		this.domicilio = domicilio;
@@ -51,7 +51,7 @@ public class PedidoModel {
 		this.importeAPagar = importeAPagar;
 		this.metodoPago = metodoPago;
 		this.comentario = comentario;
-		this.estado = estado;
+		this.pagado = pagado;
 	}
 
 	public long getIdPedido() {
@@ -118,12 +118,12 @@ public class PedidoModel {
 		this.comentario = comentario;
 	}
 
-	public String getEstado() {
-		return estado;
+	public boolean isPagado() {
+		return pagado;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setPagado(boolean pagado) {
+		this.pagado = pagado;
 	}
 
 	@Override

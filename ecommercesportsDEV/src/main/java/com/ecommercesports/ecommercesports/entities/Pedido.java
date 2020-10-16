@@ -45,8 +45,8 @@ public class Pedido {
 	    private String comentario;
 		
 		@Nullable
-	    @Column(name = "estado")
-	    private String estado;
+	    @Column(name = "pagado")
+	    private boolean pagado;
 
 
 	    public Pedido() { }
@@ -61,7 +61,7 @@ public class Pedido {
 
 
 		public Pedido(long idPedido, String domicilio, User user, Carrito carrito, int cantidad, double importeAPagar,
-				String metodoPago, String comentario, String estado) {
+				String metodoPago, String comentario, boolean pagado) {
 			super();
 			this.idPedido = idPedido;
 			this.domicilio = domicilio;
@@ -71,7 +71,7 @@ public class Pedido {
 			this.importeAPagar = importeAPagar;
 			this.metodoPago = metodoPago;
 			this.comentario = comentario;
-			this.estado = estado;
+			this.pagado = pagado;
 		}
 
 
@@ -154,14 +154,12 @@ public class Pedido {
 			this.comentario = comentario;
 		}
 
-
-		public String getEstado() {
-			return estado;
+		public boolean isPagado() {
+			return pagado;
 		}
 
-
-		public void setEstado(String estado) {
-			this.estado = estado;
+		public void setPagado(boolean pagado) {
+			this.pagado = pagado;
 		}
 
 		@Override
