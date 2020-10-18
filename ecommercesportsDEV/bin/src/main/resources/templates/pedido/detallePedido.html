@@ -150,39 +150,45 @@
     <div class="container">
         <div class="row mb-5 p-1">>
             <div class="col-sm-12 ">
-            <h2 class="mb-5">Mis Pedidos</h2>
+            <h2 class="mb-5" th:text="'Pedido ' + ${pedido.idPedido}"></h2>
             
             	     <div class="table-responsive">
   <table class="table table-hover">
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Estado</th>
-        <th scope="col">Domicilio</th>
+        <th scope="col">idProducto</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Codigo SKU</th>
+        <th scope="col">Precio</th>
         <th scope="col">Cantidad</th>
-        <th scope="col">Importe</th>
-        <th scope="col">Metodo de Pago</th>   
-        <th scope="col">Detalle</th> 
       </tr>
     </thead>
     <tbody>
-      <tr th:each="pedido : ${pedidos} " >
-        <th scope="row">&#9989;</th>
-        <td th:text="${pedido.pagado}== true ? 'Finalizado' : 'Activo'"></td>
-        <td th:text="${pedido.domicilio}"></td>
-        <td th:text="${pedido.cantidad}"></td>
-        <td th:text="'$ '+${#numbers.formatDecimal(pedido.importeAPagar, 0, 'POINT', 2, 'COMMA')}">10.00</td>
-        <td th:text="${pedido.metodoPago}"></td>
-        <td><a th:href="@{~/pedidos/detallePedido/{id}(id=${pedido.idPedido})}">Ver</a></td>
+      <tr th:each="item : ${listaItems}"  th:with="idProducto = ${item.producto.idProducto} , 
+      					descripcion= ${item.producto.descripcionLarga} , marca= ${item.producto.marca.nombre} ,
+      					sku= ${item.producto.sku} , precio= ${item.producto.precio}" >
+        	
+        	<th scope="row">&#9989;</th>
+        	<th th:text="${idProducto}"></th>
+        	<th th:text="${descripcion}"></th>
+        	<th th:text="${marca}"></th>
+        	<th th:text="${sku}"></th>
+        	<th th:text="${precio}"></th>
+        	<th th:text="${item.cantidad}"></th>
+        
       </tr>
-    </tbody>
-  </table>
+     </tbody>
+     </table>
 </div>
+
                
         </div>
 
     </div>
-</div>
+                      <a href="/pedidos/volver">Volver Atras</a>   
+</div>         
 <!-- Section Pedidos -->
 
 

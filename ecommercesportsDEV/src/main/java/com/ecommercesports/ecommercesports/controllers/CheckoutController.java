@@ -192,8 +192,9 @@ public class CheckoutController {
 	          String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
-		     
-
+		      p.setPagado(true);
+		      pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
+		      
 		    	List<Item> listaProductos = new ArrayList<Item>();
 		    	Pedido p2 = new Pedido();
 		    	

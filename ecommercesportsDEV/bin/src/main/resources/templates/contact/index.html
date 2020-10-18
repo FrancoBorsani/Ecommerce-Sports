@@ -152,19 +152,22 @@
 						<div class="section-title text-center">
 							<h3 class="title">Contacto</h3>
 						</div>
+						<form th:action="@{/contactar}" method="post">
 						<div class="order-summary">
 							<div class="form-group">
-								<input class="input" type="text" name="name" placeholder="Ingrese su nombre">
+								<input class="input" type="text" name="nombre" placeholder="Ingrese su nombre">
 							</div>
 							<div class="form-group">
-								<input class="input" type="email" name="email" placeholder="Ingrese su mail">
+								<input class="input" type="email" name="mail" placeholder="Ingrese su mail">
 							</div>
 							<div class="order-notes">
-								<textarea class="input" placeholder="Ingrese su consulta"></textarea>
+								<textarea class="input" name="consulta" placeholder="Ingrese su consulta"></textarea>
 							</div>
 						</div>
-						<a href="#" class="primary-btn order-submit">Enviar</a>
-					</div>
+						<input type="submit" class="primary-btn order-submit" value="Continuar">
+						</form>	
+						</div>
+				
 					<!-- Form Contact -->
 					
 					<!-- About us -->
@@ -177,7 +180,7 @@
 								<ul class="footer-links">
 									<li><a target="_blank" href="https://www.google.com/maps/place/Universidad+Nacional+de+Lan%C3%BAs/@-34.7355252,-58.3932694,17z/data=!3m1!4b1!4m5!3m4!1s0x95bccd5ebe0f6829:0x77634d225a40f10a!8m2!3d-34.7355252!4d-58.3910807"><i class="fa fa-map-marker"></i>29 de Septiembre 3901 - Remedios de Escalada, Lan&uacutes.</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>(011)-5533-5600</a></li>
-									<li><a href="#"><i class="fa fa-envelope-o"></i>e_commerce_sports@email.com</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>proyectodesoftwaretp@gmail.com</a></li>
 								</ul>
 							</div>							
 					</div>
