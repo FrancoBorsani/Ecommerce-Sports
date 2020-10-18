@@ -23,6 +23,7 @@ public class ViewRouteHelpers {
     
 	//Pedido
 	public static final String PEDIDO_INDEX = "pedido/index";
+	public static final String PEDIDO_DETALLE ="pedido/detallePedido";
     public final static String PEDIDO_ROOT = "/pedidos";
     
     // Checkout
