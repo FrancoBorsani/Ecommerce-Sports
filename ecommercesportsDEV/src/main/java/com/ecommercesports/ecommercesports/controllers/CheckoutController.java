@@ -20,7 +20,6 @@ import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
-import com.ecommercesports.ecommercesports.models.PedidoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
@@ -54,6 +53,7 @@ public class CheckoutController {
 	private PedidoConverter pedidoConverter;
 	
 	
+	@SuppressWarnings("finally")
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
@@ -95,9 +95,44 @@ public class CheckoutController {
 		return mAV;	
 	}
 	
+	@SuppressWarnings("finally")
 	@GetMapping("/envio/domicilio")
 	public ModelAndView domicilio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_DOMICILIO);
+		String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	try {
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    	listaProductos.add(item);
+		}
+    	
+    		mAV.addObject("items", listaProductos);
+    		
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
+
+	}
+	
+	@SuppressWarnings("finally")
+	@GetMapping("/envio/sucursal")
+	public ModelAndView sucursal() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_SUCURSAL);
 		String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	if( principal instanceof UserDetails) {
@@ -135,7 +170,8 @@ public class CheckoutController {
 	}
 	
 	
-	 @PostMapping("/guardarPedido")
+	 @SuppressWarnings("finally")
+	@PostMapping("/guardarPedido")
 	    public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
 	    	String username = "";
@@ -176,7 +212,8 @@ public class CheckoutController {
 	 @Autowired
 	    private SendMailService SendmailService;
 
-	 @PostMapping("/pagar")
+	 @SuppressWarnings("finally")
+	@PostMapping("/pagar")
 	    public ModelAndView pagar(@RequestParam("id") String id){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
 		 String username = "";

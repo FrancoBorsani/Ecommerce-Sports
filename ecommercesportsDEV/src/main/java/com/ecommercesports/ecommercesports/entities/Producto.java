@@ -60,6 +60,9 @@ public class Producto {
     @ManyToMany(mappedBy = "productos")
     private List<Tag> tags;
     
+    @Column(name = "peso")
+    private double peso;
+    
     @Column(name = "visible")
     private boolean visible;
     
@@ -78,7 +81,7 @@ public class Producto {
 
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-                    List<Tag> tags,boolean visible) {
+			double peso, List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -92,6 +95,7 @@ public class Producto {
 		this.cantidadValoraciones = cantidadValoraciones;
         this.tags = tags;
         this.visible = visible;
+        this.peso = peso;
     }
 
 	public String getImagen() {
@@ -214,13 +218,22 @@ public class Producto {
 		this.precioEnOferta = precioEnOferta;
 	}
 
+	public double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", precio=" + precio + ", precioEnOferta=" + precioEnOferta
 				+ ", color=" + color + ", descripcionCorta=" + descripcionCorta + ", descripcionLarga="
 				+ descripcionLarga + ", sku=" + sku + ", talle=" + talle + ", categoria=" + categoria + ", marca="
 				+ marca + ", listaComentarios=" + listaComentarios + ", totalPuntaje=" + totalPuntaje
-				+ ", cantidadValoraciones=" + cantidadValoraciones + ", tags=" + tags + ", visible=" + visible + "]";
+				+ ", cantidadValoraciones=" + cantidadValoraciones + ", tags=" + tags + ", peso=" + peso + ", visible="
+				+ visible + ", imagen=" + imagen + "]";
 	}
 
 }

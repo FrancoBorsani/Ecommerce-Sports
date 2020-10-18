@@ -30,6 +30,9 @@ public class PedidoModel {
 	@Nullable
 	private boolean pagado;
 	
+	@Nullable
+	private double costoEnvio;
+	
 	public PedidoModel() { }
 
 	public PedidoModel(long idPedido, User user, CarritoModel carritoModel) {
@@ -125,12 +128,24 @@ public class PedidoModel {
 	public void setPagado(boolean pagado) {
 		this.pagado = pagado;
 	}
+	
+
+	public double getCostoEnvio() {
+		return costoEnvio;
+	}
+
+	public void setCostoEnvio(double costoEnvio) {
+		this.costoEnvio = costoEnvio;
+	}
 
 	@Override
 	public String toString() {
-		return "Pedido [" + "carrito="
-				+ carritoModel + "]";
+		return "PedidoModel [idPedido=" + idPedido + ", domicilio=" + domicilio + ", user=" + user + ", carritoModel="
+				+ carritoModel + ", cantidad=" + cantidad + ", importeAPagar=" + importeAPagar + ", metodoPago="
+				+ metodoPago + ", comentario=" + comentario + ", pagado=" + pagado + ", costoEnvio=" + costoEnvio + "]";
 	}
+
+	
 
 	
 }//Fin class

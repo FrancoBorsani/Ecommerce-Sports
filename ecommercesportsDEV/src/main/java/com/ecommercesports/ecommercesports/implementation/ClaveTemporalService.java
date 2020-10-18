@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.converters.ClaveTemporalConverter;
-import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.ClaveTemporal;
 import com.ecommercesports.ecommercesports.models.ClaveTemporalModel;
 import com.ecommercesports.ecommercesports.repositories.IClaveTemporalRepository;

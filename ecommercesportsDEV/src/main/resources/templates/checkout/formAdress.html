@@ -158,8 +158,8 @@
 							</div>
 											
 							<div class="form-group">
-							<p>Provincia:</p>
-								<select name="provincia" id="provincia">
+								<select name="provincia" id="provincia" class="form-control">
+								  <option value="Buenos Aires">Seleccione la provincia</option>
 								  <option value="Buenos Aires">Buenos Aires</option>
   								  <option value="Tierra del Fuego">Tierra del Fuego</option>
 								  <option value="Santa Cruz">Santa Cruz</option>
@@ -186,10 +186,10 @@
 								</select>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="codigopostal" placeholder="CodigoPostal">
+								<input class="input" type="text" name="codigopostal" placeholder="Codigo Postal">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="domicilio" placeholder="domicilio">
+								<input class="input" type="text" name="domicilio" placeholder="Domicilio">
 							</div>
 							<div class="form-group">
 								<input class="input" type="tel" name="telefono" placeholder="Telefono de contacto">
@@ -197,39 +197,35 @@
 							<div class="form-group">
 								<textarea class="input" name="comentario" placeholder="comentario"></textarea>
 							</div>		
-							<input type="submit" value="Continuar">
+							<input type="submit" class="primary-btn" value="Continuar">
 							</form>	
 						</div>
 						
 					<!-- Order Details -->
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
-							<h3 class="title">Tu pedido</h3>
+							<h3 class="title">Tu orden</h3>
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
 								<div><strong>PRODUCTO</strong></div>
+								<div><strong>TOTAL</strong></div>
 							</div>
 							<div class="order-products">
-								<div class="order-col">
-								         <tbody>
-      <tr th:each="item : ${items} " >
-         <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td>
-       								 <br></br>
-       						        <span>Cantidad: </span>  <td th:text="${item.cantidad}"></td>
-    <br></br>
-      </tr>
-								</div>
-							
+								<div class="order-col" th:each="item : ${items}" >
+									<div th:text="${item.cantidad} + 'x ' + ${item.producto.descripcionCorta}">1x Product Name Goes Here</div>
+									<div th:text="'$'+${item.producto.precio}">$980.00</div>
+								</div> 
+
 							</div>
-							
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total"><span th:text="${pedido.importeAPagar}"></strong></div>
+								<div><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
 							</div>
 						</div>
+						
 					</div>
-					<!-- /Order Details -->
+					<!-- /Order Details -->		
 				</div>
 				<!-- /row -->
 			</div>

@@ -79,4 +79,12 @@ public class PedidoService implements IPedidoService{
 			return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
 		}
 
+		@Override
+		public double getCostoEnvio(String empresa) {
+			// TODO Auto-generated method stub
+			return pedidoRepository.getCostoEnvio(empresa);
+		}
+		
+		
+
 }//Fin class

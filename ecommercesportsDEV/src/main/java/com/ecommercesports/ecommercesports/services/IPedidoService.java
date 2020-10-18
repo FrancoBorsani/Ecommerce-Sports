@@ -17,5 +17,7 @@ public interface IPedidoService {
 	    public boolean remove(long idPedido);
 
 	    public Pedido insertarPedidoConCarrito_y_User_y_Traer(Producto producto,Carrito carrito);
+	    
+	    public double getCostoEnvio(String empresa);
 
 }//Fin interface
