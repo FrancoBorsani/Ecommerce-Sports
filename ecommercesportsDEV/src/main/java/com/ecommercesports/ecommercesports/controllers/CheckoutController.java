@@ -194,7 +194,8 @@ public class CheckoutController {
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
 		      p.setPagado(true);
 		      pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
-		      
+		      currentUser.setCantidadcompras(currentUser.getCantidadcompras()+1);
+		      userRepository.save(currentUser);
 		    	List<Item> listaProductos = new ArrayList<Item>();
 		    	Pedido p2 = new Pedido();
 		    	
