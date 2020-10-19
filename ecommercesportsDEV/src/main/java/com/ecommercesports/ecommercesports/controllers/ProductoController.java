@@ -25,6 +25,7 @@ import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
+import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
@@ -35,6 +36,7 @@ import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
+import com.poiji.bind.Poiji;
 
 @Controller
 @RequestMapping("/productos")
@@ -444,8 +446,24 @@ public class ProductoController {
     public ModelAndView uploadFile()
     {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTOS_GUARDADOS);
+    
+    	List<RegistroExcelModel> listaRegistrosExcel = productoService.traerRegistrosEnlistaModel();
+		List<Producto> productosCargados = new ArrayList<Producto>();
+		List<Producto> productos_NO_Cargados = new ArrayList<Producto>();
+		for(RegistroExcelModel rE : listaRegistrosExcel) {//paso de registroExcel a producto cargo en BD (este paso es necesario, solo porque productos tiene clase Categori y Marca, de lo contrario sería más directo y no haría falta la clase "RegistroExcelModel", solo bastaría con agregar @ExcelCellName("...") a Producto (Entity) )                   	
+			if(!productoService.hayCamposEnNULL(rE)) {
+				Producto producto = productoService.cargaParcialDeProducto(rE);
+				if(productoService.traerSiExisteElProductoEnBD(producto, rE.getCategoria(), rE.getMarca())== null) {//Solo se va a cargar si no hay uno con los mismos valores
+					productosCargados.add(productoService.cagarProductoEnBDConMarcaYCategoriaYtraer(producto, rE.getCategoria(), rE.getMarca()));
+				}else {
+					productos_NO_Cargados.add(producto);
+				}//Fin else del if traerExisteElProductoEnBD				
+			}// Fin if hayCamposEnNULL(rE)
+		}//Fin for listaRegistrosExcel)
     	
-    	mAV.addObject("productosCargados", productoService.cargarProductosDesdeExcel_y_Retornarlos());    	
+		mAV.addObject("productos_NO_Cargados", productos_NO_Cargados);
+    	mAV.addObject("productosCargados", productosCargados);
+    	
     	
         return mAV;
     }    

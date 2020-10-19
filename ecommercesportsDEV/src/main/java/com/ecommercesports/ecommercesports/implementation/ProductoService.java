@@ -156,31 +156,23 @@ public class ProductoService implements IProductoService {
 		productoRepository.updateProducto(descripcionCorta, descripcionLarga, precio, precioEnOferta, color, visible, idProducto);
 	}
 
-	
-	
+
 	@Override
-	public List<Producto> cargarProductosDesdeExcel_y_Retornarlos() {
+	public List<RegistroExcelModel> traerRegistrosEnlistaModel(){
 		File file = new File("src/main/resources/ArchivoExcel/productos.xlsx");
 		List<RegistroExcelModel> listaRegistrosExcel = Poiji.fromExcel(file, RegistroExcelModel.class);
-		List<Producto> productosCargados = new ArrayList<Producto>();
+		return listaRegistrosExcel;
+	}
+	
+	@Override
+	public Producto cagarProductoEnBDConMarcaYCategoriaYtraer(Producto producto, String nombreCategoria, String nombreMarca) {
+		producto.setCategoria(categoriaService.traerCategoriaPorNombreO_Crear(nombreCategoria));//si NO existe el producto pueden o no existir la marca y la categoría
+		producto.setMarca(marcaService.traerMarcaPorNombreO_Crear(nombreMarca));
+		productoRepository.save(producto);//si llega a está función es porque no tiene impedimentos para ser guardado
+		return productoRepository.findAll().get(productoRepository.findAll().size()-1);  
+	}
 
-		for(RegistroExcelModel rE : listaRegistrosExcel) {//paso de registroExcel a producto cargo en BD (este paso es necesario, solo porque productos tiene clase Categori y Marca, de lo contrario sería más directo y no haría falta la clase "RegistroExcelModel", solo bastaría con agregar @ExcelCellName("...") a Producto (Entity) )                   	
-			if(!hayCamposEnNULL(rE)) {
-				Producto producto = cargaParcialDeProducto(rE);
-				if(traerExisteElProductoEnBD(producto, rE.getCategoria(), rE.getMarca())== null) {//Solo se va a cargar si no hay uno con los mismos valores
-					producto.setCategoria(categoriaService.traerCategoriaPorNombreO_Crear(rE.getCategoria()));//si NO existe el producto pueden o no existir la marca y la categoría
-					producto.setMarca(marcaService.traerMarcaPorNombreO_Crear(rE.getMarca()));
-					productoRepository.save(producto);
-					productosCargados.add(producto);
-				}else {
-					System.out.println(" ya existe "+ producto.getDescripcionLarga());
-				}//Fin else del if traerExisteElProductoEnBD				
-			}// Fin if hayCamposEnNULL(rE)
-		}//Fin for listaRegistrosExcel)
-		return productosCargados;	
-	}//Fin void cargarProductosDesdeExcel
-
-
+	@Override
 	public Producto cargaParcialDeProducto(RegistroExcelModel rE) {
 		Producto producto = new Producto();
 		producto.setPrecio(rE.getPrecio());
@@ -196,7 +188,8 @@ public class ProductoService implements IProductoService {
 		producto.setImagen(rE.getImagen());
 		return producto;
 	}
-
+	
+	@Override
 	public boolean hayCamposEnNULL(RegistroExcelModel rE) {
 		boolean tieneCampoNulo = false;
 		if(rE.getDescripcionCorta()== null || rE.getDescripcionLarga()== null || rE.getSku()==null || 
@@ -207,7 +200,8 @@ public class ProductoService implements IProductoService {
 		return tieneCampoNulo;
 	} 
 
-	public Producto traerExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca) {
+	@Override
+	public Producto traerSiExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca) {
 		Producto productoAux = null;
 		try {
 			producto.setCategoria(categoriaService.traerCategoriaPorNombre(nombreCategoria));//para que exista el producto debe existir la marca y la categoría

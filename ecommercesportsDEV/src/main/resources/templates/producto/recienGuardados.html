@@ -144,48 +144,53 @@
 </nav>
 <!-- /NAVIGATION -->
 
+	<div id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+	    	</button>
+		<h6 style="text-align: center">Si los hubiese, se mostrarian los productos que no fueron cargados por existir en la BD, no as&iacute los excluidos por tener campos inv&aacutelidos</h6>
+	</div>
 
 <!-- Section de productos NO CARGADOS -->
-<!-- <div class="section"> -->
+ <div class="section" id="mostrarNoGuardados"> 
     <!-- container -->
-<!--     <div class="container"> -->
-<!--         <div class="row mb-5 p-1"> -->
-<!--             <div class="col-sm-12 "> -->
-<!--             <h2 class="mb-5">Productos que NO fueron guardados (importados de excel)</h2> -->
-<!--             <h5 class="mb-5" style="color:red">Solo se muestran los que descartados por existir en la BD, no as&iacute los excluidos por tener campos inv&aacutelidos</h5> -->
+    <div class="container">
+        <div class="row mb-5 p-1">
+            <div class="col-sm-12 ">
+            <h2 class="mb-5">Productos que NO fueron guardados (importados de excel)</h2>
+            <h5 class="mb-5" style="color:red">Solo se muestran los que descartados por existir en la BD, no as&iacute los excluidos por tener campos inv&aacutelidos</h5>
             
-<!--             	     <div class="table-responsive"> -->
-<!--   <table class="table table-hover"> -->
-<!--     <thead> -->
-<!--       <tr> -->
-<!--         <th scope="col"></th> -->
-<!--         <th scope="col">Descripcion larga</th> -->
-<!--         <th scope="col">Precio</th> -->
-<!--         <th scope="col">Precio en oferta</th> -->
-<!--         <th scope="col">Marca</th> -->
-<!--         <th scope="col">Categoria</th>     -->
-<!--       </tr> -->
-<!--     </thead> -->
-<!--     <tbody> -->
-<!--       <tr th:each="producto : ${productosNoCargados} " > -->
-<!--         <th scope="row"></th> -->
-<!--         <td th:text="${producto.descripcionLarga}"></td> -->
-<!--         <td th:text="'$ '+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</td> -->
-<!--         <td th:text="'$ '+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</td> -->
-<!--         <td th:text="${producto.Marca.nombre}"></td> -->
-<!--         <td th:text="${producto.Categoria.nombre}"></td> -->
-<!--       </tr> -->
-<!--     </tbody> -->
-<!--   </table> -->
-<!-- </div> -->
+            	     <div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Descripcion larga</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Precio en oferta</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Categoria</th>    
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="producto : ${productos_NO_Cargados} " >
+        <th scope="row"></th>
+        <td id="datosDeNoGuardados" th:text="${producto.descripcionLarga}"></td>
+        <td th:text="'$ '+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</td>
+        <td th:text="'$ '+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</td>
+        <td th:text="${producto.Marca.nombre}"></td>
+        <td th:text="${producto.Categoria.nombre}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
                
-<!--         </div> -->
+        </div>
 
-<!--     </div> -->
-<!-- </div> -->
-<!-- </div> -->
+    </div>
+</div>
+</div>
 <!-- fin Section de productos NO cargado-->
-
 
 
 <!-- Section de productos Cargados-->
@@ -265,6 +270,17 @@
 <!-- jQuery Plugins -->
 
 <th:block th:include="fragments/scripts :: scripts"></th:block>
+
+     <script> 
+ 		$(document).ready(function() {
+ 			var element = document.getElementById("datosDeNoGuardados");
+ 			if(typeof(element) != 'undefined' && element != null){
+ 				$("#notificacion").hide();	
+ 			}else{
+ 				$("#mostrarNoGuardados").hide();
+ 			}
+ 		});
+ 	</script> 
 
 </body>
 </html>
