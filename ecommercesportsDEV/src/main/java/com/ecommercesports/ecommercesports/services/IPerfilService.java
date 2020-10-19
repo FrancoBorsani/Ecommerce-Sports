@@ -1,7 +1,6 @@
 package com.ecommercesports.ecommercesports.services;
 
 import java.io.IOException;
-import java.net.URL;
 
 import org.springframework.web.multipart.MultipartFile;
 

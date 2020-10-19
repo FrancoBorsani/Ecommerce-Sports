@@ -99,6 +99,36 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
 
+DELIMITER $$
+CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
+RETURNS varchar(100) 
+BEGIN
+ declare empresaAux varchar(45); declare decolumnaAux varchar(75); declare resultado double;
+case
+ when nro_Columna_input=1 then
+          select `0_a_0.5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=2 then
+          select `0.5_a_1Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=3 then
+          select `1_a_2Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=4 then
+          select `2_a_3Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=5 then
+          select `3_a_5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=6 then
+          select `5_a_10Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=7 then
+          select `10_a_15Kg` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=8 then
+          select `15_a_20Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=9 then
+          select `20_a_25Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+end case;
+
+RETURN resultado;
+END$$
+delimiter ;
+
 /*
 
 CREATE TABLE tarifa_envio ( `id_empresa` int PRIMARY KEY, `nombre` VARCHAR(30), `0_a_0.5Kg.` DOUBLE, `0.5_a_1Kg.` DOUBLE, `1_a_2Kg.` DOUBLE, `2_a_3Kg.` DOUBLE, `3_a_5Kg.` DOUBLE, `5_a_10Kg.` DOUBLE, `10_a_15Kg.` DOUBLE, `15_a_20Kg.` DOUBLE, `20_a_25Kg.` DOUBLE )

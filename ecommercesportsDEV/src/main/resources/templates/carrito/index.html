@@ -232,7 +232,7 @@
                       <div class="col-md-3 text-center">	
                       		<label th:id="'input-number-'+${item.idItem}" class="prueba" th:text="${item.cantidad}" min="0" max="100">
                		  </div> 
-               		  
+		  
                		  <div class="col-md-3">
 	                      <div class="sumarItem" th:id="${item.idItem}" style="cursor: pointer;" >
 	                           <h4><i class="far fa-plus-square"></i></h4>
@@ -242,7 +242,10 @@
 
                 </td>
                 <td>
-                  <h5>$360.00</h5>
+                  <h5><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
+					    <p th:text="'$'+${var}"></p>
+					  </th:block>
+				  </h5>
                 </td>
                 <td>
                   <h5><i class="fas fa-times"></i></h5>

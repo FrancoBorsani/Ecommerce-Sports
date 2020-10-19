@@ -18,6 +18,8 @@ public interface IPedidoService {
 
 	    public Pedido insertarPedidoConCarrito_y_User_y_Traer(Producto producto,Carrito carrito);
 	    
-	    public double getCostoEnvio(String empresa);
+	    public double getCostoEnvio(String empresa,int nroColumna);
+	    
+	    public int updateCostoEnvio(double costoEnvio,long idCarrito);
 
 }//Fin interface

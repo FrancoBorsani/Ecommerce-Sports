@@ -29,18 +29,25 @@ $(document).ready(function () {
       $("input[name='payment']").on("click",function () {
         	
     	  var empresa = $(this).attr('class'); 
+
+    	  var pedidoModel = {};
     	  
-    	  console.log(empresa);
+    	  pedidoModel["idPedido"] = $(".idCart").attr('id');
     	  
-    	  var href = "/api/checkout/getCostoEnvio/"+empresa;
-      	
-      	  $.get(href, function(costoEnvio, status) {
-      		
-      		  console.log("El costo del envio sera de:" +costoEnvio);
-      		  
-      		$("#costo-envio").html('$'+costoEnvio);
-              
-          });
+    	  $.ajax({
+				type : "PUT",
+				url : "/api/checkout/updateCostoEnvio/" + empresa,
+				contentType: "application/json",
+				data: JSON.stringify(pedidoModel),
+		        cache: false,
+		        timeout: 600000,
+				success : function(costoEnvio) {
+					$("#costo-envio").html('$'+costoEnvio);
+				},
+				error : function(e) {
+					alert("Error!");
+				}
+			});
 
         });
         
