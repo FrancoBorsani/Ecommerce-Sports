@@ -2,6 +2,7 @@ package com.ecommercesports.ecommercesports.services;
 
 import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.models.ProductoModel;
+import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 
 import java.util.List;
 
@@ -39,4 +40,14 @@ public interface IProductoService {
     
     public List<Producto> getProductosEnOferta();
     
-}
+	public List<RegistroExcelModel> traerRegistrosEnlistaModel();
+	
+	public Producto cagarProductoEnBDConMarcaYCategoriaYtraer(Producto producto, String nombreCategoria, String nombreMarca);
+	
+	public Producto cargaParcialDeProducto(RegistroExcelModel rE);
+	
+	public boolean hayCamposEnNULL(RegistroExcelModel rE);
+	
+	public Producto traerSiExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca);
+    
+}//Fin class

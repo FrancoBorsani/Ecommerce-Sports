@@ -20,9 +20,11 @@ public class ViewRouteHelpers {
     public final static String PRODUCTO_NOT_FOUND = "producto/notFound";
     public final static String PRODUCTO_GESTOR = "producto/gestor";
     public final static String PRODUCTO_OFERTA= "producto/ofertas";
+    public final static String PRODUCTOS_GUARDADOS= "producto/recienGuardados";
     
 	//Pedido
 	public static final String PEDIDO_INDEX = "pedido/index";
+	public static final String PEDIDO_DETALLE ="pedido/detallePedido";
     public final static String PEDIDO_ROOT = "/pedidos";
     
     // Checkout

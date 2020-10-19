@@ -45,6 +45,7 @@ INSERT INTO tag(id_tag, nombre) VALUES (6, "Tag6");
 INSERT INTO tag(id_tag, nombre) VALUES (7, "Tag7");
 INSERT INTO tag(id_tag, nombre) VALUES (8, "Tag8");
 
+
 /* Products */
 
 INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso, visible,imagen) 

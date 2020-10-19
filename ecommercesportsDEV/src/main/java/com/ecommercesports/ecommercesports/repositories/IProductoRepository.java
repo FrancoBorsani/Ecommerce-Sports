@@ -23,6 +23,9 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p WHERE p.marca_id_marca = (:marca)")
     public abstract List<Producto> filterByMarca(String marca);
     
+    @Query(nativeQuery=true,value="select * from producto where color = (:color) and descripcioncorta=(:desCorta) and descipcionlarga=(:desLarga) and imagen=(:imagen) and sku=(:sku) and talle=(:talle) and categoria_id_categoria=(:idCat) and marca_id_marca=(:idMarca)")
+ 	public abstract Producto traerPorVariosAtributos(String color,String desCorta,String desLarga,String imagen,String sku,String talle,long idCat,long idMarca);
+    
     @Query("SELECT p FROM Producto p WHERE CONCAT(p.descripcionCorta, ' ', p.descripcionLarga) LIKE %?1%")
     public abstract List<Producto> searchProduct(String keyword);
     

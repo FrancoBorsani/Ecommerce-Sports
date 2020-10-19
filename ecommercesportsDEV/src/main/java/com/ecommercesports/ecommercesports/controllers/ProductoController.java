@@ -1,5 +1,6 @@
 package com.ecommercesports.ecommercesports.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,24 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.ecommercesports.ecommercesports.converters.ProductoConverter;
+import com.ecommercesports.ecommercesports.entities.Item;
+import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
+import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
+import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IComentarioService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
+import com.ecommercesports.ecommercesports.services.IPedidoService;
+import com.ecommercesports.ecommercesports.services.IPerfilService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
+import com.poiji.bind.Poiji;
 
 @Controller
 @RequestMapping("/productos")
@@ -67,6 +75,17 @@ public class ProductoController {
     @Qualifier("productoConverter")
     private ProductoConverter productoConverter;
 	
+    @Autowired
+	@Qualifier("pedidoService")
+	private IPedidoService pedidoService;
+    
+    @Autowired
+	@Qualifier("pedidoRepository")
+	private IPedidoRepository pedidoRepository;
+    
+	@Autowired
+	@Qualifier("perfilService")
+	private IPerfilService perfilService;
 	
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
@@ -115,7 +134,46 @@ public class ProductoController {
         mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         mAV.addObject("relacionados", productoService.getRelated(idProducto));
         
-        return mAV;
+        String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	 List<Pedido> pedidos = new ArrayList<Pedido>();
+        List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	
+    	boolean encontrado = false;
+    	
+    	try {
+    		if(currentUser.getCantidadcompras() != 0) {
+    		pedidos = pedidoRepository.traerPedidosDelUser(currentUser.getId());
+    	for(Pedido pedido : pedidos) {
+    		for(Item item : pedido.getCarrito().getListaItems()) {
+    			if(item.getProducto().getIdProducto() == idProducto) {
+    				encontrado = true;
+    				mAV.addObject("encontrado", encontrado);
+    			}
+
+    		
+    	}
+    		}
+    		
+		}} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
+        
+        
+    
     }
     
     @GetMapping("/categorias/{id}")
@@ -384,4 +442,31 @@ public class ProductoController {
     }
   
     
-}
+    @GetMapping("/importarDesdeExcel")
+    public ModelAndView uploadFile()
+    {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTOS_GUARDADOS);
+    
+    	List<RegistroExcelModel> listaRegistrosExcel = productoService.traerRegistrosEnlistaModel();
+		List<Producto> productosCargados = new ArrayList<Producto>();
+		List<Producto> productos_NO_Cargados = new ArrayList<Producto>();
+		for(RegistroExcelModel rE : listaRegistrosExcel) {//paso de registroExcel a producto cargo en BD (este paso es necesario, solo porque productos tiene clase Categori y Marca, de lo contrario sería más directo y no haría falta la clase "RegistroExcelModel", solo bastaría con agregar @ExcelCellName("...") a Producto (Entity) )                   	
+			if(!productoService.hayCamposEnNULL(rE)) {
+				Producto producto = productoService.cargaParcialDeProducto(rE);
+				if(productoService.traerSiExisteElProductoEnBD(producto, rE.getCategoria(), rE.getMarca())== null) {//Solo se va a cargar si no hay uno con los mismos valores
+					productosCargados.add(productoService.cagarProductoEnBDConMarcaYCategoriaYtraer(producto, rE.getCategoria(), rE.getMarca()));
+				}else {
+					productos_NO_Cargados.add(producto);
+				}//Fin else del if traerExisteElProductoEnBD				
+			}// Fin if hayCamposEnNULL(rE)
+		}//Fin for listaRegistrosExcel)
+    	
+		mAV.addObject("productos_NO_Cargados", productos_NO_Cargados);
+    	mAV.addObject("productosCargados", productosCargados);
+    	
+    	
+        return mAV;
+    }    
+    
+    
+}//Fin class

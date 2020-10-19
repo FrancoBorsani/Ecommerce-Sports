@@ -46,6 +46,10 @@ public class User {
 	@Column(name="enabled")
 	private boolean enabled;
 	
+	@Column(name="cantidadcompras")
+	private int cantidadcompras;
+	
+	
 	@Column(name="createdat")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -65,7 +69,7 @@ public class User {
 	
 	public User() {}
 	
-	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled) {
+	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled, int cantidadcompras) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -73,9 +77,10 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.enabled = enabled;
+		this.cantidadcompras = cantidadcompras;
 	}
 	
-	public User(String username, String firstName, String lastName,String cellPhone, String password,String email, boolean enabled, Set<UserRole> userRoles) {
+	public User(String username, String firstName, String lastName,String cellPhone, String password,String email, boolean enabled, Set<UserRole> userRoles, int cantidadcompras) {
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -84,6 +89,7 @@ public class User {
 		this.password = password;
 		this.enabled = enabled;
 		this.userRoles = userRoles;
+		this.cantidadcompras = cantidadcompras;
 	}
 
 	public int getId() {
@@ -181,8 +187,16 @@ public class User {
 	public void setListaComentarios(List<Comentario> listaComentarios) {
 		this.listaComentarios = listaComentarios;
 	}
-	
 
+	public int getCantidadcompras() {
+		return cantidadcompras;
+	}
+
+	public void setCantidadcompras(int cantidadcompras) {
+		this.cantidadcompras = cantidadcompras;
+	}
+	
+	
 	
 	
 	

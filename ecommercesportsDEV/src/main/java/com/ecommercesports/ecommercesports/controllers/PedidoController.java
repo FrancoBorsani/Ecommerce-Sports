@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
@@ -51,7 +53,28 @@ public class PedidoController {
 		}
         return mAV;
     }
-
+    
+    @GetMapping("/detallePedido/{id}")
+    public ModelAndView detallesDelPedidoDelUser(@PathVariable("id") int id) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_DETALLE);
+    	User currentUser = userLogueadoService.traerUserLogueado();
+    	Pedido p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+    	
+    	if(p != null) {
+    		mAV.addObject("pedido", p);
+    		mAV.addObject("listaItems", p.getCarrito().getListaItems());
+    	}
+    	else {
+    		mAV.setViewName("acceso/ingreso");
+    	}
+    	return mAV;
+    }
+    @GetMapping("/volver")
+	public String volver() {
+    	return "redirect:/pedidos/";
+	}
+    
+    
     @PostMapping("/back")
     public RedirectView back() {
         return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);

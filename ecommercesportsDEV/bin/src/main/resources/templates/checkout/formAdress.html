@@ -204,30 +204,28 @@
 					<!-- Order Details -->
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
-							<h3 class="title">Your Order</h3>
+							<h3 class="title">Tu pedido</h3>
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
-								<div><strong>PRODUCT</strong></div>
-								<div><strong>TOTAL</strong></div>
+								<div><strong>PRODUCTO</strong></div>
 							</div>
 							<div class="order-products">
 								<div class="order-col">
-									<div>1x Product Name Goes Here</div>
-									<div>$980.00</div>
+								         <tbody>
+      <tr th:each="item : ${items} " >
+         <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td>
+       								 <br></br>
+       						        <span>Cantidad: </span>  <td th:text="${item.cantidad}"></td>
+    <br></br>
+      </tr>
 								</div>
-								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
-								</div>
+							
 							</div>
-							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>FREE</strong></div>
-							</div>
+							
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><strong class="order-total"><span th:text="${pedido.importeAPagar}"></strong></div>
 							</div>
 						</div>
 					</div>

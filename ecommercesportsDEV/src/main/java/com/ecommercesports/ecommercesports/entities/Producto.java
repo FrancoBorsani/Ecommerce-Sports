@@ -201,6 +201,10 @@ public class Producto {
 	public void setTotalPuntaje(double totalPuntaje) {
 		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
 	}
+	
+	public void setTotalPuntaje_2(double totalPuntaje) {
+		this.totalPuntaje =  totalPuntaje;
+	}
 
     public List<Tag> getTags() {
         return tags;

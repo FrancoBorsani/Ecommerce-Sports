@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
+import com.ecommercesports.ecommercesports.converters.ItemConverter;
 import com.ecommercesports.ecommercesports.converters.PedidoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
@@ -36,6 +37,10 @@ public class CarritoService implements ICarritoService{
 	@Qualifier("itemRepository")
 	private IItemRepository itemRepository;
 
+	@Autowired
+	@Qualifier("itemConverter")
+	private ItemConverter itemConverter;
+	
 	@Autowired
 	@Qualifier("carritoConverter")
 	private CarritoConverter carritoConverter;
@@ -146,14 +151,32 @@ public class CarritoService implements ICarritoService{
 	
 	
 	public Carrito agregarItemYValoresAlCarritoYPedido(Producto producto, Carrito carrito) {
-		carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+		boolean yaExiste = false;
+		int pos = 0;
+		int auxPos= 0;
+		for (Item i : itemRepository.itemsDelCarrito(carrito.getIdCarrito())) {
+			if(i.getProducto().getIdProducto() == producto.getIdProducto()) {
+				yaExiste = true;
+				auxPos = pos;
+			}
+			pos++;
+		}
+		if(!yaExiste) { 
+			carrito.getListaItems().add(itemService.insertarItemConProducto_y_Traer(producto,carrito));
+		}
+		else { //si ya existe un registro de este producto NO LO CREO DE solo lo actualizo aumentandole la cantidad +1
+			List<Item> listaItems = itemRepository.itemsDelCarrito(carrito.getIdCarrito());
+			listaItems.get(auxPos).setCantidad(listaItems.get(auxPos).getCantidad() + 1);
+			itemService.insertOrUpdate(itemConverter.entityToModel(listaItems.get(auxPos)));
+		}
+		
         Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
         carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
         pedido.setCantidad(pedido.getCantidad()+1);
         pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecio());
         carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
         pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));
-	  return carritoRepository.findByIdCarrito(carrito.getIdCarrito());
+        return carritoRepository.findByIdCarrito(carrito.getIdCarrito());
 	}
 	
 	

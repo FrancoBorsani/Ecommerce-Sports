@@ -21,21 +21,18 @@ INSERT INTO perfil (id,username,user_role,nombre,apellido,phone,email,imagen,abo
 
 /* Categories */
 
-INSERT INTO categoria(id_categoria,nombre) values (1,"Categoria1");
-INSERT INTO categoria(id_categoria,nombre) values (2,"Categoria2");
-INSERT INTO categoria(id_categoria,nombre) values (3,"Categoria3");
-INSERT INTO categoria(id_categoria,nombre) values (4,"Categoria4");
-INSERT INTO categoria(id_categoria,nombre) values (5,"Categoria5");
-INSERT INTO categoria(id_categoria,nombre) values (6,"Categoria6");
+INSERT INTO categoria(id_categoria,nombre) values (1,"Indumentaria");
+INSERT INTO categoria(nombre) values ("Calzado"), ("Categoria3"), ("Categoria4"), ("Categoria5"), ("Categoria6");
+
+
 
 /* Brands */
 
-INSERT INTO marca(id_marca,nombre) values (1,"Marca1");
-INSERT INTO marca(id_marca,nombre) values (2,"Marca2");
-INSERT INTO marca(id_marca,nombre) values (3,"Marca3");
-INSERT INTO marca(id_marca,nombre) values (4,"Marca4");
-INSERT INTO marca(id_marca,nombre) values (5,"Marca5");
-INSERT INTO marca(id_marca,nombre) values (6,"Marca6");
+INSERT INTO marca(id_marca,nombre) values (1,"Levi`s");
+INSERT INTO marca(nombre) values ("Polo Label"), ("Puma"), ("Agarrate Catalina"), ("Converse"), 
+                  ("Unlimit Ride"),("Clon"),("Brooksfield"),("Nike"),("Fila"),("Vizzano"),
+                  ("Chelsea Market"),("Destino Collection"),("La Cofradia"),("Salomon");
+                  
 
 /* Tags*/
 
@@ -50,18 +47,24 @@ INSERT INTO tag(id_tag, nombre) VALUES (8, "Tag8");
 
 /* Products */
 
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(1, "rojo", "Producto1", "Descripcion Producto1",1,4000,3600,"sku1","talle1",1, 0, 0,true,"/img/products/man-1.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(2, "rojo", "Producto2", "Descripcion Producto2",1,4000,3000,"sku1","talle1",1, 0, 0,true,"/img/products/man-1.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(3, "rojo", "Producto3", "Descripcion Producto3",1,3000,2600,"sku1","talle1",1, 0, 0,true,"/img/products/man-2.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(4, "rojo", "Producto4", "Descripcion Producto4",2,2000,1600,"sku1","talle1",2, 0, 0,true,"/img/products/man-2.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(5, "rojo", "Producto5", "Descripcion Producto5",2,5000,4300,"sku1","talle1",2, 0, 0,true,"/img/products/man-3.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(6, "rojo", "Producto6", "Descripcion Producto6",2,6000,6000,"sku1","talle1",2, 0, 0,true,"/img/products/man-3.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(7, "rojo", "Producto7", "Descripcion Producto7",3,1000,1000,"sku1","talle1",3, 0, 0,false,"/img/products/women-1.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(8, "rojo", "Producto8", "Descripcion Producto8",3,2000,2000,"sku1","talle1",3, 0, 0,false,"/img/products/women-1.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(9, "rojo", "Producto9", "Descripcion Producto9",3,9000,8500,"sku1","talle1",3, 0, 0,false,"/img/products/women-2.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(10, "rojo","Producto10", "Descripcion Producto10",4,4000,4000,"sku1","talle1",4, 0, 0,false,"/img/products/women-2.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(12, "rojo","Producto11", "Descripcion Producto11",4,3000,3000,"sku1","talle1",4, 0, 0,false,"/img/products/women-3.jpg");
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) VALUES(13, "rojo","Producto12", "Descripcion Producto12",4,5000,5000,"sku1","talle1",4, 0, 0,false,"/img/products/women-3.jpg");
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) 
+VALUES(1,"Negro","Levi`s","Remera Negra Levi`s Batwing",1,2899,2899,"sku1","XL",1,0,0,true,"/img/products/Levis1.jpg");
+INSERT INTO producto (color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) 
+VALUES("Blanco","Polo","Remera Blanca Polo Label",2,1299,879,"sku2","L",1,0,0,true,"/img/products/Polo3.jpg"),
+      ("Blanco","Puma","Remera Blanca Puma Iconic t7 Slim",3,2299,2299,"sku3","M",1,0,0,true,"/img/products/Puma1.jpg"),
+	  ("Negro","Converse","Buzo Negro Converse All Star Cropped",5,3699,3429,"sku4","M",1,0,0,true,"/img/products/Converse.jpg"),	
+	  ("Blanco","Agarrate Catlina","Remera Blanca Agarrate Catlina David",4,1936,1723,"sku5","S",1,0,0,true,"/img/products/agarrateCatalina.jpg"),
+      ("Negra","Unlimit Ride","Calza Negra Unlimit Ride Liviana",6,879,659,"sku6","3",1,0,0,true,"/img/products/unlimitRide.jpg"),
+      ("Azul","Clon","Babucha Azul Clon",7,4801,3357,"sku7",3,1,0,0,true,"/img/products/clon.jpg"),
+      (" Azul","Brooksfield","Pantalon Azul Brooksfield Kunz",8,6487,4990,"sku8","3",1,0,0,true,"/img/products/brooksfield.jpg"),
+      ("Negra","Nike","Zapatilla Negra Nike AIR MAX BELLA TR 2",9,10499,9449,"sku9","39",2,0,0,true,"/img/products/nike2.jpg"),
+      ("Rosa","Fina","Zapatilla Rosa Fila Euro Jogger Femedge",10,4990,4990,"sku10","37",2,0,0,true,"/img/products/fila.jpg"),
+      ("Vizzano","Blanca","Zapatilla Blanca Vizzano",11,4399,4399,"sku11","38",2,0,0,true,"/img/products/vizzano.jpg"),
+      ("Gris","Chelsea Market","Pantalon Gris Chelsea Market Strong",12,2500,1697,"sku12","4",1,0,0,true,"/img/products/chelsea_market.jpg"),
+      ("Negro","Destino Collection","Pantalon Negro Destino Collection Dream On",13,1450,1247,"sku13","3",1,0,0,true,"/img/products/destino_collection.jpg"),
+      ("Azul","La Cofradia","Pantalon Azul La Cofradia Abeba",14,5100,2040,"sku14","4",1,0,0,true,"/img/products/la_cofradia.jpg"),
+	  ("Negra","Nike","Zapatilla Negra Nike RENEW RUN",9,10999,10999,"sku15","38",2,0,0,true,"/img/products/nike.jpg"),
+      ("Negra","Salomon","Zapatilla Negra Salomon Blackstonia",15,7769,6499,"sku16","40",2,0,0,true,"/img/products/salomon.jpg");
 
 
 
@@ -78,10 +81,10 @@ INSERT INTO item (id_item,producto_id_producto,cantidad,id_carrito) values
 
 /* Pedidos */
 
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(1, 40, "Comentario1", "Domicilio1", "Pago", 4000, "Efectivo",1,1);
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(2, 40, "Comentario2", "Domicilio2", "Pago", 3000, "Efectivo",2,1);
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(3, 40, "Comentario3", "Domicilio3", "Pago", 2000, "Efectivo",2,2);
-INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,estado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(4, 40, "Comentario4", "Domicilio4", "Pago", 1000, "Efectivo",2,1);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,pagado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(1, 40, "Comentario1", "Domicilio1", true, 4000, "Efectivo",1,1);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,pagado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(2, 40, "Comentario2", "Domicilio2", true, 3000, "Efectivo",2,1);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,pagado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(3, 40, "Comentario3", "Domicilio3", true, 2000, "Efectivo",2,2);
+INSERT INTO pedido (id_pedido,cantidad,comentario,domicilio,pagado,importeapagar,metodo_pago,carrito_id_carrito,user_id) VALUES(4, 40, "Comentario4", "Domicilio4", true, 1000, "Efectivo",2,1);
 
 /* Producto - Tag */
 

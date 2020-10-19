@@ -115,8 +115,9 @@ public class ItemService implements IItemService{
 	
 	@Override
 	public Item agregarUnidadAlItemYTraer(Item item) {
+		
 		 int cantidad = item.getCantidad()+1;
-		 item.setCantidad(cantidad);
+		 item.setCantidad(cantidad);		 
 		 Carrito carrito = carritoRepository.findByIdCarrito(item.getCarrito().getIdCarrito());
          Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
          carrito.setTotal(carrito.getTotal()+(float)item.getProducto().getPrecio());

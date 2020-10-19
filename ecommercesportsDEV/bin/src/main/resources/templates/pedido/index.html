@@ -148,7 +148,7 @@
 <div class="section">
     <!-- container -->
     <div class="container">
-        <div class="row mb-5 p-1">
+        <div class="row mb-5 p-1">>
             <div class="col-sm-12 ">
             <h2 class="mb-5">Mis Pedidos</h2>
             
@@ -161,17 +161,19 @@
         <th scope="col">Domicilio</th>
         <th scope="col">Cantidad</th>
         <th scope="col">Importe</th>
-        <th scope="col">Metodo de Pago</th>    
+        <th scope="col">Metodo de Pago</th>   
+        <th scope="col">Detalle</th> 
       </tr>
     </thead>
     <tbody>
       <tr th:each="pedido : ${pedidos} " >
         <th scope="row">&#9989;</th>
-        <td th:text="${pedido.estado}"></td>
+        <td th:text="${pedido.pagado}== true ? 'Finalizado' : 'Activo'"></td>
         <td th:text="${pedido.domicilio}"></td>
         <td th:text="${pedido.cantidad}"></td>
         <td th:text="'$ '+${#numbers.formatDecimal(pedido.importeAPagar, 0, 'POINT', 2, 'COMMA')}">10.00</td>
         <td th:text="${pedido.metodoPago}"></td>
+        <td><a th:href="@{~/pedidos/detallePedido/{id}(id=${pedido.idPedido})}">Ver</a></td>
       </tr>
     </tbody>
   </table>

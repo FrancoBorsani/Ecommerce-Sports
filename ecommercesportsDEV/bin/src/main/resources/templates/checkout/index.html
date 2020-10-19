@@ -157,29 +157,20 @@
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
-								<div><strong>PRODUCTO</strong></div>
-								<div><strong>TOTAL</strong></div>
-							</div>
+								<div><strong>PRODUCTO</strong>
 							<div class="order-products">
 								<div class="order-col">
-									<div>1x Product Name Goes Here</div>
-									<div>$980.00</div>
+									<div>	<tr th:each="item : ${items} " >
+       <td th:text="${item.cantidad}"></td><p> item x </p>  <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td> 
+									<div><span th:text="${item.producto.precio}"></span></div></div>
 								</div>
-								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
-								</div>
-							</div>
-							<div class="order-col">
-								<div>Shiping</div>
-								<div><strong>GRATIS</strong></div>
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$2940.00</strong></div>
+								<div><span th:text="${pedido.importeAPagar}"></span></div>
 							</div>
 						</div>
-						<a href="/checkout/envio" class="primary-btn order-submit">PLACE ORDER</a>
+						<a href="/checkout/envio" class="primary-btn order-submit">HACER PEDIDO</a>
 					</div>
 					<!-- /Order Details -->
 				</div>
