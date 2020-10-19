@@ -258,25 +258,30 @@
                              <div class="item" th:each="producto : ${productos}">
                                 <div class="product">
                                     <div class="row">
-                                        <div class="col-md-3 text-center">
+                                        <div class="col-md-3 text-center mt-4">
                                             <div class="imagenes-producto ml-2">
-                                                <img th:src="@{${producto.imagen}}" alt="" height="150px" width="150px">
+                                                <img th:src="@{${producto.imagen}}" alt="" height="150" width="150">
                                             </div>
                                         </div>
 
-                                        <div class="col-md-9">
+                                        <div class="col-md-6">
                                             <div class="producto-body mt-4 ml-3">
                                                 <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
                                                 <h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
                                                 <h6 th:text="${producto.Categoria.nombre}" class="text-danger"></h6>
-                                                <h6 th:text="${producto.descripcionLarga}"></h6>           
+                                                <h6 th:text="${producto.descripcionLarga}"></h6>         
                                             </div>
                                         </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="producto-body mt-4 my-3">
+                                                 <a href="#" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}">
+			                                     	<button type="submit" class="btn">add to cart<i  style="padding-left: 5px;" class="fa fa-shopping-cart"></i></button>
+			                                     </a>          
+                                            </div>
+                                        </div>
+                                        
                                     </div>
-                                    <a href="#" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}" style="margin-bottom: 20%;margin-left: 65%">
-                                     <button type="submit" class="btn btn-success">add to cart<i  style="padding-left: 5px;" class="fa fa-shopping-cart"></i></button>
-                                    </a>
-
                                 </div>
                             </div>
 

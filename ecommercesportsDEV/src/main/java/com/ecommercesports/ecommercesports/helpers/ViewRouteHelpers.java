@@ -32,6 +32,7 @@ public class ViewRouteHelpers {
     public static final String CHECKOUT_INDEX = "checkout/index";
     public static final String ENVIO = "checkout/envio";
     public static final String FORM_DOMICILIO = "checkout/formAdress";
+    public static final String FORM_SUCURSAL = "checkout/formSucursal";
     public static final String PAGO = "checkout/pago";
     public final static String CHECKOUT_ROOT = "/checkout";
     

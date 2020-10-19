@@ -187,10 +187,7 @@
   </div>
   <!-- slider Area End-->
 <!-- *********************************************** -->
-	<div id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
-<!-- 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
-<!-- 					<span aria-hidden="true">&times;</span> -->
-<!-- 	    	</button> -->
+	<div th:if="${carrito.listaItems.empty}" id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
 		<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
 	</div>
   <!--================Cart Area =================-->
@@ -210,37 +207,48 @@
               <tr th:each="item : ${carrito.listaItems}">
 
                 <td>
-                  <div class="media">
-                    <div class="d-flex">
-                       <img th:src="@{${producto.imagen}}"   alt="" height="150px" width="150px">
+                  	<div class="row p-4">
+                  	 <div class="col-md-3">
+                  	 <img th:src="@{${item.producto.imagen}}"   alt="" height="150px" width="150px">
                     </div>
-                    <div class="media-body">
-                    <br>
-                     <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
+                    <div class="col-md-8">
+                       <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
                     </div>
-                  </div>
+                    </div>
                 </td>
                 <td>
                   <h5 th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h5> 
                 </td>
-                <td>
-                  <div class="product_count" style="margin-left: 20px">
-<!--                       <span class="input-number-decrement"> <i class="ti-minus"></i></span> -->
-                      <a href="#" th:href="@{/items/restarAlItem/{id}(id=${item.idItem})}" >
-                           <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                      </a>
-                      <input class="input-number" type="text" th:value="${item.cantidad}" min="0" max="100">
-<!--                       <span class="input-number-increment"> <i class="ti-plus"></i></span> -->
-                      <a href="#" th:href="@{/items/sumarAlItem/{id}(id=${item.idItem})}" >
-                           <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </a>        
+                <td style="width: 120px">
+                  <div style="margin-left: 20px">
+                  <div class="row">           
+                       
+					 <div class="col-md-3">	
+	                      <div class="restarItem" th:id="${item.idItem}" style="cursor: pointer;" >
+	                           <h4><i class="far fa-minus-square"></i></h4>
+	                      </div>
+                     </div>
+                     
+                      <div class="col-md-3 text-center">	
+                      		<label th:id="'input-number-'+${item.idItem}" class="prueba" th:text="${item.cantidad}" min="0" max="100">
+               		  </div> 
+		  
+               		  <div class="col-md-3">
+	                      <div class="sumarItem" th:id="${item.idItem}" style="cursor: pointer;" >
+	                           <h4><i class="far fa-plus-square"></i></h4>
+	                      </div>
+                      </div>        
                   </div>
-                  <div class="product_count">
-                       <a class="btn btn-danger " href="#" th:href="@{/items/deleteItem/{id}(id=${item.idItem})}" style="margin-top: 30px;background-color:red">Eliminar</a>
-                 </div>
+
                 </td>
                 <td>
-                  <h5>$360.00</h5>
+                  <h5><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
+					    <p th:text="'$'+${var}"></p>
+					  </th:block>
+				  </h5>
+                </td>
+                <td>
+                  <h5><i class="fas fa-times"></i></h5>
                 </td>
               </tr>
               <tr>
@@ -250,7 +258,7 @@
                   <h5>Subtotal</h5>
                 </td>
                 <td>
-                  <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                  <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}" id="subtotal"></h4>
                 </td>
               </tr>
             </tbody>
@@ -324,6 +332,8 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
+    
+    <script th:src="@{/js/auth/Carrito.js}"></script>
     
     <script>
 		$(document).ready(function() {

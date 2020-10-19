@@ -22,6 +22,7 @@ public class ProductoModel {
     private double totalPuntaje;
     private int cantidadValoraciones;
     private List<Tag> tags;
+    private double peso;
     private boolean visible;
     private String imagen;
 
@@ -29,7 +30,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, List<Tag> tags,boolean visible) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -41,6 +42,7 @@ public class ProductoModel {
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
 		this.tags = tags;
+		this.peso = peso;
 		this.precioEnOferta = precioEnOferta;
 		this.visible = visible;
 	}
@@ -173,22 +175,23 @@ public class ProductoModel {
 		this.imagen = imagen;
 	}
 	
+	public double getPeso() {
+		return peso;
+	}
+
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
 	@Override
-    public String toString() {
-        return "ProductoModel{" +
-                "idProducto=" + idProducto +
-                ", precio=" + precio +
-                ", color='" + color + '\'' +
-                ", descripcionCorta='" + descripcionCorta + '\'' +
-                ", descripcionLarga='" + descripcionLarga + '\'' +
-                ", marca='" + marca + '\'' +
-                ", sku='" + sku + '\'' +
-                ", talle='" + talle + '\''  +
-                ", categoria=" + categoria +
-                ", listaComentarios=" + listaComentarios +
-                ", totalPuntaje=" + totalPuntaje +
-                ", cantidadValoraciones=" + cantidadValoraciones +
-                ", tags=" + tags +
-                '}';
-    }
+	public String toString() {
+		return "ProductoModel [idProducto=" + idProducto + ", precio=" + precio + ", precioEnOferta=" + precioEnOferta
+				+ ", color=" + color + ", descripcionCorta=" + descripcionCorta + ", descripcionLarga="
+				+ descripcionLarga + ", marca=" + marca + ", sku=" + sku + ", talle=" + talle + ", categoria="
+				+ categoria + ", listaComentarios=" + listaComentarios + ", totalPuntaje=" + totalPuntaje
+				+ ", cantidadValoraciones=" + cantidadValoraciones + ", tags=" + tags + ", peso=" + peso + ", visible="
+				+ visible + ", imagen=" + imagen + "]";
+	}
+	
+
 }

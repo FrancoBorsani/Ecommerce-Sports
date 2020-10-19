@@ -149,7 +149,8 @@
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
-				<div class="row justify-content-center">
+				<div class="row justify-content-center mb-4">
+				
 					<!-- Order Details -->
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
@@ -157,26 +158,31 @@
 						</div>
 						<div class="order-summary">
 							<div class="order-col">
-								<div><strong>PRODUCTO</strong>
+								<div><strong>PRODUCTO</strong></div>
+								<div><strong>TOTAL</strong></div>
+							</div>
 							<div class="order-products">
-								<div class="order-col">
-									<div>	<tr th:each="item : ${items} " >
-       <td th:text="${item.cantidad}"></td><p> item x </p>  <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td> 
-									<div><span th:text="${item.producto.precio}"></span></div></div>
-								</div>
+								<div class="order-col" th:each="item : ${items}" >
+									<div th:text="${item.cantidad} + 'x ' + ${item.producto.descripcionCorta}">1x Product Name Goes Here</div>
+									<div th:text="'$'+${item.producto.precio}">$980.00</div>
+								</div> 
+
 							</div>
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><span th:text="${pedido.importeAPagar}"></span></div>
+								<div><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
 							</div>
 						</div>
-						<a href="/checkout/envio" class="primary-btn order-submit">HACER PEDIDO</a>
+
+						<a href="/checkout/envio" class="primary-btn order-submit">Hacer Pedido</a>
 					</div>
-					<!-- /Order Details -->
+					<!-- /Order Details -->			
+					
 				</div>
 				<!-- /row -->
 			</div>
 			<!-- /container -->
+		</div>
 		</div>
 		<!-- /SECTION -->
 

@@ -31,7 +31,6 @@ public class Carrito {
 	private float total;
 	
 	
-	
 	public Carrito() {}
 	
 

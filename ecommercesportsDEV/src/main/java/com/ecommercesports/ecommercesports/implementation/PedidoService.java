@@ -1,5 +1,11 @@
 package com.ecommercesports.ecommercesports.implementation;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.PedidoConverter;
 import com.ecommercesports.ecommercesports.entities.Carrito;
@@ -10,11 +16,6 @@ import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service("pedidoService")
 public class PedidoService implements IPedidoService{
@@ -78,5 +79,19 @@ public class PedidoService implements IPedidoService{
 			insertOrUpdate(pedidoModel);
 			return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
 		}
+
+		@Override
+		public double getCostoEnvio(String empresa, int nroColumna) {
+			// TODO Auto-generated method stub
+			return pedidoRepository.getCostoEnvio(empresa,nroColumna);
+		}
+
+		@Override
+		public int updateCostoEnvio(double costoEnvio, long idCarrito) {
+			// TODO Auto-generated method stub
+			return pedidoRepository.updateCostoEnvio(costoEnvio, idCarrito);
+		}
+		
+		
 
 }//Fin class

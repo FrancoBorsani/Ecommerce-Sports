@@ -48,18 +48,24 @@ INSERT INTO tag(id_tag, nombre) VALUES (8, "Tag8");
 
 /* Products */
 
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) 
-VALUES(1,"Negro","Levi`s","Remera Negra Levi`s Batwing",1,2899,2899,"sku1","XL",1,0,0,true,"/img/products/Levis1.jpg");
-INSERT INTO producto (color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones,visible,imagen) 
-VALUES("Blanco","Polo","Remera Blanca Polo Label",2,1299,879,"sku2","L",1,0,0,true,"/img/products/Polo3.jpg"),
-      ("Blanco","Puma","Remera Blanca Puma Iconic t7 Slim",3,2299,2299,"sku3","M",1,0,0,true,"/img/products/Puma1.jpg"),
-      ("Negra","Nike","Zapatilla Negra Nike AIR MAX BELLA TR 2",9,10499,9449,"sku4","39",2,0,0,true,"/img/products/nike2.jpg"),
-	  ("Negro","Converse","Buzo Negro Converse All Star Cropped",5,3699,3429,"sku5","M",1,0,0,true,"/img/products/Converse.jpg"),
-      ("Gris","Chelsea Market","Pantalon Gris Chelsea Market Strong",12,2500,1697,"sku6","4",1,0,0,true,"/img/products/chelsea_market.jpg"),
-      ("Azul","Clon","Babucha Azul Clon",7,4801,3357,"sku7",3,1,0,0,true,"/img/products/clon.jpg"),
-      (" Azul","Brooksfield","Pantalon Azul Brooksfield Kunz",8,6487,4990,"sku8","3",1,0,0,true,"/img/products/brooksfield.jpg"),
-      ("Rosa","Fila","Zapatilla Rosa Fila Euro Jogger Femedge",10,4990,4990,"sku9","37",2,0,0,true,"/img/products/fila.jpg"),
-      ("Vizzano","Blanca","Zapatilla Blanca Vizzano",11,4399,4399,"sku10","38",2,0,0,true,"/img/products/vizzano.jpg");
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso, visible,imagen) 
+VALUES(1,"Negro","Levi`s","Remera Negra Levi`s Batwing",1,2899,2899,"sku1","XL",1,0,0,0.12,true,"/img/products/Levis1.jpg");
+INSERT INTO producto (color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso, visible,imagen) 
+VALUES("Blanco","Polo","Remera Blanca Polo Label",2,1299,879,"sku2","L",1,0,0,0.12,true,"/img/products/Polo3.jpg"),
+      ("Blanco","Puma","Remera Blanca Puma Iconic t7 Slim",3,2299,2299,"sku3","M",1,0,0,0.13,true,"/img/products/Puma1.jpg"),
+	  ("Negro","Converse","Buzo Negro Converse All Star Cropped",5,3699,3429,"sku4","M",1,0,0,0.27,true,"/img/products/Converse.jpg"),	
+	  ("Blanco","Agarrate Catlina","Remera Blanca Agarrate Catlina David",4,1936,1723,"sku5","S",1,0,0,0.13,true,"/img/products/agarrateCatalina.jpg"),
+      ("Negra","Unlimit Ride","Calza Negra Unlimit Ride Liviana",6,879,659,"sku6","3",1,0,0,0.2,true,"/img/products/unlimitRide.jpg"),
+      ("Azul","Clon","Babucha Azul Clon",7,4801,3357,"sku7",3,1,0,0,0.3,true,"/img/products/clon.jpg"),
+      (" Azul","Brooksfield","Pantalon Azul Brooksfield Kunz",8,6487,4990,"sku8","3",1,0,0,0.4,true,"/img/products/brooksfield.jpg"),
+      ("Rosa","Fina","Zapatilla Rosa Fila Euro Jogger Femedge",10,4990,4990,"sku10","37",2,0,0,0.83,true,"/img/products/fila.jpg"),
+      ("Vizzano","Blanca","Zapatilla Blanca Vizzano",11,4399,4399,"sku11","38",2,0,0,0.8,true,"/img/products/vizzano.jpg"),
+      ("Gris","Chelsea Market","Pantalon Gris Chelsea Market Strong",12,2500,1697,"sku12","4",1,0,0,0.4,true,"/img/products/chelsea_market.jpg"),
+      ("Negro","Destino Collection","Pantalon Negro Destino Collection Dream On",13,1450,1247,"sku13","3",1,0,0,0.45,true,"/img/products/destino_collection.jpg"),
+      ("Azul","La Cofradia","Pantalon Azul La Cofradia Abeba",14,5100,2040,"sku14","4",1,0,0,0.41,true,"/img/products/la_cofradia.jpg"),
+	  ("Negra","Nike","Zapatilla Negra Nike RENEW RUN",9,10999,10999,"sku15","38",2,0,0,0.83,true,"/img/products/nike.jpg"),
+      ("Negra","Salomon","Zapatilla Negra Salomon Blackstonia",15,7769,6499,"sku16","40",2,0,0,0.85,true,"/img/products/salomon.jpg");
+
 
 
 /* carrito*/
@@ -94,6 +100,47 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
 
+DELIMITER $$
+CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
+RETURNS varchar(100) 
+BEGIN
+ declare empresaAux varchar(45); declare decolumnaAux varchar(75); declare resultado double;
+case
+ when nro_Columna_input=1 then
+          select `0_a_0.5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=2 then
+          select `0.5_a_1Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=3 then
+          select `1_a_2Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=4 then
+          select `2_a_3Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=5 then
+          select `3_a_5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=6 then
+          select `5_a_10Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=7 then
+          select `10_a_15Kg` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=8 then
+          select `15_a_20Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+ when nro_Columna_input=9 then
+          select `20_a_25Kg.` from tarifa_envio where nombre = nombre_input into resultado;
+end case;
+
+RETURN resultado;
+END$$
+delimiter ;
+
+/*
+
+CREATE TABLE tarifa_envio ( `id_empresa` int PRIMARY KEY, `nombre` VARCHAR(30), `0_a_0.5Kg.` DOUBLE, `0.5_a_1Kg.` DOUBLE, `1_a_2Kg.` DOUBLE, `2_a_3Kg.` DOUBLE, `3_a_5Kg.` DOUBLE, `5_a_10Kg.` DOUBLE, `10_a_15Kg.` DOUBLE, `15_a_20Kg.` DOUBLE, `20_a_25Kg.` DOUBLE )
+
+insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (1,"Andesmar", 295.00, 295.00, 295.00, 317.00, 317.00, 433.00, 540.00, 540.00, 754.00)
+
+insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (2,"Andreani", 367.00, 375.00, 418.00, 460.00, 500.00, 634.00, 1.015, 1.015, 1.015);
+
+insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (3,"OCA", 356.00, 359.00, 363.00, 374.00, 374.00, 393.00, 412.00, 448.00, 493.00);
+
+*/
 
 /*
 3598	Apparel & Accessories	Clothing	Uniforms	Sports Uniforms	
