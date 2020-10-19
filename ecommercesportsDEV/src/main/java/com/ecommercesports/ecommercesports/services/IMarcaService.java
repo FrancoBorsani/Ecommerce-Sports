@@ -8,4 +8,9 @@ public interface IMarcaService {
 	
 	public List<Marca> getAll();
 
-}
+    public Marca traerMarcaPorNombre(String nombreMarca);
+    
+    public Marca traerMarcaPorNombreO_Crear(String nombreMarca);
+
+
+}//Fin class 

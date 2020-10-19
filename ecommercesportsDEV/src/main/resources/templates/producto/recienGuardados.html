@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+<!-- HEADER -->
+<header>
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="/" class="logo">
+                            <img src="./img/logo.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+
+
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Carrito</span>
+                                <div class="qty">2</div>
+                            </a>
+                            <div class="cart-dropdown">
+                                <div class="cart-list">
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product01.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="./img/product02.png" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+                                </div>
+                                <div class="cart-summary">
+                                    <small>2 Item(s) selected</small>
+                                    <h5>SUBTOTAL: $720.00</h5>
+                                </div>
+                                <div class="cart-btns">
+                                    <a href="/carritos">View Cart</a>
+                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+
+<!-- Section de productos NO CARGADOS -->
+<!-- <div class="section"> -->
+    <!-- container -->
+<!--     <div class="container"> -->
+<!--         <div class="row mb-5 p-1"> -->
+<!--             <div class="col-sm-12 "> -->
+<!--             <h2 class="mb-5">Productos que NO fueron guardados (importados de excel)</h2> -->
+<!--             <h5 class="mb-5" style="color:red">Solo se muestran los que descartados por existir en la BD, no as&iacute los excluidos por tener campos inv&aacutelidos</h5> -->
+            
+<!--             	     <div class="table-responsive"> -->
+<!--   <table class="table table-hover"> -->
+<!--     <thead> -->
+<!--       <tr> -->
+<!--         <th scope="col"></th> -->
+<!--         <th scope="col">Descripcion larga</th> -->
+<!--         <th scope="col">Precio</th> -->
+<!--         <th scope="col">Precio en oferta</th> -->
+<!--         <th scope="col">Marca</th> -->
+<!--         <th scope="col">Categoria</th>     -->
+<!--       </tr> -->
+<!--     </thead> -->
+<!--     <tbody> -->
+<!--       <tr th:each="producto : ${productosNoCargados} " > -->
+<!--         <th scope="row"></th> -->
+<!--         <td th:text="${producto.descripcionLarga}"></td> -->
+<!--         <td th:text="'$ '+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</td> -->
+<!--         <td th:text="'$ '+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</td> -->
+<!--         <td th:text="${producto.Marca.nombre}"></td> -->
+<!--         <td th:text="${producto.Categoria.nombre}"></td> -->
+<!--       </tr> -->
+<!--     </tbody> -->
+<!--   </table> -->
+<!-- </div> -->
+               
+<!--         </div> -->
+
+<!--     </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- fin Section de productos NO cargado-->
+
+
+
+<!-- Section de productos Cargados-->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <div class="row mb-5 p-1">
+            <div class="col-sm-12 ">
+            <h2 class="mb-5">Productos que fueron guardados correctamente (importados de excel)</h2>
+            
+            	     <div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Descripcion larga</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Precio en oferta</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Categoria</th>    
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="producto : ${productosCargados} " >
+        <th scope="row">&#9989;</th>
+        <td th:text="${producto.descripcionLarga}"></td>
+        <td th:text="'$ '+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</td>
+        <td th:text="'$ '+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</td>
+        <td th:text="${producto.Marca.nombre}"></td>
+        <td th:text="${producto.Categoria.nombre}"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+               
+        </div>
+
+    </div>
+</div>
+<!-- fin Section de productos Cargados-->
+
+
+<!-- FOOTER -->
+<footer id="footer">
+    <!-- bottom footer -->
+    <div id="bottom-footer" class="section">
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <ul class="footer-payments">
+                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                    </ul>
+                    <span class="copyright">
+							Copyright &copy;
+							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</span>
+
+                </div>
+
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bottom footer -->
+</footer>
+<!-- /FOOTER -->
+
+<!-- jQuery Plugins -->
+
+<th:block th:include="fragments/scripts :: scripts"></th:block>
+
+</body>
+</html>

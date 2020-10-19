@@ -440,4 +440,15 @@ public class ProductoController {
     }
   
     
-}
+    @GetMapping("/importarDesdeExcel")
+    public ModelAndView uploadFile()
+    {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTOS_GUARDADOS);
+    	
+    	mAV.addObject("productosCargados", productoService.cargarProductosDesdeExcel_y_Retornarlos());    	
+    	
+        return mAV;
+    }    
+    
+    
+}//Fin class

@@ -38,5 +38,7 @@ public interface IProductoService {
     public void updateProducto(String descripcionCorta,String descripcionLarga,double precio,double precioEnOferta,String color,boolean visible,long idProducto);
     
     public List<Producto> getProductosEnOferta();
+ 
+    public List<Producto> cargarProductosDesdeExcel_y_Retornarlos();
     
-}
+}//Fin class
