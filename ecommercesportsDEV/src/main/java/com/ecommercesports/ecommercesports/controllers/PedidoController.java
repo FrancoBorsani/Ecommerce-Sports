@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.CarritoService;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
@@ -33,6 +34,10 @@ public class PedidoController {
 	@Autowired
 	@Qualifier("userLogueadoService")
 	private IUserLogueadoService userLogueadoService;
+	
+	@Autowired
+	@Qualifier("carritoService")
+	private CarritoService carritoService;
     
 //    @GetMapping("")
 //    public ModelAndView index() {
@@ -48,6 +53,7 @@ public class PedidoController {
         User user = userLogueadoService.traerUserLogueado();
         if(user!=null) {
         	mAV.addObject("pedidos", pedidoRepository.traerPedidosDelUser(user.getId()));
+            mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
 		}else {
 		  mAV.setViewName("acceso/ingreso");
 		}
@@ -63,12 +69,14 @@ public class PedidoController {
     	if(p != null) {
     		mAV.addObject("pedido", p);
     		mAV.addObject("listaItems", p.getCarrito().getListaItems());
+    		mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
     	}
     	else {
     		mAV.setViewName("acceso/ingreso");
     	}
     	return mAV;
     }
+    
     @GetMapping("/volver")
 	public String volver() {
     	return "redirect:/pedidos/";

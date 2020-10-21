@@ -22,8 +22,10 @@ import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
+import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
+import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 
 @Controller
 @RequestMapping("/checkout")
@@ -52,11 +54,23 @@ public class CheckoutController {
 	@Qualifier("pedidoConverter")
 	private PedidoConverter pedidoConverter;
 	
+	@Autowired
+	@Qualifier("userLogueadoService")
+	private IUserLogueadoService userLogueadoService;
+	
+	@Autowired
+	@Qualifier("carritoService")
+	private ICarritoService carritoService;
+	
 	
 	@SuppressWarnings("finally")
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
+		
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 		
     	String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -92,6 +106,11 @@ public class CheckoutController {
 	@GetMapping("/envio")
 	public ModelAndView envio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.ENVIO);
+		
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+		
 		return mAV;	
 	}
 	
@@ -100,6 +119,11 @@ public class CheckoutController {
 	public ModelAndView domicilio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_DOMICILIO);
 		String username = "";
+		
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+		
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	if( principal instanceof UserDetails) {
     		username = ((UserDetails)principal).getUsername();
@@ -139,6 +163,10 @@ public class CheckoutController {
     		username = ((UserDetails)principal).getUsername();
     	}
     	
+    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+    	
     	User currentUser = userRepository.findByUsername(username);
     	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
     	
@@ -166,6 +194,11 @@ public class CheckoutController {
 	@GetMapping("/envio/pago")
 	public ModelAndView pago() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
+		
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+		
 		return mAV;	
 	}
 	
@@ -179,6 +212,10 @@ public class CheckoutController {
 	    	if( principal instanceof UserDetails) {
 	    		username = ((UserDetails)principal).getUsername();
 	    	}
+	    	
+	    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+	        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+	        }
 	    	
 	    	User currentUser = userRepository.findByUsername(username);
 	    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
@@ -221,6 +258,10 @@ public class CheckoutController {
 	    	if( principal instanceof UserDetails) {
 	    		username = ((UserDetails)principal).getUsername();
 	    	}
+	    	
+	    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+	        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+	        }
 	    	
 	    	User currentUser = userRepository.findByUsername(username);
 	   	

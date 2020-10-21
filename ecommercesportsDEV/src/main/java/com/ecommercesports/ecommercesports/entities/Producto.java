@@ -81,7 +81,7 @@ public class Producto {
 
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-			double peso, List<Tag> tags,boolean visible) {
+			double peso, List<Tag> tags, String imagen, boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -96,6 +96,7 @@ public class Producto {
         this.tags = tags;
         this.visible = visible;
         this.peso = peso;
+        this.imagen = imagen;
     }
 
 	public String getImagen() {
@@ -229,7 +230,7 @@ public class Producto {
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Producto [idProducto=" + idProducto + ", precio=" + precio + ", precioEnOferta=" + precioEnOferta

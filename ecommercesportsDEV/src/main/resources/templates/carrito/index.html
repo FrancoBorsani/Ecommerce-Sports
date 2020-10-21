@@ -135,9 +135,9 @@
 	<nav id="navigation">
 		<!-- container -->
 		<div class="container">
-			<!-- responsive-nav -->
-			<div id="responsive-nav">
-				<!-- NAV -->
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
                     <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
                     <li><a href="/productos">Todos los productos</a></li>
@@ -162,9 +162,9 @@
                     </div>
                   </li>
                 </ul>
-				<!-- /NAV -->
-			</div>
-			<!-- /responsive-nav -->
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
 		</div>
 		<!-- /container -->
 	</nav>
@@ -209,7 +209,7 @@
                 <td>
                   	<div class="row p-4">
                   	 <div class="col-md-3">
-                  	 <img th:src="@{${item.producto.imagen}}"   alt="" height="150px" width="150px">
+                  	 <img th:src="@{${item.producto.imagen}}" alt="imagen-producto" height="150px" width="150px">
                     </div>
                     <div class="col-md-8">
                        <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>

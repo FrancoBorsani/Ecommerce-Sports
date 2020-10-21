@@ -47,33 +47,58 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
 					
+                            <!-- Cart -->
                             <div class="dropdown">
+
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Carrito</span>
                                     <div class="qty">2</div>
                                 </a>
                                 <div class="cart-dropdown">
-                                      <tbody>
-      <tr th:each="item : ${items} " >
-         <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td>
-       								 <br></br>
-       						        <span>Cantidad: </span>  <td th:text="${item.cantidad}"></td>
-    <br></br>
-      </tr>
-    </tbody>
-                                    <div class="cart-summary">
-                   						 
-                                      <h5>SUBTOTAL: <span th:text="${pedido.importeAPagar}"></span></h5>
+                                    <div class="cart-list">
+
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
+
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
                                     </div>
-                                    <div class="cart-btns">
-                                        <a href="/carritos">View Cart</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div>
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                <div class="cart-btns">
+		                                    <a href="/carritos">View Cart</a>
+		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+		                                </div>
                                     </div>
                                 </div>
                             </div>
-                     
-                          
                             <!-- /Cart -->
 
                             <!-- Menu Toogle -->

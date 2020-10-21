@@ -6,9 +6,12 @@ import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 
 import java.util.List;
 
+
 public interface IProductoService {
 
     public List<Producto> getAll();
+    
+    public List<Producto> getAllProductosVisibles();
 
     public ProductoModel insertOrUpdate(ProductoModel productoModel);
 

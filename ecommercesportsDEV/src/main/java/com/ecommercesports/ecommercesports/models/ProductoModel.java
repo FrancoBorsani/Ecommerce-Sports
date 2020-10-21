@@ -30,7 +30,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags, String imagen, boolean visible) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -45,6 +45,7 @@ public class ProductoModel {
 		this.peso = peso;
 		this.precioEnOferta = precioEnOferta;
 		this.visible = visible;
+		this.imagen = imagen;
 	}
 
 	public long getIdProducto() {
