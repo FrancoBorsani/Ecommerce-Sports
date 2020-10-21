@@ -182,6 +182,7 @@ public class ProductoService implements IProductoService {
 		producto.setSku(rE.getSku());
 		producto.setTalle(rE.getTalle());
 		producto.setColor(rE.getColor());
+		producto.setPeso(rE.getPeso());
 		producto.setVisible(rE.isVisible());
 		producto.setTotalPuntaje_2(rE.getTotalPuntaje());
 		producto.setCantidadValoraciones(rE.getCantidadValoraciones());

@@ -38,6 +38,9 @@ public class RegistroExcelModel {
     @ExcelCellName("CantidadValoraciones")
     private int cantidadValoraciones;
     
+    @ExcelCellName("Peso")
+    private double peso;
+    
     @ExcelCellName("Visible")
     private boolean visible;
     
@@ -47,10 +50,10 @@ public class RegistroExcelModel {
     
 	public RegistroExcelModel() { }
 
-
+	
 	public RegistroExcelModel(String descripcionCorta, String descripcionLarga, double precio, double precioEnOferta,
 			String color, String sku, String talle, String categoria, String marca, double totalPuntaje,
-			int cantidadValoraciones, boolean visible, String imagen) {
+			int cantidadValoraciones, double peso, boolean visible, String imagen) {
 		super();
 		this.descripcionCorta = descripcionCorta;
 		this.descripcionLarga = descripcionLarga;
@@ -63,9 +66,13 @@ public class RegistroExcelModel {
 		this.marca = marca;
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
+		this.peso = peso;
 		this.visible = visible;
 		this.imagen = imagen;
 	}
+
+
+
 
 	public double getPrecio() {
 		return precio;
@@ -160,6 +167,15 @@ public class RegistroExcelModel {
 		this.cantidadValoraciones = cantidadValoraciones;
 	}
 	
+	public double getPeso() {
+		return peso;
+	}
+
+
+	public void setPeso(double peso) {
+		this.peso = peso;
+	}
+
 
 	public boolean isVisible() {
 		return visible;
@@ -185,8 +201,8 @@ public class RegistroExcelModel {
 		return "RegistroExcelModel [descripcionCorta=" + descripcionCorta + ", descripcionLarga=" + descripcionLarga
 				+ ", precio=" + precio + ", precioEnOferta=" + precioEnOferta + ", color=" + color + ", sku=" + sku
 				+ ", talle=" + talle + ", categoria=" + categoria + ", marca=" + marca + ", totalPuntaje="
-				+ totalPuntaje + ", cantidadValoraciones=" + cantidadValoraciones + ", visible=" + visible + ", imagen="
-				+ imagen + "]";
+				+ totalPuntaje + ", cantidadValoraciones=" + cantidadValoraciones + ", peso=" + peso + ", visible="
+				+ visible + ", imagen=" + imagen + "]";
 	}
 
 }//Fin class
