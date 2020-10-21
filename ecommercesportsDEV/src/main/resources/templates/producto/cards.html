@@ -133,11 +133,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
                 <ul class="breadcrumb-tree">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Headphones</a></li>
                 </ul>
             </div>
         </div>
@@ -182,36 +180,15 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
+							<div class="product-widget" th:each="prodOferta : ${ofertas}" >
 								<div class="product-img">
-									<img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="">
+									<img th:src="@{${prodOferta.imagen}}" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
+									<h3 class="product-name"><a th:href="@{~/productos/categorias/{id}(id=${prodOferta.Categoria.idCategoria})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>
+									<h4 class="product-price" th:text="'$'+${prodOferta.precio}"></h4>
+									<del class="product-old-price oferta">$990.00</del>
 								</div>
 							</div>
 						</div>
@@ -279,18 +256,6 @@
 						</div>
 						<!-- /store products -->
 
-						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
-						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
 

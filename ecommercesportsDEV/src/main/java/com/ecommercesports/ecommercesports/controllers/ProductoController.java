@@ -93,6 +93,7 @@ public class ProductoController {
         mAV.addObject("productos", productoService.getAll());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
         
         return mAV;
     }
@@ -123,6 +124,7 @@ public class ProductoController {
         mAV.addObject("productos", productoService.getAll());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
         
         return mAV;
     }
