@@ -2217,3 +2217,9 @@ textarea.input {
    float: right;
    padding-bottom: 2rem;
 }
+
+.oferta {
+	font-size: 1.3rem !important;
+	font-weight: 500 !important;
+	color: grey !important;
+}

@@ -49,6 +49,7 @@ public class ProductoModel {
 		this.peso = peso;
 		this.precioEnOferta = precioEnOferta;
 		this.visible = visible;
+		this.imagen = imagen;
 		this.listaValoraciones = listaValoraciones;
 	}
 
@@ -187,10 +188,6 @@ public class ProductoModel {
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-
-	
-	
-	
 	
 	public List<Valoracion> getListaValoraciones() {
 		return listaValoraciones;

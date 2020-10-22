@@ -44,6 +44,7 @@ import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
+import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 import com.ecommercesports.ecommercesports.services.IValoracionService;
 
 @Controller
@@ -114,6 +115,14 @@ public class ProductoController {
 	@Qualifier("pedidoRepository")
 	private IPedidoRepository pedidoRepository;
     
+    @Autowired
+	@Qualifier("userLogueadoService")
+	private IUserLogueadoService userLogueadoService;
+    
+    @Autowired
+	@Qualifier("carritoService")
+	private ICarritoService carritoService;
+    
 	@Autowired
 	@Qualifier("perfilService")
 	private IPerfilService perfilService;
@@ -125,9 +134,14 @@ public class ProductoController {
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
-        mAV.addObject("productos", productoService.getAll());
+        mAV.addObject("productos", productoService.getAllProductosVisibles());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         return mAV;
     }
@@ -138,6 +152,11 @@ public class ProductoController {
         mAV.addObject("productos", productoService.findByCategoria(categoria));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         return mAV;
     }
@@ -149,15 +168,24 @@ public class ProductoController {
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
         return mAV;
     }
     
     @GetMapping("/_DisplayType_G")
     public ModelAndView cards() {
         ModelAndView mAV = new ModelAndView("producto/cards");
-        mAV.addObject("productos", productoService.getAll());
+        mAV.addObject("productos", productoService.getAllProductosVisibles());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         return mAV;
     }
@@ -168,6 +196,11 @@ public class ProductoController {
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
         mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         mAV.addObject("relacionados", productoService.getRelated(idProducto));
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         mAV.addObject("valoracion", valoracionRepository.findVByIdProducto(idProducto));
         
         String username = "";
@@ -236,6 +269,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.findByCategoria(categoria));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -247,6 +285,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.findByCategoria(categoria));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -258,6 +301,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.findByCategoria(categoria));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -269,6 +317,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.filterByMarca(marca));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -286,6 +339,10 @@ public class ProductoController {
     		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_NOT_FOUND);
     		model.addAttribute("searchTerm", keyword);
     		
+    		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+            	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+            }
+    		
     		return mAV;
     	}else {
     		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
@@ -294,6 +351,11 @@ public class ProductoController {
             mAV.addObject("categorias", categoriaService.getAll());
             mAV.addObject("marcas", marcaService.getAll());
             model.addAttribute("searchTerm", keyword);
+            mAV.addObject("ofertas", productoService.getProductosEnOferta());
+            
+            if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+            	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+            }
             
             return mAV;
     	}
@@ -304,13 +366,25 @@ public class ProductoController {
     public ModelAndView searchDisplayType_G(@PathVariable("id") String keyword) {
     	
     	if (productoService.searchProduct(keyword).size() == 0) { 
+    		ModelAndView mAV = new ModelAndView("producto/cards");
+    		
+    		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+            	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+            }
+    		
     		return new ModelAndView("producto/notFound");
+    		
     	}else {
     		ModelAndView mAV = new ModelAndView("producto/cards");
             
             mAV.addObject("productos",productoService.searchProduct(keyword));
             mAV.addObject("categorias", categoriaService.getAll());
             mAV.addObject("marcas", marcaService.getAll());
+            mAV.addObject("ofertas", productoService.getProductosEnOferta());
+            
+            if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+            	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+            }
             
             return mAV;
     	}
@@ -324,6 +398,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByPriceDesc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -335,6 +414,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByPriceAsc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -346,6 +430,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByNameDesc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -357,6 +446,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByNameAsc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -368,6 +462,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByPriceDesc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -379,6 +478,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByPriceAsc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -390,6 +494,11 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByNameDesc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
         return mAV;
     }
@@ -401,6 +510,7 @@ public class ProductoController {
         mAV.addObject("productos",productoService.orderByNameAsc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
 
         return mAV;
     }
@@ -416,6 +526,11 @@ public class ProductoController {
         mAV.addObject("productos", productoService.productosDestacados());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         return mAV;
     }
@@ -426,6 +541,11 @@ public class ProductoController {
         mAV.addObject("productos", productoService.productosDestacados());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         return mAV;
     } 
@@ -437,6 +557,11 @@ public class ProductoController {
     	 mAV.addObject("productos", productoService.productosDestacados());
          mAV.addObject("categorias", categoriaService.getAll());
          mAV.addObject("marcas", marcaService.getAll()); 
+         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+         
+         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+         }
 
     	ComentarioModel comentarioNuevo = new ComentarioModel();
     	comentarioNuevo.setComentario(comentario);
@@ -461,6 +586,16 @@ public class ProductoController {
 
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	 mAV.addObject("productos", productoService.productosDestacados());
+         mAV.addObject("categorias", categoriaService.getAll());
+         mAV.addObject("marcas", marcaService.getAll()); 
+         
+         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+         }
+                 
+    	System.out.println("EL PUNTAJE QUE LLEGA: "+ puntaje);
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);         
    
     	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
@@ -488,6 +623,10 @@ public class ProductoController {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_GESTOR);
         mAV.addObject("productos", productoService.getAll());
         
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
         return mAV;
     }
     
@@ -495,6 +634,10 @@ public class ProductoController {
     public ModelAndView ofertas() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_OFERTA);
         mAV.addObject("productos", productoService.getProductosEnOferta());
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
         
         for(Producto p : productoService.getProductosEnOferta()) {
         	System.out.println(p);

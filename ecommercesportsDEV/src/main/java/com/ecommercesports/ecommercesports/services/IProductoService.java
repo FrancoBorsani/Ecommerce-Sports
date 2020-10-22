@@ -6,9 +6,12 @@ import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 
 import java.util.List;
 
+
 public interface IProductoService {
 
     public List<Producto> getAll();
+    
+    public List<Producto> getAllProductosVisibles();
 
     public ProductoModel insertOrUpdate(ProductoModel productoModel);
 
@@ -49,5 +52,7 @@ public interface IProductoService {
 	public boolean hayCamposEnNULL(RegistroExcelModel rE);
 	
 	public Producto traerSiExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca);
+	
+	public abstract List<Producto> getProductosSinOferta();
     
 }//Fin class

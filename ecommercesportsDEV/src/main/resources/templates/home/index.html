@@ -69,92 +69,66 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
 
+                            <!-- Cart -->
+                            <div class="dropdown">
 
-                            <!-- Cart deslogueado-->
-                            <div class="dropdown" id="carritoDesLogueado">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span>Cart</span>
-                                    <div class="qty">0</div>
-                                </a>
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <!-- <img src="./img/product01.png" alt="">  -->
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">Debe inicar sesion</a></h3>
-<!--                                                 <h4 class="product-price"><span class="qty">1x</span>$360.00</h4> -->
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
-
-<!--                                         <div class="product-widget"> -->
-<!--                                             <div class="product-img"> -->
-<!--                                                 <img src="./img/product02.png" alt=""> -->
-<!--                                             </div> -->
-<!--                                             <div class="product-body"> -->
-<!--                                                 <h3 class="product-name"><a href="#">product name goes here</a></h3> -->
-<!--                                                 <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4> -->
-<!--                                             </div> -->
-<!--                                             <button class="delete"><i class="fa fa-close"></i></button> -->
-<!--                                         </div> -->
-                                    </div>
-                                    <div class="cart-summary">
-                                        <small>0 Item(s) selected</small>
-<!--                                         <h5>SUBTOTAL: $720.00</h5> -->
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="/carritos">View Cart</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Cart deslogueado-->
-                            
-                            <!-- Cart logueado -->
-                            <div class="dropdown" id="carritoLogueado">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Your Cart</span>
+                                    <span>Carrito</span>
                                     <div class="qty">2</div>
                                 </a>
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product01.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
 
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product02.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
+
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
                                     </div>
-                                    <div class="cart-summary">
-                                        <small>2 Item(s) selected</small>
-                                        <h5>SUBTOTAL: $720.00</h5>
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="/carritos">View Cart</a>
-                                        <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">View Cart</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>    
+			                                
+		                                
                                     </div>
                                 </div>
                             </div>
-                            <!-- /Cart logueado -->
+                            <!-- /Cart -->
 
                             <!-- Menu Toogle -->
                             <div class="menu-toggle">
@@ -277,102 +251,30 @@
                     <div class="filter-control">
                         <ul>
                             <li class="active">Clothings</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
+						<div class="product-item" th:each="producto : ${productos} ">
                             <div class="pi-pic">
-                                <img src="img/products/man-1.jpg" alt="">
-                                <div class="sale">Sale</div>
+                                <img th:src="@{${producto.imagen}}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" >+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
+                                <div class="catagory-name" th:text="${producto.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${producto.idProducto})}">
+                                    <h5 th:text="${producto.descripcionCorta}"></h5>
                                 </a>
-                                <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                                <div class="product-price" th:text="${producto.precio}">
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/man-2.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/man-3.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/man-4.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
@@ -398,103 +300,34 @@
                 <div class="col-lg-8 offset-lg-1">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Clothings</li>
-                            <li>HandBag</li>
-                            <li>Shoes</li>
-                            <li>Accessories</li>
+                            <li class="active">Ofertas</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                        <div class="product-item">
+						<div class="product-item" th:each="producto : ${ofertas} ">
                             <div class="pi-pic">
-                                <img src="img/products/women-1.jpg" alt="">
-                                <div class="sale">Sale</div>
+                                <img th:src="@{${producto.imagen}}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" >+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name">Coat</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
+                                <div class="catagory-name" th:text="${producto.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${producto.idProducto})}">
+                                    <h5 th:text="${producto.descripcionCorta}"></h5>
                                 </a>
+                                <div class="product-price" th:text="${producto.precioEnOferta}">
+                                </div>
                                 <div class="product-price">
-                                    $14.00
-                                    <span>$35.00</span>
+                                    <span th:text="${producto.precio}"></span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/women-2.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Shoes</div>
-                                <a href="#">
-                                    <h5>Guangzhou sweater</h5>
-                                </a>
-                                <div class="product-price">
-                                    $13.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/women-3.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Pure Pineapple</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="img/products/women-4.jpg" alt="">
-                                <div class="icon">
-                                    <i class="icon_heart_alt"></i>
-                                </div>
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">Towel</div>
-                                <a href="#">
-                                    <h5>Converse Shoes</h5>
-                                </a>
-                                <div class="product-price">
-                                    $34.00
-                                </div>
-                            </div>
-                        </div>
+                        </div>                       
                     </div>
                 </div>
             </div>

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.ecommercesports.ecommercesports.entities.Tag;
+
+import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -212,6 +214,18 @@ public class ProductoService implements IProductoService {
 		} catch (Exception e) {
 			return productoAux;
 		}
+	}
+
+	@Override
+	public List<Producto> getAllProductosVisibles() {
+		// TODO Auto-generated method stub
+		return productoRepository.getAllProductosVisibles();
+	}
+
+	@Override
+	public List<Producto> getProductosSinOferta() {
+		// TODO Auto-generated method stub
+		return productoRepository.getProductosSinOferta();
 	}
 	
 	

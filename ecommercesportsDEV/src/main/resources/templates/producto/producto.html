@@ -43,48 +43,59 @@
                     <div class="header-ctn">
 
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Carrito</span>
-                                <div class="qty">2</div>
-                            </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                            <!-- Cart -->
+                            <div class="dropdown">
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product02.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
+
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
                                     </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>2 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $720.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="/carritos">View Cart</a>
-                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                <div class="cart-btns">
+		                                    <a href="/carritos">View Cart</a>
+		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+		                                </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Cart -->
+                            <!-- /Cart -->
 
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
@@ -108,36 +119,36 @@
 <nav id="navigation">
     <!-- container -->
     <div class="container">
-        <!-- responsive-nav -->
-        <div id="responsive-nav">
-            <!-- NAV -->
-            <ul class="main-nav nav navbar-nav">
-                <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
-                <li><a href="/productos">Todos los productos</a></li>
-                <li><a href="#">Ofertas</a></li>
-                <li><a href="/pedidos">Pedidos</a></li>
-                <li><a href="/contacto">Contacto</a></li>
-                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
-                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
-                        <span sec:authentication="name"></span>
+                        <span id="logueado" sec:authentication="name"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
-                        <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
                     </div>
-                </li>
-            </ul>
-            <!-- /NAV -->
-        </div>
-        <!-- /responsive-nav -->
+                  </li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
     </div>
     <!-- /container -->
 </nav>
@@ -174,7 +185,7 @@
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
                     <div class="product-preview">
-                        <img th:src="@{/img/product01.png}" src="../../img/product01.png"  alt="">
+                        <img th:src="@{${producto.imagen}}" alt="">
                     </div>
 
                     <div class="product-preview">
@@ -196,7 +207,7 @@
             <div class="col-md-2  col-md-pull-5">
                 <div id="product-imgs">
                     <div class="product-preview">
-                        <img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="">
+                        <img th:src="@{${producto.imagen}}" src="../../img/product01.png" alt="">
                     </div>
 
                     <div class="product-preview">
@@ -217,7 +228,7 @@
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
-                    <h2 class="product-name" th:text="${producto.descripcionCorta}">product name goes here</h2>
+                    <h2 class="product-name" th:text="${producto.descripcionCorta}"></h2>
                     <div>
                         <div class="product-rating">
                             <i class="fa fa-star"></i>
@@ -229,7 +240,7 @@
                         <a class="review-link" href="#">10 Reseña(s) | Agregar reseña</a>
                     </div>
                     <div>
-                        <h3 class="product-price" th:text="${producto.precio}" >$980.00 <del class="product-old-price">$2999.00</del></h3>
+                        <h3 class="product-price" th:text="'$'+${producto.precio}" ><del class="product-old-price"></del></h3>
                         <span class="product-available">En Stock</span>
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -394,7 +405,7 @@
                 <div class="col-md-3 col-xs-6">
                     <div class="product">
                         <div class="product-img">
-                            <img th:src="@{/img/product01.png}" src="../../img/product01.png"  alt="">
+                            <img th:src="@{${producto.imagen}}"  alt="">
                         </div>
                         <div class="product-body">
                             <p class="product-category" th:text="${producto.Categoria.nombre}"></p>
@@ -442,7 +453,7 @@
                 <option value="5">5</option>
             </select>
             <input id="id" name="id" type="hidden"  th:value="${producto.idProducto}"/>
-            <input type="submit" value="Enviar">
+            <input type="submit" class="primary-btn" value="Enviar">
         </form>
         </div>
 </div>
@@ -467,7 +478,6 @@
 							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						</span>
-
 
                 </div>
             </div>

@@ -42,6 +42,7 @@ import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRoleRepository;
 import com.ecommercesports.ecommercesports.services.IClaveTemporalService;
+import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 
 
 @Controller	
@@ -71,6 +72,9 @@ public class UserController {
 	@Qualifier("perfilService")
 	private PerfilService perfilService;
 	
+	@Autowired
+	@Qualifier("userLogueadoService")
+	private IUserLogueadoService userLogueadoService;
 	
 	@Autowired
 	@Qualifier("carritoService")
@@ -166,10 +170,13 @@ public class UserController {
 	}
 	
 	
-	
 	@GetMapping("/recuperarclave")
 	public ModelAndView recuperarClave() {
 	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.USER_RECUPERARCLAVE);	 
+	 
+	 if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+     	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+     }
 	//  redirectAttrs.addAttribute(new ClaveTemporalModel());
 	 mAV.addObject("claveTemporal", new ClaveTemporalModel());
 	//	return new RedirectView(ViewRouteHelpers.USER_RECUPERARCLAVE);

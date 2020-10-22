@@ -86,7 +86,7 @@ public class Producto {
 	}
 
 	public Producto() { }
-
+	
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
 			double peso, List<Tag> tags,boolean visible, List<Valoracion> listaValoraciones) {
@@ -104,6 +104,7 @@ public class Producto {
         this.tags = tags;
         this.visible = visible;
         this.peso = peso;
+        this.imagen = imagen;
         this.listaValoraciones = listaValoraciones;
     }
 
@@ -238,10 +239,6 @@ public class Producto {
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-
-	
-	
-	
 	
 	public List<Valoracion> getListaValoraciones() {
 		return listaValoraciones;

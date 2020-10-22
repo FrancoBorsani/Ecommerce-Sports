@@ -93,6 +93,7 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (4, 6);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
+
 /*
 DELIMITER $$
 CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
@@ -123,7 +124,9 @@ end case;
 RETURN resultado;
 END$$
 delimiter ;
+
 */
+
 /*
 
 CREATE TABLE tarifa_envio ( `id_empresa` int PRIMARY KEY, `nombre` VARCHAR(30), `0_a_0.5Kg.` DOUBLE, `0.5_a_1Kg.` DOUBLE, `1_a_2Kg.` DOUBLE, `2_a_3Kg.` DOUBLE, `3_a_5Kg.` DOUBLE, `5_a_10Kg.` DOUBLE, `10_a_15Kg.` DOUBLE, `15_a_20Kg.` DOUBLE, `20_a_25Kg.` DOUBLE )
