@@ -78,7 +78,7 @@ public class Producto {
 	}
 
 	public Producto() { }
-
+	
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
 			double peso, List<Tag> tags, String imagen, boolean visible) {

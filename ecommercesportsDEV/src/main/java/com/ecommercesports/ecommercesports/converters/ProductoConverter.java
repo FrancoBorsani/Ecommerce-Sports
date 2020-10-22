@@ -20,9 +20,8 @@ public class ProductoConverter {
                 producto.getTotalPuntaje(), producto.getCantidadValoraciones(), producto.getPeso(), producto.getTags(), producto.getImagen(), producto.isVisible());}
 
     public Producto modelToEntity(ProductoModel productoModel) {
-        return new Producto(productoModel.getIdProducto(),productoModel.getPrecio(), productoModel.getPrecioEnOferta(), productoModel.getColor(),
-                productoModel.getDescripcionCorta(), productoModel.getDescripcionLarga(), productoModel.getSku(),
-                productoModel.getTalle(), productoModel.getTotalPuntaje(), productoModel.getCantidadValoraciones(),
-                productoModel.getPeso(), productoModel.getTags(), productoModel.getImagen(), productoModel.isVisible());
+        return new Producto(productoModel.getIdProducto(),productoModel.getPrecio(),productoModel.getPrecioEnOferta(),productoModel.getColor(),
+        		productoModel.getDescripcionCorta(),productoModel.getDescripcionLarga(),productoModel.getSku(),productoModel.getTalle(),
+        		productoModel.getTotalPuntaje(),productoModel.getCantidadValoraciones(),productoModel.getPeso(),productoModel.getTags(),productoModel.getImagen(),productoModel.isVisible());
     }
 }

@@ -52,5 +52,7 @@ public interface IProductoService {
 	public boolean hayCamposEnNULL(RegistroExcelModel rE);
 	
 	public Producto traerSiExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca);
+	
+	public abstract List<Producto> getProductosSinOferta();
     
 }//Fin class

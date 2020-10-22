@@ -61,5 +61,8 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
     
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.precio != p.precio_en_oferta and p.visible = true")
     public abstract List<Producto> getProductosEnOferta();
+    
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.precio = p.precio_en_oferta and p.visible = true")
+    public abstract List<Producto> getProductosSinOferta();
     		
 }

@@ -221,6 +221,12 @@ public class ProductoService implements IProductoService {
 		// TODO Auto-generated method stub
 		return productoRepository.getAllProductosVisibles();
 	}
+
+	@Override
+	public List<Producto> getProductosSinOferta() {
+		// TODO Auto-generated method stub
+		return productoRepository.getProductosSinOferta();
+	}
 	
 	
 }//Fin class

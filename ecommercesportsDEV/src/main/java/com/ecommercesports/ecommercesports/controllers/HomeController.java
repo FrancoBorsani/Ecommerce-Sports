@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
+import com.ecommercesports.ecommercesports.services.IProductoService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 
 @RequestMapping("/")
@@ -28,15 +29,26 @@ public class HomeController {
     @Autowired
 	@Qualifier("carritoService")
 	private ICarritoService carritoService;
+    
+    @Autowired
+    @Qualifier("productoService")
+    private IProductoService productoService;
 	
 	@GetMapping("")
 	public ModelAndView index() {
 		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
 		
+		mAV.addObject("productos", productoService.getProductosSinOferta());
+		
+		mAV.addObject("ofertas", productoService.getProductosEnOferta());
+		
 		if(userLogueadoService.traerUserLogueado() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         }
+		
+		
+		
 		
 		return mAV;
 	}
@@ -74,9 +86,5 @@ public class HomeController {
 		
 		return ViewRouteHelpers.HOME;
 	}
-	
-	
-	
-	
 	
 }
