@@ -200,6 +200,14 @@ public class User {
 	public void setCantidadcompras(int cantidadcompras) {
 		this.cantidadcompras = cantidadcompras;
 	}
+
+	public List<Valoracion> getListaValoraciones() {
+		return listaValoraciones;
+	}
+
+	public void setListaValoraciones(List<Valoracion> listaValoraciones) {
+		this.listaValoraciones = listaValoraciones;
+	}
 	
 	
 	

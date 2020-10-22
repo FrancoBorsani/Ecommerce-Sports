@@ -194,6 +194,7 @@ public class CheckoutController {
 	    		}
 	    		p.setComentario(comentario);
 	    		p.setDomicilio(domicilio);
+	    		
 	    		pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
 	    		
 	    		mAV.addObject("items", listaProductos);
@@ -230,6 +231,7 @@ public class CheckoutController {
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
 		      p.setPagado(true);
+		   
 		      pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
 		      currentUser.setCantidadcompras(currentUser.getCantidadcompras()+1);
 		      userRepository.save(currentUser);

@@ -22,7 +22,8 @@ public interface IValoracionRepository extends JpaRepository<Valoracion, Seriali
 	@Query("SELECT u FROM Valoracion u WHERE u.producto.idProducto = (:idProducto)")
 	public abstract List<Valoracion> findByIdProducto(@Param("idProducto") long idProducto);
 		
-	
-	
+	@Query("SELECT u FROM Valoracion u")
+	public abstract List<Valoracion> obtenerValoraciones();
+		
 	
 }

@@ -20,4 +20,6 @@ public interface IItemRepository extends JpaRepository<Item, Serializable> {
 	@Query(nativeQuery=true,value="SELECT * FROM Item where id_carrito = (:idCarrito)")
 	public abstract List<Item> itemsDelCarrito(long idCarrito);
 
+
+	
 }//Fin interface 

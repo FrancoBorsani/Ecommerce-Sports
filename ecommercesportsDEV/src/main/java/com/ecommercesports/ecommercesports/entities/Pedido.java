@@ -48,9 +48,9 @@ public class Pedido {
 	    @Column(name = "pagado")
 	    private boolean pagado;
 
-		@Nullable
-	    @Column(name = "costoEnvio")
-	    private double costoEnvio;
+	//	@Nullable
+	 //   @Column(name = "costoEnvio")
+	 //   private double costoEnvio;
 
 	    public Pedido() { }
 
@@ -165,13 +165,13 @@ public class Pedido {
 		}
 		
 
-		public double getCostoEnvio() {
-			return costoEnvio;
-		}
+	//	public double getCostoEnvio() {
+		//	return costoEnvio;
+	//	}
 
-		public void setCostoEnvio(double costoEnvio) {
-			this.costoEnvio = costoEnvio;
-		}
+	//	public void setCostoEnvio(double costoEnvio) {
+	//		this.costoEnvio = costoEnvio;
+		//}
 
 		@Override
 		public String toString() {

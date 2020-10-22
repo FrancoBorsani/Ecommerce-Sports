@@ -428,7 +428,7 @@
         <br></br>
 
         <p> VALORAR PRODUCTO </p>
-        <div th:if="${encontrado}">
+        <div th:if="${puedeValorar}">
         <form method="post" th:action="@{/productos/valorar}" sec:authorize="isAuthenticated()">
             <select name="puntaje" id="puntaje">
                 <option value="1">1</option>
@@ -441,9 +441,6 @@
             <input type="submit" value="Enviar">
         </form>
         </div>
-    </div>
-    
-
 </div>
 
 <footer id="footer">
