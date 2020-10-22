@@ -18,11 +18,11 @@ public class ValoracionConverter {
 	
 	
 public	ValoracionModel entityToModel(Valoracion valoracion) {
-		return new ValoracionModel(valoracion.getIdValoracion(), valoracion.getUser(), valoracion.getProducto());
+		return new ValoracionModel(valoracion.getIdValoracion(), valoracion.getUser(), valoracion.getProducto(), valoracion.getTotalPuntaje(), valoracion.getCantidadValoraciones());
 	}
 	
 	public Valoracion modelToEntity(ValoracionModel valoracionModel) {
-		return new Valoracion(valoracionModel.getIdValoracion(), valoracionModel.getUser(), valoracionModel.getProducto());
+		return new Valoracion(valoracionModel.getIdValoracion(), valoracionModel.getUser(), valoracionModel.getProducto(), valoracionModel.getTotalPuntaje(), valoracionModel.getCantidadValoraciones());
 	}
 	
 }

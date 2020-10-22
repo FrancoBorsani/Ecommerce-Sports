@@ -168,7 +168,7 @@ public class ProductoController {
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
         mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         mAV.addObject("relacionados", productoService.getRelated(idProducto));
-        mAV.addObject("valoraciones", valoracionRepository.findByIdProducto(idProducto));
+        mAV.addObject("valoracion", valoracionRepository.findVByIdProducto(idProducto));
         
         String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -464,8 +464,7 @@ public class ProductoController {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);         
    
     	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
-    	//p.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
-    	//p.setTotalPuntaje(puntaje);
+
     	
     	  String username = "";
       	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -477,8 +476,10 @@ public class ProductoController {
       	Valoracion v = new Valoracion();
       	v.setUser(currentUser);
       	v.setProducto(p);
+      	v.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
+      	v.setTotalPuntaje(puntaje);
       	valoracionService.insertOrUpdate(valoracionConverter.entityToModel(v));
-    	//productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
+  
     	return mAV;
     }
     

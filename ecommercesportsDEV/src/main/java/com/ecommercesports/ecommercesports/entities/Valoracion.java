@@ -31,14 +31,24 @@ public class Valoracion {
 	 @JoinColumn(name="producto_idProducto", nullable=false)
 	    private Producto producto;
 	
+	    @Column(name = "totalPuntaje")
+	    private double totalPuntaje;
+	    
+	    @Column(name = "cantidadValoraciones")
+	    private int cantidadValoraciones;
+	 
+	 
 	public Valoracion() {}
 	
 
-	public Valoracion(long idValoracion, User user, Producto producto) {
+	public Valoracion(long idValoracion, User user, Producto producto, double totalPuntaje,
+			int cantidadValoraciones) {
 		super();
 		this.idValoracion = idValoracion;
 		this.user = user;
 		this.producto = producto;
+		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -69,6 +79,27 @@ public class Valoracion {
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;
+	}
+
+
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+
+
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
+	}
+	
+	
+	
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
+	}
+
+
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 	

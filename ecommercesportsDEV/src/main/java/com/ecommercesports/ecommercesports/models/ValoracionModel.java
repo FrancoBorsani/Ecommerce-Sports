@@ -1,5 +1,6 @@
 package com.ecommercesports.ecommercesports.models;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +15,9 @@ public class ValoracionModel {
     private long idValoracion;
     private User user;
     private Producto producto;
-	
+    private double totalPuntaje;
+    private int cantidadValoraciones;
+ 
 	 
 	public ValoracionModel() {
 		
@@ -22,10 +25,13 @@ public class ValoracionModel {
 	}
 	
 	
-	public ValoracionModel(long idValoracion, User user, Producto producto) {
+	public ValoracionModel(long idValoracion, User user, Producto producto,
+			double totalPuntaje, int cantidadValoraciones) {
 		this.idValoracion = idValoracion;
 		this.user = user;
 		this.producto = producto;		
+		this.totalPuntaje = totalPuntaje;
+		this.cantidadValoraciones = cantidadValoraciones;
 	}
 
 
@@ -58,6 +64,27 @@ public class ValoracionModel {
 		this.producto = producto;
 	}
 
+	
+	public void setTotalPuntaje(double totalPuntaje) {
+		this.totalPuntaje = (this.totalPuntaje + totalPuntaje) / this.cantidadValoraciones;
+	}
+
+
+	public int getCantidadValoraciones() {
+		return cantidadValoraciones;
+	}
+
+
+	public void setCantidadValoraciones(int cantidadValoraciones) {
+		this.cantidadValoraciones = cantidadValoraciones;
+	}
+
+
+	public double getTotalPuntaje() {
+		return totalPuntaje;
+	}
+	
+	
 	
 	
 	
