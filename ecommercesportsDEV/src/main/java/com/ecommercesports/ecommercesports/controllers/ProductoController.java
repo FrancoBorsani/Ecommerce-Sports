@@ -199,7 +199,6 @@ public class ProductoController {
     				puedeValorar = true;
     				for(Valoracion v : valoracionRepository.obtenerValoraciones()) {
     				if(v.getUser().getId()== currentUser.getId() && v.getProducto().getIdProducto() == idProducto) {		
-    					System.out.println("ENTRÓ A PUEDE VALORAR");
     						puedeValorar = false;	
     						mAV.addObject("puedeValorar", puedeValorar);
     					}

@@ -411,6 +411,7 @@
 
         <a>DEJAR UN COMENTARIO</a>
         <br></br>
+        <div th:if="${encontrado}">
         <ul class="main-nav nav navbar-nav">
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -424,6 +425,7 @@
                 </form>
             </li>
         </ul>
+        </div>
         <br></br>
         <br></br>
 
