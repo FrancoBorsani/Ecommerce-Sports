@@ -5,12 +5,9 @@
 
 .main {
 	width: 100%;
-	margin: 10px auto; /*20px y centrado*/
 }
 
 .main .articles {
-	width: 68.5%;
-	margin-right: 1.5%;
 	float: left;
 }
 
@@ -24,13 +21,3 @@ article {
 	border-style: solid;
     border-width: 1px;
 }
-aside {
-	width: 30%;
-	background: #ff8000;
-	float: left;
-	padding: 20px;
-	box-sizing: border-box;
-	border-style: solid;
-    border-width: 1px;
-}
-/*la suma de los porcentajes del ancho/alto debe dar 100*/

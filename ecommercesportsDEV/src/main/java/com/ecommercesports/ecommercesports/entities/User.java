@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -65,8 +67,11 @@ public class User {
 	@OneToMany(mappedBy="user")
     private List<Comentario> listaComentarios;
 	
-
 	
+	@OneToMany(mappedBy="user")
+    private List<Valoracion> listaValoraciones;
+	
+
 	public User() {}
 	
 	public User(String username, String firstName, String lastName, String cellPhone,String email, String password, boolean enabled, int cantidadcompras) {

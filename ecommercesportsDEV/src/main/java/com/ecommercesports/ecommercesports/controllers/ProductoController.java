@@ -30,13 +30,14 @@ import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
+import com.ecommercesports.ecommercesports.repositories.IValoracionRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IComentarioService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
-import com.poiji.bind.Poiji;
+import com.ecommercesports.ecommercesports.services.IValoracionService;
 
 @Controller
 @RequestMapping("/productos")
@@ -54,6 +55,9 @@ public class ProductoController {
     @Qualifier("marcaService")
     private IMarcaService marcaService;
     
+    @Autowired
+    @Qualifier("valoracionService")
+    private IValoracionService valoracionService;
     
     @Autowired
     @Qualifier("comentarioService")
@@ -62,6 +66,10 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("valoracionRepository")
+	private IValoracionRepository valoracionRepository;
 	
 	@Autowired
 	@Qualifier("comentarioRepository")
@@ -133,6 +141,7 @@ public class ProductoController {
         mAV.addObject("producto", productoService.findByIdProducto(idProducto));
         mAV.addObject("comentarios", comentarioRepository.findByIdProducto(idProducto));
         mAV.addObject("relacionados", productoService.getRelated(idProducto));
+        mAV.addObject("valoraciones", valoracionRepository.findByIdProducto(idProducto));
         
         String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -140,8 +149,6 @@ public class ProductoController {
     		username = ((UserDetails)principal).getUsername();
     	}
     	
-    	User currentUser = userRepository.findByUsername(username);
-    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
     	
     	 List<Pedido> pedidos = new ArrayList<Pedido>();
         List<Item> listaProductos = new ArrayList<Item>();
@@ -150,7 +157,15 @@ public class ProductoController {
     	
     	boolean encontrado = false;
     	
+    	User currentUser = userRepository.findByUsername(username);
+    	
+    	
     	try {
+    		if(currentUser != null) {
+    			
+    		
+    		mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+        	
     		if(currentUser.getCantidadcompras() != 0) {
     		pedidos = pedidoRepository.traerPedidosDelUser(currentUser.getId());
     	for(Pedido pedido : pedidos) {
@@ -164,7 +179,7 @@ public class ProductoController {
     	}
     		}
     		
-		}} catch (Exception e) {
+		}}} catch (Exception e) {
 			mAV.addObject("pedido", p);
     		mAV.addObject("items", listaProductos);
 		}

@@ -104,6 +104,14 @@
       		<groupId>org.springframework.boot</groupId>
       		<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+		
+		<!-- Dependencia para manejo de archvo -->
+		<dependency>
+			<groupId>com.github.ozlerhakan</groupId>
+			<artifactId>poiji</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		
 				
 	</dependencies>
 

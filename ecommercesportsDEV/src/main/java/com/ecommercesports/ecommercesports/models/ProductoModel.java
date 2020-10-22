@@ -2,9 +2,12 @@ package com.ecommercesports.ecommercesports.models;
 
 import java.util.List;
 
+import javax.persistence.OneToMany;
+
 import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Comentario;
 import com.ecommercesports.ecommercesports.entities.Tag;
+import com.ecommercesports.ecommercesports.entities.Valoracion;
 
 public class ProductoModel {
 
@@ -25,12 +28,13 @@ public class ProductoModel {
     private double peso;
     private boolean visible;
     private String imagen;
-
+    private List<Valoracion> listaValoraciones;
+	
     public ProductoModel() {
     }
 
     public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible, List<Valoracion> listaValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -45,6 +49,7 @@ public class ProductoModel {
 		this.peso = peso;
 		this.precioEnOferta = precioEnOferta;
 		this.visible = visible;
+		this.listaValoraciones = listaValoraciones;
 	}
 
 	public long getIdProducto() {
@@ -181,6 +186,18 @@ public class ProductoModel {
 
 	public void setPeso(double peso) {
 		this.peso = peso;
+	}
+
+	
+	
+	
+	
+	public List<Valoracion> getListaValoraciones() {
+		return listaValoraciones;
+	}
+
+	public void setListaValoraciones(List<Valoracion> listaValoraciones) {
+		this.listaValoraciones = listaValoraciones;
 	}
 
 	@Override
