@@ -96,7 +96,6 @@
   color: #fff !important;
   display: inline-block;
   padding: 18px 44px;
-  font-family: "Playfair Display", serif;
   font-size: 14px;
   font-weight: 400;
   border: 0;
@@ -207,7 +206,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Playfair Display", serif;
   color: #0b1c39;
   margin-top: 0px;
   font-style: normal;

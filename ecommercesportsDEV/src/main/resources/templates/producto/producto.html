@@ -351,7 +351,9 @@
                                                     <div class="row">
                                                         <div class="col-xs-12 col-md-6 text-center">
                                                             <h1>
-                                                                <span th:text="${producto.totalPuntaje}" th:remove="tag"> puntos</span>
+                                                             	<div th:if="${valoracion}">
+                                                                <span th:text="${valoracion.totalPuntaje}" th:remove="tag"> puntos</span>
+                                                            	</div>
                                                             </h1>
                                                             <div class="rating">
                                                                 <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
@@ -422,6 +424,7 @@
 
         <a>DEJAR UN COMENTARIO</a>
         <br></br>
+        <div th:if="${encontrado}">
         <ul class="main-nav nav navbar-nav">
             <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
@@ -435,11 +438,12 @@
                 </form>
             </li>
         </ul>
+        </div>
         <br></br>
         <br></br>
 
         <p> VALORAR PRODUCTO </p>
-        <div th:if="${encontrado}">
+        <div th:if="${puedeValorar}">
         <form method="post" th:action="@{/productos/valorar}" sec:authorize="isAuthenticated()">
             <select name="puntaje" id="puntaje">
                 <option value="1">1</option>
@@ -452,9 +456,6 @@
             <input type="submit" class="primary-btn" value="Enviar">
         </form>
         </div>
-    </div>
-    
-
 </div>
 
 <footer id="footer">

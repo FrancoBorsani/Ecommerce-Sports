@@ -30,8 +30,8 @@ public class PedidoModel {
 	@Nullable
 	private boolean pagado;
 	
-	@Nullable
-	private double costoEnvio;
+	//@Nullable
+	//private double costoEnvio;
 	
 	public PedidoModel() { }
 
@@ -130,19 +130,19 @@ public class PedidoModel {
 	}
 	
 
-	public double getCostoEnvio() {
-		return costoEnvio;
-	}
+//	public double getCostoEnvio() {
+	//	return costoEnvio;
+//	}
 
-	public void setCostoEnvio(double costoEnvio) {
-		this.costoEnvio = costoEnvio;
-	}
+//	public void setCostoEnvio(double costoEnvio) {
+//		this.costoEnvio = costoEnvio;
+//	}
 
 	@Override
 	public String toString() {
 		return "PedidoModel [idPedido=" + idPedido + ", domicilio=" + domicilio + ", user=" + user + ", carritoModel="
 				+ carritoModel + ", cantidad=" + cantidad + ", importeAPagar=" + importeAPagar + ", metodoPago="
-				+ metodoPago + ", comentario=" + comentario + ", pagado=" + pagado + ", costoEnvio=" + costoEnvio + "]";
+				+ metodoPago + ", comentario=" + comentario + ", pagado=" + pagado + ", costoEnvio=" + "]";
 	}
 
 	

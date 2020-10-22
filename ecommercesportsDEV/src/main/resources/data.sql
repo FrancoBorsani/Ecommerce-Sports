@@ -95,7 +95,6 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
 
 /*
-
 DELIMITER $$
 CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
 RETURNS varchar(100) 

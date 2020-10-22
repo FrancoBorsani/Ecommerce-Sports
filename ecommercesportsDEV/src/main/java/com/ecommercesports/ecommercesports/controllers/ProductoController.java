@@ -18,27 +18,34 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.ProductoConverter;
+import com.ecommercesports.ecommercesports.converters.ValoracionConverter;
+import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.entities.User;
+import com.ecommercesports.ecommercesports.entities.Valoracion;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.models.ComentarioModel;
 import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 import com.ecommercesports.ecommercesports.repositories.IComentarioRepository;
+import com.ecommercesports.ecommercesports.repositories.IItemRepository;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
+import com.ecommercesports.ecommercesports.repositories.IValoracionRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IComentarioService;
+import com.ecommercesports.ecommercesports.services.IItemService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
-
+import com.ecommercesports.ecommercesports.services.IValoracionService;
 
 @Controller
 @RequestMapping("/productos")
@@ -49,6 +56,14 @@ public class ProductoController {
     private IProductoService productoService;
     
     @Autowired
+    @Qualifier("carritoConverter")
+    private CarritoConverter carritoConverter;
+    
+    @Autowired
+    @Qualifier("carritoService")
+    private ICarritoService carritoService;
+    
+    @Autowired
     @Qualifier("categoriaService")
     private ICategoriaService categoriaService;
     
@@ -56,6 +71,9 @@ public class ProductoController {
     @Qualifier("marcaService")
     private IMarcaService marcaService;
     
+    @Autowired
+    @Qualifier("valoracionService")
+    private IValoracionService valoracionService;
     
     @Autowired
     @Qualifier("comentarioService")
@@ -64,6 +82,18 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
+	
+	@Autowired
+	@Qualifier("itemService")
+	private IItemService itemService;
+	
+	@Autowired
+	@Qualifier("valoracionRepository")
+	private IValoracionRepository valoracionRepository;
+	
+	@Autowired
+	@Qualifier("itemRepository")
+	private IItemRepository itemRepository;
 	
 	@Autowired
 	@Qualifier("comentarioRepository")
@@ -96,6 +126,10 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("perfilService")
 	private IPerfilService perfilService;
+	
+	@Autowired
+	@Qualifier("valoracionConverter")
+	private ValoracionConverter valoracionConverter;
 	
     @GetMapping({"", "/_DisplayType_LF"})
     public ModelAndView index() {
@@ -167,38 +201,56 @@ public class ProductoController {
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         }
+        mAV.addObject("valoracion", valoracionRepository.findVByIdProducto(idProducto));
         
         String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	if( principal instanceof UserDetails) {
     		username = ((UserDetails)principal).getUsername();
     	}
-    	
     	User currentUser = userRepository.findByUsername(username);
-    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
     	
     	 List<Pedido> pedidos = new ArrayList<Pedido>();
         List<Item> listaProductos = new ArrayList<Item>();
     	Pedido p = new Pedido();
-    	
-    	
+   
     	boolean encontrado = false;
-    	
+    	boolean puedeValorar = false;
+   
     	try {
+    		if(currentUser != null) {
     		if(currentUser.getCantidadcompras() != 0) {
     		pedidos = pedidoRepository.traerPedidosDelUser(currentUser.getId());
-    	for(Pedido pedido : pedidos) {
-    		for(Item item : pedido.getCarrito().getListaItems()) {
+    		for (Item item : itemRepository.itemsDelCarrito(pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getIdCarrito())){
+    			listaProductos.add(item);
+    		}
+    		for(Item item : listaProductos) {
     			if(item.getProducto().getIdProducto() == idProducto) {
     				encontrado = true;
     				mAV.addObject("encontrado", encontrado);
+    				puedeValorar = true;
+    				for(Valoracion v : valoracionRepository.obtenerValoraciones()) {
+    				if(v.getUser().getId()== currentUser.getId() && v.getProducto().getIdProducto() == idProducto) {		
+    						puedeValorar = false;	
+    						mAV.addObject("puedeValorar", puedeValorar);
+    					}
+    				}
+    			
+    				
     			}
 
     		
-    	}
+    	}}
+    		if(puedeValorar)
+			{        				
+				mAV.addObject("puedeValorar", puedeValorar);
+			}
+    		
+    		
     		}
     		
-		}} catch (Exception e) {
+		} catch (Exception e) {
 			mAV.addObject("pedido", p);
     		mAV.addObject("items", listaProductos);
 		}
@@ -544,11 +596,25 @@ public class ProductoController {
          }
                  
     	System.out.println("EL PUNTAJE QUE LLEGA: "+ puntaje);
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);         
    
     	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
-    	p.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
-    	p.setTotalPuntaje(puntaje);
-    	productoService.insertOrUpdate(productoConverter.entityToModel(p));    	
+
+    	
+    	  String username = "";
+      	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      	if( principal instanceof UserDetails) {
+      		username = ((UserDetails)principal).getUsername();
+      	}
+      	
+      	User currentUser = userRepository.findByUsername(username);	
+      	Valoracion v = new Valoracion();
+      	v.setUser(currentUser);
+      	v.setProducto(p);
+      	v.setCantidadValoraciones(p.getCantidadValoraciones() + 1);
+      	v.setTotalPuntaje(puntaje);
+      	valoracionService.insertOrUpdate(valoracionConverter.entityToModel(v));
+  
     	return mAV;
     }
     

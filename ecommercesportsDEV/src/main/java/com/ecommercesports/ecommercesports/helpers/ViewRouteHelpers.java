@@ -35,6 +35,8 @@ public class ViewRouteHelpers {
     public static final String FORM_SUCURSAL = "checkout/formSucursal";
     public static final String PAGO = "checkout/pago";
     public final static String CHECKOUT_ROOT = "/checkout";
+   
+    public final static String PUNTUACIONDADA = "producto/puntuaciondada";
     
     //Acceso
     
