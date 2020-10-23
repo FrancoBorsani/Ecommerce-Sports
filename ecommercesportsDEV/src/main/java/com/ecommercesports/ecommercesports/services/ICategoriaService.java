@@ -7,7 +7,8 @@ import com.ecommercesports.ecommercesports.entities.Categoria;
 public interface ICategoriaService {
 	
 	public List<Categoria> getAll();
-
+	
+	public Categoria findByIdCategoria(long idCategoria);
 	
     public Categoria traerCategoriaPorNombre(String nombreCategoria);
     

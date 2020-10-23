@@ -2,7 +2,6 @@ package com.ecommercesports.ecommercesports.models;
 
 import java.util.List;
 
-import javax.persistence.OneToMany;
 
 import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Comentario;
@@ -34,7 +33,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible, List<Valoracion> listaValoraciones) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones, Categoria categoria) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -51,6 +50,7 @@ public class ProductoModel {
 		this.visible = visible;
 		this.imagen = imagen;
 		this.listaValoraciones = listaValoraciones;
+		this.categoria = categoria;
 	}
 
 	public long getIdProducto() {

@@ -203,7 +203,7 @@ public class CheckoutController {
 	}
 	
 	
-	 @SuppressWarnings("finally")
+	@SuppressWarnings("finally")
 	@PostMapping("/guardarPedido")
 	    public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);

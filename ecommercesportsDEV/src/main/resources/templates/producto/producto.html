@@ -163,11 +163,10 @@
                 <!-- Aca hay que poner el árbol de categoria - sub categoria del producto -->
 
                 <ul class="breadcrumb-tree">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Headphones</a></li>
-                    <li class="active">Product name goes here</li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/productos">All Categories</a></li>
+                    <li><a href="/productos" th:text="${producto.Categoria.nombre}"></a></li>
+                    <li class="active" th:text="${producto.descripcionCorta}"></li>
                 </ul>
             </div>
         </div>
@@ -181,49 +180,49 @@
     <div class="container">
         <!-- row -->
         <div class="row">
-            <!-- Product main img -->
-            <div class="col-md-5 col-md-push-2">
-                <div id="product-main-img">
-                    <div class="product-preview">
-                        <img th:src="@{${producto.imagen}}" alt="">
-                    </div>
+            					<!-- Product main img -->
+					<div class="col-md-5 col-md-push-2">
+						<div id="product-main-img">
+							<div class="product-preview">
+								<img th:src="@{${producto.imagen}}" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product03.png}" src="../../img/product03.png"  alt="">
-                    </div>
+							<div class="product-preview">
+								<img src="../../img/product03.png" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product06.png}" src="../../img/product06.png"  alt="">
-                    </div>
+							<div class="product-preview">
+								<img src="../../img/product06.png" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product08.png}" src="../../img/product08.png"  alt="">
-                    </div>
-                </div>
-            </div>
-            <!-- /Product main img -->
+							<div class="product-preview">
+								<img src="../../img/product08.png" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product main img -->
 
-            <!-- Product thumb imgs -->
-            <div class="col-md-2  col-md-pull-5">
-                <div id="product-imgs">
-                    <div class="product-preview">
-                        <img th:src="@{${producto.imagen}}" src="../../img/product01.png" alt="">
-                    </div>
+					<!-- Product thumb imgs -->
+					<div class="col-md-2  col-md-pull-5">
+						<div id="product-imgs">
+							<div class="product-preview">
+								<img th:src="@{${producto.imagen}}" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product03.png}" src="../../img/product03.png"  alt="">
-                    </div>
+							<div class="product-preview">
+								<img src="../../img/product03.png" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product06.png}" src="../../img/product06.png"  alt="">
-                    </div>
+							<div class="product-preview">
+								<img src="../../img/product06.png" alt="">
+							</div>
 
-                    <div class="product-preview">
-                        <img th:src="@{/img/product08.png}" src="../../img/product08.png"  alt="">
-                    </div>
-                </div>
-            </div>
-            <!-- /Product thumb imgs -->
+							<div class="product-preview">
+								<img src="../../img/product08.png" alt="">
+							</div>
+						</div>
+					</div>
+					<!-- /Product thumb imgs -->
 
             <!-- Product details -->
             <div class="col-md-5">

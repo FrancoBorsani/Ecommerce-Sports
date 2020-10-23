@@ -161,6 +161,7 @@
                 <ul class="breadcrumb-tree">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">All Categories</a></li>
+                    <li th:if="${categoria}"><a href="#" th:text="${categoria.nombre}"></a></li>
                 </ul>
             </div>
         </div>
@@ -183,7 +184,6 @@
 									<label for="category-1" th:text="${categoria.nombre}" >
 										<span></span>										
 									</label>
-									<small class="text-white">(120)</small>
 								</a>
 							</div>
 						</div>
@@ -196,7 +196,6 @@
 									<label for="category-1" th:text="${m.nombre}" >
 										<span></span>
 									</label>
-									<small class="text-white">(120)</small>
 								</a>
 								
 						</div>

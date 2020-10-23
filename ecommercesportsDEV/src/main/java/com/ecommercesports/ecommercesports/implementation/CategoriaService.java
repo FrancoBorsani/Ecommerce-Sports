@@ -44,5 +44,11 @@ public class CategoriaService implements ICategoriaService{
     	}
     return categoria;
     }
+
+	@Override
+	public Categoria findByIdCategoria(long idCategoria) {
+		// TODO Auto-generated method stub
+		return categoriaRepository.findByIdCategoria(idCategoria);
+	}
 	
 }//Fin class

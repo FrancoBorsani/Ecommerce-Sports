@@ -21,7 +21,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.ProductoConverter;
 import com.ecommercesports.ecommercesports.converters.ValoracionConverter;
-import com.ecommercesports.ecommercesports.entities.Carrito;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
@@ -119,10 +118,6 @@ public class ProductoController {
 	@Qualifier("userLogueadoService")
 	private IUserLogueadoService userLogueadoService;
     
-    @Autowired
-	@Qualifier("carritoService")
-	private ICarritoService carritoService;
-    
 	@Autowired
 	@Qualifier("perfilService")
 	private IPerfilService perfilService;
@@ -153,6 +148,8 @@ public class ProductoController {
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
+        
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -270,6 +267,7 @@ public class ProductoController {
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -286,6 +284,7 @@ public class ProductoController {
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -302,6 +301,7 @@ public class ProductoController {
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -586,7 +586,7 @@ public class ProductoController {
 
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);
     	 mAV.addObject("productos", productoService.productosDestacados());
          mAV.addObject("categorias", categoriaService.getAll());
          mAV.addObject("marcas", marcaService.getAll()); 
@@ -596,7 +596,7 @@ public class ProductoController {
          }
                  
     	System.out.println("EL PUNTAJE QUE LLEGA: "+ puntaje);
-    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);         
+    	//ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);         
    
     	Producto p = productoRepository.findByIdProducto(Long.parseLong(id));
 

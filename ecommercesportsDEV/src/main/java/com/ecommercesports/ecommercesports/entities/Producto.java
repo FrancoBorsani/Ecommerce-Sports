@@ -73,10 +73,6 @@ public class Producto {
     @OneToMany(mappedBy="producto")
     private List<Valoracion> listaValoraciones;
 	
-
-    
-    
-    
     public boolean isVisible() {
 		return visible;
 	}
@@ -89,7 +85,7 @@ public class Producto {
 	
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-			double peso, List<Tag> tags,boolean visible, List<Valoracion> listaValoraciones) {
+			double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
