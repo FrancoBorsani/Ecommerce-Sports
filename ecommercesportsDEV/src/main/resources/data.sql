@@ -94,6 +94,13 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
 
+/* Descuentos */
+
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUE (1, "", 0);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUE (2, "descuento1", 10);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUE (3, "descuento2", 15);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUE (4, "descuento3", 20);
+
 /*
 DELIMITER $$
 CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
