@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
@@ -39,9 +40,13 @@ public class HomeController {
 		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
 		
-		mAV.addObject("productos", productoService.getProductosSinOferta());
+		mAV.addObject("productoSin", productoService.getProductosSinOferta().get(productoService.getProductosSinOferta().size()-1));
 		
-		mAV.addObject("ofertas", productoService.getProductosEnOferta());
+		mAV.addObject("productos", productoService.getProductosSinOferta());
+        
+	    mAV.addObject("ofertasProd", productoService.getProductosEnOferta().get(productoService.getProductosEnOferta().size()-1));
+		
+	    mAV.addObject("ofertas", productoService.getProductosEnOferta());
 		
 		if(userLogueadoService.traerUserLogueado() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());

@@ -238,68 +238,45 @@
         <!-- /container -->
     </div>
     <!-- /BREADCRUMB -->
-    <!-- Man Banner Section Begin -->
-    <section class="man-banner spad">
+            <!-- Women Banner Section Begin -->
+    <section class="women-banner spad">
     	<div sec:authorize="hasRole('ADMIN')">
     		<a class="primary-btn" href="/productos/admin_productos">Gestor de productos</a>
 		</div>
-		
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8">
-                    <div class="filter-control">
-                        <ul>
-                            <li class="active">Clothings</li>
-                        </ul>
-                    </div>
-                    <div class="product-slider owl-carousel">
-						<div class="product-item" th:each="producto : ${productos} ">
+                <div class="col-lg-3">
+                           <div class="product-item">
                             <div class="pi-pic">
-                                <img th:src="@{${producto.imagen}}" alt="">
+                                <img th:src="@{${ofertasProd.imagen}}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
                                 </div>
                                 <ul>
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" >+ Quick View</a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${ofertasProd.idProducto})}" >+ Quick View</a></li>
                                     <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
                                 </ul>
                             </div>
                             <div class="pi-text">
-                                <div class="catagory-name" th:text="${producto.Categoria.nombre}"></div>
-                                <a th:href="@{/productos/{id}(id=${producto.idProducto})}">
-                                    <h5 th:text="${producto.descripcionCorta}"></h5>
+                                <div class="catagory-name" th:text="${ofertasProd.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${ofertasProd.idProducto})}">
+                                    <h5 th:text="${ofertasProd.descripcionCorta}"></h5>
                                 </a>
-                                <div class="product-price" th:text="${producto.precio}">
+                                <div class="product-price" th:text="${ofertasProd.precioEnOferta}">
+                                </div>
+                                <div class="product-price">
+                                    <span th:text="${ofertasProd.precio}"></span>
                                 </div>
                             </div>
-                        </div>                       
-                    </div>
-                </div>
-                <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg" style="margin-left:20%; margin-right:-20%">
-                        <h2>Hombres</h2>
-                        <a href="#">Descubre más</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Man Banner Section End -->
-        <!-- Women Banner Section Begin -->
-    <section class="women-banner spad">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="img/products/women-large.jpg" style="margin-right:10%">
-                        <h2>Mujeres</h2>
-                        <a href="#">Descubre más</a>
-                    </div>
+                        </div>
+                          
+                        <a href="/productos/ofertas"><h4 style="text-align: center;color:orange">Descubre mas Ofertas</h4></a>
                 </div>
                 <div class="col-lg-8 offset-lg-1">
                     <div class="filter-control">
                         <ul>
-                            <li class="active">Ofertas</li>
+                            <li class="active">Productos en ofertas</li>
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
@@ -333,6 +310,73 @@
         </div>
     </section>
     <!-- Women Banner Section End -->
+    <!-- Man Banner Section Begin -->
+    <section class="man-banner spad">		
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="filter-control">
+                        <ul>
+                            <li class="active">Mas productos</li>
+                        </ul>
+                    </div>
+                    <div class="product-slider owl-carousel">
+						<div class="product-item" th:each="producto : ${productos} ">
+                            <div class="pi-pic">
+                                <img th:src="@{${producto.imagen}}" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" >+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name" th:text="${producto.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${producto.idProducto})}">
+                                    <h5 th:text="${producto.descripcionCorta}"></h5>
+                                </a>
+                                <div class="product-price" th:text="${producto.precio}">
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                           <div class="product-item" style="margin-left:20%; margin-right:-20%">
+                            <div class="pi-pic">
+                                <img th:src="@{${productoSin.imagen}}" alt="">
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a th:href="@{/productos/{id}(id=${productoSin.idProducto})}" >+ Quick View</a></li>
+                                    <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name" th:text="${productoSin.Categoria.nombre}"></div>
+                                <a th:href="@{/productos/{id}(id=${productoSin.idProducto})}">
+                                    <h5 th:text="${productoSin.descripcionCorta}"></h5>
+                                </a>
+                                <div class="product-price" th:text="${productoSin.precioEnOferta}">
+                                </div>
+                                <div class="product-price">
+                                    <span th:text="${productoSin.precio}"></span>
+                                </div>
+                            </div>
+                        </div>
+                          
+                        <a href="/productos"><h4 style="text-align: center;color:orange;margin-left:20%; margin-right:-20%">Descubre mas Poductos</h4></a>                       
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Man Banner Section End -->
+
     <!-- FOOTER -->
     <footer id="footer">
         <!-- bottom footer -->
