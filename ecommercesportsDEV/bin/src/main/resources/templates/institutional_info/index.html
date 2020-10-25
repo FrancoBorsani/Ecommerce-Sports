@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- MAIN HEADER -->
+		<div id="header">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- LOGO -->
+					<div class="col-md-3">
+						<div class="header-logo">
+							<a href="/" class="logo">
+								<img src="./img/logo.png" alt="">
+							</a>
+						</div>
+					</div>
+					<!-- /LOGO -->
+
+					<!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+					<!-- ACCOUNT -->
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+
+
+							<!-- Cart -->
+							<div class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<i class="fa fa-shopping-cart"></i>
+									<span>Your Cart</span>
+									<div class="qty">2</div>
+								</a>
+								<div class="cart-dropdown">
+									<div class="cart-list">
+										<div class="product-widget">
+											<div class="product-img">
+												<img src="./img/product01.png" alt="">
+											</div>
+											<div class="product-body">
+												<h3 class="product-name"><a href="#">product name goes here</a></h3>
+												<h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+											</div>
+											<button class="delete"><i class="fa fa-close"></i></button>
+										</div>
+
+										<div class="product-widget">
+											<div class="product-img">
+												<img src="./img/product02.png" alt="">
+											</div>
+											<div class="product-body">
+												<h3 class="product-name"><a href="#">product name goes here</a></h3>
+												<h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+											</div>
+											<button class="delete"><i class="fa fa-close"></i></button>
+										</div>
+									</div>
+									<div class="cart-summary">
+										<small>2 Item(s) selected</small>
+										<h5>SUBTOTAL: $720.00</h5>
+									</div>
+									<div class="cart-btns">
+										<a href="/carritos">View Cart</a>
+										<a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+							<!-- /Cart -->
+
+							<!-- Menu Toogle -->
+							<div class="menu-toggle">
+								<a href="#">
+									<i class="fa fa-bars"></i>
+									<span>Menu</span>
+								</a>
+							</div>
+							<!-- /Menu Toogle -->
+						</div>
+					</div>
+					<!-- /ACCOUNT -->
+				</div>
+				<!-- row -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- /MAIN HEADER -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<nav id="navigation">
+		<!-- container -->
+		<div class="container">
+			<!-- responsive-nav -->
+			<div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+					<li><a href="/productos">Todos los productos</a></li>
+					<li><a href="#">Ofertas</a></li>
+					<li><a href="/pedidos">Pedidos</a></li>
+					<li><a href="/contacto">Contacto</a></li>
+					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+					<li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+					<li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+			        	<i class="fa fa-user-o" style="margin-right:3px"></i>
+			        	<span sec:authentication="name"></span>
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="#" style="padding: 10px">Perfil</a>
+			          <div class="dropdown-divider"></div>
+			          <a class="dropdown-item" href="#" style="padding: 10px">Compras</a>
+			          <div class="dropdown-divider"></div>
+				      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+			          <div class="dropdown-divider"></div>
+			        </div>
+			      </li>
+				</ul>
+				<!-- /NAV -->
+			</div>
+			<!-- /responsive-nav -->
+		</div>
+		<!-- /container -->
+	</nav>
+	<!-- /NAVIGATION -->
+
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb" class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+
+			<section class="main"> 
+					<div class="col-md-8">
+					        <section class="articles">
+					            <article> 
+					                <h4> Quienes somos?</h4> 
+					                <p> Somos una empresa Argentina dedicada a la venta por internet articulos deportivos de exelente calidad. Contamos con operaciones en varios pa&iacuteses al rededor de todo el mundo, en todo ellos garantizamos a nuestros cliente el reguardo de sus datos de pago y que van a recibir el producto comprado en la comodidad de su domicilio.</p>
+					            </article>
+					
+					            <article>
+					                <h4> Origen y expansi&oacuten</h4>
+					                <p>  Sin dudas, mostrar que ten&eacutes experiencia en tu rubro es una excelente forma de generar confianza entre los clientes de tu ecommerce. Pero experiencia no significa simplemente mencionar la cantidad de a&ntildeos que llev&aacutes en el negocio. Tu historia es mucho m&aacutes interesante cuando inclu&iacutes aquellos hitos y acontecimientos que implicaron un punto de inflexi&oacuten en la trayectoria de tu servicio.  </p>
+					            </article>
+					 </div> 
+					 
+					 <div class="col-md-4">
+					 		<section class="articles">
+						        <article style="background-color: #ff8000;">     
+						         <h5>Equipo de trabajo</h5> 
+						         <p> Una buena t&eacutecnica para que tu marca se vea m&aacutes humana y real, es presentar al equipo que lleva adelante la empresa. No hace falta que presentes a cada una de las personas, pero es una buena pr&aacutectica incluir al equipo fundador y/o a los directivos m&aacutes importantes. </p>
+						        </article>
+						    </section>
+				 	</div>
+					 
+			</section>
+
+			</div>
+			
+			<!-- /row -->
+			
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /BREADCRUMB -->
+
+	<!-- FOOTER -->
+	<footer id="footer">
+		<!-- bottom footer -->
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<!-- row -->
+				<div class="row text-center">
+						<span>
+							Grupo 1,Poyecto de Software, Unla; Copyright &copy;
+							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+	                       	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</span>
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /bottom footer -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+
+	<th:block th:include="fragments/scripts :: scripts"></th:block>
+	
+</body>
+
+</html>

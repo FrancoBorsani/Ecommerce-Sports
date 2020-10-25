@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+<link rel="stylesheet" href="css/profileStyle.css">
+
+
+<body>
+    <!-- HEADER -->
+    <header>
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="/" class="logo">
+                            	<img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<select class="input-select">
+									<option value="0">Todo</option>
+									<option value="1">Destacados</option>
+									<option value="1">Ofertas</option>
+								</select>
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+					
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                      <tbody>
+      <tr th:each="item : ${items} " >
+         <span>Producto: </span> <td th:text="${item.producto.descripcionCorta}"></td>
+       								 <br></br>
+       						        <span>Cantidad: </span>  <td th:text="${item.cantidad}"></td>
+    <br></br>
+      </tr>
+    </tbody>
+                                    <div class="cart-summary">
+                   						 
+                                      <h5>SUBTOTAL: <span th:text="${pedido.importeAPagar}"></span></h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="/carritos">View Cart</a>
+                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                     
+                          
+                            <!-- /Cart -->
+
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span id="logueado" sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
+
+    <!--PROFILE-->
+        <div class="container">
+            <div class="row profile">
+                <div class="col-md-3">
+                    <div class="profile-sidebar">
+                        <!-- SIDEBAR USERPIC -->
+                        <div class="profile-userpic">
+
+	                        <img th:if="${perfilUser.imagen != null}" th:src="@{'/Ecommerce-Sports UsersImg/' + ${perfilUser.imagen}}" class="img-responsive" alt="" height="100px" width="100px">
+	                        <img th:if="${perfilUser.imagen == null}" src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">
+ 
+                        </div>
+                        <!-- END SIDEBAR USERPIC -->
+                        <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                          				<h2 th:text ="${perfilUser.username}  "></h2>
+                                </div>
+                                <div class= "profile-usertitle-role" >
+                          				<h4 th:text ="${perfilUser.userRol}"> ROLE </h4> 
+                                </div>
+                            <!-- BUTTON TO EDDIT USER -->
+                                <div>
+                                	<h5><a href="/updateProfile">Modificar Datos</a></h5>
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                            <!-- SIDEBAR BUTTON -->
+                            <br>
+                            <!-- END SIDEBAR BUTTONS -->
+                            <!-- SIDEBAR MENU -->
+                            <div class="profile-usermenu">
+                                <ul class="nav">
+                                    <li>
+                                        <p>
+		                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
+		                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+		                                 	<img src="/img/ubication.png" alt="" height="16px"  width="16">
+		                                    Direction
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+		                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
+		                                  <span th:text="${perfilUser.email}"></span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                      	<p>
+		                                    <img src="/img/phone.png" alt="" height="15px"  width="15">  
+		                                    <span th:text="${perfilUser.cellPhone}"></span>
+                                        </p>
+                                    </li>
+                                    <!-- 
+                                    <li>
+                                        <p>
+                                            <img src="/img/orderIcon.png" alt="" height="15px"  width="14px">
+                                            <a href="/pedidos">My Orders</a>
+                                        </p>
+                                    </li>
+                                   -->
+                                    
+                                </ul>
+                            </div>
+                        <!-- END MENU -->
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="profile-content">
+                        <h4><strong>About Me</strong></h4>
+                        <br th:text="${perfilUser.aboutMe}">
+                         <!-- <br th:text="${carrito}"> --> 
+                    </div>
+                    <a href="/cambiarClave">Cambiar clave de acceso</a>
+                </div>
+            </div>
+        </div>
+
+        </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
+
+
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+    
+</body>
+
+</html>

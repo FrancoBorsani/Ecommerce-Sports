@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<link rel="stylesheet" href="css/signupStyle.css">
+
+<body>
+	<!-- HEADER -->
+	<header>
+		<!-- MAIN HEADER -->
+		<div id="header">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<!-- LOGO -->
+					<div class="col-md-3">
+						<div class="header-logo">
+							<a href="/" class="logo">
+								<img src="./img/logo.png" alt="">
+							</a>
+						</div>
+					</div>
+					<!-- /LOGO -->
+
+
+					<!-- ACCOUNT -->
+					<div class="col-md-3 clearfix">
+						<div class="header-ctn">
+
+							<!-- Menu Toogle -->
+							<div class="menu-toggle">
+								<a href="#">
+									<i class="fa fa-bars"></i>
+									<span>Menu</span>
+								</a>
+							</div>
+							<!-- /Menu Toogle -->
+						</div>
+					</div>
+					<!-- /ACCOUNT -->
+				</div>
+				<!-- row -->
+			</div>
+			<!-- container -->
+		</div>
+		<!-- /MAIN HEADER -->
+	</header>
+	<!-- /HEADER -->
+
+	<!-- NAVIGATION -->
+	<nav id="navigation">
+		<!-- container -->
+		<div class="container">
+			<!-- responsive-nav -->
+			<div id="responsive-nav">
+				<!-- NAV -->
+				<ul class="main-nav nav navbar-nav">
+					<li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+					<li><a href="/productos">Todos los productos</a></li>
+					<li><a href="#">Ofertas</a></li>
+					<li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+				</ul>
+				<!-- /NAV -->
+			</div>
+			<!-- /responsive-nav -->
+		</div>
+		<!-- /container -->
+	</nav>
+	<!-- /NAVIGATION -->
+
+<div id="fullscreen_bg" class="fullscreen_bg" style="background-image: url(https://job-wizards.com/es/wp-content/uploads/2017/09/img_article_tt_1708_final.jpg); background-size: cover;"/>
+<form th:action="@{/register}" method="post">
+
+	<div  class="alert" th:classappend="'alert-' + (${clase != null} ? ${clase} +' alert-dismissible' : info + ' alert-dismissible')" aria-hidden="true" th:if="${mensaje != null}">
+					       <button type="button" class="close " aria-hidden="true" data-dismiss="alert">&times;</button>
+					        <span th:text="${mensaje}"></span>
+					       
+					 </div>
+  <label>
+    <p class="label-txt">Ingrese su nombre</p>
+    <input type="text" class="input" name="firstName" />
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su apellido</p>
+    <input type="text" class="input" name="lastName" />
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su username</p>
+    <input type="text" class="input" name="username"/>
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su numero de celular</p>
+    <input type="text" class="input" name="cellPhone"/>
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su correo</p>
+    <input type="email" class="input" name="email" />
+    
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <label>
+    <p class="label-txt">Ingrese su password</p>
+    <input type="password" class="input" name="password"/>
+    <div class="line-box">
+      <div class="line"></div>
+    </div>
+  </label>
+  <button type="submit" class="btn-submit">Registrarse</button>
+</form>
+</div>
+</div>
+<div>
+
+
+	<!-- FOOTER -->
+	<footer id="footer">
+		<!-- bottom footer -->
+		<div id="bottom-footer" class="section">
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="copyright">
+							Copyright &copy;
+							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						</span>
+
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /bottom footer -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+
+	<th:block th:include="fragments/scripts :: scripts"></th:block>
+	<script>
+		$(document).ready(function(){
+		
+			  $('.input').focus(function(){
+			    $(this).parent().find(".label-txt").addClass('label-active');
+			  });
+		
+			  $(".input").focusout(function(){
+			    if ($(this).val() == '') {
+			      $(this).parent().find(".label-txt").removeClass('label-active');
+			    };
+			  });
+		
+			});
+	</script>
+
+	
+</body>
+
+</html>

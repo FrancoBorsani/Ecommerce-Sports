@@ -1,0 +1,23 @@
+*{ /*para todo*/
+	margin: 0;
+	padding: 0;
+}
+
+.main {
+	width: 100%;
+}
+
+.main .articles {
+	float: left;
+}
+
+.main .articles article {
+	padding: 20px;	
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+article {
+	border-style: solid;
+    border-width: 1px;
+}

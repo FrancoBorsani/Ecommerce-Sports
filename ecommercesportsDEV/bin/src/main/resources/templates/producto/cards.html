@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="/" class="logo">
+                            	<img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="./img/product01.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+
+                                        <div class="product-widget">
+                                            <div class="product-img">
+                                                <img src="./img/product02.png" alt="">
+                                            </div>
+                                            <div class="product-body">
+                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
+                                            </div>
+                                            <button class="delete"><i class="fa fa-close"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>2 Item(s) selected</small>
+                                        <h5>SUBTOTAL: $720.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="/carritos">View Cart</a>
+                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a>
+                    </li>
+                    <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
+
+<div id="breadcrumb" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Categories</a></li>
+                    <li><a href="#">Headphones</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <div class="row">
+                    <!-- ASIDE -->
+					<div id="aside" class="col-md-3">
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Categories</h3>
+							<div class="checkbox-filter" th:each="categoria : ${categorias}">
+
+								<a class="input-checkbox" th:href="@{~/productos/categorias/{id}/_DisplayType_G (id=${categoria.idCategoria})}" >
+									<label for="category-1" th:text="${categoria.nombre}" >
+										<span></span>										
+									</label>
+									<small class="text-white">(120)</small>
+								</a>
+							</div>
+						</div>
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Marca</h3>
+							<div class="checkbox-filter" th:each="m : ${marcas}" >
+								<a class="input-checkbox" th:href="@{~/productos/marcas/{id}/_DisplayType_G (id=${m.idMarca})}" >
+									<label for="category-1" th:text="${m.nombre}" >
+										<span></span>
+									</label>
+									<small class="text-white">(120)</small>
+								</a>
+								
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Top selling</h3>
+							<div class="product-widget">
+								<div class="product-img">
+									<img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img src="./img/product02.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+
+							<div class="product-widget">
+								<div class="product-img">
+									<img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category">Category</p>
+									<h3 class="product-name"><a href="#">product name goes here</a></h3>
+									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								</div>
+							</div>
+						</div>
+						<!-- /aside Widget -->
+					</div>
+					<!-- /ASIDE -->
+                </div>
+
+                <!-- STORE -->
+					<div id="store" class="col-md-9">
+						<!-- store top filter -->
+						<div class="store-filter clearfix">
+							<div class="store-sort">
+								<label>
+									Ordenar:
+									<select class="input-select" id="order-by">
+										<option value="0">Menor Precio</option>
+										<option value="1">Mayor Precio</option>
+										<option value="2">Nombre Descendente</option>
+										<option value="3">Nombre Ascendente</option>
+									</select>
+								</label>
+							</div>
+							<ul class="store-grid">
+								<li><a th:href="@{/productos/_DisplayType_LF}"><i class="fa fa-list"></i></a></li>
+								<li class="active"><i class="fa fa-th"></i></li>
+							</ul>
+						</div>
+						<!-- /store top filter -->
+
+						<!-- store products -->
+						<div class="row">
+							<!-- product -->
+							<div class="col-md-4 col-xs-6" th:each="producto : ${productos}">
+								<div class="product">
+									<div class="product-img">
+										<img th:src="@{${producto.imagen}}" alt="">
+									</div>
+									<div class="product-body">
+										<p class="product-category" th:text="${producto.Categoria.nombre}" >Category</p>
+										<h3 class="product-name"><a href="#" th:text="${producto.descripcionCorta}" th:href="@{/productos/{id}(id=${producto.idProducto})}" >product name goes here</a></h3>
+										<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										<div class="product-rating">
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+										</div>
+										<div class="product-btns">
+											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+										</div>
+									</div>
+									<div class="add-to-cart">
+								        <a href="#" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_G/{id}(id=${producto.idProducto})}">
+       										 <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        </a>
+									</div>
+								</div>
+							</div>
+							<!-- /product -->
+
+						</div>
+						<!-- /store products -->
+
+						<!-- store bottom filter -->
+						<div class="store-filter clearfix">
+							<span class="store-qty">Showing 20-100 products</span>
+							<ul class="store-pagination">
+								<li class="active">1</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
+						</div>
+						<!-- /store bottom filter -->
+					</div>
+					<!-- /STORE -->
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
+
+
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+    
+<script>
+  $(document).ready(function () {
+	  
+	  var path = window.location.href;
+	  
+	  if(path.includes("_DisplayType_G_OrderId_PRICE*ASC")) $("#order-by").val("0").change();
+	  if(path.includes("_DisplayType_G_OrderId_PRICE*DESC")) $("#order-by").val("1").change();
+	  if(path.includes("_DisplayType_G_OrderId_NAME*ASC")) $("#order-by").val("3").change();
+	  if(path.includes("_DisplayType_G_OrderId_NAME*DESC")) $("#order-by").val("2").change();
+	    
+	    $( "#order-by" ).change(function(e) {
+	    	var options = $( "#order-by option:selected" ).text();
+	    	var path = window.location.href;
+	    	
+	    	switch (options) {
+	    	  case 'Menor Precio':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_PRICE*ASC";
+	    	    break;
+	    	  case 'Mayor Precio':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_PRICE*DESC";
+	    	    break;
+	    	  case 'Nombre Ascendente':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_NAME*ASC";
+	    	    break;
+	    	  case 'Nombre Descendente':
+	    	    window.location.href = "/productos/_DisplayType_G_OrderId_NAME*DESC";
+	    	    break;
+	    	  default:
+	    	    console.log('error');
+	    	}
+	    	
+	    });
+	    
+  });
+  
+</script>
+    
+</body>
+
+</html>					

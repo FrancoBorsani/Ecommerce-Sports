@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="/" class="logo">
+                            	<img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<input class="input" id="search" name="search" th:value="${searchTerm}" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+
+                            <!-- Cart -->
+                            <div class="dropdown">
+
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
+
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
+                                    </div>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                <div class="cart-btns">
+		                                    <a href="/carritos">View Cart</a>
+		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+		                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span id="logueado" sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
+
+<div id="breadcrumb" class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb-tree">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Categories</a></li>
+                    <li th:if="${categoria}"><a href="#" th:text="${categoria.nombre}"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <div class="row">
+                    <!-- ASIDE -->
+					<div id="aside" class="col-md-3">
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Categories</h3>
+							<div class="checkbox-filter" th:each="categoria : ${categorias}">
+
+								<a class="input-checkbox" th:href="@{~/productos/categorias/{id}(id=${categoria.idCategoria})}" >
+									<label for="category-1" th:text="${categoria.nombre}" >
+										<span></span>										
+									</label>
+								</a>
+							</div>
+						</div>
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Marca</h3>
+							<div class="checkbox-filter" th:each="m : ${marcas}" >
+								<a class="input-checkbox" th:href="@{~/productos/marcas/{id}(id=${m.idMarca})}" >
+									<label for="category-1" th:text="${m.nombre}" >
+										<span></span>
+									</label>
+								</a>
+								
+						</div>
+						<!-- /aside Widget -->
+
+						<!-- aside Widget -->
+						<div class="aside">
+							<h3 class="aside-title">Top selling</h3>
+							<div class="product-widget" th:each="prodOferta : ${ofertas}" >
+								<div class="product-img">
+									<img th:src="@{${prodOferta.imagen}}" alt="">
+								</div>
+								<div class="product-body">
+									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
+									<h3 class="product-name"><a th:href="@{~/productos/categorias/{id}(id=${prodOferta.Categoria.idCategoria})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>
+									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
+									<del class="product-old-price oferta" th:text="'$'+${prodOferta.precio}"></del>
+								</div>
+							</div>
+						</div>
+						<!-- /aside Widget -->
+					</div>
+					<!-- /ASIDE -->
+                </div>
+
+                <div class="col-md-9">
+                
+                	<div class="store-filter clearfix">
+							<div class="store-sort">
+								<label>
+									Ordenar:
+									<select class="input-select" id="order-by">
+										<option value="0">Menor Precio</option>
+										<option value="1">Mayor Precio</option>
+										<option value="2">Nombre Descendente</option>
+										<option value="3">Nombre Ascendente</option>
+									</select>
+								</label>
+							</div>
+							<ul class="store-grid">
+								<li class="active"><i class="fa fa-list"></i></li>
+								<li><a th:href="@{/productos/_DisplayType_G}" id="DisplayType_G"><i class="fa fa-th"></i></a></li>
+							</ul>
+						</div>
+
+                    <ol class="list-group">
+                    	<span ></span>
+                        <li class="list-group-item">
+                             <div class="item" th:each="producto : ${productos}">
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-md-3 text-center mt-4">
+                                            <div class="imagenes-producto ml-2">
+                                                <img th:src="@{${producto.imagen}}" alt="" height="150" width="150">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="producto-body mt-4 ml-3">
+                                                <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
+                                                <h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                <h6 th:text="${producto.Categoria.nombre}" class="text-danger"></h6>
+                                                <h6 th:text="${producto.descripcionLarga}"></h6>         
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <div class="producto-body mt-4 my-3">
+                                                 <a href="#" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}">
+			                                     	<button type="submit" class="btn">add to cart<i  style="padding-left: 5px;" class="fa fa-shopping-cart"></i></button>
+			                                     </a>          
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ol>
+
+                </div>
+
+            </div>
+            </div>
+        
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
+
+
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
+
+    <!-- jQuery Plugins -->
+
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+    
+<script>
+  $(document).ready(function () {
+	  
+	  var path = window.location.href;
+	  
+	  
+	  if(path.includes("_OrderId_PRICE*ASC")) $("#order-by").val("0").change();
+	  if(path.includes("_OrderId_PRICE*DESC")) $("#order-by").val("1").change();
+	  if(path.includes("_OrderId_NAME*ASC")) $("#order-by").val("3").change();
+	  if(path.includes("_OrderId_NAME*DESC")) $("#order-by").val("2").change();
+	  
+	  $("#search").keyup(function () {
+	      $("#result").html("");
+	      $("#state").val("");
+	      const searchField = $("#search").val();
+	      const expression = new RegExp(searchField, "i");
+
+	      $.getJSON("/productos/getAllProducts", function (data) {
+	    	var i = 0;
+	        $.each(data, function (key, value) {
+	          if (
+	            value.descripcionCorta.search(expression) != -1 && i<4
+	          ) {
+	        	  
+	        	  $("#result").append(
+                          '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
+                          value.imagen +
+                            '" height="40" width="40" class="img-thumbnail" /> ' +
+                            value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
+                            "</li></a>"
+                        );
+                  i++;
+	          }
+	        });
+	        if (searchField == "") $("#result").html("");
+	      });
+	    });
+
+	    $("#result").on("click", "li", function () {
+	      var click_text = $(this).text().split("|");
+	      $("#search").val($.trim(click_text[0]));
+	      $("#result").html("");
+	    });
+	    
+	    $("#result")
+	    .focusout(function() {
+	    	$("#result").html("");
+	    })
+	    
+	    $("body").on("click", function () {
+	      $("#result").html("");
+	    });
+	    
+	    $( "#form-search" ).submit(function(e) {
+	    	  e.preventDefault();
+	    	  const searchField = $("#search").val();	    	  
+	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
+	    });
+	    
+	    $( "#order-by" ).change(function(e) {
+	    	var options = $( "#order-by option:selected" ).text();
+	    	var path = window.location.href;
+	    	
+	    	switch (options) {
+	    	  case 'Menor Precio':
+	    	    window.location.href = "/productos/_OrderId_PRICE*ASC";
+	    	    break;
+	    	  case 'Mayor Precio':
+	    	    window.location.href = "/productos/_OrderId_PRICE*DESC";
+	    	    break;
+	    	  case 'Nombre Ascendente':
+	    	    window.location.href = "/productos/_OrderId_NAME*ASC";
+	    	    break;
+	    	  case 'Nombre Descendente':
+	    	    window.location.href = "/productos/_OrderId_NAME*DESC";
+	    	    break;
+	    	  default:
+	    	    console.log('error');
+	    	}
+	    	
+	    });
+	 
+  });
+  
+</script>
+</body>
+
+</html>
