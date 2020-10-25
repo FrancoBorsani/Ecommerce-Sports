@@ -622,6 +622,8 @@ public class ProductoController {
     public ModelAndView gestor() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_GESTOR);
         mAV.addObject("productos", productoService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("categorias", categoriaService.getAll());
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -651,6 +653,10 @@ public class ProductoController {
     public ModelAndView uploadFile()
     {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTOS_GUARDADOS);
+    	
+    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
     
     	List<RegistroExcelModel> listaRegistrosExcel = productoService.traerRegistrosEnlistaModel();
 		List<Producto> productosCargados = new ArrayList<Producto>();

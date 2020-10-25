@@ -37,14 +37,19 @@ $(document).ready(function () {
         	var href = "/api/productos/"+id;
         	
         	$.get(href, function(producto, status) {
+                alert(producto.categoria.nombre);
+
         		
         		$('#idProducto').val(producto.idProducto);
                 $('#descripcionCorta').val(producto.descripcionCorta);
                 $('#descripcionLarga').val(producto.descripcionLarga);
                 $('#precio').val(producto.precio);
                 $('#precioEnOferta').val(producto.precioEnOferta);
+                $("#categoria").val(producto.categoria.nombre).change();
+                $("#marca").val(producto.marca.nombre).change();
                 $('#color').val(producto.color);
                 $('#visible').prop("checked", producto.visible);
+                
             });
         	
         	$('#modal-update').modal();
@@ -55,12 +60,19 @@ $(document).ready(function () {
         	var productoModel = {};
         	var idProducto = $("#idProducto").val();
 
-            productoModel["descripcionCorta"] = $("#descripcionCorta").val();
-            productoModel["descripcionLarga"] = $("#descripcionLarga").val();
-            productoModel["precio"] = $("#precio").val();
-            productoModel["precioEnOferta"] = $("#precioEnOferta").val();
-            productoModel["color"] = $("#color").val();
-            productoModel["visible"] = $('#visible').is(':checked');
+        	var productoModel = {
+          		  "descripcionCorta": $("#descripcionCorta").val(),
+          		  "descripcionLarga": $("#descripcionLarga").val(),
+          		  "precio": $("#precio").val(),
+          		  "precioEnOferta": $("#precioEnOferta").val(),
+          		  "color": $("#color").val(),
+          		  "marca": {
+          		    "nombre": $("#marca").val(),
+          		  },
+          		  "categoria": {
+            		    "nombre": $("#categoria").val(),
+            		  }
+          		 }
             
             $.ajax({
 				type : "PUT",
@@ -78,6 +90,48 @@ $(document).ready(function () {
 			});
 
         });
+        
+        
+$(".btn-submit-add").on("click",function () {
+        	         
+            var productoModel = {
+            		  "descripcionCorta": $("#descripcionCorta-add").val(),
+            		  "descripcionLarga": $("#descripcionLarga-add").val(),
+            		  "precio": $("#precio-add").val(),
+            		  "precioEnOferta": $("#precioEnOferta-add").val(),
+            		  "imagen": $("#imagen-add").val(),
+            		  "color": $("#color-add").val(),
+            		  "marca": {
+            		    "nombre": $("#marca-add").val(),
+            		  },
+            		  "categoria": {
+              		    "nombre": $("#categoria-add").val(),
+              		  }
+            		 }
+            
+            $.ajax({
+				type : "POST",
+				url : "/api/productos/create",
+				contentType: "application/json",
+				data: JSON.stringify(productoModel),
+		        cache: false,
+		        timeout: 600000,
+				success : function(result) {
+					window.location.reload();
+				},
+				error : function(e) {
+					alert("Error!");
+				}
+			});
+
+        });
+        
+        
+        $(".btn-add").on("click",function () {        
+        	$('#modal-add').modal();
+        });
+        
+       
         
         $('#myTable').dataTable({
 	        "oLanguage": {

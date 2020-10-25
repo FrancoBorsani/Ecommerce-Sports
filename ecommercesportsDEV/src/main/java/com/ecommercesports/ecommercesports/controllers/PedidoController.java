@@ -61,10 +61,10 @@ public class PedidoController {
     }
     
     @GetMapping("/detallePedido/{id}")
-    public ModelAndView detallesDelPedidoDelUser(@PathVariable("id") int id) {
+    public ModelAndView detallesDelPedidoDelUser(@PathVariable("id") long idPedido) {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_DETALLE);
     	User currentUser = userLogueadoService.traerUserLogueado();
-    	Pedido p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+    	Pedido p = pedidoRepository.traerPedidoPorUsuarioYPedido(currentUser.getId(),idPedido);
     	
     	if(p != null) {
     		mAV.addObject("pedido", p);

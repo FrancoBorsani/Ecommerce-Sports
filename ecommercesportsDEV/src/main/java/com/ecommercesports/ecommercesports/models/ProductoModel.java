@@ -2,9 +2,9 @@ package com.ecommercesports.ecommercesports.models;
 
 import java.util.List;
 
-
 import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Comentario;
+import com.ecommercesports.ecommercesports.entities.Marca;
 import com.ecommercesports.ecommercesports.entities.Tag;
 import com.ecommercesports.ecommercesports.entities.Valoracion;
 
@@ -16,7 +16,7 @@ public class ProductoModel {
     private String color;
     private String descripcionCorta;
     private String descripcionLarga;
-    private String marca;
+    private Marca marca;
     private String sku;
     private String talle;
     private Categoria categoria;
@@ -33,7 +33,7 @@ public class ProductoModel {
     }
 
     public ProductoModel(long idProducto, double precio,double precioEnOferta, String color, String descripcionCorta, String descripcionLarga,
-			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones, Categoria categoria) {
+			String sku, String talle, double totalPuntaje, int cantidadValoraciones, double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones, Categoria categoria, Marca marca) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -51,6 +51,7 @@ public class ProductoModel {
 		this.imagen = imagen;
 		this.listaValoraciones = listaValoraciones;
 		this.categoria = categoria;
+		this.marca = marca;
 	}
 
 	public long getIdProducto() {
@@ -93,11 +94,11 @@ public class ProductoModel {
         this.descripcionLarga = descripcionLarga;
     }
 
-    public String getMarca() {
+    public Marca getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(Marca marca) {
         this.marca = marca;
     }
 

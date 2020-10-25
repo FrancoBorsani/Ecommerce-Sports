@@ -85,7 +85,7 @@ public class Producto {
 	
     public Producto(long idProducto,double precio,double precioEnOferta, String color, String descripcionCorta,
 			String descripcionLarga, String sku, String talle, double totalPuntaje, int cantidadValoraciones,
-			double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones) {
+			double peso, List<Tag> tags,boolean visible, String imagen, List<Valoracion> listaValoraciones, Categoria categoria, Marca marca) {
 		super();
 		this.idProducto = idProducto;
 		this.precio = precio;
@@ -102,6 +102,8 @@ public class Producto {
         this.peso = peso;
         this.imagen = imagen;
         this.listaValoraciones = listaValoraciones;
+        this.categoria = categoria;
+        this.marca = marca;
     }
 
 	public String getImagen() {

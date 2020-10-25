@@ -4,307 +4,307 @@
 <head th:replace="fragments/head :: head(title='Ecommerce Sports')"></head>
 
 <body>
-<!-- HEADER -->
-<header>
+    <!-- HEADER -->
+    <header>
 
-    <!-- MAIN HEADER -->
-    <div id="header">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <!-- LOGO -->
-                <div class="col-md-3">
-                    <div class="header-logo">
-                        <a href="/" class="logo">
-                            <img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
-                        </a>
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="/" class="logo">
+                            	<img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <!-- /LOGO -->
+                    <!-- /LOGO -->
 
-                <!-- SEARCH BAR -->
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form id="form-search">
-                            <input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form id="form-search">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
   border-top-left-radius: 20px 50%;
   border-bottom-left-radius: 20px 50%;width: 60%">
-                            <button class="search-btn">Buscar</button>
-                            <ul class="list-group" id="result"></ul>
-                        </form>
+                                <button class="search-btn">Buscar</button>
+                                <ul class="list-group" id="result"></ul>
+							</form>
+                        </div>
                     </div>
-                </div>
-                <!-- /SEARCH BAR -->
+                    <!-- /SEARCH BAR -->
 
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
 
-                        <!-- Cart -->
-                        <div class="dropdown">
+                            <!-- Cart -->
+                            <div class="dropdown">
 
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Carrito</span>
-                                <div class="qty">2</div>
-                            </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Carrito</span>
+                                    <div class="qty">2</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
 
-                                    <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
 
-                                        <div th:case="${false}">
-
-                                            <div class="product-widget">
-                                                <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
-                                            </div>
-
-                                        </div>
-
-                                        <div th:case="${true}">
-
-                                            <div class="product-widget" th:each="item : ${carrito.listaItems}">
-                                                <div class="product-img">
-                                                    <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
-                                                    <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-
-                                        </div>
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
 
                                     </div>
-
-                                </div>
-
-                                <div class="cart-summary" th:if="${carrito}" >
-                                    <div th:if="${carrito.listaItems}">
-                                        <small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
-                                        <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="/carritos">View Cart</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                <div class="cart-btns">
+		                                    <a href="/carritos">View Cart</a>
+		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+		                                </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Cart -->
+                            <!-- /Cart -->
 
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
                         </div>
-                        <!-- /Menu Toogle -->
                     </div>
+                    <!-- /ACCOUNT -->
                 </div>
-                <!-- /ACCOUNT -->
+                <!-- row -->
             </div>
-            <!-- row -->
+            <!-- container -->
         </div>
-        <!-- container -->
-    </div>
-    <!-- /MAIN HEADER -->
-</header>
-<!-- /HEADER -->
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
 
-<!-- NAVIGATION -->
-<nav id="navigation">
-    <!-- container -->
-    <div class="container">
-        <!-- responsive-nav -->
-        <div id="responsive-nav">
-            <!-- NAV -->
-            <ul class="main-nav nav navbar-nav">
-                <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
-                <li><a href="/productos">Todos los productos</a></li>
-                <li><a href="/productos/ofertas">Ofertas</a></li>
-                <li><a href="/pedidos">Pedidos</a></li>
-                <li><a href="/contacto">Contacto</a></li>
-                <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
-                <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
-                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
+                    <li><a href="/productos">Todos los productos</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
+                    <li><a href="/contacto">Contacto</a></li>
+                    <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
                         <span id="logueado" sec:authentication="name"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
-                        <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
                     </div>
-                </li>
-            </ul>
-            <!-- /NAV -->
+                  </li>
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
         </div>
-        <!-- /responsive-nav -->
-    </div>
-    <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
 <!-- BREADCRUMB -->
-<!-- SECTION -->
-<div class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-
-            <!-- Order Details -->
-            <div class="col-md-7">
-                <div class="checkout-panel">
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <label for="card" class="method card">
-                                <div class="card-logos">
-                                    <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>
-                                    <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>
-                                </div>
-                                <div class="radio-input">
-                                    <input id="card" type="radio" name="payment">
-                                    Pay AU$20.99 with credit card
-                                </div>
-                            </label>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="paypal" class="method paypal">
-                                <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>
-                                <div class="radio-input">
-                                    <input id="paypal" type="radio" name="payment">
-                                    Pay AU$20.99 with PayPal
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="cardholder">Name</label>
-                            <input type="text" />
-
-                            <div class="small-inputs">
-                                <div>
-                                    <label for="date">Valid date</label>
-                                    <input type="text"/>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <label >Card Number</label>
-                            <input type="password"/>
-                            <div class="small-inputs">
-                                <div>
-                                    <label for="verification">CVV / CVC *</label>
-                                    <input type="password"/>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <span class="info mt-4 mb-2">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
-                </div>
-
-                <!-- Codigo de descuento -->
-
-                <form th:action="@{/checkout/pagar}" method="post">
-                    <input id="id" name="id" type="hidden"  th:value="${pedido.idPedido}"/>
-
-                    <strong>Código de descuento</strong>
-                    <div>
-                        <input class="input" name="codigoDescuento" placeholder="Código de descuento">
-                    </div>
-
-                    <button class="primary-btn mt-4">Confirmar y pagar</button>
-                </form>
-            </div>
-
-            <!-- Order Details -->
-            <div class="col-md-5 order-details">
-                <div class="section-title text-center">
-                    <h3 class="title">Tu orden</h3>
-                </div>
-                <div class="order-summary">
-                    <div class="order-col">
-                        <div><strong>PRODUCTO</strong></div>
-                        <div><strong>TOTAL</strong></div>
-                    </div>
-                    <div class="order-products">
-                        <div class="order-col" th:each="item : ${items}" >
-                            <div th:text="${item.cantidad} + 'x ' + ${item.producto.descripcionCorta}">1x Product Name Goes Here</div>
-                            <div th:text="'$'+${item.producto.precio}">$980.00</div>
-                        </div>
-
-                    </div>
-                    <div class="order-col">
-                        <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /Order Details -->
+	<!-- SECTION -->
+		<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+				
+				<!-- Order Details -->
+					<div class="col-md-7">
+				<div class="checkout-panel">
+    <div class="row">
+    <div class="col-md-6 mb-4">
+      <label for="card" class="method card">
+        <div class="card-logos">
+          <img src="https://designmodo.com/demo/checkout-panel/img/visa_logo.png"/>
+          <img src="https://designmodo.com/demo/checkout-panel/img/mastercard_logo.png"/>
         </div>
-        <!-- /row -->
+        <div class="radio-input">
+          <input id="card" type="radio" name="payment">
+          Pay AU$20.99 with credit card
+        </div>
+      </label>
+     </div>
+ 	
+ 	<div class="col-md-6">
+      <label for="paypal" class="method paypal">
+        <img src="https://designmodo.com/demo/checkout-panel/img/paypal_logo.png"/>
+        <div class="radio-input">
+          <input id="paypal" type="radio" name="payment">
+          Pay AU$20.99 with PayPal
+        </div>
+      </label>
     </div>
-    <!-- /container -->
+    </div>
+ 	
+ 	
+    <div class="row">
+      <div class="col-md-6">
+        <label for="cardholder">Name</label>
+        <input type="text" />
+ 
+        <div class="small-inputs">
+          <div>
+            <label for="date">Valid date</label>
+            <input type="text"/>
+          </div>
+        </div>
+ 
+      </div>
+      <div class="col-md-6">
+        <label >Card Number</label>
+        <input type="password"/>
+        <div class="small-inputs">
+          <div>
+            <label for="verification">CVV / CVC *</label>
+            <input type="password"/>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+            <span class="info mt-4 mb-2">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+    
+  </div>
+ <form th:action="@{/checkout/pagar}" method="post">
+  <input id="id" name="id" type="hidden"  th:value="${pedido.idPedido}"/>
+           
+   <button class="primary-btn mt-4">Confirmar y pagar</button>
+   
+  </form>
+   
+   </div>
+				
+					<!-- Order Details -->
+					<div class="col-md-5 order-details">
+						<div class="section-title text-center">
+							<h3 class="title">Tu orden</h3>
+						</div>
+						<div class="order-summary">
+							<div class="order-col">
+								<div><strong>PRODUCTO</strong></div>
+								<div><strong>TOTAL</strong></div>
+							</div>
+							<div class="order-products">
+								<div class="order-col" th:each="item : ${items}" >
+									<div th:text="${item.cantidad} + 'x ' + ${item.producto.descripcionCorta}">1x Product Name Goes Here</div>
+									<div th:text="'$'+${item.producto.precio}">$980.00</div>
+								</div> 
+
+							</div>
+							<div class="order-col">
+								<div><strong>TOTAL</strong></div>
+								<div><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
+							</div>
+						</div>
+						
+					</div>
+					<!-- /Order Details -->		
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+		
+		  <div class="row">
+		  	 
 </div>
-<!-- /SECTION -->
 
-<div class="row">
-
-</div>
-
-<!-- FOOTER -->
-<footer id="footer">
-    <!-- bottom footer -->
-    <div id="bottom-footer" class="section">
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="footer-payments">
-                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                    </ul>
-                    <span class="copyright">
+    <!-- FOOTER -->
+    <footer id="footer">
+        <!-- bottom footer -->
+        <div id="bottom-footer" class="section">
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <ul class="footer-payments">
+                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                        </ul>
+                        <span class="copyright">
                             Copyright &copy;
                             <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </span>
 
 
+                    </div>
                 </div>
+                <!-- /row -->
             </div>
-            <!-- /row -->
+            <!-- /container -->
         </div>
-        <!-- /container -->
-    </div>
-    <!-- /bottom footer -->
-</footer>
-<!-- /FOOTER -->
+        <!-- /bottom footer -->
+    </footer>
+    <!-- /FOOTER -->
 
-<!-- jQuery Plugins -->
+    <!-- jQuery Plugins -->
 
-<th:block th:include="fragments/scripts :: scripts"></th:block>
-
+    <th:block th:include="fragments/scripts :: scripts"></th:block>
+    
 </body>
 
 </html>
+
+
+
+
+
