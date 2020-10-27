@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import com.ecommercesports.ecommercesports.entities.Tag;
 
-import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -81,10 +80,31 @@ public class ProductoService implements IProductoService {
 	}
 
 	@Override
-	public List<Producto> productosDestacados() {
+	public List<Producto> productosDestacados(String order_filter) {
 		List<Producto> destacados = new ArrayList<Producto>();
-        for(Producto p : productoRepository.findAll()) {
-        	if(p.getIdProducto()== 1 || (p.getIdProducto()-1)%3== 0){
+		List<Producto> productosAIterar = new ArrayList<Producto>();
+		
+		switch (order_filter) {
+		case "orderByPriceAsc":
+			productosAIterar = productoRepository.orderByPriceAsc();
+			break;
+		case "orderByPriceDesc":
+			productosAIterar = productoRepository.orderByPriceDesc();
+			break;
+		case "orderByNameAsc":
+			productosAIterar = productoRepository.orderByNameAsc();
+			break;
+		case "orderByNameDesc":
+			productosAIterar = productoRepository.orderByNameDesc();
+			break;
+
+		default:
+			productosAIterar = productoRepository.orderByPriceAsc();
+			break;
+		}
+		
+        for(Producto p : productosAIterar) {
+        	if(p.getIdProducto() == 1 || (p.getIdProducto()-1)%3 == 0){
               destacados.add(p);        		
         	}
         }
@@ -128,7 +148,7 @@ public class ProductoService implements IProductoService {
 
         for (Tag tag: producto.getTags()) {
             for (Producto pRel: productoRepository.getRelated(tag.getId())) {
-                if (pRel.getIdProducto() != idProducto) {
+                if (pRel.getIdProducto() != idProducto && pRel.isVisible()) {
                     relacionados.add(pRel);
                 }
             }

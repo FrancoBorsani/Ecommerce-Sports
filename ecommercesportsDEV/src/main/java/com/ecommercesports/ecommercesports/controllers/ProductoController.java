@@ -208,7 +208,7 @@ public class ProductoController {
     	User currentUser = userRepository.findByUsername(username);
     	
     	
-    	 List<Pedido> pedidos = new ArrayList<Pedido>();
+    	List<Pedido> pedidos = new ArrayList<Pedido>();
         List<Item> listaProductos = new ArrayList<Item>();
     	Pedido p = new Pedido();
    
@@ -219,9 +219,10 @@ public class ProductoController {
     		if(currentUser != null) {
     		if(currentUser.getCantidadcompras() != 0) {
     		pedidos = pedidoRepository.traerPedidosDelUser(currentUser.getId());
-    		for (Item item : itemRepository.itemsDelCarrito(pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getIdCarrito())){
-    			listaProductos.add(item);
-    		}
+    		for(Pedido ped: pedidos){
+    			for (Item item : itemRepository.itemsDelCarrito(ped.getCarrito().getIdCarrito())){
+    			    			listaProductos.add(item);
+    			    		}}
     		for(Item item : listaProductos) {
     			if(item.getProducto().getIdProducto() == idProducto) {
     				encontrado = true;
@@ -507,6 +508,10 @@ public class ProductoController {
     public ModelAndView orderByNameAscDisplay_G() {
         ModelAndView mAV = new ModelAndView("producto/cards");
         
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
         mAV.addObject("productos",productoService.orderByNameAsc());
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
@@ -520,10 +525,138 @@ public class ProductoController {
         return new RedirectView(ViewRouteHelpers.PRODUCTO_ROOT);
     }
     
+/************************************************************************************************/
+    @GetMapping("/destacados_DPT_LF_OrderId_PRICE*ASC")
+    public ModelAndView destacados_DisplayType_LF_orderByPriceAsc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_LF_OrderId_PRICE*DESC")
+    public ModelAndView destacados_DisplayType_LF_orderByPriceDesc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceDesc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_LF_OrderId_NAME*ASC")
+    public ModelAndView destacados_DisplayType_LF_orderByNameAsc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+        mAV.addObject("productos", productoService.productosDestacados("orderByNameAsc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_LF_OrderId_NAME*DESC")
+    public ModelAndView destacados_DisplayType_LF_orderByNameDesc() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
+        mAV.addObject("productos", productoService.productosDestacados("orderByNameDesc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+/***********************************************************************************************/
+    
+
+    /************************************************************************************************/
+    @GetMapping("/destacados_DPT_G_OrderId_PRICE*ASC")
+    public ModelAndView destacados_DisplayType_G_orderByPriceAsc() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_G_OrderId_PRICE*DESC")
+    public ModelAndView destacados_DisplayType_G_orderByPriceDesc() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceDesc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_G_OrderId_NAME*ASC")
+    public ModelAndView destacados_DisplayType_G_orderByNameAsc() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
+        mAV.addObject("productos", productoService.productosDestacados("orderByNameAsc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+    @GetMapping("/destacados_DPT_G_OrderId_NAME*DESC")
+    public ModelAndView destacados_DisplayType_G_orderByNameDesc() {
+    	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
+        mAV.addObject("productos", productoService.productosDestacados("orderByNameDesc"));
+        mAV.addObject("categorias", categoriaService.getAll());
+        mAV.addObject("marcas", marcaService.getAll());
+        mAV.addObject("ofertas", productoService.getProductosEnOferta());
+                
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+        
+        return mAV;
+    }
+    
+/***********************************************************************************************/
+    
     @GetMapping("/destacados_DPT_LF")
     public ModelAndView destacados_DisplayType_LF() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
-        mAV.addObject("productos", productoService.productosDestacados());
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
@@ -538,10 +671,14 @@ public class ProductoController {
     @GetMapping("/destacados_DPT_G")
     public ModelAndView destacados_DisplayType_G() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_G);
-        mAV.addObject("productos", productoService.productosDestacados());
+        mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
+        
+        for(Producto p : productoService.productosDestacados("orderByPriceAsc")) {
+        	System.out.println(p);
+        }
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -554,7 +691,7 @@ public class ProductoController {
     @PostMapping("/agregarComentario")
     public ModelAndView agregarComentario(@RequestParam("comentario") String comentario, @RequestParam("id") String id) {
     	 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_DEST_DPT_LF);
-    	 mAV.addObject("productos", productoService.productosDestacados());
+    	 mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
          mAV.addObject("categorias", categoriaService.getAll());
          mAV.addObject("marcas", marcaService.getAll()); 
          mAV.addObject("ofertas", productoService.getProductosEnOferta());
@@ -587,7 +724,7 @@ public class ProductoController {
     @PostMapping("/valorar")
     public ModelAndView valorar(@RequestParam("puntaje") int puntaje, @RequestParam("id") String id) {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PUNTUACIONDADA);
-    	 mAV.addObject("productos", productoService.productosDestacados());
+    	 mAV.addObject("productos", productoService.productosDestacados("orderByPriceAsc"));
          mAV.addObject("categorias", categoriaService.getAll());
          mAV.addObject("marcas", marcaService.getAll()); 
          

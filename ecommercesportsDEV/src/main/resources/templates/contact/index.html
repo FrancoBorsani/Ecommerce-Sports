@@ -40,15 +40,13 @@
 					<div class="col-md-3 clearfix">
 						<div class="header-ctn">
 
-
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -86,11 +84,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -212,25 +216,18 @@
 		<div id="bottom-footer" class="section">
 			<div class="container">
 				<!-- row -->
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<ul class="footer-payments">
-							<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-							<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-							<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-						</ul>
-						<span class="copyright">
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</span>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+   
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
 
-					</div>
-				</div>
-				<!-- /row -->
+                    </div>
+                </div>
+                <!-- /row -->
 			</div>
 			<!-- /container -->
 		</div>

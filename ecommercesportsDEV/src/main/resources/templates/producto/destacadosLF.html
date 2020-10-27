@@ -42,13 +42,12 @@
                         <div class="header-ctn">
 
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -86,11 +85,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -209,8 +214,7 @@
 								</div>
 								<div class="product-body">
 									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
-									<h3 class="product-name"><a th:href="@{~/productos/categorias/{id}(id=${prodOferta.Categoria.idCategoria})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>
-									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
+									<h3 class="product-name"><a th:href="@{~/productos/{id}(id=${prodOferta.idProducto})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
 									<del class="product-old-price oferta" th:text="'$'+${prodOferta.precio}"></del>
 								</div>
 							</div>
@@ -225,18 +229,12 @@
                 	<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
-									</select>
-								</label>
-
-								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
+									Ordenar:
+									<select class="input-select" id="order-by">
+										<option value="0">Menor Precio</option>
+										<option value="1">Mayor Precio</option>
+										<option value="2">Nombre Descendente</option>
+										<option value="3">Nombre Ascendente</option>
 									</select>
 								</label>
 							</div>
@@ -326,6 +324,13 @@
     
 <script>
   $(document).ready(function () {
+	  	  
+	  var path = window.location.href;
+	  
+	  if(path.includes("destacados_DPT_LF_OrderId_PRICE*ASC")) $("#order-by").val("0").change();
+	  if(path.includes("destacados_DPT_LF_OrderId_PRICE*DESC")) $("#order-by").val("1").change();
+	  if(path.includes("destacados_DPT_LF_OrderId_NAME*ASC")) $("#order-by").val("3").change();
+	  if(path.includes("destacados_DPT_LF_OrderId_NAME*DESC")) $("#order-by").val("2").change();
 	  
 	  $("#search").keyup(function () {
 	      $("#result").html("");
@@ -373,6 +378,29 @@
 	    	  e.preventDefault();
 	    	  const searchField = $("#search").val();	    	  
 	    	  if(searchField != "") window.location.href = "/productos/search="+searchField;
+	    });
+	    
+	    $( "#order-by" ).change(function(e) {
+	    	var options = $( "#order-by option:selected" ).text();
+	    	var path = window.location.href;
+	    	
+	    	switch (options) {
+	    	  case 'Menor Precio':
+	    	    window.location.href = "/productos/destacados_DPT_LF_OrderId_PRICE*ASC";
+	    	    break;
+	    	  case 'Mayor Precio':
+	    	    window.location.href = "/productos/destacados_DPT_LF_OrderId_PRICE*DESC";
+	    	    break;
+	    	  case 'Nombre Ascendente':
+	    	    window.location.href = "/productos/destacados_DPT_LF_OrderId_NAME*ASC";
+	    	    break;
+	    	  case 'Nombre Descendente':
+	    		  window.location.href = "/productos/destacados_DPT_LF_OrderId_NAME*DESC";
+	    	    break;
+	    	  default:
+	    	    console.log('error');
+	    	}
+	    	
 	    });
 	    
   });

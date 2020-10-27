@@ -348,6 +348,10 @@ public class UserController {
     public ModelAndView viewProfile() {
     	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PROFILE_INDEX);
     	
+    	if(userLogueadoService.traerUserLogueado() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+    	
     	String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	if( principal instanceof UserDetails) {

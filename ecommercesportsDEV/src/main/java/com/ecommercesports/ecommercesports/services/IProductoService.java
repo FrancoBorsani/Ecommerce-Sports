@@ -33,7 +33,7 @@ public interface IProductoService {
     
     public abstract List<Producto> orderByNameDesc();
     
-	public List<Producto> productosDestacados();
+	public List<Producto> productosDestacados(String order_filter);
 
     public List<Producto> getRelated(long idProducto);
     

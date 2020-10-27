@@ -42,15 +42,13 @@
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
 
-
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -88,11 +86,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -188,15 +192,15 @@
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product03.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product06.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product08.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 						</div>
 					</div>
@@ -210,15 +214,15 @@
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product03.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product06.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="../../img/product08.png" alt="">
+								<img th:src="@{${producto.imagen}}" alt="">
 							</div>
 						</div>
 					</div>
@@ -239,48 +243,58 @@
                         <a class="review-link" href="#">10 Reseña(s) | Agregar reseña</a>
                     </div>
                     <div>
-                        <h3 class="product-price" th:text="'$'+${producto.precio}" ><del class="product-old-price"></del></h3>
-                        <span class="product-available">En Stock</span>
+                    
+                    	<div th:if="${producto.precio == producto.precioEnOferta}">
+                    	
+	                        <h3 class="product-price" th:text="'$'+${producto.precio}" ><del class="product-old-price"></del></h3>
+	                        <span class="product-available">En Stock</span>
+                        
+                        </div>
+                        
+                        <div th:if="${producto.precio != producto.precioEnOferta}">
+                        	<div class="row">
+	                            <div class="col-md-3">
+	                            	<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+	                            </div>
+	                            <div class="col-md-6">
+	                            	<h4 class="product-price oferta pt-2 pl-3" style="text-decoration: line-through;" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+	                            </div>
+                            </div>	
+                        </div>
+                        
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    <div class="product-options">
-                        <label>
-                            Talle
-                            <select class="input-select">
-                                <option value="0">XS</option>
-                                <option value="0">S</option>
-                                <option value="0">M</option>
-                                <option value="0">L</option>
-                                <option value="0">XL</option>
-                                <option value="0">XXL</option>
-                            </select>
-                        </label>
-                        <label>
-                            Color
-                            <select class="input-select">
-                                <option value="0">Rojo</option>
-                                <option value="0">Azul</option>
-                                <option value="0">Negro</option>
-                                <option value="0">Blanco</option>
-                            </select>
-                        </label>
-                    </div>
+                    
+<!--                     <div class="product-options"> -->
+<!--                         <label> -->
+<!--                             Talle -->
+<!--                             <select class="input-select"> -->
+<!--                                 <option value="0">XS</option> -->
+<!--                                 <option value="0">S</option> -->
+<!--                                 <option value="0">M</option> -->
+<!--                                 <option value="0">L</option> -->
+<!--                                 <option value="0">XL</option> -->
+<!--                                 <option value="0">XXL</option> -->
+<!--                             </select> -->
+<!--                         </label> -->
+<!--                         <label> -->
+<!--                             Color -->
+<!--                             <select class="input-select"> -->
+<!--                                 <option value="0">Rojo</option> -->
+<!--                                 <option value="0">Azul</option> -->
+<!--                                 <option value="0">Negro</option> -->
+<!--                                 <option value="0">Blanco</option> -->
+<!--                             </select> -->
+<!--                         </label> -->
+<!--                     </div> -->
 
                     <div class="add-to-cart">
-                        <div class="qty-label">
-                            Cant.
-                            <div class="input-number">
-                                <input type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
+                    	<a th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}"><button class="add-to-cart-btn" ><i class="fa fa-shopping-cart"></i> agregar al carrito</button></a>
                     </div>
 
                     <ul class="product-links">
                         <li>Categoría:</li>
-                        <li><a href="#"th:text="${producto.descripcionCorta}"></a></li>
+                        <li><a th:href="@{/productos/categorias/{id}(id=${producto.Categoria.idCategoria})}" th:text="${producto.Categoria.nombre}"></a></li>
                     </ul>
 
                 </div>
@@ -409,12 +423,27 @@
                         <div class="product-body">
                             <p class="product-category" th:text="${producto.Categoria.nombre}"></p>
                             <h3 class="product-name"><a th:href="@{/productos/{id}(id=${producto.idProducto})}" th:text="${producto.descripcionCorta}"></a></h3>
-                            <h4 class="product-price" th:text="${producto.precio}"></h4>
+                            
+                            <div th:if="${producto.precio == producto.precioEnOferta}">
+								<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+							</div>
+										
+							<div th:if="${producto.precio != producto.precioEnOferta}">
+	                            <div class="row">
+		                            <div class="col-md-6">
+		                            	<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+		                            </div>
+		                            <div class="col-md-6">
+		                            	<h4 class="product-price oferta pt-1" style="text-decoration: line-through;" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+		                            </div>
+                            	</div>	
+							</div>
+                            
                             <div class="product-rating">
                             </div>
                         </div>
                         <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> agregar al carrito</button>
+                            <a class="add-to-cart-btn" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}"><i class="fa fa-shopping-cart"></i> agregar al carrito</a>
                         </div>
                     </div>
                 </div>

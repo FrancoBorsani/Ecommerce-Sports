@@ -42,13 +42,12 @@
                         <div class="header-ctn">
 
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -86,11 +85,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -184,7 +189,6 @@
 									<label for="category-1" th:text="${categoria.nombre}" >
 										<span></span>										
 									</label>
-									<small class="text-white">(120)</small>
 								</a>
 							</div>
 						</div>
@@ -197,42 +201,20 @@
 									<label for="category-1" th:text="${m.nombre}" >
 										<span></span>
 									</label>
-								</a>
-								
+								</a>								
 						</div>
 						<!-- /aside Widget -->
 
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
+							<div class="product-widget" th:each="prodOferta : ${ofertas}" >
 								<div class="product-img">
-									<img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="">
+									<img th:src="@{${prodOferta.imagen}}" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
+									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
+									<h3 class="product-name"><a th:href="@{~/productos/{id}(id=${prodOferta.idProducto})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>
 									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
 									<del class="product-old-price oferta" th:text="'$'+${prodOferta.precio}"></del>
 								</div>
@@ -249,18 +231,12 @@
 						<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
-									</select>
-								</label>
-
-								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
+									Ordenar:
+									<select class="input-select" id="order-by">
+										<option value="0">Menor Precio</option>
+										<option value="1">Mayor Precio</option>
+										<option value="2">Nombre Descendente</option>
+										<option value="3">Nombre Ascendente</option>
 									</select>
 								</label>
 							</div>
@@ -274,7 +250,7 @@
 						<!-- store products -->
 						<div class="row">
 							<!-- product -->
-							<div class="col-md-4 col-xs-6" th:each="producto : ${productos}">
+							<div class="col-md-4 col-xs-6" th:each="producto : ${productos}" >
 								<div class="product">
 									<div class="product-img">
 										<img th:src="@{${producto.imagen}}" alt="">
@@ -282,18 +258,27 @@
 									<div class="product-body">
 										<p class="product-category" th:text="${producto.Categoria.nombre}" >Category</p>
 										<h3 class="product-name"><a href="#" th:text="${producto.descripcionCorta}" th:href="@{/productos/{id}(id=${producto.idProducto})}" >product name goes here</a></h3>
-										<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										<div th:if="${producto.precio == producto.precioEnOferta}">
+											<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										</div>
+										
+										<div th:if="${producto.precio != producto.precioEnOferta}">
+                                                   <div class="row">
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price oferta pt-1" style="text-decoration: line-through;" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   </div>	
+												</div>
+												
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
-										</div>
-										<div class="product-btns">
-											<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-											<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-											<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 										</div>
 									</div>
 									<div class="add-to-cart">
@@ -308,18 +293,6 @@
 						</div>
 						<!-- /store products -->
 
-						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
-						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
 
@@ -365,6 +338,13 @@
     
 <script>
   $(document).ready(function () {
+	  
+	var path = window.location.href;
+	  
+	  if(path.includes("destacados_DPT_G_OrderId_PRICE*ASC")) $("#order-by").val("0").change();
+	  if(path.includes("destacados_DPT_G_OrderId_PRICE*DESC")) $("#order-by").val("1").change();
+	  if(path.includes("destacados_DPT_G_OrderId_NAME*ASC")) $("#order-by").val("3").change();
+	  if(path.includes("destacados_DPT_G_OrderId_NAME*DESC")) $("#order-by").val("2").change();
 	  
 	  $("#search").keyup(function () {
 	      $("#result").html("");
@@ -413,6 +393,29 @@
 	    	  e.preventDefault();
 	    	  const searchField = $("#search").val();	    	  
 	    	  window.location.href = "/productos/search="+searchField+"_DisplayType_G";
+	    });
+	    
+	    $( "#order-by" ).change(function(e) {
+	    	var options = $( "#order-by option:selected" ).text();
+	    	var path = window.location.href;
+	    	
+	    	switch (options) {
+	    	  case 'Menor Precio':
+	    	    window.location.href = "/productos/destacados_DPT_G_OrderId_PRICE*ASC";
+	    	    break;
+	    	  case 'Mayor Precio':
+	    	    window.location.href = "/productos/destacados_DPT_G_OrderId_PRICE*DESC";
+	    	    break;
+	    	  case 'Nombre Ascendente':
+	    	    window.location.href = "/productos/destacados_DPT_G_OrderId_NAME*ASC";
+	    	    break;
+	    	  case 'Nombre Descendente':
+	    		  window.location.href = "/productos/destacados_DPT_G_OrderId_NAME*DESC";
+	    	    break;
+	    	  default:
+	    	    console.log('error');
+	    	}
+	    	
 	    });
 	    
   });

@@ -17,7 +17,7 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
 
     public abstract Producto findByIdProducto(long idProducto);
     
-    @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.visible = true")
+    @Query(nativeQuery=true,value="SELECT * FROM Producto as p where p.visible = true order by p.precio")
     public List<Producto> getAllProductosVisibles();
     
     @Query(nativeQuery=true,value="SELECT * FROM Producto as p WHERE p.categoria_id_categoria = (:categoria) and p.visible = true")
@@ -46,7 +46,7 @@ public interface IProductoRepository extends JpaRepository<Producto, Serializabl
 
     @Query(nativeQuery=true, value="SELECT * FROM producto" +
             " INNER JOIN tag_productos ON producto.id_producto = productos_id_producto" +
-            " WHERE tags_id_tag =  (:idTag)")
+            " WHERE tags_id_tag =  (:idTag) AND producto.visible = 1")
     List<Producto> getRelated(long idTag);
     
     @Modifying

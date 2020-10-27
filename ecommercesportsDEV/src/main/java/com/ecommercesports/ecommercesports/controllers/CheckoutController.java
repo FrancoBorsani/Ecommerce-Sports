@@ -85,8 +85,8 @@ public class CheckoutController {
     	Pedido p = new Pedido();
     	
     	try {
-    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
-    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
     	listaProductos.add(item);
 		}
     	
@@ -136,8 +136,8 @@ public class CheckoutController {
     	Pedido p = new Pedido();
     	
     	try {
-    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
-    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
     	listaProductos.add(item);
 		}
     	
@@ -174,8 +174,8 @@ public class CheckoutController {
     	Pedido p = new Pedido();
     	
     	try {
-    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
-    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
     	listaProductos.add(item);
 		}
     	
@@ -224,9 +224,9 @@ public class CheckoutController {
 	    	Pedido p = new Pedido();
 	    	
 	    	try {
-	    		p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
-	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
-	    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+	    		p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+	    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
 	    	listaProductos.add(item);
 	    		}
 	    		p.setComentario(comentario);
@@ -250,7 +250,7 @@ public class CheckoutController {
 	 @Autowired
 	    private SendMailService SendmailService;
 
-	 @SuppressWarnings("finally")
+	@SuppressWarnings("finally")
 	@PostMapping("/pagar")
 	    public ModelAndView pagar(@RequestParam("id") String id){
 		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
@@ -266,7 +266,7 @@ public class CheckoutController {
 	    	
 	    	User currentUser = userRepository.findByUsername(username);
 	   	
-	   		  Pedido p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());  
+	   		  Pedido p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());  
 	   		  String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nTotal: "+ p.getImporteAPagar();
 	          String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
@@ -280,8 +280,9 @@ public class CheckoutController {
 		    	Pedido p2 = new Pedido();
 		    	
 		    	try {
-		    		p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
-		    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+		    		//p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+		    		p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+		    		mAV.addObject("pedido",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
 		    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
 		    	listaProductos.add(item);
 		    		}

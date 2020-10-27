@@ -37,8 +37,6 @@ $(document).ready(function () {
         	var href = "/api/productos/"+id;
         	
         	$.get(href, function(producto, status) {
-                alert(producto.categoria.nombre);
-
         		
         		$('#idProducto').val(producto.idProducto);
                 $('#descripcionCorta').val(producto.descripcionCorta);
@@ -117,7 +115,15 @@ $(".btn-submit-add").on("click",function () {
 		        cache: false,
 		        timeout: 600000,
 				success : function(result) {
+					
+					if(!result){
+						alert("Producto agregado correctamente");						
+					}else{
+						alert("El producto que usted quiere registrar ya existe");
+					}	
+					
 					window.location.reload();
+					
 				},
 				error : function(e) {
 					alert("Error!");

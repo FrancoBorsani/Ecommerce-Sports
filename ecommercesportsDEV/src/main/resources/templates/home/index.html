@@ -69,13 +69,12 @@
                         <div class="header-ctn">
 
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -115,16 +114,15 @@
 		                                </div>
 		                                
 		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
-				                            <a href="/carritos">View Cart</a>
+				                            <a href="/carritos">Ver carrito</a>
 				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
 				                        </div>
 				                            
 				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
 				                            <a href="/productos" style="width: 100%">carrito vacio</a>
-				                        </div>    
-			                                
-		                                
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -245,9 +243,9 @@
 		</div>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3">
-                           <div class="product-item">
-                            <div class="pi-pic">
+                <div class="col-lg-3 pb-4" style="background-color: #fefae0">
+                           <div class="product-item ">
+                            <div class="pi-pic pt-4">
                                 <img th:src="@{${ofertasProd.imagen}}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -344,9 +342,9 @@
                         </div>                       
                     </div>
                 </div>
-                <div class="col-lg-3 offset-lg-1">
-                           <div class="product-item" style="margin-left:20%; margin-right:-20%">
-                            <div class="pi-pic">
+                <div class="col-lg-3 offset-lg-1 pb-4" style="background-color: #fefae0">
+                           <div class="product-item">
+                            <div class="pi-pic pt-4">
                                 <img th:src="@{${productoSin.imagen}}" alt="">
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
@@ -362,15 +360,13 @@
                                 <a th:href="@{/productos/{id}(id=${productoSin.idProducto})}">
                                     <h5 th:text="${productoSin.descripcionCorta}"></h5>
                                 </a>
-                                <div class="product-price" th:text="${productoSin.precioEnOferta}">
-                                </div>
-                                <div class="product-price">
-                                    <span th:text="${productoSin.precio}"></span>
+                                
+                                <div class="product-price mt-3" th:text="${productoSin.precio}">
                                 </div>
                             </div>
                         </div>
                           
-                        <a href="/productos"><h4 style="text-align: center;color:orange;margin-left:20%; margin-right:-20%">Descubre mas Poductos</h4></a>                       
+                        <a href="/productos"><h4 style="text-align: center;color:orange;">Descubre mas Poductos</h4></a>                       
                 </div>
             </div>
         </div>
@@ -385,20 +381,12 @@
                 <!-- row -->
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <ul class="footer-payments">
-                            <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                            <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                            <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                        </ul>
+   
                         <span class="copyright">
                             Copyright &copy;
                             <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </span>
-
 
                     </div>
                 </div>

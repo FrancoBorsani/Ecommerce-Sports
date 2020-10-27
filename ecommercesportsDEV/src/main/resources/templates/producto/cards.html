@@ -42,13 +42,12 @@
                         <div class="header-ctn">
 
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -86,11 +85,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -210,8 +215,7 @@
 								</div>
 								<div class="product-body">
 									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
-									<h3 class="product-name"><a th:href="@{~/productos/categorias/{id}(id=${prodOferta.Categoria.idCategoria})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>
-									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
+									<h3 class="product-name"><a th:href="@{~/productos/{id}(id=${prodOferta.idProducto})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
 									<del class="product-old-price oferta" th:text="'$'+${prodOferta.precio}"></del>
 								</div>
 							</div>
@@ -254,7 +258,22 @@
 									<div class="product-body">
 										<p class="product-category" th:text="${producto.Categoria.nombre}" >Category</p>
 										<h3 class="product-name"><a href="#" th:text="${producto.descripcionCorta}" th:href="@{/productos/{id}(id=${producto.idProducto})}" >product name goes here</a></h3>
-										<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										
+										<div th:if="${producto.precio == producto.precioEnOferta}">
+											<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										</div>
+										
+										<div th:if="${producto.precio != producto.precioEnOferta}">
+                                                   <div class="row">
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price oferta pt-1" style="text-decoration: line-through;" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   </div>	
+												</div>
+										
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>

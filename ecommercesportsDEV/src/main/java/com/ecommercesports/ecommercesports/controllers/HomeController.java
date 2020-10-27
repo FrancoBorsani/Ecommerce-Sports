@@ -52,9 +52,6 @@ public class HomeController {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         }
 		
-		
-		
-		
 		return mAV;
 	}
 	
@@ -73,7 +70,7 @@ public class HomeController {
 	@GetMapping("/infoInstitucional")
 	public ModelAndView info_Institucional() {
 		
-		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CONTACTO);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.INFO);
 		
 		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -83,13 +80,27 @@ public class HomeController {
 	}
 	
 	@PostMapping("/contactar")
-	public String contactar(@RequestParam("nombre") String nombre, @RequestParam("mail") String mail, @RequestParam("consulta") String consulta) {
-	String subject = "CONSULTA EN ECOMMERCE-SPORTS";
-	     
-	 String message = "\nMensaje de: " + nombre + "\nMail de contacto: " + mail  + "\nMensaje: " + consulta;
-     SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ mail, subject,message);
+	public ModelAndView contactar(@RequestParam("nombre") String nombre, @RequestParam("mail") String mail, @RequestParam("consulta") String consulta) {
+		String subject = "CONSULTA EN ECOMMERCE-SPORTS";
+	
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
 		
-		return ViewRouteHelpers.HOME;
+		mAV.addObject("productoSin", productoService.getProductosSinOferta().get(productoService.getProductosSinOferta().size()-1));
+		
+		mAV.addObject("productos", productoService.getProductosSinOferta());
+	    
+	    mAV.addObject("ofertasProd", productoService.getProductosEnOferta().get(productoService.getProductosEnOferta().size()-1));
+		
+	    mAV.addObject("ofertas", productoService.getProductosEnOferta());
+	
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+	    	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+	    }
+	     
+		String message = "\nMensaje de: " + nombre + "\nMail de contacto: " + mail  + "\nMensaje: " + consulta;
+		SendmailService.sendMail(mail,"proyectodesoftwaretp@gmail.com", subject,message);
+		
+		return mAV;
 	}
 	
 }

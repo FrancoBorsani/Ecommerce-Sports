@@ -41,15 +41,13 @@
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
 
-
                             <!-- Cart -->
-                            <div class="dropdown">
-
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
 
@@ -87,11 +85,17 @@
 		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
 		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
 		                                </div>
-		                                <div class="cart-btns">
-		                                    <a href="/carritos">View Cart</a>
-		                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -170,6 +174,7 @@
   <table class="table table-hover" id="myTable">
     <thead>
       <tr>
+      	<th scope="col">#</th>
         <th scope="col">Sku</th>
         <th scope="col">Nombre</th>
         <th scope="col">Descripcion</th>
@@ -184,11 +189,12 @@
     </thead>
     <tbody>
       <tr th:each="producto : ${productos} " >
+        <td><img th:src="@{${producto.imagen}}" width="50" height="50"></td>
         <td th:text="${producto.sku}"></td>
         <td th:text="${producto.descripcionCorta}"></td>
         <td th:text="${producto.descripcionLarga}"></td>
-        <td th:text="'$'+${producto.precioEnOferta}"></td>
         <td th:text="'$'+${producto.precio}"></td>
+        <td th:text="'$'+${producto.precioEnOferta}"></td>
         <td th:text="${producto.Categoria.nombre}"></td>
         <td th:text="${producto.Marca.nombre}"></td>
         <td th:text="${producto.totalPuntaje}"></td>
