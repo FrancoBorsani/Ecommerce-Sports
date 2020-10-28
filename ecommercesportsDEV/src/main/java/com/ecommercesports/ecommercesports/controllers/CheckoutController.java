@@ -253,7 +253,7 @@ public class CheckoutController {
 	@SuppressWarnings("finally")
 	@PostMapping("/pagar")
 	    public ModelAndView pagar(@RequestParam("id") String id){
-		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.CHECKOUT_INDEX);
+		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_INDEX);
 		 String username = "";
 	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    	if( principal instanceof UserDetails) {
@@ -265,9 +265,11 @@ public class CheckoutController {
 	        }
 	    	
 	    	User currentUser = userRepository.findByUsername(username);
-	   	
+	    	  
+	    		    	
+	    	
 	   		  Pedido p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());  
-	   		  String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nTotal: "+ p.getImporteAPagar();
+	   		  String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nTotal: "+ p.getImporteAPagar() + "\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
 	          String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
 	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
@@ -294,9 +296,14 @@ public class CheckoutController {
 		    		mAV.addObject("items", listaProductos);
 				}
 		    	finally { 
+		    		mAV.addObject("pedidos", pedidoRepository.traerPedidosDelUser(currentUser.getId()));
+		            mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+
 		    		return mAV; 
 		    	}
 				
+		        	
+		    	
 				//	 return mAV;
 		    
 	 

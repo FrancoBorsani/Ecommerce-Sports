@@ -48,9 +48,13 @@ public class HomeController {
 		
 	    mAV.addObject("ofertas", productoService.getProductosEnOferta());
 		
+	    boolean mostrarCarrito = false;
+	    
 		if(userLogueadoService.traerUserLogueado() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
+        	mostrarCarrito = true;
+        	mAV.addObject("mostrarCarrito", mostrarCarrito);
+		}
 		
 		return mAV;
 	}

@@ -62,7 +62,20 @@ public class CarritoModel {
 	}
 
 	
-	
+	public  String mostrarParaPagar() {
+	// Pair<Producto, Integer> listaMultiple = new Pair<Producto, Integer>(null, null);
+	// int i = 0;
+	 String pedido = "";
+		for(Item item : this.getListaItems()) {
+			//	listaMultiple.add(i, item.getProducto());
+			//	i++;
+				pedido = "\n" + pedido + item.getProducto().getDescripcionCorta() + "- x" + item.getCantidad() + "\n";
+		}
+
+		
+		return pedido;
+		
+	}
 	
 	
 }//Fin class

@@ -42,44 +42,60 @@
                         <div class="header-ctn">
 
                             <!-- Cart -->
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Carrito</span>
-                                    <div class="qty">2</div>
-                                </a>
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
                                 <div class="cart-dropdown">
                                     <div class="cart-list">
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product01.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
 
-                                        <div class="product-widget">
-                                            <div class="product-img">
-                                                <img src="./img/product02.png" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
-                                            </div>
-                                            <button class="delete"><i class="fa fa-close"></i></button>
-                                        </div>
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
+
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
                                     </div>
-                                    <div class="cart-summary">
-                                        <small>2 Item(s) selected</small>
-                                        <h5>SUBTOTAL: $720.00</h5>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
                                     </div>
-                                    <div class="cart-btns">
-                                        <a href="/carritos">View Cart</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <!-- /Cart -->
@@ -114,12 +130,26 @@
                 <ul class="main-nav nav navbar-nav">
                     <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
                     <li><a href="/productos">Todos los productos</a></li>
-                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
+                    <li><a href="/pedidos">Pedidos</a></li>
                     <li><a href="/contacto">Contacto</a></li>
                     <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
-                    <li><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a>
-                    </li>
-                    <li><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        <i class="fa fa-user-o" style="margin-right:3px"></i>
+                        <span id="logueado" sec:authentication="name"></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/pedidos}">Compras</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#" style="padding: 10px" th:href="@{/logout}">Salir</a>
+                      <div class="dropdown-divider"></div>
+                    </div>
+                  </li>
                 </ul>
                 <!-- /NAV -->
             </div>
@@ -133,11 +163,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
                 <ul class="breadcrumb-tree">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">All Categories</a></li>
-                    <li><a href="#">Headphones</a></li>
+                    <li th:if="${categoria}"><a href="#" th:text="${categoria.nombre}"></a></li>
                 </ul>
             </div>
         </div>
@@ -160,7 +189,6 @@
 									<label for="category-1" th:text="${categoria.nombre}" >
 										<span></span>										
 									</label>
-									<small class="text-white">(120)</small>
 								</a>
 							</div>
 						</div>
@@ -173,7 +201,6 @@
 									<label for="category-1" th:text="${m.nombre}" >
 										<span></span>
 									</label>
-									<small class="text-white">(120)</small>
 								</a>
 								
 						</div>
@@ -182,36 +209,14 @@
 						<!-- aside Widget -->
 						<div class="aside">
 							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
+							<div class="product-widget" th:each="prodOferta : ${ofertas}" >
 								<div class="product-img">
-									<img th:src="@{/img/product01.png}" src="../../img/product01.png" alt="">
+									<img th:src="@{${prodOferta.imagen}}" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img th:src="@{/img/product03.png}" src="../../img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<p class="product-category" th:text="${prodOferta.Categoria.nombre}">Category</p>
+									<h3 class="product-name"><a th:href="@{~/productos/{id}(id=${prodOferta.idProducto})}" th:text="${prodOferta.descripcionCorta}">product name goes here</a></h3>									<h4 class="product-price" th:text="'$'+${prodOferta.precioEnOferta}"></h4>
+									<del class="product-old-price oferta" th:text="'$'+${prodOferta.precio}"></del>
 								</div>
 							</div>
 						</div>
@@ -253,7 +258,22 @@
 									<div class="product-body">
 										<p class="product-category" th:text="${producto.Categoria.nombre}" >Category</p>
 										<h3 class="product-name"><a href="#" th:text="${producto.descripcionCorta}" th:href="@{/productos/{id}(id=${producto.idProducto})}" >product name goes here</a></h3>
-										<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										
+										<div th:if="${producto.precio == producto.precioEnOferta}">
+											<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00 <del class="product-old-price">$990.00</del></h4>
+										</div>
+										
+										<div th:if="${producto.precio != producto.precioEnOferta}">
+                                                   <div class="row">
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price" th:text="'$'+${#numbers.formatDecimal(producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   		<div class="col-md-6">
+                                                   			<h4 class="product-price oferta pt-1" style="text-decoration: line-through;" th:text="'$'+${#numbers.formatDecimal(producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h4>
+                                                   		</div>
+                                                   </div>	
+												</div>
+										
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -279,18 +299,6 @@
 						</div>
 						<!-- /store products -->
 
-						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
-						<!-- /store bottom filter -->
 					</div>
 					<!-- /STORE -->
 

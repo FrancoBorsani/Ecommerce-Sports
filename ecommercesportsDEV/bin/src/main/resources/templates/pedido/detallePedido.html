@@ -17,7 +17,7 @@
                 <div class="col-md-3">
                     <div class="header-logo">
                         <a href="/" class="logo">
-                            <img src="./img/logo.png" alt="">
+                           <img th:src="@{/img/logo.png}" src="../../img/logo.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -41,49 +41,64 @@
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
 
+                            <!-- Cart -->
+                            <div class="dropdown">                             
+	                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" th:if="${carrito}">
+	                                    <i class="fa fa-shopping-cart"></i>
+	                                    <span>Carrito</span>
+	                                </a>
+                                
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Carrito</span>
-                                <div class="qty">2</div>
-                            </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$360.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                                        <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+										    
+										    <div th:case="${false}">
+										    
+										    	<div class="product-widget">
+		                                             <h5 class="product-name"><a href="/login">Debe inicar sesion</a></h5>
+		                                        </div>
+										    
+										    </div>
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product02.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$3600.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+										    <div th:case="${true}">
+										    
+											    <div class="product-widget" th:each="item : ${carrito.listaItems}">
+	                                            	<div class="product-img">
+		                                                <img th:src="@{${item.producto.imagen}}" alt="imagen-producto">
+		                                            </div>
+		                                            <div class="product-body">
+		                                                <h3 class="product-name"><a href="#" th:text="${item.producto.descripcionCorta}" ></a></h3>
+		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                            </div>
+		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                        </div>
+	                                        
+                                        	</div>
+                                        	
+										</div>
+
                                     </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>2 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $720.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="/carritos">View Cart</a>
-                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                    
+                                    <div class="cart-summary" th:if="${carrito}" >
+                                    	<div th:if="${carrito.listaItems}">
+		                                	<small th:text="${#lists.size(carrito.listaItems)} + 'item(s) seleccionados'"></small>
+		                                    <h5 th:text="'Subtotal: $' + ${carrito.total}"></h5>
+		                                </div>
+		                                
+		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
+				                            <a href="/carritos">Ver carrito</a>
+				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                        </div>
+				                            
+				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
+				                            <a href="/productos" style="width: 100%">carrito vacio</a>
+				                        </div>                            
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Cart -->
+                            <!-- /Cart -->
 
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
@@ -109,22 +124,22 @@
 <nav id="navigation">
     <!-- container -->
     <div class="container">
-        <!-- responsive-nav -->
+            <!-- responsive-nav -->
             <div id="responsive-nav">
                 <!-- NAV -->
                 <ul class="main-nav nav navbar-nav">
                     <li><a href="/productos/destacados_DPT_LF">Productos destacados</a></li>
                     <li><a href="/productos">Todos los productos</a></li>
-                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="/productos/ofertas">Ofertas</a></li>
                     <li><a href="/pedidos">Pedidos</a></li>
                     <li><a href="/contacto">Contacto</a></li>
                     <li><a href="/infoInstitucional">Informaci&oacuten institucional</a></li>
                     <li sec:authorize="!isAuthenticated()"><a href="/registro"><i class="fa fa-sign-in" style="margin-right:5px"></i>Crea tu cuenta</a></li>
                     <li sec:authorize="!isAuthenticated()"><a href="/ingreso"><i class="fa fa-user-o" style="margin-right:5px"></i>Ingresar</a></li>
                     <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                    <a class="nav-link dropdown-toggle" href="#" style="background-color: white !important;" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-user-o" style="margin-right:3px"></i>
-                        <span sec:authentication="name"></span>
+                        <span id="logueado" sec:authentication="name"></span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="/profile" style="padding: 10px">Perfil</a>
@@ -148,7 +163,7 @@
 <div class="section">
     <!-- container -->
     <div class="container">
-        <div class="row mb-5 p-1">>
+        <div class="row mb-5 p-1">
             <div class="col-sm-12 ">
             <h2 class="mb-5" th:text="'Pedido ' + ${pedido.idPedido}"></h2>
             
@@ -197,26 +212,19 @@
     <!-- bottom footer -->
     <div id="bottom-footer" class="section">
         <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="footer-payments">
-                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                    </ul>
-                    <span class="copyright">
-							Copyright &copy;
-							<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						</span>
+				<!-- row -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+   
+                        <span class="copyright">
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> Todos los derechos reservados
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </span>
 
+                    </div>
                 </div>
-
-                </div>
+                <!-- /row -->
             </div>
             <!-- /row -->
         </div>

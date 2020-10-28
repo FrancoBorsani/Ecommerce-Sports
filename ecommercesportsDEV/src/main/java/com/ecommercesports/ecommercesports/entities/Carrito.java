@@ -1,6 +1,8 @@
 package com.ecommercesports.ecommercesports.entities;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.javatuples.Pair;
 
 
 @Entity
@@ -92,6 +96,24 @@ public class Carrito {
 		return "Carrito [idCarrito=" + idCarrito + ", listaItems=" + listaItems + ", fecha=" + fecha + ", total="
 				+ total + "]";
 	}
+	
+	
+	public  String mostrarParaPagar() {
+	// Pair<Producto, Integer> listaMultiple = new Pair<Producto, Integer>(null, null);
+	// int i = 0;
+	 String pedido = "";
+		for(Item item : this.getListaItems()) {
+			//	listaMultiple.add(i, item.getProducto());
+			//	i++;
+				pedido = "\n" + pedido + item.getProducto().getDescripcionCorta() + "- x" + item.getCantidad() + "\n";
+		}
+
+		
+		return pedido;
+		
+	}
+	
+	
 	
 
 }//Fin class
