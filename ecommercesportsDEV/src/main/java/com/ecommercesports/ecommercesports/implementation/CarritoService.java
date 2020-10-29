@@ -173,6 +173,7 @@ public class CarritoService implements ICarritoService{
         Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
         carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
         pedido.setCantidad(pedido.getCantidad()+1);
+        pedido.setCostoEnvio(0);
         pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecio());
         carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
         pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));

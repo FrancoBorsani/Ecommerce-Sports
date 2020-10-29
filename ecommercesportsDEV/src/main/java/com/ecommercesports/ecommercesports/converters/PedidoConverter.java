@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 @Component("pedidoConverter")
 public class PedidoConverter {
 	
-	  @Autowired
+	    @Autowired
 	    @Qualifier("carritoConverter")
 	    private CarritoConverter carritoConverter;
 
 	    public PedidoModel entityToModel(Pedido pedido) {
 	        return new PedidoModel(pedido.getIdPedido() , pedido.getDomicilio(), pedido.getUser(), carritoConverter.entityToModel(pedido.getCarrito()), pedido.getCantidad() 
-	        		, pedido.getImporteAPagar() , pedido.getMetodoPago() , pedido.getComentario() , pedido.isPagado());
+	        		, pedido.getImporteAPagar() , pedido.getMetodoPago() , pedido.getComentario() , pedido.isPagado(), pedido.getNumeroDeTarjeta(), pedido.getCVV(), pedido.getCostoEnvio());
 	    }
 
 	    public Pedido modelToEntity(PedidoModel pedidoModel) {
 	        return new Pedido(pedidoModel.getIdPedido() , pedidoModel.getDomicilio(), pedidoModel.getUser(), carritoConverter.modelToEntity(pedidoModel.getCarritoModel()) , pedidoModel.getCantidad() ,
-	        		pedidoModel.getImporteAPagar() , pedidoModel.getMetodoPago() , pedidoModel.getComentario() , pedidoModel.isPagado());
+	        		pedidoModel.getImporteAPagar() , pedidoModel.getMetodoPago() , pedidoModel.getComentario() , pedidoModel.isPagado(), pedidoModel.getNumeroDeTarjeta(), pedidoModel.getCvv(), pedidoModel.getCostoEnvio());
 	    }
 	    
 	    public PedidoModel entityToModel2(Pedido pedido) {

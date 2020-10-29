@@ -30,8 +30,14 @@ public class PedidoModel {
 	@Nullable
 	private boolean pagado;
 	
-	//@Nullable
-	//private double costoEnvio;
+	@Nullable
+	private String numeroDeTarjeta;
+    
+	@Nullable
+	private String cvv ;
+	
+	@Nullable
+	private Double costoEnvio;
 	
 	public PedidoModel() { }
 
@@ -44,7 +50,7 @@ public class PedidoModel {
 
 
 	public PedidoModel(long idPedido, String domicilio, User user, CarritoModel carritoModel, int cantidad,
-			double importeAPagar, String metodoPago, String comentario, boolean pagado) {
+			double importeAPagar, String metodoPago, String comentario, boolean pagado, String numeroDeTarjeta, String cvv, Double costoEnvio) {
 		super();
 		this.idPedido = idPedido;
 		this.domicilio = domicilio;
@@ -55,6 +61,9 @@ public class PedidoModel {
 		this.metodoPago = metodoPago;
 		this.comentario = comentario;
 		this.pagado = pagado;
+		this.numeroDeTarjeta = numeroDeTarjeta;
+		this.cvv = cvv;
+		this.costoEnvio = costoEnvio;
 	}
 
 	public long getIdPedido() {
@@ -129,14 +138,33 @@ public class PedidoModel {
 		this.pagado = pagado;
 	}
 	
+	
 
-//	public double getCostoEnvio() {
-	//	return costoEnvio;
-//	}
+	public Double getCostoEnvio() {
+		return costoEnvio;
+	}
 
-//	public void setCostoEnvio(double costoEnvio) {
-//		this.costoEnvio = costoEnvio;
-//	}
+
+	public String getNumeroDeTarjeta() {
+		return numeroDeTarjeta;
+	}
+
+	public void setNumeroDeTarjeta(String numeroDeTarjeta) {
+		this.numeroDeTarjeta = numeroDeTarjeta;
+	}
+
+	public String getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(String cvv) {
+		this.cvv = cvv;
+	}
+	
+
+	public void setCostoEnvio(Double costoEnvio) {
+		this.costoEnvio = costoEnvio;
+	}
 
 	@Override
 	public String toString() {

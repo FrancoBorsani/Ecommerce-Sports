@@ -47,10 +47,18 @@ public class Pedido {
 		@Nullable
 	    @Column(name = "pagado")
 	    private boolean pagado;
-
-	//	@Nullable
-	 //   @Column(name = "costoEnvio")
-	 //   private double costoEnvio;
+		
+		@Nullable
+	    @Column(name = "numeroDeTarjeta")
+	    private String numeroDeTarjeta;
+		
+		@Nullable
+	    @Column(name = "CVV")
+	    private String CVV;
+		
+		@Nullable
+	    @Column(name = "costoEnvio")
+	    private Double costoEnvio;
 
 	    public Pedido() { }
 
@@ -74,6 +82,23 @@ public class Pedido {
 			this.metodoPago = metodoPago;
 			this.comentario = comentario;
 			this.pagado = pagado;
+		}
+		
+		public Pedido(long idPedido, String domicilio, User user, Carrito carrito, int cantidad, double importeAPagar,
+				String metodoPago, String comentario, boolean pagado, String numeroDeTarjeta, String CVV, Double costoEnvio) {
+			super();
+			this.idPedido = idPedido;
+			this.domicilio = domicilio;
+			this.user = user;
+			this.carrito = carrito;
+			this.cantidad = cantidad;
+			this.importeAPagar = importeAPagar;
+			this.metodoPago = metodoPago;
+			this.comentario = comentario;
+			this.pagado = pagado;
+			this.numeroDeTarjeta = numeroDeTarjeta;
+			this.CVV = CVV;
+			this.costoEnvio = costoEnvio;
 		}
 
 
@@ -165,13 +190,36 @@ public class Pedido {
 		}
 		
 
-	//	public double getCostoEnvio() {
-		//	return costoEnvio;
-	//	}
+		public Double getCostoEnvio() {
+			return costoEnvio;
+		}
 
-	//	public void setCostoEnvio(double costoEnvio) {
-	//		this.costoEnvio = costoEnvio;
-		//}
+		public void setCostoEnvio(double costoEnvio) {
+			this.costoEnvio = costoEnvio;
+		}
+
+		public String getNumeroDeTarjeta() {
+			return numeroDeTarjeta;
+		}
+
+		public void setNumeroDeTarjeta(String numeroDeTarjeta) {
+			this.numeroDeTarjeta = numeroDeTarjeta;
+		}
+
+		public String getCVV() {
+			return CVV;
+		}
+
+		public void setCVV(String cVV) {
+			CVV = cVV;
+		}
+		
+
+		public void setCostoEnvio(Double costoEnvio) {
+			this.costoEnvio = costoEnvio;
+		}
+		
+		
 
 		@Override
 		public String toString() {

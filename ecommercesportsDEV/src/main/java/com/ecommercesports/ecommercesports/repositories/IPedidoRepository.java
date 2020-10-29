@@ -35,8 +35,8 @@ public interface IPedidoRepository extends JpaRepository<Pedido, Serializable> {
     @Query(nativeQuery=true,value="select * from pedido where user_id = (:user_id) and id_pedido = (:idPedido)")
     public Pedido traerPedidoPorUsuarioYPedido(long user_id,long idPedido);
     
- //   @Query(nativeQuery=true,value="select obtenerValor_x_PesoEmpresa((:empresa),(:nroColumna))")
-  //  public abstract double getCostoEnvio(String empresa, int nroColumna);
+    @Query(nativeQuery=true,value="select obtenerValor_x_PesoEmpresa((:empresa),(:nroColumna))")
+    public abstract double getCostoEnvio(String empresa, int nroColumna);
     
  //   @Modifying
  //   @Transactional 
