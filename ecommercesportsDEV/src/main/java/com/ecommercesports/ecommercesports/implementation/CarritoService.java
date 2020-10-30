@@ -185,7 +185,7 @@ public class CarritoService implements ICarritoService{
 	public Carrito agregarProductoAlCarrito(Producto producto) {
 		Carrito carrito = carritoDelUserLogueado();
 		if(carrito != null) {
-			Item item = itemService.itemsByProducto(producto);
+			Item item = itemService.itemsByProductoAndCarrito(producto, carrito);
 			if(item!=null) {
 				itemService.agregarUnidadAlItemYTraer(item);
 			}else {

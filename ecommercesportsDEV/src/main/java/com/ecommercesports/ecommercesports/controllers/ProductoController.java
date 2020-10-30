@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ecommercesports.ecommercesports.converters.CarritoConverter;
 import com.ecommercesports.ecommercesports.converters.ProductoConverter;
 import com.ecommercesports.ecommercesports.converters.ValoracionConverter;
+import com.ecommercesports.ecommercesports.entities.Categoria;
 import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.Producto;
@@ -141,14 +142,27 @@ public class ProductoController {
         return mAV;
     }
     
+    /****************************************************************************************/
     @GetMapping("/categorias/{id}/_DisplayType_G")
     public ModelAndView categoryCards(@PathVariable("id") String categoria) {
         ModelAndView mAV = new ModelAndView("producto/cards");
-        mAV.addObject("productos", productoService.findByCategoria(categoria));
+        
+        List<Producto> productos = null;
+        List<Producto> ofertas = null;
+        Categoria categoriaFijada = null;
+        
+        if(!productoService.findByCategoria(categoria).isEmpty()) {
+        	
+        	productos = productoService.findByCategoria(categoria);
+        	categoriaFijada = productoService.findByCategoria(categoria).get(0).getCategoria();
+        }
+        if(!productoService.getProductosEnOferta().isEmpty()) ofertas = productoService.getProductosEnOferta();
+        		
+        mAV.addObject("productos", productos);
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
-        mAV.addObject("ofertas", productoService.getProductosEnOferta());
-        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
+        mAV.addObject("ofertas", ofertas);
+        mAV.addObject("categoria", categoriaFijada);
         
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
@@ -157,6 +171,7 @@ public class ProductoController {
         
         return mAV;
     }
+    /****************************************************************************************/
     
     @GetMapping("/marcas/{id}/_DisplayType_G")
     public ModelAndView brandsCards(@PathVariable("id") String marca) {
@@ -260,15 +275,28 @@ public class ProductoController {
     
     }
     
+
+    /****************************************************************************************/
     @GetMapping("/categorias/{id}")
     public ModelAndView getByCategoria(@PathVariable("id") String categoria) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_INDEX);
         
-        mAV.addObject("productos",productoService.findByCategoria(categoria));
+        List<Producto> productos = null;
+        List<Producto> ofertas = null;
+        Categoria categoriaFijada = null;
+        
+        if(!productoService.findByCategoria(categoria).isEmpty()) {
+        	
+        	productos = productoService.findByCategoria(categoria);
+        	categoriaFijada = productoService.findByCategoria(categoria).get(0).getCategoria();
+        }
+        if(!productoService.getProductosEnOferta().isEmpty()) ofertas = productoService.getProductosEnOferta();
+        		
+        mAV.addObject("productos", productos);
         mAV.addObject("categorias", categoriaService.getAll());
         mAV.addObject("marcas", marcaService.getAll());
-        mAV.addObject("ofertas", productoService.getProductosEnOferta());
-        mAV.addObject("categoria", productoService.findByCategoria(categoria).get(0).getCategoria());
+        mAV.addObject("ofertas", ofertas);
+        mAV.addObject("categoria", categoriaFijada);
         
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
@@ -276,6 +304,7 @@ public class ProductoController {
 
         return mAV;
     }
+    /****************************************************************************************/
     
     @GetMapping("/categorias/{id}_DisplayType_LF")
     public ModelAndView getByCategoriaDisplayType_LF(@PathVariable("id") String categoria) {

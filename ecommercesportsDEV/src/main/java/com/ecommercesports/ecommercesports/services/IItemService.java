@@ -19,6 +19,9 @@ public interface IItemService {
 	public boolean remove(long idItem);
 	
 	public Item itemsByProducto(Producto producto);
+	
+	 //cuando busco el item de un producto tengo que tambien pasar el ID DEL CARRITO para que logre diferenciar los items de cada cliente
+	public Item itemsByProductoAndCarrito(Producto producto , Carrito carrito);
 
 	public Item insertarItemConProducto_y_Traer(Producto producto,  Carrito carrito);
 	

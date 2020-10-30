@@ -1,5 +1,7 @@
 package com.ecommercesports.ecommercesports.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -40,16 +42,32 @@ public class HomeController {
 		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.HOME);
 		
-		mAV.addObject("productoSin", productoService.getProductosSinOferta().get(productoService.getProductosSinOferta().size()-1));
+		Producto productoSin = null;
+		List<Producto> productos = null;
+		Producto ofertasProd = null;
+		List<Producto> ofertas = null;
 		
-		mAV.addObject("productos", productoService.getProductosSinOferta());
+		if(!productoService.getAllProductosVisibles().isEmpty()){
+			
+			if(!productoService.getProductosEnOferta().isEmpty()){
+				ofertasProd = productoService.getProductosEnOferta().get(productoService.getProductosEnOferta().size()-1);
+				ofertas = productoService.getProductosEnOferta();
+			}
+			if(!productoService.getProductosSinOferta().isEmpty()){
+				productoSin = productoService.getProductosSinOferta().get(productoService.getProductosSinOferta().size()-1);
+				productos = productoService.getProductosSinOferta();
+			}
+		}
+		
+		mAV.addObject("productoSin", productoSin);
+		
+		mAV.addObject("productos", productos);
         
-	    mAV.addObject("ofertasProd", productoService.getProductosEnOferta().get(productoService.getProductosEnOferta().size()-1));
+	    mAV.addObject("ofertasProd", ofertasProd);
 		
-	    mAV.addObject("ofertas", productoService.getProductosEnOferta());
-		
-	    boolean mostrarCarrito = false;
+	    mAV.addObject("ofertas", ofertas);
 	    
+	    boolean mostrarCarrito = false;
 		if(userLogueadoService.traerUserLogueado() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         	mostrarCarrito = true;
@@ -58,6 +76,7 @@ public class HomeController {
 		
 		return mAV;
 	}
+	
 	
 	@GetMapping("/contacto")
 	public ModelAndView contacto() {

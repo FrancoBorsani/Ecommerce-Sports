@@ -17,6 +17,9 @@ public interface IItemRepository extends JpaRepository<Item, Serializable> {
 	@Query(nativeQuery=true,value="	select * from item where producto_id_producto = (:idProducto)")
 	public abstract Item itemsByIdProducto(long idProducto);
 	
+	@Query(nativeQuery=true,value="	select * from item where producto_id_producto = (:idProducto) and id_carrito= (:idCarrito")
+	public abstract Item itemsByIdProductoAndIdCarrito(long idProducto , long idCarrito);
+	
 	@Query(nativeQuery=true,value="SELECT * FROM Item where id_carrito = (:idCarrito)")
 	public abstract List<Item> itemsDelCarrito(long idCarrito);
 

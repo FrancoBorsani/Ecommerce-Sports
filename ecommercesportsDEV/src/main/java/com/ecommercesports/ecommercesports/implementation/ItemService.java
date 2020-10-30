@@ -105,6 +105,17 @@ public class ItemService implements IItemService{
 	}
 	
 	@Override
+	public Item itemsByProductoAndCarrito(Producto producto, Carrito carrito) {
+		Item item = null;
+		try {
+			return item = itemRepository.itemsByIdProductoAndIdCarrito(producto.getIdProducto(), carrito.getIdCarrito());
+		}catch(Exception e) {
+			return item;
+		}
+	}	
+	
+	
+	@Override
 	public Item insertarItemConProducto_y_Traer(Producto producto, Carrito carrito) {
 		Item item = new Item();
 		item.setProducto(producto);

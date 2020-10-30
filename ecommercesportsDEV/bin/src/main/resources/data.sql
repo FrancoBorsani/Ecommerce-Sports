@@ -61,7 +61,6 @@ VALUES("Blanco","Polo","Remera Blanca Polo Label",2,1299,879,"sku2","L",1,0,0,3,
       ("Rosa","Fila","Zapatilla Rosa Fila Euro Jogger Femedge",10,4990,4990,"sku9","37",2,0,0,4,true,"/img/products/fila.jpg"),
       ("Vizzano","Blanca","Zapatilla Blanca Vizzano",11,4399,4399,"sku10","38",2,0,0,3,true,"/img/products/vizzano.jpg");
 
-
 /* carrito*/
 INSERT INTO carrito (id_carrito,fecha,total) values 
               (1,CURDATE(),46000),

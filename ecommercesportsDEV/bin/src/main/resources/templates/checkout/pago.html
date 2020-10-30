@@ -191,39 +191,41 @@
  	
  	
     <div class="row">
+    <form th:action="@{/checkout/pagar}" method="post">
+    
+    <input id="id" name="id" type="hidden"  th:value="${pedido.idPedido}"/>
       <div class="col-md-6">
         <label for="cardholder">Name</label>
-        <input type="text" />
+        <input type="text" name="name" />
  
         <div class="small-inputs">
           <div>
             <label for="date">Valid date</label>
-            <input type="text"/>
+            <input type="date" name="validDate"/>
           </div>
         </div>
  
       </div>
       <div class="col-md-6">
         <label >Card Number</label>
-        <input type="password"/>
+        <input type="password" name="cardNumber"/>
         <div class="small-inputs">
           <div>
             <label for="verification">CVV / CVC *</label>
-            <input type="password"/>
+            <input type="password" name="cvv"/>
           </div>
         </div>
       </div>
+      
+         <button class="primary-btn mt-4">Confirmar y pagar</button>
+      
+      
+      </form>
       
     </div>
             <span class="info mt-4 mb-2">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
     
   </div>
- <form th:action="@{/checkout/pagar}" method="post">
-  <input id="id" name="id" type="hidden"  th:value="${pedido.idPedido}"/>
-           
-   <button class="primary-btn mt-4">Confirmar y pagar</button>
-   
-  </form>
    
    </div>
 				
@@ -243,10 +245,17 @@
 									<div th:text="'$'+${item.producto.precio}">$980.00</div>
 								</div> 
 
+							</div>					
+							
+							<div class="order-col" th:if="${costoEnvio}">
+								<div><strong>COSTO ENVIO</strong></div>
+								<div><strong th:text="'$'+${costoEnvio}">$2940.00</strong></div>
 							</div>
+							
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
+								<div th:if="${costoEnvio}"><strong class="order-total" th:text="'$'+${pedido.importeAPagar + costoEnvio}">$2940.00</strong></div>
+								<div th:if="${costoEnvio == null}"><strong class="order-total" th:text="'$'+${pedido.importeAPagar}">$2940.00</strong></div>
 							</div>
 						</div>
 						
