@@ -48,18 +48,18 @@ INSERT INTO tag(id_tag, nombre) VALUES (8, "Tag8");
 
 /* Products */
 
-INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso,visible,imagen) 
-VALUES(1,"Negro","Levi`s","Remera Negra Levi`s Batwing",1,2899,2899,"sku1","XL",1,0,0,12,true,"/img/products/Levis1.jpg");
-INSERT INTO producto (color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso,visible,imagen) 
-VALUES("Blanco","Polo","Remera Blanca Polo Label",2,1299,879,"sku2","L",1,0,0,3,true,"/img/products/Polo3.jpg"),
-      ("Blanco","Puma","Remera Blanca Puma Iconic t7 Slim",3,2299,2299,"sku3","M",1,0,0,2,true,"/img/products/Puma1.jpg"),
-      ("Negra","Nike","Zapatilla Negra Nike AIR MAX BELLA TR 2",9,10499,9449,"sku4","39",2,0,0,4,true,"/img/products/nike2.jpg"),
-	  ("Negro","Converse","Buzo Negro Converse All Star Cropped",5,3699,3429,"sku5","M",1,0,0,3,true,"/img/products/Converse.jpg"),
-      ("Gris","Chelsea Market","Pantalon Gris Chelsea Market Strong",12,2500,1697,"sku6","4",1,0,0,4,true,"/img/products/chelsea_market.jpg"),
-      ("Azul","Clon","Babucha Azul Clon",7,4801,3357,"sku7",3,1,0,0,3,true,"/img/products/clon.jpg"),
-      (" Azul","Brooksfield","Pantalon Azul Brooksfield Kunz",8,6487,4990,"sku8","3",1,0,0,2,true,"/img/products/brooksfield.jpg"),
-      ("Rosa","Fila","Zapatilla Rosa Fila Euro Jogger Femedge",10,4990,4990,"sku9","37",2,0,0,4,true,"/img/products/fila.jpg"),
-      ("Vizzano","Blanca","Zapatilla Blanca Vizzano",11,4399,4399,"sku10","38",2,0,0,3,true,"/img/products/vizzano.jpg");
+INSERT INTO producto (id_producto,color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso,visible,imagen)
+VALUES (1, "Negro", "Levi`s", "Remera Negra Levi`s Batwing", 1, 2899, 2899, "levis_negro_xl_1", "XL", 1, 0, 0, 12, true, "/img/products/Levis1.jpg");
+INSERT INTO producto (color,descripcioncorta,descipcionlarga,marca_id_marca,precio,precio_en_oferta,sku,talle,categoria_id_categoria, total_puntaje, cantidad_valoraciones, peso,visible,imagen)
+VALUES ("Blanco", "Polo", "Remera Blanca Polo Label", 2, 1299, 879, "polo_blanco_l_2", "L", 1, 0, 0, 3, true, "/img/products/Polo3.jpg"),
+       ("Blanco", "Puma", "Remera Blanca Puma Iconic t7 Slim", 3, 2299, 2299, "puma_blanco_m_3", "M", 1, 0, 0, 2, true, "/img/products/Puma1.jpg"),
+       ("Negra", "Nike", "Zapatilla Negra Nike AIR MAX BELLA TR 2", 9, 10499, 9449, "nike_negra_39_4", "39", 2, 0, 0, 4, true, "/img/products/nike2.jpg"),
+       ("Negro", "Converse", "Buzo Negro Converse All Star Cropped", 5, 3699, 3429, "converse_negro_m_5", "M", 1, 0, 0, 3, true, "/img/products/Converse.jpg"),
+       ("Gris", "Chelsea Market", "Pantalon Gris Chelsea Market Strong", 12, 2500, 1697, "chelseamarket_gris_4_6", "4", 1, 0, 0, 4, true, "/img/products/chelsea_market.jpg"),
+       ("Azul", "Clon", "Babucha Azul Clon", 7, 4801, 3357, "clon_azul_3_7", "3", 1, 0, 0, 3, true, "/img/products/clon.jpg"),
+       ("Azul", "Brooksfield", "Pantalon Azul Brooksfield Kunz", 8, 6487, 4990, "brooksfield_azul_3_8", "3", 1, 0, 0, 2, true, "/img/products/brooksfield.jpg"),
+       ("Rosa", "Fila", "Zapatilla Rosa Fila Euro Jogger Femedge", 10, 4990, 4990, "fila_rosa_37_9", "37", 2, 0, 0, 4, true, "/img/products/fila.jpg"),
+       ("Blanca", "Vizzano", "Zapatilla Blanca Vizzano", 11, 4399, 4399, "vizzano_blanca_38_10", "38", 2, 0, 0, 3, true, "/img/products/vizzano.jpg");
 
 /* carrito*/
 INSERT INTO carrito (id_carrito,fecha,total) values 
@@ -92,6 +92,14 @@ INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (4, 6);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (5, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (6, 4);
 INSERT INTO tag_productos (productos_id_producto, tags_id_tag) VALUES (7, 4);
+
+/* Descuentos */
+
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (1, "", 0);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (2, "DESCUENTO1", 10);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (3, "DESCUENTO2", 20);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (4, "DESCUENTO3", 25);
+INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (5, "DESCUENTO4", 50);
 
 /*
 DELIMITER $$

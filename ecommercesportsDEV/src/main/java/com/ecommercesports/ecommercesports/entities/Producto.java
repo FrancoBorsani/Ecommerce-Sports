@@ -93,7 +93,6 @@ public class Producto {
 		this.color = color;
 		this.descripcionCorta = descripcionCorta;
 		this.descripcionLarga = descripcionLarga;
-		setSku();
 		this.talle = talle;
 		this.totalPuntaje = totalPuntaje;
 		this.cantidadValoraciones = cantidadValoraciones;
@@ -104,6 +103,7 @@ public class Producto {
         this.listaValoraciones = listaValoraciones;
         this.categoria = categoria;
         this.marca = marca;
+        setSku();
     }
 
 	public String getImagen() {
@@ -169,9 +169,13 @@ public class Producto {
     public void setSku(String sku) {
         this.sku = sku;
     }
-    
+
+    //Pone en minusculas todas las cadenas y elimina los espacios si hay.
     public void setSku() {
-        this.sku = getColor().substring(0, 1) + "_" + getDescripcionCorta().substring(0, 2);
+        this.sku =  getDescripcionCorta().toLowerCase().replaceAll("\\s","") + "_" +
+                getColor().toLowerCase().replaceAll("\\s","") + "_" +
+                getTalle().toLowerCase().replaceAll("\\s","") + "_" +
+                getIdProducto();
     }
 
     public String getTalle() {

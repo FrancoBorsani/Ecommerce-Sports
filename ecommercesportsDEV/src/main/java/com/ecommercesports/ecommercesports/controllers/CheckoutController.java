@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ecommercesports.ecommercesports.implementation.DescuentoService;
+import com.ecommercesports.ecommercesports.models.DescuentoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,312 +38,326 @@ public class CheckoutController {
 	@Autowired
 	@Qualifier("pedidoService")
 	private IPedidoService pedidoService;
-	
+
 	@Autowired
 	@Qualifier("perfilService")
 	private IPerfilService perfilService;
-	
-	
+
 	@Autowired
 	@Qualifier("pedidoRepository")
 	private IPedidoRepository pedidoRepository;
-	
 
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
-	
-	
+
 	@Autowired
 	@Qualifier("pedidoConverter")
 	private PedidoConverter pedidoConverter;
-	
+
 	@Autowired
 	@Qualifier("userLogueadoService")
 	private IUserLogueadoService userLogueadoService;
-	
+
 	@Autowired
 	@Qualifier("carritoService")
 	private ICarritoService carritoService;
-	
-	
+
+	@Autowired
+	@Qualifier("descuentoService")
+	private DescuentoService descuentoService;
+
+
 	@SuppressWarnings("finally")
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView();
-		
+
 		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
-		
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
 		if(userLogueadoService.traerUserLogueado() == null) {
 			mAV.setViewName(ViewRouteHelpers.USER_LOGIN);
-        	return mAV;
+			return mAV;
 		}
 		else {
 			mAV.setViewName(ViewRouteHelpers.CHECKOUT_INDEX);
 			String username = "";
-	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    	if( principal instanceof UserDetails) {
-	    		username = ((UserDetails)principal).getUsername();
-	    	}
-	    	
-	    	User currentUser = userRepository.findByUsername(username);
-	    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
-	    	
-	    	List<Item> listaProductos = new ArrayList<Item>();
-	    	Pedido p = new Pedido();
-	    	
-	    	try {
-	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
-	    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
-	    	listaProductos.add(item);
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if( principal instanceof UserDetails) {
+				username = ((UserDetails)principal).getUsername();
 			}
-	    	
-	    		mAV.addObject("items", listaProductos);
-	    		
+
+			User currentUser = userRepository.findByUsername(username);
+			mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+
+			List<Item> listaProductos = new ArrayList<Item>();
+			Pedido p = new Pedido();
+
+			try {
+				mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+				for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
+					listaProductos.add(item);
+				}
+
+				mAV.addObject("items", listaProductos);
+
 			} catch (Exception e) {
 				mAV.addObject("pedido", p);
-	    		mAV.addObject("items", listaProductos);
+				mAV.addObject("items", listaProductos);
 			}
-	    	finally { 
-	    		return mAV; 
-	    	}
+			finally {
+				return mAV;
+			}
 		}
-		
 	}
-	
+
 	@GetMapping("/envio")
 	public ModelAndView envio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.ENVIO);
-		
+
 		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
-		
-		return mAV;	
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		return mAV;
 	}
-	
+
 	@SuppressWarnings("finally")
 	@GetMapping("/envio/domicilio")
 	public ModelAndView domicilio() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.FORM_DOMICILIO);
 		String username = "";
-		
+
 		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
-		
-    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	if( principal instanceof UserDetails) {
-    		username = ((UserDetails)principal).getUsername();
-    	}
-    	
-    	User currentUser = userRepository.findByUsername(username);
-    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
-    	
-    	List<Item> listaProductos = new ArrayList<Item>();
-    	Pedido p = new Pedido();
-    	
-    	try {
-    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
-    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
-    	listaProductos.add(item);
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
 		}
-    	
-    		mAV.addObject("items", listaProductos);
-    		
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if( principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+
+		User currentUser = userRepository.findByUsername(username);
+		mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+
+		List<Item> listaProductos = new ArrayList<Item>();
+		Pedido p = new Pedido();
+
+		try {
+			mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+			for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
+				listaProductos.add(item);
+			}
+
+			mAV.addObject("items", listaProductos);
+
 		} catch (Exception e) {
 			mAV.addObject("pedido", p);
-    		mAV.addObject("items", listaProductos);
+			mAV.addObject("items", listaProductos);
 		}
-    	finally { 
-    		return mAV; 
-    	}
-
+		finally {
+			return mAV;
+		}
 	}
-	
+
 	@GetMapping("/sucursal/pago")
 	public ModelAndView pago() {
-		
+
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
 
-		
 		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
-		
-    	String username = "";
-    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	if( principal instanceof UserDetails) {
-    		username = ((UserDetails)principal).getUsername();
-    	}
-    	
-    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-        }
-    	
-    	User currentUser = userRepository.findByUsername(username);
-    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
-    	
-    	List<Item> listaProductos = new ArrayList<Item>();
-    	Pedido p = new Pedido();
-    	
-    	try {
-    		p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
-    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
-    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
-    				listaProductos.add(item);
-    		}
-    		
-    	    		
-    		mAV.addObject("items", listaProductos);
-    		
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if( principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		User currentUser = userRepository.findByUsername(username);
+		mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+
+		List<Item> listaProductos = new ArrayList<Item>();
+		Pedido p = new Pedido();
+
+		try {
+			p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+			mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+			for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
+				listaProductos.add(item);
+			}
+
+			mAV.addObject("items", listaProductos);
+
 		} catch (Exception e) {
 			mAV.addObject("pedido", p);
-    		mAV.addObject("items", listaProductos);
+			mAV.addObject("items", listaProductos);
 		}
-    	
-    	return mAV;
+
+		return mAV;
 	}
-	
-	
+
 	@SuppressWarnings("finally")
 	@PostMapping("/guardarPedido")
-	    public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
-		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
-	    	String username = "";
-	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    	if( principal instanceof UserDetails) {
-	    		username = ((UserDetails)principal).getUsername();
-	    	}
-	    	
-	    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-	        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-	        }
-	    	
-	    	User currentUser = userRepository.findByUsername(username);
-	    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
-	    	mAV.addObject("costoEnvio",calcularCostoEnvio("Andreani",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito()));
-	    	
-	    	List<Item> listaProductos = new ArrayList<Item>();
-	    	Pedido p = new Pedido();
-	    	
-	    	try {
-	    		p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
-	    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
-	    		for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
-	    	listaProductos.add(item);
-	    		}
-	    		p.setComentario(comentario);
-	    		p.setDomicilio(domicilio);
-	    		
-	    		pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
-	    		
-	    		mAV.addObject("items", listaProductos);
-	    		
-			} catch (Exception e) {
-				mAV.addObject("pedido", p);
-	    		mAV.addObject("items", listaProductos);
-			}
-	    	finally { 
-	    		return mAV; 
-	    	}
-			
-	    }
+	public ModelAndView guardarPedido(@RequestParam("nombreapellido") String nombreApellido, @RequestParam("domicilio") String domicilio, @RequestParam("provincia") String provincia,@RequestParam("codigopostal") String codigoPostal, @RequestParam("telefono") String telefono, @RequestParam("comentario") String comentario ){
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PAGO);
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if( principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
 
-	 @Autowired
-	    private SendMailService SendmailService;
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		User currentUser = userRepository.findByUsername(username);
+		mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+		mAV.addObject("costoEnvio",calcularCostoEnvio("Andreani",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito()));
+
+		List<Item> listaProductos = new ArrayList<Item>();
+		Pedido p = new Pedido();
+
+		try {
+			p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+			mAV.addObject("pedido", pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+			for (Item item : pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito().getListaItems()){
+				listaProductos.add(item);
+			}
+			p.setComentario(comentario);
+			p.setDomicilio(domicilio);
+
+			pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
+
+			mAV.addObject("items", listaProductos);
+
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+			mAV.addObject("items", listaProductos);
+		}
+		finally {
+			return mAV;
+		}
+	}
+
+	@Autowired
+	private SendMailService SendmailService;
 
 	@SuppressWarnings("finally")
 	@PostMapping("/pagar")
-	    public ModelAndView pagar(@RequestParam("id") String id,@RequestParam("name") String name,@RequestParam("cardNumber") String cardNumber, @RequestParam("cvv") String cvv,@RequestParam("validDate") Date fecha){
-		 ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_INDEX);
-		 
-		 if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-	        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-	        }
-		 
-		 	String username = "";
-	    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	    	if( principal instanceof UserDetails) {
-	    		username = ((UserDetails)principal).getUsername();
-	    	}
-	    	
-	    	if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
-	        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
-	        }
-	    	
-	    	User currentUser = userRepository.findByUsername(username);
-	    	
-	    	
-	    	  
-	    	  
-	   		  Pedido p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());  
-	   		  
-	   		  
-	   		  if(!p.getDomicilio().isEmpty()) {
-	   			double costoEnvio = calcularCostoEnvio("Andreani",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito());
-	   			  p.setCostoEnvio(costoEnvio);
-		   		  p.setImporteAPagar(p.getImporteAPagar()+ p.getCostoEnvio());
-	   		  }
-	   		  
-	   		  p.setCVV(cvv);
-	   		  p.setNumeroDeTarjeta(cardNumber);	  
-	   		  p.setMetodoPago("Tarjeta de credito");
-	   		  String message = "\n\n Datos del pedido: " + "\nID: " + p.getIdPedido() + "\nApellido: "+ p.getUser().getLastName() + "\nDomicilio: "+ p.getDomicilio() + "\nTotal: "+ p.getImporteAPagar() + "\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
-	          String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
-	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
-	          SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
-		      p.setPagado(true);
-		   
-		      pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
-		      currentUser.setCantidadcompras(currentUser.getCantidadcompras()+1);
-		      userRepository.save(currentUser);
-		    	List<Item> listaProductos = new ArrayList<Item>();
-		    	Pedido p2 = new Pedido();
-		    	
-		    	try {
-		    		//p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
-		    		p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
-		    		mAV.addObject("pedido",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
-		    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
-		    			listaProductos.add(item);
-		    		}
-		    	
-		    		mAV.addObject("items", listaProductos);
-		    		
-				} catch (Exception e) {
-					mAV.addObject("pedido", p2);
-		    		mAV.addObject("items", listaProductos);
-				}
-		    	finally { 
-		    		mAV.addObject("pedidos", pedidoRepository.traerPedidosDelUser(currentUser.getId()));
-		            mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+	public ModelAndView pagar(@RequestParam("id") String id,
+							  @RequestParam("name") String name,
+							  @RequestParam("cardNumber") String cardNumber,
+							  @RequestParam("cvv") String cvv,
+							  @RequestParam("validDate") Date fecha,
+							  @RequestParam("codigo") String codigo) {
 
-		    		return mAV; 
-		    	}
-				
-		        	
-		    	
-				//	 return mAV;
-		    
-	 
-			//	 return mAV;*/
-	    }
-	
-	
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_INDEX);
+		double precioSinDescuento = 0;
+
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		String username = "";
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if( principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+		}
+
+		if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+		}
+
+		User currentUser = userRepository.findByUsername(username);
+		DescuentoModel descuento = descuentoService.findByCode(codigo);
+		Pedido p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+
+		if (descuento.getCodigo() != "") {
+			precioSinDescuento = p.getImporteAPagar();
+			p.setImporteAPagar(p.getImporteAPagar() - (p.getImporteAPagar() * descuento.getPorcentaje() / 100));
+		}
+
+		if(!p.getDomicilio().isEmpty()) {
+			double costoEnvio = calcularCostoEnvio("Andreani",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito());
+			p.setCostoEnvio(costoEnvio);
+			p.setImporteAPagar(p.getImporteAPagar()+ p.getCostoEnvio());
+		}
+
+		p.setCVV(cvv);
+		p.setNumeroDeTarjeta(cardNumber);
+		p.setMetodoPago("Tarjeta de credito");
+		String message = "";
+
+		if (descuento.getPorcentaje() > 0) {
+			message = "\n\n Datos del pedido: " +
+					"\nID: " + p.getIdPedido() +
+					"\nApellido: "+ p.getUser().getLastName() +
+					"\nDomicilio: "+ p.getDomicilio() +
+					"\nCódigo de descuento: " + descuento.getCodigo() + " " + descuento.getPorcentaje() + "%" +
+					"\nTotal sin descuento: " + precioSinDescuento +
+					"\nTotal: "+ p.getImporteAPagar() +
+					"\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
+		} else {
+			message = "\n\n Datos del pedido: " +
+					"\nID: " + p.getIdPedido() +
+					"\nApellido: "+ p.getUser().getLastName() +
+					"\nDomicilio: "+ p.getDomicilio() +
+					"\nTotal: "+ p.getImporteAPagar() +
+					"\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
+		}
+
+		String subject = "DETALLES DEL PEDIDO"+ p.getIdPedido() ;
+		SendmailService.sendMail("proyectodesoftwaretp@gmail.com", "proyectodesoftwaretp@gmail.com",subject,message);
+		SendmailService.sendMail("proyectodesoftwaretp@gmail.com", ""+ p.getUser().getEmail(), subject,message);
+		p.setPagado(true);
+
+		pedidoService.insertOrUpdate(pedidoConverter.entityToModel(p));
+		currentUser.setCantidadcompras(currentUser.getCantidadcompras()+1);
+		userRepository.save(currentUser);
+		List<Item> listaProductos = new ArrayList<Item>();
+		Pedido p2 = new Pedido();
+
+		try {
+			//p = pedidoRepository.traerPedidoPorUsuario(currentUser.getId());
+			p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
+			mAV.addObject("pedido",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()));
+			for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+				listaProductos.add(item);
+			}
+
+			mAV.addObject("items", listaProductos);
+
+		} catch (Exception e) {
+			mAV.addObject("pedido", p2);
+			mAV.addObject("items", listaProductos);
+		}
+		finally {
+			mAV.addObject("pedidos", pedidoRepository.traerPedidosDelUser(currentUser.getId()));
+			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+
+			return mAV;
+		}
+	}
+
 	public double calcularCostoEnvio(String empresa, Carrito carrito) {
-		
-	double largo = 20;
-	double alto = 20;
-	double ancho = 25;
-		
-	double pesoReal = calcularCostoReal();
-				
-	double pesoDefinitivo = 0;
-		
-				
+
+		double largo = 20;
+		double alto = 20;
+		double ancho = 25;
+
+		double pesoReal = calcularCostoReal();
+
+		double pesoDefinitivo = 0;
+
+
 		/* https://www.mercadolibre.com.ar/ayuda/C-mo-calcular-el-peso-de-tu-en_4420 */
 		
 		/* Ya conozco el peso físico y el volumétrico, ¿cuál uso para calcular el costo de mi envío?
@@ -351,18 +367,18 @@ public class CheckoutController {
 		Si el peso volumétrico es mayor a 2, usá el que sea mayor (físico o volumétrico).
 		
 		En nuestro ejemplo, el peso volumétrico es mayor a 2, por eso calcularemos el costo de envío usando ese peso. */
-			
-		
-	double pesoVolumetrico = ( largo * alto * ancho ) / 4000;
-		
-	if(pesoVolumetrico<=pesoReal) {
+
+
+		double pesoVolumetrico = ( largo * alto * ancho ) / 4000;
+
+		if(pesoVolumetrico<=pesoReal) {
 			pesoDefinitivo = pesoReal;
-	} else {
-		pesoDefinitivo = (pesoVolumetrico>pesoReal)? pesoVolumetrico : pesoReal;
-	}
-		
-	int nroColumna = 0;
-		
+		} else {
+			pesoDefinitivo = (pesoVolumetrico>pesoReal)? pesoVolumetrico : pesoReal;
+		}
+
+		int nroColumna = 0;
+
 		if(pesoDefinitivo>=0 && pesoDefinitivo < 0.5) {
 			nroColumna = 1;
 		} else if (pesoDefinitivo>=0.5 && pesoDefinitivo < 1) {
@@ -381,25 +397,20 @@ public class CheckoutController {
 			nroColumna = 7;
 		} else if (pesoDefinitivo>=15 && pesoDefinitivo < 20) {
 			nroColumna = 8;
-	} else if (pesoDefinitivo>=20 && pesoDefinitivo < 25) {
-		nroColumna = 9;
-	}
+		} else if (pesoDefinitivo>=20 && pesoDefinitivo < 25) {
+			nroColumna = 9;
+		}
 
 		return pedidoService.getCostoEnvio(empresa,nroColumna);
 	}
-	
+
 	public double calcularCostoReal() {
 		double costoReal = 0;
-				
-		
+
 		for(Item i : carritoService.carritoDelUserLogueadoParaController().getListaItems()) {
 			costoReal = costoReal + i.getCantidad() * i.getProducto().getPeso();
 		}
-				
-		return costoReal;
-	
-	}
-	
-	
 
+		return costoReal;
+	}
 }
