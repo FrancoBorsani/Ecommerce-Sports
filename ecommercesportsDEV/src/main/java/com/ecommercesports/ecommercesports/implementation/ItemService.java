@@ -118,6 +118,7 @@ public class ItemService implements IItemService{
 	@Override
 	public Item insertarItemConProducto_y_Traer(Producto producto, Carrito carrito) {
 		Item item = new Item();
+		//if(producto.getPrecio() != producto.getPrecioEnOferta()) producto.setPrecio(producto.getPrecioEnOferta());
 		item.setProducto(producto);
 		item.setCantidad(1);
 		item.setCarrito(carrito);

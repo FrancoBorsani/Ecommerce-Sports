@@ -200,8 +200,10 @@
   </div>
   <!-- slider Area End-->
 <!-- *********************************************** -->
-	<div th:if="${carrito.listaItems.empty}" id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
-		<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
+	<div th:if="${carrito} != null"> 
+		<div th:if="${carrito.listaItems == null}" id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
+			<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
+		</div>
 	</div>
   <!--================Cart Area =================-->
     <div class="container" id="mostrarDatosDelCarrito">

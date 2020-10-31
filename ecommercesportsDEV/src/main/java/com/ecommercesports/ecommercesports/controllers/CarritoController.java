@@ -58,6 +58,10 @@ public class CarritoController {
 		}else {
 		  mAV.setViewName("acceso/ingreso");
 		}
+        
+        if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
 
 		return mAV;	
 	}
