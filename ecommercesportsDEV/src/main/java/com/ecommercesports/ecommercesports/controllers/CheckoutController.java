@@ -29,6 +29,7 @@ import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
+import com.ecommercesports.ecommercesports.services.ITarifaEnvioService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 
 @Controller
@@ -68,6 +69,11 @@ public class CheckoutController {
 	private DescuentoService descuentoService;
 
 
+	@Autowired
+	@Qualifier("tarifaEnvioService")
+	private ITarifaEnvioService tarifaEnvioService;
+	
+	
 	@SuppressWarnings("finally")
 	@GetMapping("")
 	public ModelAndView index() {
@@ -400,8 +406,12 @@ public class CheckoutController {
 		} else if (pesoDefinitivo>=20 && pesoDefinitivo < 25) {
 			nroColumna = 9;
 		}
+//		System.out.println("empresa Andreani ");//PARA PROBAR
+//		for(int i=1;i<10;i++) {
+//			System.out.println("columna "+i+" valor "+tarifaEnvioService.getCostoEnvio_2("Andreani",i));
+//		}
 
-		return pedidoService.getCostoEnvio(empresa,nroColumna);
+		return tarifaEnvioService.getCostoEnvio_2(empresa,nroColumna);
 	}
 
 	public double calcularCostoReal() {

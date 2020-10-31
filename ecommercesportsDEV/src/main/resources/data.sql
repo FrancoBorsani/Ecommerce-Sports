@@ -101,50 +101,14 @@ INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (3, "DESCUENTO2"
 INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (4, "DESCUENTO3", 25);
 INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (5, "DESCUENTO4", 50);
 
-/*
-DELIMITER $$
-CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 
-RETURNS varchar(100) 
-BEGIN
- declare empresaAux varchar(45); declare decolumnaAux varchar(75); declare resultado double;
-case
- when nro_Columna_input=1 then
-          select `0_a_0.5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=2 then
-          select `0.5_a_1Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=3 then
-          select `1_a_2Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=4 then
-          select `2_a_3Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=5 then
-          select `3_a_5Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=6 then
-          select `5_a_10Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=7 then
-          select `10_a_15Kg` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=8 then
-          select `15_a_20Kg.` from tarifa_envio where nombre = nombre_input into resultado;
- when nro_Columna_input=9 then
-          select `20_a_25Kg.` from tarifa_envio where nombre = nombre_input into resultado;
-end case;
 
-RETURN resultado;
-END$$
-delimiter ;
 
-*/
 
-/*
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (1,"Andesmar", 295.00, 295.00, 295.00, 317.00, 317.00, 433.00, 540.00, 540.00, 754.00);
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (2,"Andreani", 367.00, 375.00, 418.00, 460.00, 500.00, 634.00, 1.015, 1.015, 1.015);
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (3,"OCA", 356.00, 359.00, 363.00, 374.00, 374.00, 393.00, 412.00, 448.00, 493.00);
 
-CREATE TABLE tarifa_envio ( `id_empresa` int PRIMARY KEY, `nombre` VARCHAR(30), `0_a_0.5Kg.` DOUBLE, `0.5_a_1Kg.` DOUBLE, `1_a_2Kg.` DOUBLE, `2_a_3Kg.` DOUBLE, `3_a_5Kg.` DOUBLE, `5_a_10Kg.` DOUBLE, `10_a_15Kg.` DOUBLE, `15_a_20Kg.` DOUBLE, `20_a_25Kg.` DOUBLE )
 
-insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (1,"Andesmar", 295.00, 295.00, 295.00, 317.00, 317.00, 433.00, 540.00, 540.00, 754.00)
-
-insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (2,"Andreani", 367.00, 375.00, 418.00, 460.00, 500.00, 634.00, 1.015, 1.015, 1.015);
-
-insert into tarifa_envio(`id_empresa`,`nombre`,`0_a_0.5Kg.`,`0.5_a_1Kg.`,`1_a_2Kg.`,`2_a_3Kg.`,`3_a_5Kg.`, `5_a_10Kg.`,`10_a_15Kg.`,`15_a_20Kg.`,`20_a_25Kg.`) values (3,"OCA", 356.00, 359.00, 363.00, 374.00, 374.00, 393.00, 412.00, 448.00, 493.00);
-
-*/
 
 /*
 3598	Apparel & Accessories	Clothing	Uniforms	Sports Uniforms	
