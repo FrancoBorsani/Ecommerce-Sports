@@ -113,7 +113,7 @@
 		                                
 		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
 				                            <a href="/carritos">Ver carrito</a>
-				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                            <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>			                            
 				                        </div>
 				                            
 				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
@@ -230,7 +230,7 @@
                     </div>
                 </td>
                 <td>
-                  <h5 th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h5> 
+                  <h5><p th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}" ></p></h5> 
                 </td>
                 <td style="width: 120px">
                   <div style="margin-left: 20px">
@@ -256,7 +256,7 @@
                 </td>
                 <td>
                   <h5><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
-					    <p th:text="'$'+${var}"></p>
+					    <p th:text="'$'+${#numbers.formatDecimal(var, 0, 'POINT', 2, 'COMMA')}"></p>
 					  </th:block>
 				  </h5>
                 </td>

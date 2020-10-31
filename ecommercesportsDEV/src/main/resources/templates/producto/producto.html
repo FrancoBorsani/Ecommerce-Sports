@@ -89,7 +89,7 @@
 
                                     <div class="cart-btns" th:if="${carrito.listaItems}" >
                                         <a href="/carritos">Ver carrito</a>
-                                        <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
                                     </div>
 
                                     <div class="cart-btns" th:if="${carrito.listaItems == null}" >
@@ -419,7 +419,7 @@
                             <div class="product-rating">
                             </div>
                         </div>
-                        <div class="add-to-cart">
+                        <div class="add-to-cart" th:if="${#authorization.expression('hasRole(''USER'')') OR #authorization.expression('isAuthenticated()')== false}">
                             <a class="add-to-cart-btn" th:href="@{/carritos/productoAlCarrito/x/_DisplayType_LF/{id}(id=${producto.idProducto})}"><i class="fa fa-shopping-cart"></i> agregar al carrito</a>
                         </div>
                     </div>
