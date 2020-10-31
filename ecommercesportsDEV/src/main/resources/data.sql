@@ -101,6 +101,14 @@ INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (3, "DESCUENTO2"
 INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (4, "DESCUENTO3", 25);
 INSERT INTO descuento (id_descuento, codigo, porcentaje) VALUES (5, "DESCUENTO4", 50);
 
+
+
+
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (1,"Andesmar", 295.00, 295.00, 295.00, 317.00, 317.00, 433.00, 540.00, 540.00, 754.00);
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (2,"Andreani", 367.00, 375.00, 418.00, 460.00, 500.00, 634.00, 1.015, 1.015, 1.015);
+insert into tarifa_envio(`id_empresa`,`nombre`,de_0_a_05Kg,de_05_a_1Kg,de_1_a_2Kg,de_2_a_3Kg,de_3_a_5Kg,de_5_a_10Kg,de_10_a_15Kg,de_15_a_20Kg,de_20_a_25Kg) values (3,"OCA", 356.00, 359.00, 363.00, 374.00, 374.00, 393.00, 412.00, 448.00, 493.00);
+
+
 /*
 DELIMITER $$
 CREATE FUNCTION obtenerValor_x_PesoEmpresa(nombre_input varchar(45), nro_Columna_input int) 

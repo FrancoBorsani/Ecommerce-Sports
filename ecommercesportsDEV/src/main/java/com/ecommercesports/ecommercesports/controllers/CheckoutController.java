@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ecommercesports.ecommercesports.implementation.DescuentoService;
-import com.ecommercesports.ecommercesports.models.DescuentoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +21,15 @@ import com.ecommercesports.ecommercesports.entities.Item;
 import com.ecommercesports.ecommercesports.entities.Pedido;
 import com.ecommercesports.ecommercesports.entities.User;
 import com.ecommercesports.ecommercesports.helpers.ViewRouteHelpers;
+import com.ecommercesports.ecommercesports.implementation.DescuentoService;
 import com.ecommercesports.ecommercesports.implementation.SendMailService;
+import com.ecommercesports.ecommercesports.models.DescuentoModel;
 import com.ecommercesports.ecommercesports.repositories.IPedidoRepository;
 import com.ecommercesports.ecommercesports.repositories.IUserRepository;
 import com.ecommercesports.ecommercesports.services.ICarritoService;
 import com.ecommercesports.ecommercesports.services.IPedidoService;
 import com.ecommercesports.ecommercesports.services.IPerfilService;
+import com.ecommercesports.ecommercesports.services.ITarifaEnvioService;
 import com.ecommercesports.ecommercesports.services.IUserLogueadoService;
 
 @Controller
@@ -66,6 +67,10 @@ public class CheckoutController {
 	@Autowired
 	@Qualifier("descuentoService")
 	private DescuentoService descuentoService;
+	
+	@Autowired
+	@Qualifier("tarifaEnvioService")
+	private ITarifaEnvioService tarifaEnvioService;
 
 
 	@SuppressWarnings("finally")
@@ -361,7 +366,6 @@ public class CheckoutController {
 		/* https://www.mercadolibre.com.ar/ayuda/C-mo-calcular-el-peso-de-tu-en_4420 */
 		
 		/* Ya conozco el peso físico y el volumétrico, ¿cuál uso para calcular el costo de mi envío?
-
 		Si el peso volumétrico es menor o igual a 2, usá el peso físico de tu producto.
 		
 		Si el peso volumétrico es mayor a 2, usá el que sea mayor (físico o volumétrico).
@@ -400,8 +404,12 @@ public class CheckoutController {
 		} else if (pesoDefinitivo>=20 && pesoDefinitivo < 25) {
 			nroColumna = 9;
 		}
+//		System.out.println("empresa Andreani ");//PARA PROBAR
+//		for(int i=1;i<10;i++) {
+//			System.out.println("columna "+i+" valor "+tarifaEnvioService.getCostoEnvio_2("Andreani",i));
+//		}
 
-		return pedidoService.getCostoEnvio(empresa,nroColumna);
+		return tarifaEnvioService.getCostoEnvio_2(empresa,nroColumna);
 	}
 
 	public double calcularCostoReal() {
