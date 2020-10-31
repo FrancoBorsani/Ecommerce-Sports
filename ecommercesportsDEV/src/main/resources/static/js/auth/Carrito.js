@@ -16,7 +16,7 @@ $(document).ready(function () {
 															
 					$(id).html(parseInt(idItemP) + 1);
 					
-					$("#subtotal").html('$'+result);
+					$("#subtotal").html('$'+result+',00');
 										
 
 				},
