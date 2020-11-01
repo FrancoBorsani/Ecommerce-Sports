@@ -1,10 +1,14 @@
 package com.ecommercesports.ecommercesports.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -844,6 +848,15 @@ public class ProductoController {
     	
         return mAV;
     }    
+    
+    @GetMapping("/exportadorFormatoFacebook")
+	public ResponseEntity<InputStreamResource> exportAllData() throws Exception {
+		ByteArrayInputStream stream = productoService.exportadorFormatoFacebook();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=productos.xls");
+
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
     
     
 }//Fin class

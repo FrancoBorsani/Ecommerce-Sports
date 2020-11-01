@@ -261,14 +261,13 @@
 				  </h5>
                 </td>
                 <td>
-                  <!-- <h5 class="pt-3"><a th:href="@{items/deleteItem/{id}(id=${item.producto.idProducto})}"><i class="fas fa-times" ></i></a></h5>  -->
+                  <h5 class="pt-3"><a th:href="@{items/deleteItem/{id}(id=${item.idItem})}"><i class="fas fa-times" ></i></a></h5> 
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td>
-                  <h5>Subtotal</h5>
                 </td>
                 <td>
                   <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}" id="subtotal"></h4>

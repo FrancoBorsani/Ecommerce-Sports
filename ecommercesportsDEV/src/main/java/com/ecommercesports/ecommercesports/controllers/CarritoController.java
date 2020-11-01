@@ -76,10 +76,11 @@ public class CarritoController {
 	@GetMapping("/productoAlCarrito/x/{url}/{id}")//la "x" es agregado para evitar que se pueda confundir con una posible ruta, ya que lo que llega "url" se pasa leteral (cambia depende de dónde venga)
 	public String productoAlCarrito(@PathVariable("url") String url,@PathVariable("id") long idProducto) {
         Producto producto = productoRepository.findByIdProducto(idProducto);
+        
 		User user = userLogueadoService.traerUserLogueado();
         if(user!=null) { //	si el usuario está logueado agrego el producto a un item-carrito-pedido (si no existen se crean) para el pedido del usuario
 		    carritoService.agregarProductoAlCarrito(producto); 	        	
-        	return "redirect:/productos/"+url;
+        	return "redirect:/carritos";
 		}else {//	si el usuario NO está logueado
 			return "redirect:/ingreso";//mAV = new ModelAndView(ViewRouteHelpers.USER_LOGIN);
 		}

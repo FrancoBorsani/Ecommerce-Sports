@@ -1,26 +1,32 @@
 package com.ecommercesports.ecommercesports.implementation;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.ecommercesports.ecommercesports.entities.Tag;
-
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.ecommercesports.ecommercesports.converters.ProductoConverter;
 import com.ecommercesports.ecommercesports.entities.Producto;
+import com.ecommercesports.ecommercesports.entities.Tag;
 import com.ecommercesports.ecommercesports.models.ProductoModel;
 import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 import com.ecommercesports.ecommercesports.repositories.IProductoRepository;
 import com.ecommercesports.ecommercesports.services.ICategoriaService;
 import com.ecommercesports.ecommercesports.services.IMarcaService;
 import com.ecommercesports.ecommercesports.services.IProductoService;
-
 import com.poiji.bind.Poiji;
+
 
 
 @Service("productoService")
@@ -246,6 +252,43 @@ public class ProductoService implements IProductoService {
 	public List<Producto> getProductosSinOferta() {
 		// TODO Auto-generated method stub
 		return productoRepository.getProductosSinOferta();
+	}
+	
+	@Override
+	public ByteArrayInputStream exportadorFormatoFacebook() throws Exception {
+		String[] columns = { "Id", "title", "description", "availability", "condition", "price", "link", "image_link" , "brand" };
+
+		Workbook workbook = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+		Sheet sheet = workbook.createSheet("Productos");
+		Row row = sheet.createRow(0);
+
+		for (int i = 0; i < columns.length; i++) {
+			Cell cell = row.createCell(i);
+			cell.setCellValue(columns[i]);
+		}
+
+		List<Producto> productos = this.getAll();
+		int initRow = 1;
+		for (Producto p : productos) {
+			row = sheet.createRow(initRow);
+			row.createCell(0).setCellValue(p.getIdProducto());
+			row.createCell(1).setCellValue(p.getDescripcionCorta());
+			row.createCell(2).setCellValue(p.getDescripcionLarga());
+			row.createCell(3).setCellValue("in stock");
+			row.createCell(4).setCellValue("new");
+			row.createCell(5).setCellValue(p.getPrecio());
+			row.createCell(6).setCellValue("/productos/"+p.getIdProducto());
+			row.createCell(7).setCellValue(p.getImagen());
+			row.createCell(8).setCellValue(p.getMarca().getNombre());
+
+			initRow++;
+		}
+
+		workbook.write(stream);
+		workbook.close();
+		return new ByteArrayInputStream(stream.toByteArray());
 	}
 	
 	

@@ -4,6 +4,7 @@ import com.ecommercesports.ecommercesports.entities.Producto;
 import com.ecommercesports.ecommercesports.models.ProductoModel;
 import com.ecommercesports.ecommercesports.models.RegistroExcelModel;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 
@@ -54,5 +55,7 @@ public interface IProductoService {
 	public Producto traerSiExisteElProductoEnBD(Producto producto, String nombreCategoria, String nombreMarca);
 	
 	public abstract List<Producto> getProductosSinOferta();
+
+	ByteArrayInputStream exportadorFormatoFacebook() throws Exception;
     
 }//Fin class
