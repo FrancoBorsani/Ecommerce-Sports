@@ -1,0 +1,27 @@
+Para llevar a cabo la implementacion del proceso por el cual el usuario puede cambiar su imagen de perfil ultilizamos el paquete de java 'Multipartfile' el cual nos brindo todas las herramientas necesarias.
+
+Creamos una clase Perfil, la cual tiene un atributo de tipo Multipartfile que es usado para archivos de todos tipos(en este caso para un archivo con extension .jpg, es decir una imagen).
+Teniendo en cuenta esto los pasos para el desarrolo fueron los siguentes: 
+
+1-Se recibe la imagen, la cual se almacena en una variable de tipo Multipartfile.
+
+2-Primero se verifica si el Perfil ya tiene un imagen guardada, esto se comprueba verificando si el atributo de tipo Multiparfile del Perfil no esta vacio.
+
+3-Si el Perfil dispone de una imagen se llama a un metodo el cual buscara dicha imagen que ya tiene el Perfil y la eliminara con el comando 'remove' de la carpeta donde se guardan las imagenes.
+
+4-Se usara un dato del tipo 'byte' con el fin de guardar en el la cantidad de bytes(simulando un vector) de la imagen recibida.
+
+5-Se crea un objeto de la clase 'Path', en el cual se guarda una cadena con la ruta en donde vamos a querer guardar la imagen.
+Para la busqueda de esta ruta se utilza un metodo el cual buscara la carpeta en la que se guardan las imagenes y devolvera su ruta como una cadena,  si no existe dicha carpeta se creara una con el comando  mkdir(sirve para crear carpetas).
+
+6-Se utiliza un metodo estatico de la clase 'Files' llamado 'write' en el cual pasamos como parametros el objeto de la clase Path (la ruta) y el dato de tipo byte(vector con la cantidad de bytes del archivo), con la finalidad de que se cree la imagen en la carpeta indicada.
+
+7-Ya tenemos la imagen guardada en su correspondiente carpeta, pero nos falta guardarla en la base de datos por ende le pasamos la url de la imagen como cadena.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Para que la vista del perfil pueda diferenciar las dinstintas imagenes que tendra cada usuario, se realizaron los siguentes procesos:
+
+1-Antes de guardar la nueva imagen en su carpeta se le cambia el nombre por uno nuevo, el cual se crea mediante la combinacion de: (el id del usuario + el nombre que tiene la imagen) logrando de esta forma poder diferencia las imagenes de cada usuario.
+
+2-En el template del perfil se hace uso del thymeleaf agregando una condicion para identificar cuando el usuario tiene o no tiene una imagen en su perfil.
+Este cambio se produce en la linea donde se encuentra la instruccion para mostrar la imagen (la etiqueta <img> de html).
