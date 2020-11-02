@@ -214,11 +214,16 @@ public class ProductoController {
         mAV.addObject("relacionados", productoService.getRelated(idProducto));
         mAV.addObject("ofertas", productoService.getProductosEnOferta());
         
+        double totalPuntaje = 0;
+        
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         }
-        mAV.addObject("valoracion", valoracionRepository.findVByIdProducto(idProducto));
-        
+        for(Valoracion valoraciones : valoracionRepository.findByIdProducto(idProducto)) {
+        	totalPuntaje = totalPuntaje + valoraciones.getTotalPuntaje();
+        	
+        }
+        mAV.addObject("valoracion", totalPuntaje / valoracionRepository.findByIdProducto(idProducto).size());
         String username = "";
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	if( principal instanceof UserDetails) {
