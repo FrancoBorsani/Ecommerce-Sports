@@ -17,7 +17,7 @@
                   '<a href="' + "/productos/" + value.idProducto +'"><li class="list-group-item link-class"><img src="' +
                   value.imagen +
                     '" height="40" width="40" class="img-thumbnail" /> ' +
-                    value.descripcionCorta + " | " + value.descripcionLarga + " | $" + value.precio + 
+                    value.descripcionCorta + " | " + value.descripcionLarga + " | $"  + ( (value.precio != value.precioEnOferta) ? value.precioEnOferta : value.precio ) +   
                     "</li></a>"
                 );
                 i++;

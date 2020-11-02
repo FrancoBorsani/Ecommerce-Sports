@@ -1,6 +1,8 @@
 package com.ecommercesports.ecommercesports.controllers;
 
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -62,7 +64,7 @@ public class CarritoController {
         if(userLogueadoService.traerUserLogueado() != null && carritoService.carritoDelUserLogueadoParaController() != null) {
         	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
         }
-
+        
 		return mAV;	
 	}
 	

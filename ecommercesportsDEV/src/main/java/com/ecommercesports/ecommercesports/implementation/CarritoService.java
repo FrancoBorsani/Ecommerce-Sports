@@ -126,6 +126,7 @@ public class CarritoService implements ICarritoService{
 		       return carrito;
 		    }
 	};	
+	
 	@Override	
 	public Carrito carritoDelUserLogueado() {
 		Carrito carrito = null;//necesito saber cuando es null
@@ -144,7 +145,7 @@ public class CarritoService implements ICarritoService{
 	public Carrito insertarCarritoConFecha_y_Traer(Producto producto) {
 		Carrito carrito = new Carrito();
 		carrito.setFecha(LocalDate.now());
-		carrito.setTotal((float)producto.getPrecio());
+		carrito.setTotal((producto.getPrecio() != producto.getPrecio()) ? (float)producto.getPrecioEnOferta() : (float)producto.getPrecioEnOferta() );
 		carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
 		return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
 	}
@@ -171,10 +172,25 @@ public class CarritoService implements ICarritoService{
 		}
 		
         Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
-        carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
+        //carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
+        
+        if(producto.getPrecio() != producto.getPrecioEnOferta()) {
+        	carrito.setTotal(carrito.getTotal()+(float)producto.getPrecioEnOferta());
+        }else {
+        	carrito.setTotal(carrito.getTotal()+(float)producto.getPrecio());
+        }
+        
         pedido.setCantidad(pedido.getCantidad()+1);
         pedido.setCostoEnvio(0);
-        pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecio());
+        
+        
+        
+        if(producto.getPrecio() != producto.getPrecioEnOferta()) {
+        	pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecioEnOferta());
+        }else {
+        	pedido.setImporteAPagar(pedido.getImporteAPagar()+producto.getPrecio());
+        }
+        
         carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
         pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));
         return carritoRepository.findByIdCarrito(carrito.getIdCarrito());
@@ -201,14 +217,6 @@ public class CarritoService implements ICarritoService{
 	}	
 	
 	
-	@Override	
-	public double traerMontoTotalDelCarrito(Carrito carrito) {
-        double total = 0;
-        for(Item item: itemRepository.itemsDelCarrito(carrito.getIdCarrito())) {
-        	total += item.getProducto().getPrecio() * item.getCantidad();
-        }
-		return total;
-	}
 	
 	@Override	
 	public int traerCantidaDeArticulosDelCarrito(Carrito carrito) {
@@ -218,6 +226,6 @@ public class CarritoService implements ICarritoService{
         }
 		return cantidad;
 	}
-	
+
 
 }//Fin class

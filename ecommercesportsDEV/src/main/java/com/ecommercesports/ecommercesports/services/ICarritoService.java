@@ -26,8 +26,6 @@ public interface ICarritoService {
 
 	public int traerCantidaDeArticulosDelCarrito(Carrito carrito);
 	
-	public double traerMontoTotalDelCarrito(Carrito carrito);
-
 
 	
 	

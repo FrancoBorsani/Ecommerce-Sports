@@ -164,66 +164,74 @@
 
     <!--PROFILE-->
     <div class="container">
-        <div class="row p-2">
-            <div class="col-md-3">
-                <div class="profile-sidebar">
-                    <!-- SIDEBAR USERPIC -->
-                    <div class="profile-userpic">
- 							<img th:if="${perfilUser.imagen != null}" th:src="@{'/Ecommerce-Sports UsersImg/' + ${perfilUser.imagen}}" class="img-responsive" alt="" height="100px" width="100px">
-	                        <img th:if="${perfilUser.imagen == null}" src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">                    </div>
-                    <!-- END SIDEBAR USERPIC -->
-                    <!-- SIDEBAR USER TITLE -->
-                    <div class="profile-usertitle">
-                        <div class="profile-usertitle-name">
-                          	<h2 th:text ="${perfilUser.username}  "></h2>
+        <div class="row profile">
+                <div class="col-md-3">
+                    <div class="profile-sidebar">
+                        <!-- SIDEBAR USERPIC -->
+                        <div class="profile-userpic">
+
+	                        <img th:if="${perfilUser.imagen != null}" th:src="@{'/Ecommerce-Sports UsersImg/' + ${perfilUser.imagen}}" class="img-responsive" alt="" height="100px" width="100px">
+	                        <img th:if="${perfilUser.imagen == null}" src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="" height="100px" width="100px">
+ 
                         </div>
-                        <div class= "profile-usertitle-role" >
-                          <h4 th:text ="${perfilUser.userRol}"> ROLE </h4>   
-                         </div>
-                   </div>
-                    <!-- END SIDEBAR USER TITLE -->
-                    <br>
-                    <!-- END SIDEBAR BUTTONS -->
-                    <!-- SIDEBAR MENU -->
-                    <div class="profile-usermenu">
-                        <ul class="nav">
-                            <li>
-                               <p>
-                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
-                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
-                               </p>
-                            </li>
-                            <li>
-                            </li>
-                            <li>
-                              <p>
-                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
-                                  <span th:text="${perfilUser.email}"></span>
-                              </p>
-                            </li>
-                            <li>
-                                <p> 
-                                    <img src="/img/phone.png" alt="" height="15px"  width="15">  
-                                    <span th:text="${perfilUser.cellPhone}"></span>
-                                </p>
-                            </li>
-                            <!--
-                            <li>
-                                <p class="ml-2">
-                                    <img src="/img/orderIcon.png" alt="" height="20px"  width="17px">
-                                    <a href="/pedidos">My Orders</a>
-                                </p>
-                            </li>
-                            -->
-                            
-                        </ul>
+                        <!-- END SIDEBAR USERPIC -->
+                        <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle">
+                                <div class="profile-usertitle-name">
+                          				<h2 th:text ="${perfilUser.username}  "></h2>
+                                </div>
+                                <div class= "profile-usertitle-role" >
+                          				<h4 th:text ="${perfilUser.userRol}"> ROLE </h4> 
+                                </div>
+                            <!-- BUTTON TO EDDIT USER -->
+                                <div>
+                                	<h5><a href="/updateProfile">Modificar Datos</a></h5>
+                                </div>
+                            </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                            <!-- SIDEBAR BUTTON -->
+                            <br>
+                            <!-- END SIDEBAR BUTTONS -->
+                            <!-- SIDEBAR MENU -->
+                            <div class="profile-usermenu">
+                                <ul class="nav">
+                                    <li>
+                                        <p class="p-2">
+		                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16" class="mr-2">
+		                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                    </li>
+                                    <li>
+                                        <p class="p-2">
+		                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14" class="mr-2">
+		                                  <span th:text="${perfilUser.email}"></span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                      	<p class="p-2 pb-3">
+		                                    <img src="/img/phone.png" alt="" height="15px"  width="15" class="mr-2">  
+		                                    <span th:text="${perfilUser.cellPhone}"></span>
+                                        </p>
+                                    </li>
+                                    <!-- 
+                                    <li>
+                                        <p>
+                                            <img src="/img/orderIcon.png" alt="" height="15px"  width="14px">
+                                            <a href="/pedidos">My Orders</a>
+                                        </p>
+                                    </li>
+                                   -->
+                                    
+                                </ul>
+                            </div>
+                        <!-- END MENU -->
                     </div>
-                    <!-- END MENU -->
                 </div>
-            </div>
             
             <div class="col-md-9">
-                <div class="profile-content">
+                <div class="profile-content mb-3">
                     <form class="" th:action="@{/cambiarClavePost}" method="post">
         <p class="">Ingrese su nueva clave:</p>
         <p> <input class="InputStyle" placeholder="Clave" style="font-family:Arial, FontAwesome" type="password" name="nuevaclave"> </p>
@@ -232,7 +240,6 @@
 		</button>
 </form>
                 </div>              
-                <a href="/cambiarClave">Cambiar clave de acceso</a>
             </div>
         </div>
     </div>

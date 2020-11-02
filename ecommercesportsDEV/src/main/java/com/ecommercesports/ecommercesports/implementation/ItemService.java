@@ -132,9 +132,9 @@ public class ItemService implements IItemService{
 		 item.setCantidad(cantidad);		 
 		 Carrito carrito = carritoRepository.findByIdCarrito(item.getCarrito().getIdCarrito());
          Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
-         carrito.setTotal(carrito.getTotal()+(float)item.getProducto().getPrecio());
+         carrito.setTotal(carrito.getTotal() + ( (item.getProducto().getPrecio() != item.getProducto().getPrecioEnOferta()) ? (float)item.getProducto().getPrecioEnOferta() : (float)item.getProducto().getPrecio() ));
          pedido.setCantidad(pedido.getCantidad()+1);
-         pedido.setImporteAPagar(pedido.getImporteAPagar()+item.getProducto().getPrecio());
+         pedido.setImporteAPagar(pedido.getImporteAPagar() + (item.getProducto().getPrecio() != item.getProducto().getPrecio() ? item.getProducto().getPrecioEnOferta() : item.getProducto().getPrecioEnOferta()));
          carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
          pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));
 		 return itemRepository.save(item);
@@ -146,9 +146,9 @@ public class ItemService implements IItemService{
 		 item.setCantidad(cantidad);
 		 Carrito carrito = carritoRepository.findByIdCarrito(item.getCarrito().getIdCarrito());
          Pedido pedido = pedidoRepository.traerPedidoDelCarrito(carrito.getIdCarrito());
-         carrito.setTotal(carrito.getTotal()-(float)item.getProducto().getPrecio());
+         carrito.setTotal(carrito.getTotal() - ( (item.getProducto().getPrecio() != item.getProducto().getPrecioEnOferta()) ? (float)item.getProducto().getPrecioEnOferta() : (float)item.getProducto().getPrecio() ));
          pedido.setCantidad(pedido.getCantidad()-1);
-         pedido.setImporteAPagar(pedido.getImporteAPagar()-item.getProducto().getPrecio());
+         pedido.setImporteAPagar(pedido.getImporteAPagar() - (item.getProducto().getPrecio() != item.getProducto().getPrecio() ? item.getProducto().getPrecioEnOferta() : item.getProducto().getPrecioEnOferta()));
          carritoRepository.save(carrito);//para actualizar o guardar un carrito con datos no puedo usar insertOrUpdate porque se pierde uno de los atributos por como está hecho el converter
          pedidoService.insertOrUpdate(pedidoConverter.entityToModel(pedido));
 		 if(cantidad==0) {

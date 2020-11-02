@@ -103,6 +103,9 @@ body {
   .profile-content {
     padding: 20px;
     background: #fff;
-    min-height: 460px;
   }
 
+  .btn-dark{
+  	background-color: #1E1F29;
+  	color: white !important;
+  }

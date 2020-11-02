@@ -75,7 +75,7 @@ public class PedidoService implements IPedidoService{
 			pedidoModel.setMetodoPago("");
 			pedidoModel.setCarritoModel(carritoService.findByIdCarrito(carrito.getIdCarrito()));
 			pedidoModel.setUser(userLogueadoService.traerUserLogueado());
-			pedidoModel.setImporteAPagar(producto.getPrecio());
+			pedidoModel.setImporteAPagar((producto.getPrecio() != producto.getPrecioEnOferta()) ? producto.getPrecioEnOferta() : producto.getPrecio());
 			insertOrUpdate(pedidoModel);
 			return getAll().get(getAll().size()-1);//Le devuelvo el carrito que guardé (el último que se agregó en la BD)
 		}

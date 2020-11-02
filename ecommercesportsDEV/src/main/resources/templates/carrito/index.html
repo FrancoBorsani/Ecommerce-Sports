@@ -231,7 +231,7 @@
                     </div>
                 </td>
                 <td>
-                  <h5 class="pt-3"><p th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}" ></p></h5> 
+                  <h5 class="pt-3" th:text="${item.producto.precio != item.producto.precioEnOferta} ? '$'+${#numbers.formatDecimal(item.producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')} : '$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">/h5>
                 </td>
                 <td style="width: 120px">
                   <div class="row">           
@@ -255,10 +255,26 @@
 
                 </td>
                 <td>
-                  <h5 class="pt-3"><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
+                  
+                  <div th:if="${item.producto.precio != item.producto.precioEnOferta}">
+                  
+                  <h5 class="pt-3"><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precioEnOferta}, var = ${variable * controllerVar}">
 					    <p th:text="'$'+${#numbers.formatDecimal(var, 0, 'POINT', 2, 'COMMA')}"></p>
 					  </th:block>
 				  </h5>
+				  
+				  </div>
+				  
+				  <div th:if="${item.producto.precio == item.producto.precioEnOferta}">
+				  
+				  <h5 class="pt-3"><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
+					    <p th:text="'$'+${#numbers.formatDecimal(var, 0, 'POINT', 2, 'COMMA')}"></p>
+					  </th:block>
+				  </h5>
+				  
+				  </div>
+				  
+				  
                 </td>
                 <td>
                   <h5 class="pt-3"><a th:href="@{items/deleteItem/{id}(id=${item.idItem})}"><i class="fas fa-times" ></i></a></h5> 

@@ -29,12 +29,9 @@
                     <div class="col-md-6">
                         <div class="header-search">
                             <form id="form-search">
-								<select class="input-select">
-									<option value="0">Todo</option>
-									<option value="1">Destacados</option>
-									<option value="1">Ofertas</option>
-								</select>
-								<input class="input" id="search" name="search" placeholder="Dime lo que buscas">
+								<input class="input" id="search" name="search" placeholder="Dime lo que buscas" style="
+  border-top-left-radius: 20px 50%;
+  border-bottom-left-radius: 20px 50%;width: 60%">
                                 <button class="search-btn">Buscar</button>
                                 <ul class="list-group" id="result"></ul>
 							</form>
@@ -199,22 +196,22 @@
                             <div class="profile-usermenu">
                                 <ul class="nav">
                                     <li>
-                                        <p>
-		                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16">
+                                        <p class="p-2">
+		                                   <img src="/img/infoIcon.png" alt="" height="20px"  width="16" class="mr-2">
 		                                   <span th:text="|${perfilUser.firstName} ${perfilUser.lastName} |"></span>
                                         </p>
                                     </li>
                                     <li>
                                     </li>
                                     <li>
-                                        <p>
-		                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14">
+                                        <p class="p-2">
+		                                  <img src="/img/emailIcon.png" alt="" height="15px"  width="14" class="mr-2">
 		                                  <span th:text="${perfilUser.email}"></span>
                                         </p>
                                     </li>
                                     <li>
-                                      	<p>
-		                                    <img src="/img/phone.png" alt="" height="15px"  width="15">  
+                                      	<p class="p-2 pb-3">
+		                                    <img src="/img/phone.png" alt="" height="15px"  width="15" class="mr-2">  
 		                                    <span th:text="${perfilUser.cellPhone}"></span>
                                         </p>
                                     </li>
@@ -233,7 +230,7 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="profile-content">
+                    <div class="profile-content" style="min-height: 460px;">
                         <h4><strong>About Me</strong></h4>
                         <br th:text="${perfilUser.aboutMe}">
                          <!-- <br th:text="${carrito}"> --> 

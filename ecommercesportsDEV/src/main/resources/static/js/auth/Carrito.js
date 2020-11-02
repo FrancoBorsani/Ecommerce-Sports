@@ -9,16 +9,8 @@ $(document).ready(function () {
 				url : "/api/carrito/sumarAlItem/"+ idItem,
 		        cache: false,
 		        timeout: 600000,
-				success : function(result) {
-										
-					var id = '#input-number-'+idItem;
-					var idItemP = $(id).text();
-															
-					$(id).html(parseInt(idItemP) + 1);
-					
-					$("#subtotal").html('$'+result+',00');
-										
-
+				success : function(result) {									
+					window.location.reload();
 				},
 				error : function(e) {
 					alert("Error!");
@@ -37,18 +29,7 @@ $(document).ready(function () {
 		        cache: false,
 		        timeout: 600000,
 				success : function(result) {
-					
-					var id = '#input-number-'+idItem;
-					var idItemP = $(id).text();
-					
-					if(idItemP === "1") {
-						window.location.reload();
-					}
-														
-					$(id).html(parseInt(idItemP) - 1);
-					
-					$("#subtotal").html('$'+result+',00');
-					
+					window.location.reload();
 				},
 				error : function(e) {
 					alert("Error!");

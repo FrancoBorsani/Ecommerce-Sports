@@ -164,11 +164,13 @@
 
     <!--EDIT PROFILE-MENU -->
     <div class="container">
-        <div class="row p-2">
+        <div class="row justify-content-center profile">
 
             
             <div class="col-md-9">
-                <div class="profile-content">
+                <div class="profile-content p-5">
+                
+                	<h2 class="text-center">Actualizar Perfil</h2>
                     <br>
                     <form class="" th:action="@{/updateProfilePost}" method="post" enctype="multipart/form-data">
                     
@@ -188,12 +190,13 @@
 		<br><p class="">Informacion Relevante:</p>
         <p> <input class="InputStyle" placeholder="Que me dices sobre ti?" style="font-family:Arial, FontAwesome" type="text" name="aboutMe"> </p>
     		     		 
-    		 <button class="btn btn-lg btn-primary btn-block" type="submit">
+    		 <button class="btn btn-lg btn-primary mt-2" type="submit">
 			<small>Guardar Cambios</small> 
 		</button>
+		<a href="/updateProfile/cancel" class="btn btn-lg p-4 mt-2 ml-4 btn-dark" >Cancelar</a>   
 </form>
                 </div>           
-                <a href="/updateProfile/cancel">CANCELAR</a>   
+                
             </div>
         </div>
     </div>

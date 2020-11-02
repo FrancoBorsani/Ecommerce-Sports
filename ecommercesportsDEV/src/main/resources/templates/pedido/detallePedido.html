@@ -69,9 +69,10 @@
 		                                            </div>
 		                                            <div class="product-body">
 		                                                <h3 class="product-name"><a th:href="@{~/productos/{id}(id=${item.producto.idProducto})}" th:text="${item.producto.descripcionCorta}" ></a></h3>
-		                                                <h4 class="product-price" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                                <h4 class="product-price" th:if="${item.producto.precio == item.producto.precioEnOferta}" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precio}"><span class="qty">1x</span>$360.00</h4>
+		                                                <h4 class="product-price" th:if="${item.producto.precio != item.producto.precioEnOferta}" th:text="${item.cantidad} + 'x ' + '$' + ${item.producto.precioEnOferta}"><span class="qty">1x</span>$360.00</h4>
 		                                            </div>
-		                                            <button class="delete"><i class="fa fa-close"></i></button>
+		                                            <a class="delete" th:href="@{items/deleteItem/{id}(id=${item.idItem})}"><i class="fa fa-close"></i></a>
 		                                        </div>
 	                                        
                                         	</div>
@@ -190,7 +191,7 @@
         	<th th:text="${descripcion}"></th>
         	<th th:text="${marca}"></th>
         	<th th:text="${sku}"></th>
-        	<th th:text="${precio}"></th>
+        	<th  th:text="${item.producto.precio != item.producto.precioEnOferta} ? '$'+${#numbers.formatDecimal(item.producto.precioEnOferta, 0, 'POINT', 2, 'COMMA')} : '$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}"></th>
         	<th th:text="${item.cantidad}"></th>
         
       </tr>
