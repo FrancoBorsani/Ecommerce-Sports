@@ -16,7 +16,8 @@ $(document).ready(function () {
 															
 					$(id).html(parseInt(idItemP) + 1);
 					
-					$("#subtotal").html('$'+result);
+					$("#subtotal").html('$'+result+',00');
+										
 
 				},
 				error : function(e) {
@@ -39,10 +40,14 @@ $(document).ready(function () {
 					
 					var id = '#input-number-'+idItem;
 					var idItemP = $(id).text();
-															
+					
+					if(idItemP === "1") {
+						window.location.reload();
+					}
+														
 					$(id).html(parseInt(idItemP) - 1);
 					
-					$("#subtotal").html('$'+result);
+					$("#subtotal").html('$'+result+',00');
 					
 				},
 				error : function(e) {

@@ -23,7 +23,6 @@
       <link rel="stylesheet" href="assets/css/themify-icons.css">
       <link rel="stylesheet" href="assets/css/slick.css">
       <link rel="stylesheet" href="assets/css/nice-select.css">
-      <link rel="stylesheet" href="assets/css/style.css">
       <link rel="stylesheet" href="assets/css/style2.css">
       <link rel="stylesheet" href="css/font-awesome.min.css">
 
@@ -113,7 +112,7 @@
 		                                
 		                                <div class="cart-btns" th:if="${carrito.listaItems}" >		                                
 				                            <a href="/carritos">Ver carrito</a>
-				                            <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>				                            
+				                            <a href="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>			                            
 				                        </div>
 				                            
 				                        <div class="cart-btns" th:if="${carrito.listaItems == null}" >		                                
@@ -200,8 +199,10 @@
   </div>
   <!-- slider Area End-->
 <!-- *********************************************** -->
-	<div th:if="${carrito.listaItems.empty}" id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
-		<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
+	<div th:if="${carrito} != null"> 
+		<div th:if="${carrito.listaItems == null}" id="notificacion" class="alert alert-warning" role="alert" style="background-color:orange;margin-top:3%"> 
+			<h1 style="text-align: center">No hay productos agregados al carrito!!!</h1>
+		</div>
 	</div>
   <!--================Cart Area =================-->
     <div class="container" id="mostrarDatosDelCarrito">
@@ -220,33 +221,32 @@
               <tr th:each="item : ${carrito.listaItems}">
 
                 <td>
-                  	<div class="row p-4">
-                  	 <div class="col-md-3">
-                  	 <img th:src="@{${item.producto.imagen}}" alt="imagen-producto" height="150px" width="150px">
-                    </div>
-                    <div class="col-md-8">
-                       <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
-                    </div>
+                  	<div class="row">
+	                  	 <div class="col-md-3">
+	                  	 	<img th:src="@{${item.producto.imagen}}" alt="imagen-producto" height="130px" width="130px">
+	                     </div>
+	                     <div class="col-md-8 pt-3">
+	                        <h4 id="datosDeCarrito" th:text="${item.producto.descripcionCorta}+' '+' '+${item.producto.descripcionLarga}"></h4>
+	                     </div>
                     </div>
                 </td>
                 <td>
-                  <h5 th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}">10.00</h5> 
+                  <h5 class="pt-3"><p th:text="'$'+${#numbers.formatDecimal(item.producto.precio, 0, 'POINT', 2, 'COMMA')}" ></p></h5> 
                 </td>
                 <td style="width: 120px">
-                  <div style="margin-left: 20px">
                   <div class="row">           
                        
-					 <div class="col-md-3">	
+					 <div class="col-md-3 pt-3">	
 	                      <div class="restarItem" th:id="${item.idItem}" style="cursor: pointer;" >
 	                           <h4><i class="far fa-minus-square"></i></h4>
 	                      </div>
                      </div>
                      
-                      <div class="col-md-3 text-center">	
+                      <div class="col-md-3 pt-3">	
                       		<label th:id="'input-number-'+${item.idItem}" class="prueba" th:text="${item.cantidad}" min="0" max="100">
                		  </div> 
 		  
-               		  <div class="col-md-3">
+               		  <div class="col-md-3 pt-3">
 	                      <div class="sumarItem" th:id="${item.idItem}" style="cursor: pointer;" >
 	                           <h4><i class="far fa-plus-square"></i></h4>
 	                      </div>
@@ -255,20 +255,19 @@
 
                 </td>
                 <td>
-                  <h5><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
-					    <p th:text="'$'+${var}"></p>
+                  <h5 class="pt-3"><th:block th:with="variable = ${item.cantidad}, controllerVar = ${item.producto.precio}, var = ${variable * controllerVar}">
+					    <p th:text="'$'+${#numbers.formatDecimal(var, 0, 'POINT', 2, 'COMMA')}"></p>
 					  </th:block>
 				  </h5>
                 </td>
                 <td>
-                  <!-- <h5><a th:href="@{items/deleteItem/{id}(id=${item.producto.idProducto})}"><i class="fas fa-times" ></i></a></h5>  -->
+                  <h5 class="pt-3"><a th:href="@{items/deleteItem/{id}(id=${item.idItem})}"><i class="fas fa-times" ></i></a></h5> 
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td>
-                  <h5>Subtotal</h5>
                 </td>
                 <td>
                   <h4 th:text="'$'+${#numbers.formatDecimal(carrito.total, 0, 'POINT', 2, 'COMMA')}" id="subtotal"></h4>
@@ -276,10 +275,8 @@
               </tr>
             </tbody>
           </table>
-          <div class="checkout_btn_inner float-right">
-            <a class="btn_1" th:href="@{/productos}">Continue Shopping</a>
-            <a class="btn_1 checkout_btn_1" th:href="@{/checkout}">Proceed to checkout</a>
-          </div>
+            <a class="primary-btn secondary mb-3" th:href="@{/productos}">Continue Shopping</a>
+            <a class="primary-btn secondary" th:href="@{/checkout}">Proceed to checkout</a>
         </div>
       </div>
     </div>
