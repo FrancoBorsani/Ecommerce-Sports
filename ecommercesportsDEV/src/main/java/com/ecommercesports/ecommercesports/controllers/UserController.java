@@ -300,9 +300,37 @@ public class UserController {
 	@GetMapping("/updateProfile")
 	public ModelAndView updateProfile() {
 		ModelAndView mAV=new ModelAndView(ViewRouteHelpers.USER_UPDATE_USER);
-		mAV.addObject("carrito", carritoService.carritoDelUserLogueado());
-	       
-		return mAV;
+    	if(userLogueadoService.traerUserLogueado() != null) {
+        	mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
+        }
+    	
+    	String username = "";
+    	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	if( principal instanceof UserDetails) {
+    		username = ((UserDetails)principal).getUsername();
+    	}
+    	
+    	User currentUser = userRepository.findByUsername(username);
+    	mAV.addObject("perfilUser", perfilService.findById(currentUser.getId()));
+    	
+    	List<Item> listaProductos = new ArrayList<Item>();
+    	Pedido p = new Pedido();
+    	
+    	try {
+    		mAV.addObject("pedido", pedidoRepository.traerPedidoPorUsuario(currentUser.getId()));
+    		for (Item item : pedidoRepository.traerPedidoPorUsuario(currentUser.getId()).getCarrito().getListaItems()){
+    	listaProductos.add(item);
+		}
+    	
+    		mAV.addObject("items", listaProductos);
+    		
+		} catch (Exception e) {
+			mAV.addObject("pedido", p);
+    		mAV.addObject("items", listaProductos);
+		}
+    	finally { 
+    		return mAV; 
+    	}
 	}
 	@PostMapping("/updateProfilePost")
 	public String updateProfilePost(@RequestParam("nuevoUsername") String nuevoUsername 
