@@ -174,7 +174,6 @@ public class Producto {
     public void setSku() {
         this.sku =  getDescripcionCorta().toLowerCase().replaceAll("\\s","") + "_" +
                 getColor().toLowerCase().replaceAll("\\s","") + "_" +
-                getTalle().toLowerCase().replaceAll("\\s","") + "_" +
                 getIdProducto();
     }
 
