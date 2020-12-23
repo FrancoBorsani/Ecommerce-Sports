@@ -84,7 +84,6 @@ public class ProductoRestController {
 						
 			productoModel.setCategoria(categoriaService.traerCategoriaPorNombre(productoModel.getCategoria().getNombre()));
 			productoModel.setMarca(marcaService.traerMarcaPorNombre(productoModel.getMarca().getNombre()));
-			productoModel.setTalle("1");
 
 			productoService.insertOrUpdate(productoModel);
 		}

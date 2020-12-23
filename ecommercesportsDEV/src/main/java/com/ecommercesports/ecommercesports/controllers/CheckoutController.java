@@ -284,18 +284,11 @@ public class CheckoutController {
 		User currentUser = userRepository.findByUsername(username);
 		DescuentoModel descuento = descuentoService.findByCode(codigo);
 		Pedido p = pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId());
-		
-		System.out.println(p.getImporteAPagar());
 
 		if (descuento.getCodigo() != "") {
 			precioSinDescuento = p.getImporteAPagar();
-			System.out.println((p.getImporteAPagar() * descuento.getPorcentaje() / 100));
 			p.setImporteAPagar(p.getImporteAPagar() - (p.getImporteAPagar() * descuento.getPorcentaje() / 100));
 		}
-		
-		System.out.println(descuento.getPorcentaje());
-		
-		System.out.println(p.getImporteAPagar());
 
 		if(!p.getDomicilio().isEmpty()) {
 			double costoEnvio = calcularCostoEnvio("Andreani",pedidoRepository.traerPedidoPorIdUser_y_NoPagado(currentUser.getId()).getCarrito());
@@ -315,17 +308,14 @@ public class CheckoutController {
 					"\nDomicilio: "+ p.getDomicilio() +
 					"\nCódigo de descuento: " + descuento.getCodigo() + " " + descuento.getPorcentaje() + "%" +
 					"\nTotal sin descuento: " + precioSinDescuento +
-					"\nTotal con descuento: " + (p.getImporteAPagar() - p.getCostoEnvio())  +
-					"\nCosto de envio: " + (p.getCostoEnvio() == 0 ? 0 : p.getCostoEnvio()) +
-					"\nTotal con envio: "+ p.getImporteAPagar() +
+					"\nTotal: "+ p.getImporteAPagar() +
 					"\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
 		} else {
 			message = "\n\n Datos del pedido: " +
 					"\nID: " + p.getIdPedido() +
 					"\nApellido: "+ p.getUser().getLastName() +
 					"\nDomicilio: "+ p.getDomicilio() +
-					"\nCosto de envio: " + (p.getCostoEnvio() == 0 ? 0 : p.getCostoEnvio()) +
-					"\nTotal con envio: "+ p.getImporteAPagar() +
+					"\nTotal: "+ p.getImporteAPagar() +
 					"\n\nDatos del pedido: "+ p.getCarrito().mostrarParaPagar();
 		}
 
@@ -354,12 +344,12 @@ public class CheckoutController {
 			mAV.addObject("pedido", p2);
 			mAV.addObject("items", listaProductos);
 		}
-		//	finally {
+		finally {
 			mAV.addObject("pedidos", pedidoRepository.traerPedidosDelUser(currentUser.getId()));
 			mAV.addObject("carrito", carritoService.carritoDelUserLogueadoParaController());
 
 			return mAV;
-		//}
+		}
 	}
 
 	public double calcularCostoEnvio(String empresa, Carrito carrito) {
